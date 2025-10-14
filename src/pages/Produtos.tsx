@@ -79,10 +79,10 @@ const Produtos = () => {
                   {/* Content */}
                   <div className="md:w-2/3 p-8 md:p-12">
                     <div className="mb-6">
-                      <h2 className="text-3xl font-heading font-bold text-navy-deep mb-2 group-hover:text-aerion-blue transition-colors">
+                      <h2 className="text-3xl font-heading font-bold text-navy-deep mb-2 group-hover:text-blue-medium transition-colors">
                         {product.name}
                       </h2>
-                      <p className="text-base font-heading font-semibold text-teal">
+                      <p className="text-base font-heading font-semibold text-blue-medium">
                         {product.tagline}
                       </p>
                     </div>

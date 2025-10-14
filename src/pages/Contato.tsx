@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Phone, MapPin, Clock, Instagram } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, Instagram, MessageCircle } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -93,7 +93,7 @@ const Contato = () => {
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                           placeholder="Seu nome"
                           required
-                          className="border-2 focus:border-aerion-blue"
+                          className="border-2 focus:border-blue-medium"
                         />
                       </div>
 
@@ -108,7 +108,7 @@ const Contato = () => {
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                           placeholder="seu@email.com"
                           required
-                          className="border-2 focus:border-aerion-blue"
+                          className="border-2 focus:border-blue-medium"
                         />
                       </div>
 
@@ -122,7 +122,7 @@ const Contato = () => {
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                           placeholder="(11) 99999-9999"
-                          className="border-2 focus:border-aerion-blue"
+                          className="border-2 focus:border-blue-medium"
                         />
                       </div>
 
@@ -136,7 +136,7 @@ const Contato = () => {
                           value={formData.company}
                           onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                           placeholder="Nome da empresa"
-                          className="border-2 focus:border-aerion-blue"
+                          className="border-2 focus:border-blue-medium"
                         />
                       </div>
                     </div>
@@ -146,7 +146,7 @@ const Contato = () => {
                         Vertical de Interesse *
                       </label>
                       <Select value={formData.vertical} onValueChange={(value) => setFormData({ ...formData, vertical: value })}>
-                        <SelectTrigger className="border-2 focus:border-aerion-blue">
+                        <SelectTrigger className="border-2 focus:border-blue-medium">
                           <SelectValue placeholder="Selecione uma vertical" />
                         </SelectTrigger>
                         <SelectContent>
@@ -170,7 +170,7 @@ const Contato = () => {
                         placeholder="Conte-nos sobre suas necessidades..."
                         required
                         rows={6}
-                        className="border-2 focus:border-aerion-blue resize-none"
+                        className="border-2 focus:border-blue-medium resize-none"
                       />
                       <p className="text-sm text-gray-medium mt-1">Mínimo 10 caracteres</p>
                     </div>
@@ -203,8 +203,8 @@ const Contato = () => {
                       href="tel:+551151024229"
                       className="flex items-start space-x-4 group hover:bg-gray-light/30 p-3 rounded-lg transition-colors"
                     >
-                      <div className="w-12 h-12 rounded-lg bg-aerion-blue/10 flex items-center justify-center flex-shrink-0 group-hover:bg-aerion-blue/20 transition-colors">
-                        <Phone className="h-6 w-6 text-aerion-blue" />
+                      <div className="w-12 h-12 rounded-lg bg-blue-medium/10 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-medium/20 transition-colors">
+                        <Phone className="h-6 w-6 text-blue-medium" />
                       </div>
                       <div>
                         <p className="text-sm font-heading font-semibold text-gray-dark">Telefone</p>
@@ -219,7 +219,7 @@ const Contato = () => {
                       className="flex items-start space-x-4 group hover:bg-gray-light/30 p-3 rounded-lg transition-colors"
                     >
                       <div className="w-12 h-12 rounded-lg bg-green-500/10 flex items-center justify-center flex-shrink-0 group-hover:bg-green-500/20 transition-colors">
-                        <Phone className="h-6 w-6 text-green-500" />
+                        <MessageCircle className="h-6 w-6 text-green-500" />
                       </div>
                       <div>
                         <p className="text-sm font-heading font-semibold text-gray-dark">WhatsApp Comercial</p>
@@ -231,8 +231,8 @@ const Contato = () => {
                       href="mailto:comercial@aerion.com.br"
                       className="flex items-start space-x-4 group hover:bg-gray-light/30 p-3 rounded-lg transition-colors"
                     >
-                      <div className="w-12 h-12 rounded-lg bg-teal/10 flex items-center justify-center flex-shrink-0 group-hover:bg-teal/20 transition-colors">
-                        <Mail className="h-6 w-6 text-teal" />
+                      <div className="w-12 h-12 rounded-lg bg-blue-dark/10 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-dark/20 transition-colors">
+                        <Mail className="h-6 w-6 text-blue-dark" />
                       </div>
                       <div>
                         <p className="text-sm font-heading font-semibold text-gray-dark">Email</p>

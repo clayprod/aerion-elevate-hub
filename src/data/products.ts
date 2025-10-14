@@ -91,6 +91,11 @@ export const productFamilies: ProductFamily[] = [
         title: "Construção Civil",
         description: "Mapeamento de obras, monitoramento de progresso",
         image: "/images/lifestyle/construction-1.jpeg"
+      },
+      {
+        title: "Resgate e Emergências",
+        description: "Operações de resgate, busca de pessoas, resposta a emergências",
+        image: "/images/lifestyle/rescue-2.jpg"
       }
     ]
   },
@@ -159,6 +164,11 @@ export const productFamilies: ProductFamily[] = [
         title: "Construção Civil",
         description: "Mapeamento de obras, monitoramento de progresso, topografia",
         image: "/images/lifestyle/construction-2.jpg"
+      },
+      {
+        title: "Resgate e Emergências",
+        description: "Operações de resgate, busca de pessoas, resposta a emergências",
+        image: "/images/lifestyle/rescue-2.jpg"
       }
     ]
   },
@@ -205,6 +215,11 @@ export const productFamilies: ProductFamily[] = [
         title: "Segurança Pública",
         description: "Operações táticas avançadas, busca e resgate, monitoramento de eventos",
         image: "/images/lifestyle/public-safety-1-alpha.jpg"
+      },
+      {
+        title: "Inspeção Industrial",
+        description: "Verificação de equipamentos, monitoramento de infraestrutura crítica",
+        image: "/images/lifestyle/oil-and-gas-1.jpg"
       },
       {
         title: "Resgate e Emergências",

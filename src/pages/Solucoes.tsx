@@ -20,8 +20,8 @@ const solutions = [
       "Cadastro urbano e regularização fundiária",
       "Integração com software de projeto",
     ],
-    color: "text-aerion-blue",
-    bg: "bg-aerion-blue",
+    color: "text-blue-dark",
+    bg: "bg-blue-dark",
   },
   {
     id: "industrial",
@@ -37,8 +37,8 @@ const solutions = [
       "Detecção de hotspots e manutenção preditiva",
       "Operações BVLOS em ambientes críticos",
     ],
-    color: "text-teal",
-    bg: "bg-teal",
+    color: "text-blue-medium",
+    bg: "bg-blue-medium",
   },
   {
     id: "seguranca",
@@ -98,7 +98,7 @@ const Solucoes = () => {
             {solutions.map((solution, index) => (
               <Card
                 key={solution.id}
-                className="group hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-aerion-blue/20 overflow-hidden animate-fade-in"
+                className="group hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-blue-medium/20 overflow-hidden animate-fade-in"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <Link to={`/solucoes/${solution.id}`}>
@@ -112,7 +112,7 @@ const Solucoes = () => {
                         <h2 className="text-2xl font-heading font-bold mb-1">
                           {solution.title}
                         </h2>
-                        <p className="text-sm font-heading font-semibold text-teal">
+                        <p className="text-sm font-heading font-semibold text-blue-medium">
                           {solution.tagline}
                         </p>
                       </div>
@@ -163,7 +163,7 @@ const Solucoes = () => {
             <Button
               asChild
               size="lg"
-              className="bg-white text-aerion-blue hover:bg-white/90 font-heading font-semibold"
+              className="bg-white text-blue-medium hover:bg-white/90 font-heading font-semibold"
             >
               <Link to="/contato">
                 Falar com Especialista

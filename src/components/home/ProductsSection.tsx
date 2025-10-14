@@ -82,10 +82,10 @@ const ProductsSection = () => {
               <div className="p-8">
                 {/* Product Name & Tagline */}
                 <div className="mb-6">
-                  <h3 className="text-2xl font-heading font-bold text-navy-deep mb-2 group-hover:text-aerion-blue transition-colors">
+                  <h3 className="text-2xl font-heading font-bold text-navy-deep mb-2 group-hover:text-blue-medium transition-colors">
                     {product.name}
                   </h3>
-                  <p className="text-sm font-heading font-semibold text-teal">
+                  <p className="text-sm font-heading font-semibold text-blue-medium">
                     {product.tagline}
                   </p>
                 </div>
@@ -99,7 +99,7 @@ const ProductsSection = () => {
                 <ul className="space-y-2 mb-8">
                   {product.specs.map((spec) => (
                     <li key={spec} className="flex items-start text-sm text-gray-dark">
-                      <svg className="w-5 h-5 mr-2 flex-shrink-0 text-aerion-blue mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-5 h-5 mr-2 flex-shrink-0 text-blue-medium mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                       {spec}
@@ -131,7 +131,7 @@ const ProductsSection = () => {
             asChild
             size="lg"
             variant="outline"
-            className="border-2 border-aerion-blue text-aerion-blue hover:bg-aerion-blue hover:text-white font-heading font-semibold"
+            className="border-2 border-blue-medium text-blue-medium hover:bg-blue-medium hover:text-white font-heading font-semibold"
           >
             <Link to="/produtos">
               Ver Todos os Produtos

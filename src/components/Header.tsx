@@ -58,13 +58,13 @@ const Header = () => {
                 to={link.path}
                 className={`font-heading font-semibold text-sm transition-colors relative group ${
                   location.pathname === link.path
-                    ? "text-aerion-blue"
-                    : "text-gray-dark hover:text-aerion-blue"
+                    ? "text-blue-medium"
+                    : "text-gray-dark hover:text-blue-medium"
                 }`}
               >
                 {link.name}
                 <span
-                  className={`absolute bottom-0 left-0 w-full h-0.5 bg-aerion-blue transform origin-left transition-transform duration-300 ${
+                  className={`absolute bottom-0 left-0 w-full h-0.5 bg-blue-medium transform origin-left transition-transform duration-300 ${
                     location.pathname === link.path
                       ? "scale-x-100"
                       : "scale-x-0 group-hover:scale-x-100"
@@ -104,7 +104,7 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 text-gray-dark hover:text-aerion-blue transition-colors"
+            className="md:hidden p-2 text-gray-dark hover:text-blue-medium transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -127,7 +127,7 @@ const Header = () => {
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={`font-heading font-semibold text-base py-2 ${
                     location.pathname === link.path
-                      ? "text-aerion-blue"
+                      ? "text-blue-medium"
                       : "text-gray-dark"
                   }`}
                 >

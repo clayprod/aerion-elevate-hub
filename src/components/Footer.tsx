@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Instagram } from "lucide-react";
+import { Mail, Phone, MapPin, Instagram, MessageCircle } from "lucide-react";
 import logo from "@/assets/logo-aerion.png";
 
 const Footer = () => {
@@ -27,31 +27,31 @@ const Footer = () => {
             <nav className="flex flex-col space-y-2">
               <Link
                 to="/produtos"
-                className="text-gray-medium hover:text-cyan-light transition-colors text-sm"
+                className="text-gray-medium hover:text-blue-light transition-colors text-sm"
               >
                 Produtos
               </Link>
               <Link
                 to="/solucoes"
-                className="text-gray-medium hover:text-cyan-light transition-colors text-sm"
+                className="text-gray-medium hover:text-blue-light transition-colors text-sm"
               >
                 Soluções
               </Link>
               <Link
                 to="/blog"
-                className="text-gray-medium hover:text-cyan-light transition-colors text-sm"
+                className="text-gray-medium hover:text-blue-light transition-colors text-sm"
               >
                 Blog
               </Link>
               <Link
                 to="/sobre"
-                className="text-gray-medium hover:text-cyan-light transition-colors text-sm"
+                className="text-gray-medium hover:text-blue-light transition-colors text-sm"
               >
                 Sobre
               </Link>
               <Link
                 to="/contato"
-                className="text-gray-medium hover:text-cyan-light transition-colors text-sm"
+                className="text-gray-medium hover:text-blue-light transition-colors text-sm"
               >
                 Contato
               </Link>
@@ -64,25 +64,25 @@ const Footer = () => {
             <nav className="flex flex-col space-y-2">
               <Link
                 to="/solucoes/construcao"
-                className="text-gray-medium hover:text-cyan-light transition-colors text-sm"
+                className="text-gray-medium hover:text-blue-light transition-colors text-sm"
               >
                 Construção
               </Link>
               <Link
                 to="/solucoes/industrial"
-                className="text-gray-medium hover:text-cyan-light transition-colors text-sm"
+                className="text-gray-medium hover:text-blue-light transition-colors text-sm"
               >
                 Industrial
               </Link>
               <Link
                 to="/solucoes/seguranca"
-                className="text-gray-medium hover:text-cyan-light transition-colors text-sm"
+                className="text-gray-medium hover:text-blue-light transition-colors text-sm"
               >
                 Segurança
               </Link>
               <Link
                 to="/solucoes/resgate"
-                className="text-gray-medium hover:text-cyan-light transition-colors text-sm"
+                className="text-gray-medium hover:text-blue-light transition-colors text-sm"
               >
                 Resgate
               </Link>
@@ -95,7 +95,7 @@ const Footer = () => {
             <div className="flex flex-col space-y-3">
               <a
                 href="tel:+551151024229"
-                className="flex items-center space-x-3 text-gray-medium hover:text-cyan-light transition-colors text-sm"
+                className="flex items-center space-x-3 text-gray-medium hover:text-blue-light transition-colors text-sm"
               >
                 <Phone className="h-4 w-4 flex-shrink-0" />
                 <span>+55 11 5102-4229</span>
@@ -104,14 +104,14 @@ const Footer = () => {
                 href="https://wa.me/5511943668839"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center space-x-3 text-gray-medium hover:text-cyan-light transition-colors text-sm"
+                className="flex items-center space-x-3 text-gray-medium hover:text-blue-light transition-colors text-sm"
               >
-                <Phone className="h-4 w-4 flex-shrink-0" />
-                <span>+55 11 94366-8839 (Comercial)</span>
+                <MessageCircle className="h-4 w-4 flex-shrink-0" />
+                <span>+55 11 94366-8839 Comercial</span>
               </a>
               <a
                 href="mailto:comercial@aerion.com.br"
-                className="flex items-center space-x-3 text-gray-medium hover:text-cyan-light transition-colors text-sm"
+                className="flex items-center space-x-3 text-gray-medium hover:text-blue-light transition-colors text-sm"
               >
                 <Mail className="h-4 w-4 flex-shrink-0" />
                 <span>comercial@aerion.com.br</span>
@@ -124,7 +124,7 @@ const Footer = () => {
                 href="https://instagram.com/aerion.technologies"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center space-x-3 text-gray-medium hover:text-cyan-light transition-colors text-sm"
+                className="flex items-center space-x-3 text-gray-medium hover:text-blue-light transition-colors text-sm"
               >
                 <Instagram className="h-4 w-4 flex-shrink-0" />
                 <span>@aerion.technologies</span>
@@ -134,7 +134,7 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-blue-medium mt-12 pt-8">
+          <div className="border-t border-blue-dark mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-gray-medium text-sm">
               <p>© {currentYear} Aerion Technologies Ltda. Todos os direitos reservados.</p>
@@ -143,13 +143,13 @@ const Footer = () => {
             <div className="flex space-x-6">
               <a
                 href="#"
-                className="text-gray-medium hover:text-cyan-light transition-colors text-sm"
+                className="text-gray-medium hover:text-blue-light transition-colors text-sm"
               >
                 Política de Privacidade
               </a>
               <a
                 href="#"
-                className="text-gray-medium hover:text-cyan-light transition-colors text-sm"
+                className="text-gray-medium hover:text-blue-light transition-colors text-sm"
               >
                 Termos de Uso
               </a>

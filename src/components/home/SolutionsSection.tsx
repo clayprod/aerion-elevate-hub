@@ -13,8 +13,8 @@ const solutions = [
       "Modelagem BIM para cronogramas",
       "Mapeamento urbano e territorial",
     ],
-    color: "text-aerion-blue",
-    bg: "bg-aerion-blue/5",
+    color: "text-blue-dark",
+    bg: "bg-blue-dark/5",
     link: "/solucoes/construcao",
   },
   {
@@ -27,8 +27,8 @@ const solutions = [
       "Monitoramento óleo & gás",
       "Inspeção de minas e mineração",
     ],
-    color: "text-teal",
-    bg: "bg-teal/5",
+    color: "text-blue-medium",
+    bg: "bg-blue-medium/5",
     link: "/solucoes/industrial",
   },
   {
@@ -41,8 +41,8 @@ const solutions = [
       "Gestão de tráfego viário",
       "Resposta rápida a emergências",
     ],
-    color: "text-orange-energy",
-    bg: "bg-orange-energy/5",
+    color: "text-blue-bright",
+    bg: "bg-blue-bright/5",
     link: "/solucoes/seguranca",
   },
   {
@@ -80,7 +80,7 @@ const SolutionsSection = () => {
           {solutions.map((solution, index) => (
             <Card
               key={solution.title}
-              className="group hover:shadow-lg transition-all duration-300 border-2 border-transparent hover:border-aerion-blue/20 overflow-hidden animate-fade-in"
+              className="group hover:shadow-lg transition-all duration-300 border-2 border-transparent hover:border-blue-medium/20 overflow-hidden animate-fade-in"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <Link to={solution.link} className="block p-8">
@@ -90,7 +90,7 @@ const SolutionsSection = () => {
                     <solution.icon className={`w-7 h-7 ${solution.color}`} />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-heading font-bold text-navy-deep mb-1 group-hover:text-aerion-blue transition-colors">
+                    <h3 className="text-2xl font-heading font-bold text-navy-deep mb-1 group-hover:text-blue-medium transition-colors">
                       {solution.title}
                     </h3>
                     <p className={`text-sm font-heading font-semibold ${solution.color}`}>

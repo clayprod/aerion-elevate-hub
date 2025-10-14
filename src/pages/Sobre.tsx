@@ -79,19 +79,19 @@ const Sobre = () => {
                 </h2>
                 <ul className="text-gray-dark leading-relaxed text-left space-y-2">
                   <li className="flex items-start">
-                    <svg className="w-5 h-5 mr-2 flex-shrink-0 text-teal mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 mr-2 flex-shrink-0 text-blue-medium mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                     Inovação com Responsabilidade
                   </li>
                   <li className="flex items-start">
-                    <svg className="w-5 h-5 mr-2 flex-shrink-0 text-teal mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 mr-2 flex-shrink-0 text-blue-medium mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                     Excelência no Atendimento
                   </li>
                   <li className="flex items-start">
-                    <svg className="w-5 h-5 mr-2 flex-shrink-0 text-teal mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 mr-2 flex-shrink-0 text-blue-medium mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                     Agilidade com Qualidade
@@ -111,8 +111,8 @@ const Sobre = () => {
             
             <div className="space-y-8">
               <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 rounded-lg bg-aerion-blue/10 flex items-center justify-center flex-shrink-0">
-                  <svg className="w-6 h-6 text-aerion-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-12 h-12 rounded-lg bg-blue-medium/10 flex items-center justify-center flex-shrink-0">
+                  <svg className="w-6 h-6 text-blue-medium" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
@@ -127,8 +127,8 @@ const Sobre = () => {
               </div>
 
               <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 rounded-lg bg-teal/10 flex items-center justify-center flex-shrink-0">
-                  <svg className="w-6 h-6 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-12 h-12 rounded-lg bg-blue-dark/10 flex items-center justify-center flex-shrink-0">
+                  <svg className="w-6 h-6 text-blue-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
@@ -167,13 +167,13 @@ const Sobre = () => {
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-6">
               Pronto para Conhecer Nossa Equipe?
             </h2>
-            <p className="text-xl text-cyan-light mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-blue-light mb-8 max-w-2xl mx-auto">
               Entre em contato e descubra como podemos ajudar a transformar suas operações
             </p>
             <Button
               asChild
               size="lg"
-              className="bg-white text-aerion-blue hover:bg-white/90 font-heading font-semibold text-lg"
+              className="bg-white text-blue-medium hover:bg-white/90 font-heading font-semibold text-lg"
             >
               <Link to="/contato">
                 Fale Conosco

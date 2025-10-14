@@ -16,7 +16,7 @@ const differentials = [
   {
     icon: DollarSign,
     title: "Custo-Benefício Superior",
-    description: "Não é barato, é inteligente. Investimento que se paga através de eficiência operacional e redução de custos",
+    description: "Investimento estratégico que se paga rapidamente através de eficiência operacional e redução significativa de custos",
     features: [
       "ROI mensurável em meses",
       "Redução de custos operacionais",
@@ -42,8 +42,8 @@ const WhyAerionSection = () => {
     <section className="py-20 md:py-28 bg-white relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-aerion-blue rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-teal rounded-full blur-3xl" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-dark rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-medium rounded-full blur-3xl" />
       </div>
 
       <div className="container-custom relative z-10">
@@ -62,11 +62,11 @@ const WhyAerionSection = () => {
           {differentials.map((item, index) => (
             <Card
               key={item.title}
-              className="p-8 hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-aerion-blue/20 animate-fade-in bg-white"
+              className="p-8 hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-blue-medium/20 animate-fade-in bg-white"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Icon */}
-              <div className="w-16 h-16 rounded-2xl bg-gradient-accent flex items-center justify-center mb-6 shadow-glow">
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-dark to-blue-medium flex items-center justify-center mb-6 shadow-glow">
                 <item.icon className="w-8 h-8 text-white" />
               </div>
 
@@ -84,7 +84,7 @@ const WhyAerionSection = () => {
               <ul className="space-y-3">
                 {item.features.map((feature) => (
                   <li key={feature} className="flex items-start text-sm text-gray-dark">
-                    <svg className="w-5 h-5 mr-2 flex-shrink-0 text-teal mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 mr-2 flex-shrink-0 text-blue-medium mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                     {feature}
@@ -99,7 +99,7 @@ const WhyAerionSection = () => {
         <div className="mt-16 p-8 rounded-2xl bg-gradient-primary">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div>
-              <div className="text-4xl md:text-5xl font-heading font-bold text-cyan-light mb-2">
+              <div className="text-4xl md:text-5xl font-heading font-bold text-blue-light mb-2">
                 15km
               </div>
               <div className="text-white/80 font-heading font-semibold">
@@ -107,7 +107,7 @@ const WhyAerionSection = () => {
               </div>
             </div>
             <div>
-              <div className="text-4xl md:text-5xl font-heading font-bold text-cyan-light mb-2">
+              <div className="text-4xl md:text-5xl font-heading font-bold text-blue-light mb-2">
                 42min
               </div>
               <div className="text-white/80 font-heading font-semibold">
@@ -115,7 +115,7 @@ const WhyAerionSection = () => {
               </div>
             </div>
             <div>
-              <div className="text-4xl md:text-5xl font-heading font-bold text-cyan-light mb-2">
+              <div className="text-4xl md:text-5xl font-heading font-bold text-blue-light mb-2">
                 720°
               </div>
               <div className="text-white/80 font-heading font-semibold">
