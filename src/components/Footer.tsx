@@ -120,9 +120,10 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-blue-medium mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-gray-medium text-sm">
-              © {currentYear} Aerion Technologies. Todos os direitos reservados.
-            </p>
+            <div className="text-gray-medium text-sm">
+              <p>© {currentYear} Aerion Technologies Ltda. Todos os direitos reservados.</p>
+              <p className="mt-1">CNPJ: 61.217.015/0001-09</p>
+            </div>
             <div className="flex space-x-6">
               <a
                 href="#"
