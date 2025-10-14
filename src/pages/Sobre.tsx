@@ -12,7 +12,7 @@ const Sobre = () => {
       
       <main className="pt-28 pb-20">
         {/* Hero Section */}
-        <section className="bg-gradient-primary py-16 text-white">
+        <section className="bg-gradient-primary py-10 text-white">
           <div className="container-custom text-center">
             <h1 className="text-3xl md:text-4xl font-heading font-bold mb-6">
               Sobre a Aerion Technologies
@@ -24,13 +24,13 @@ const Sobre = () => {
         </section>
 
         {/* About Autel Section */}
-        <section className="py-16 bg-white">
+        <section className="py-10 bg-white">
           <div className="container-custom">
             <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-12">
+              <div className="text-center mb-8">
                 <div className="mb-6">
                   <AutelLogo 
-                    className="h-16 md:h-20 w-auto" 
+                    className="h-10 md:h-12 w-auto" 
                     textFallback="Sobre a Autel Robotics"
                   />
                 </div>
@@ -39,7 +39,7 @@ const Sobre = () => {
                 </p>
               </div>
               
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                 <div className="space-y-6">
                   <div className="flex items-start space-x-4">
                     <div className="w-12 h-12 rounded-lg bg-blue-medium/10 flex items-center justify-center flex-shrink-0">
@@ -127,9 +127,9 @@ const Sobre = () => {
         </section>
 
         {/* Story Section */}
-        <section className="py-16 bg-gray-light/30">
+        <section className="py-10 bg-gray-light/30">
           <div className="container-custom max-w-4xl">
-            <div className="text-center mb-12">
+            <div className="text-center mb-8">
               <h2 className="text-3xl md:text-4xl font-heading font-bold text-navy-deep mb-4">
                 Nossa História
               </h2>
@@ -155,7 +155,7 @@ const Sobre = () => {
         </section>
 
         {/* Mission, Vision, Values */}
-        <section className="py-16 bg-white">
+        <section className="py-10 bg-white">
           <div className="container-custom">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Mission */}
@@ -218,9 +218,9 @@ const Sobre = () => {
         </section>
 
         {/* Differentials */}
-        <section className="py-16 bg-white">
+        <section className="py-10 bg-white">
           <div className="container-custom max-w-4xl">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-navy-deep mb-12 text-center">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-navy-deep mb-8 text-center">
               Diferenciais Competitivos
             </h2>
             
@@ -277,7 +277,7 @@ const Sobre = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 bg-gradient-primary">
+        <section className="py-10 bg-gradient-primary">
           <div className="container-custom text-center">
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-6">
               Pronto para Conhecer Nossa Equipe?

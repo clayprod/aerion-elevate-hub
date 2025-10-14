@@ -60,7 +60,7 @@ const ProductsSection = () => {
         <div className="text-center mb-6">
           <div className="mb-4">
             <AutelLogo 
-              className="h-12 md:h-16 w-auto" 
+              className="h-10 md:h-12 w-auto" 
               textFallback="Conheça os Produtos Autel"
             />
           </div>
