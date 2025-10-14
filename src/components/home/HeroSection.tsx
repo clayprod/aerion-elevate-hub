@@ -58,7 +58,7 @@ const HeroSection = () => {
               </div>
               <div>
                 <h3 className="text-white font-heading font-semibold mb-1 text-sm">Câmeras Térmicas & HD</h3>
-                <p className="text-white/80 text-xs">Térmicas 640T e câmeras 4K de alta resolução</p>
+                <p className="text-white/80 text-xs">Câmeras térmicas singulares ou duplas</p>
               </div>
             </div>
 
