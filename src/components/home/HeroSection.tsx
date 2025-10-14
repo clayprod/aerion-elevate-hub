@@ -57,7 +57,7 @@ const HeroSection = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="text-white font-heading font-semibold mb-1 text-sm">Câmeras Térmicas & HD</h3>
+                <h3 className="text-white font-heading font-semibold mb-1 text-sm">Câmeras térmicas e 6K</h3>
                 <p className="text-white/80 text-xs">Câmeras térmicas singulares ou duplas</p>
               </div>
             </div>
@@ -95,6 +95,18 @@ const HeroSection = () => {
               <div>
                 <h3 className="text-white font-heading font-semibold mb-1 text-sm">Software em Português</h3>
                 <p className="text-white/80 text-xs">Interface e suporte técnico localizados</p>
+              </div>
+            </div>
+
+            <div className="flex items-start space-x-3">
+              <div className="w-10 h-10 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="text-white font-heading font-semibold mb-1 text-sm">Sensoriamento Inteligente</h3>
+                <p className="text-white/80 text-xs">Sensores de colisão, antijamming e RTH</p>
               </div>
             </div>
           </div>

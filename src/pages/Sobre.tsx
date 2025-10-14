@@ -11,19 +11,19 @@ const Sobre = () => {
       
       <main className="pt-28 pb-20">
         {/* Hero Section */}
-        <section className="bg-gradient-primary py-20 text-white">
+        <section className="bg-gradient-primary py-16 text-white">
           <div className="container-custom text-center">
-            <h1 className="text-4xl md:text-6xl font-heading font-bold mb-6">
+            <h1 className="text-3xl md:text-4xl font-heading font-bold mb-6">
               Sobre a Aerion Technologies
             </h1>
-            <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto">
               Distribuindo o futuro da tecnologia aérea no Brasil desde 2026
             </p>
           </div>
         </section>
 
         {/* Story Section */}
-        <section className="py-20 bg-white">
+        <section className="py-16 bg-white">
           <div className="container-custom max-w-4xl">
             <div className="prose prose-lg mx-auto">
               <p className="text-xl text-gray-dark leading-relaxed mb-6">
@@ -40,7 +40,7 @@ const Sobre = () => {
         </section>
 
         {/* Mission, Vision, Values */}
-        <section className="py-20 bg-gray-light/30">
+        <section className="py-16 bg-gray-light/30">
           <div className="container-custom">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Mission */}
@@ -103,7 +103,7 @@ const Sobre = () => {
         </section>
 
         {/* Differentials */}
-        <section className="py-20 bg-white">
+        <section className="py-16 bg-white">
           <div className="container-custom max-w-4xl">
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-navy-deep mb-12 text-center">
               Diferenciais Competitivos
@@ -162,7 +162,7 @@ const Sobre = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 bg-gradient-primary">
+        <section className="py-16 bg-gradient-primary">
           <div className="container-custom text-center">
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-6">
               Pronto para Conhecer Nossa Equipe?

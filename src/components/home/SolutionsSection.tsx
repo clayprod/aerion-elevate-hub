@@ -48,10 +48,10 @@ const SolutionsSection = () => {
           {solutions.map((solution, index) => (
             <Card
               key={solution.title}
-              className="group hover:shadow-xl transition-all duration-300 overflow-hidden animate-fade-in"
+              className="group hover:shadow-xl transition-all duration-300 overflow-hidden animate-fade-in flex flex-col h-full"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <Link to={solution.link} className="block">
+              <Link to={solution.link} className="block flex flex-col h-full">
                 <div className="relative h-48 overflow-hidden">
                   <img
                     src={solution.image}
@@ -65,8 +65,8 @@ const SolutionsSection = () => {
                     </h3>
                   </div>
                 </div>
-                <div className="p-6">
-                  <p className="text-gray-dark leading-relaxed mb-4">
+                <div className="p-6 flex flex-col justify-between h-full">
+                  <p className="text-gray-dark leading-relaxed mb-4 flex-grow">
                     {solution.description}
                   </p>
                   <div className="inline-flex items-center font-heading font-semibold text-blue-medium group-hover:translate-x-2 transition-transform">

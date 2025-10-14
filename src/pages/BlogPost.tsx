@@ -61,7 +61,7 @@ const BlogPost = () => {
                   </span>
                 )}
 
-                <h1 className="text-4xl md:text-5xl font-heading font-bold mb-6">
+                <h1 className="text-3xl md:text-4xl font-heading font-bold mb-6">
                   {post.title}
                 </h1>
 

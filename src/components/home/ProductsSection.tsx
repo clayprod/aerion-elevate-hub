@@ -5,43 +5,49 @@ import { ArrowRight } from "lucide-react";
 
 const products = [
   {
+    id: "evo-lite-enterprise",
     name: "EVO Lite Enterprise",
     tagline: "Compacto, Portátil, Eficiente",
-    description: "Drone compacto e portátil para levantamentos rápidos e eficientes",
-    specs: [
-      "Autonomia: 42 minutos",
-      "Câmera: 4K com zoom 30x",
-      "Peso: 1.25kg",
-      "Variantes: 640T e 6K",
+    description: "Drone compacto e portátil ideal para levantamentos topográficos rápidos, mapeamento de áreas e documentação de obras. Perfeito para quem precisa de agilidade sem comprometer qualidade.",
+    keySpecs: [
+      "Autonomia de 42 minutos",
+      "Câmera 4K com zoom 30x",
+      "Peso de apenas 1.25kg",
+      "Variantes 640T e 6K",
     ],
+    applications: ["Construção", "Topografia", "Mapeamento"],
     link: "/produtos/evo-lite-enterprise",
-    image: "/images/products/evo-lite-640t-white.jpg"
+    image: "/images/products/evo_lite/640t/1.png"
   },
   {
+    id: "evo-max-v2",
     name: "EVO Max V2",
-    tagline: "Precisão e Potência",
-    description: "O drone de inspeção que paga seu investimento em 6 meses",
-    specs: [
-      "Zoom óptico: 30x",
+    tagline: "Precisão e Potência em Um Só Drone",
+    description: "O drone de inspeção profissional com câmera térmica e zoom óptico de 30x. Ideal para inspeções industriais, detecção de hotspots e operações que exigem máxima precisão.",
+    keySpecs: [
+      "Zoom óptico de 30x",
       "Câmera térmica integrada",
-      "Autonomia: 42 minutos",
-      "Variantes: 4N e 4T",
+      "Autonomia de 42 minutos",
+      "Transmissão de até 15km",
     ],
+    applications: ["Industrial", "Energia", "Inspeções"],
     link: "/produtos/evo-max-v2",
-    image: "/images/products/evo-max-4t-white.jpg"
+    image: "/images/products/evo_max/4t/1.jpg"
   },
   {
+    id: "autel-alpha",
     name: "Autel Alpha",
-    tagline: "Resistência e Alcance",
-    description: "Para operações críticas em condições extremas",
-    specs: [
-      "Alcance: 21km",
-      "Resistente a intempéries (IP55)",
+    tagline: "Resistência e Alcance para Operações Críticas",
+    description: "Drone robusto projetado para operações em condições extremas. Resistente a intempéries, com sistema A-Mesh para colaboração entre múltiplos drones e alcance estendido.",
+    keySpecs: [
+      "Alcance de transmissão de 21km",
+      "Resistente a chuva e vento (IP55)",
       "Câmera térmica 640T",
-      "Autonomia: 45 minutos",
+      "Autonomia de 45 minutos",
     ],
+    applications: ["Segurança", "Resgate", "Operações Críticas"],
     link: "/produtos/autel-alpha",
-    image: "/images/products/autel-alpha-white.jpg"
+    image: "/images/products/alpha/1.png"
   },
 ];
 
@@ -50,8 +56,8 @@ const ProductsSection = () => {
     <section className="py-20 md:py-28 bg-gray-light/30">
       <div className="container-custom">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-heading font-bold text-navy-deep mb-4">
+        <div className="text-center mb-8">
+          <h2 className="text-4xl md:text-5xl font-heading font-bold text-navy-deep mb-2">
             Conheça os Produtos Autel
           </h2>
           <p className="text-lg md:text-xl text-gray-dark max-w-3xl mx-auto">
@@ -60,67 +66,87 @@ const ProductsSection = () => {
         </div>
 
         {/* Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-6">
           {products.map((product, index) => (
             <Card
-              key={product.name}
-              className="group hover:shadow-xl transition-all duration-300 overflow-hidden animate-fade-in bg-white"
+              key={product.id}
+              className="group hover:shadow-xl transition-all duration-300 overflow-hidden animate-fade-in bg-white border-2"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              {/* Product Image */}
-              <div className="h-48 overflow-hidden">
-                <img 
-                  src={product.image} 
-                  alt={product.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  onError={(e) => {
-                    e.currentTarget.src = '/placeholder.svg';
-                  }}
-                />
-              </div>
-              
-              <div className="p-8">
-                {/* Product Name & Tagline */}
-                <div className="mb-6">
-                  <h3 className="text-2xl font-heading font-bold text-navy-deep mb-2 group-hover:text-blue-medium transition-colors">
-                    {product.name}
-                  </h3>
-                  <p className="text-sm font-heading font-semibold text-blue-medium">
-                    {product.tagline}
-                  </p>
+              <Link to={product.link} className="block">
+                {/* Product Image */}
+                <div className="relative h-48 overflow-hidden">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    onError={(e) => {
+                      // Fallback to gradient background if image fails to load
+                      e.currentTarget.style.display = 'none';
+                      e.currentTarget.nextElementSibling!.style.display = 'flex';
+                    }}
+                  />
+                  <div className="w-full h-full hidden items-center justify-center bg-gradient-accent">
+                    <svg className="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 3L2 12h3v8h14v-8h3L12 3zm0 2.5L18.5 12H17v6h-4v-4h-2v4H7v-6H5.5L12 5.5z"/>
+                    </svg>
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                 </div>
 
-                {/* Description */}
-                <p className="text-gray-dark mb-6 leading-relaxed">
-                  {product.description}
-                </p>
+                {/* Content */}
+                <div className="p-6">
+                  <div className="mb-4">
+                    <h2 className="text-xl font-heading font-bold text-navy-deep mb-2 group-hover:text-blue-medium transition-colors">
+                      {product.name}
+                    </h2>
+                    <p className="text-sm font-heading font-semibold text-blue-medium">
+                      {product.tagline}
+                    </p>
+                  </div>
 
-                {/* Specs */}
-                <ul className="space-y-2 mb-8">
-                  {product.specs.map((spec) => (
-                    <li key={spec} className="flex items-start text-sm text-gray-dark">
-                      <svg className="w-5 h-5 mr-2 flex-shrink-0 text-blue-medium mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      {spec}
-                    </li>
-                  ))}
-                </ul>
+                  <p className="text-gray-dark mb-4 leading-relaxed text-sm">
+                    {product.description}
+                  </p>
 
-                {/* CTA */}
-                <Button
-                  asChild
-                  className="w-full bg-primary hover:bg-primary/90 text-white font-heading font-semibold group"
-                >
-                  <Link to={product.link} className="flex items-center justify-center">
-                    Ver Detalhes
-                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </Button>
-              </div>
+                  <div className="mb-4">
+                    <h3 className="font-heading font-bold text-navy-deep mb-2 text-sm">
+                      Especificações Principais:
+                    </h3>
+                    <ul className="space-y-1">
+                      {product.keySpecs.slice(0, 2).map((spec) => (
+                        <li key={spec} className="flex items-start text-gray-dark text-xs">
+                          <svg className="w-4 h-4 mr-2 flex-shrink-0 text-blue-medium mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          {spec}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
-              {/* Bottom Accent */}
-              <div className="h-1 bg-gradient-accent" />
+                  <div className="mb-4">
+                    <h3 className="font-heading font-bold text-navy-deep mb-2 text-sm">
+                      Aplicações:
+                    </h3>
+                    <div className="flex flex-wrap gap-1">
+                      {product.applications.slice(0, 2).map((app) => (
+                        <span
+                          key={app}
+                          className="px-2 py-1 bg-blue-medium/10 text-blue-medium rounded-full text-xs font-heading font-semibold"
+                        >
+                          {app}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="inline-flex items-center font-heading font-semibold text-blue-medium group-hover:translate-x-2 transition-transform text-sm">
+                    Ver Especificações Completas
+                    <ArrowRight className="ml-1 h-4 w-4" />
+                  </div>
+                </div>
+              </Link>
             </Card>
           ))}
         </div>

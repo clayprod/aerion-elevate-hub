@@ -58,8 +58,8 @@ const Produtos = () => {
       <main className="pt-28 pb-20">
         <div className="container-custom">
           {/* Page Header */}
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl font-heading font-bold text-navy-deep mb-4">
+          <div className="text-center mb-12">
+            <h1 className="text-3xl md:text-4xl font-heading font-bold text-navy-deep mb-4">
               Produtos Autel para Sua Operação
             </h1>
             <p className="text-lg md:text-xl text-gray-dark max-w-3xl mx-auto">

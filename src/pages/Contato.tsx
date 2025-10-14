@@ -60,7 +60,7 @@ const Contato = () => {
         {/* Hero Section */}
         <section className="bg-gradient-primary py-16 text-white">
           <div className="container-custom text-center">
-            <h1 className="text-4xl md:text-6xl font-heading font-bold mb-4">
+            <h1 className="text-3xl md:text-4xl font-heading font-bold mb-4">
               Entre em Contato
             </h1>
             <p className="text-xl text-white/90 max-w-3xl mx-auto">
