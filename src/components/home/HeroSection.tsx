@@ -9,7 +9,7 @@ const HeroSection = () => {
       {/* YouTube Video Background with Fallback */}
       <YouTubeVideoBackground
         videoId="IaKUtdAdG5w"
-        fallbackImage="/images/lifestyle/evo-max-public-safety-1.jpg"
+        fallbackImage="/images/lifestyle/public-safety-3-max.jpg"
         className="object-cover"
       />
       

@@ -32,7 +32,7 @@ export const productFamilies: ProductFamily[] = [
     slug: "evo-lite-enterprise",
     description: "Tecnologia de ponta com custo-benefício superior para operações enterprise.",
     youtubeVideoId: "1MwBSeCUb7w",
-    fallbackImage: "/images/lifestyle/evo-lite-public-safety-1.jpg",
+    fallbackImage: "/images/lifestyle/construction-1.jpeg",
     brochure: "/downloads/Brochure_Autel_Evo_Lite_Enterprise1_Aerion.pdf",
     variants: [
       {
@@ -80,17 +80,17 @@ export const productFamilies: ProductFamily[] = [
       {
         title: "Segurança Pública",
         description: "Patrulhamento, busca e resgate, monitoramento de eventos",
-        image: "/images/lifestyle/evo-lite-public-safety-1.jpg"
+        image: "/images/lifestyle/public-safety-1-alpha.jpg"
       },
       {
         title: "Inspeção Industrial",
         description: "Verificação de equipamentos, monitoramento de infraestrutura",
-        image: "/images/lifestyle/evo-lite-inspection-1.jpg"
+        image: "/images/lifestyle/oil-and-gas-1.jpg"
       },
       {
         title: "Construção Civil",
         description: "Mapeamento de obras, monitoramento de progresso",
-        image: "/images/lifestyle/evo-lite-construction-1.jpg"
+        image: "/images/lifestyle/construction-1.jpeg"
       }
     ]
   },
@@ -100,7 +100,7 @@ export const productFamilies: ProductFamily[] = [
     slug: "evo-max-v2",
     description: "Drone profissional com câmeras múltiplas e tecnologia avançada.",
     youtubeVideoId: "IaKUtdAdG5w",
-    fallbackImage: "/images/lifestyle/evo-max-public-safety-1.jpg",
+    fallbackImage: "/images/lifestyle/public-safety-3-max.jpg",
     brochure: "/downloads/EVO_Max_Series_V2_Brochure_PT.pdf",
     variants: [
       {
@@ -148,17 +148,17 @@ export const productFamilies: ProductFamily[] = [
       {
         title: "Segurança Pública",
         description: "Operações táticas, busca e resgate, monitoramento de eventos",
-        image: "/images/lifestyle/evo-max-public-safety-1.jpg"
+        image: "/images/lifestyle/public-safety-3-max.jpg"
       },
       {
         title: "Inspeção Industrial",
         description: "Verificação de equipamentos, monitoramento de infraestrutura crítica",
-        image: "/images/lifestyle/evo-max-inspection-1.jpg"
+        image: "/images/lifestyle/oil-and-gas-1.jpg"
       },
       {
         title: "Construção Civil",
         description: "Mapeamento de obras, monitoramento de progresso, topografia",
-        image: "/images/lifestyle/evo-max-construction-1.jpg"
+        image: "/images/lifestyle/construction-2.jpg"
       }
     ]
   },
@@ -168,7 +168,7 @@ export const productFamilies: ProductFamily[] = [
     slug: "autel-alpha",
     description: "Drone profissional com câmera térmica avançada e AI recognition.",
     youtubeVideoId: undefined, // No YouTube video for Autel Alpha yet
-    fallbackImage: "/images/lifestyle/autel-alpha-public-safety-1.jpg",
+    fallbackImage: "/images/lifestyle/public-safety-2-alpha.jpg",
     brochure: "/downloads/Brochure_Autel_Alpha_Aerion.pdf",
     variants: [
       {
@@ -204,17 +204,17 @@ export const productFamilies: ProductFamily[] = [
       {
         title: "Segurança Pública",
         description: "Operações táticas avançadas, busca e resgate, monitoramento de eventos",
-        image: "/images/lifestyle/autel-alpha-public-safety-1.jpg"
+        image: "/images/lifestyle/public-safety-1-alpha.jpg"
       },
       {
-        title: "Inspeção Industrial",
-        description: "Verificação de equipamentos, monitoramento de infraestrutura crítica",
-        image: "/images/lifestyle/autel-alpha-public-safety-2.jpg"
+        title: "Resgate e Emergências",
+        description: "Operações de resgate, busca de pessoas, resposta a emergências",
+        image: "/images/lifestyle/rescue-2.jpg"
       },
       {
         title: "Construção Civil",
         description: "Mapeamento de obras, monitoramento de progresso, topografia",
-        image: "/images/lifestyle/autel-alpha-public-safety-1.jpg"
+        image: "/images/lifestyle/construction-3.jpg"
       }
     ]
   }
