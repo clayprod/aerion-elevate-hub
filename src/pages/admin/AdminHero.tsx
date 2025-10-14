@@ -259,7 +259,7 @@ const AdminHero = () => {
                 </div>
               </div>
 
-              <Button type="submit" className="bg-action hover:bg-action/90">
+              <Button type="submit" className="bg-action hover:bg-action/90 text-action-foreground">
                 Salvar Conteúdo
               </Button>
             </form>
@@ -329,7 +329,7 @@ const AdminHero = () => {
               </div>
 
               <div className="flex gap-4">
-                <Button type="submit" className="bg-action hover:bg-action/90">
+                <Button type="submit" className="bg-action hover:bg-action/90 text-action-foreground">
                   {editingMedia ? "Atualizar Mídia" : "Adicionar Mídia"}
                 </Button>
                 {editingMedia && (

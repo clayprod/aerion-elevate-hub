@@ -171,7 +171,7 @@ const ContactSection = () => {
             <Button
               type="submit"
               size="lg"
-              className="w-full bg-action hover:bg-action/90 text-white font-heading font-semibold text-lg"
+              className="w-full bg-action hover:bg-action/90 text-action-foreground font-heading font-semibold text-lg"
             >
               Enviar Mensagem
             </Button>

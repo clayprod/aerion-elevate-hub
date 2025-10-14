@@ -126,7 +126,7 @@ const Produtos = () => {
                     <Button
                       asChild
                       size="lg"
-                      className="bg-action hover:bg-action/90 text-white font-heading font-semibold group"
+                      className="bg-action hover:bg-action/90 text-action-foreground font-heading font-semibold group"
                     >
                       <Link to={`/produtos/${product.id}`} className="flex items-center">
                         Ver Especificações Completas

@@ -95,9 +95,9 @@ const Header = () => {
             ) : (
               <Button
                 asChild
-                className="bg-action hover:bg-action/90 text-white font-heading font-semibold"
+                className="bg-action hover:bg-action/90 text-action-foreground font-heading font-semibold"
               >
-                <Link to="/auth">Login</Link>
+                <Link to="/contato">Quero ser um Revendedor</Link>
               </Button>
             )}
           </div>
@@ -139,7 +139,7 @@ const Header = () => {
                 className="bg-action hover:bg-action/90 text-white font-heading font-semibold w-full"
               >
                 <Link to="/contato" onClick={() => setIsMobileMenuOpen(false)}>
-                  Fale Conosco
+                  Quero ser um Revendedor
                 </Link>
               </Button>
             </nav>

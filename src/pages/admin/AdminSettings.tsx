@@ -105,7 +105,7 @@ const AdminSettings = () => {
           ))}
           <Button
             onClick={() => handleSave(category)}
-            className="bg-action hover:bg-action/90"
+            className="bg-action hover:bg-action/90 text-action-foreground"
           >
             Salvar {category === "general" ? "Gerais" : category === "contact" ? "Contato" : category === "social" ? "Redes Sociais" : "SEO"}
           </Button>

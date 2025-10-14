@@ -142,6 +142,12 @@ const Footer = () => {
             </div>
             <div className="flex space-x-6">
               <a
+                href="/auth"
+                className="text-gray-medium hover:text-blue-light transition-colors text-sm"
+              >
+                Administrador
+              </a>
+              <a
                 href="#"
                 className="text-gray-medium hover:text-blue-light transition-colors text-sm"
               >

@@ -285,7 +285,7 @@ const AdminBlog = () => {
               </div>
 
               <div className="flex gap-4">
-                <Button type="submit" className="bg-action hover:bg-action/90">
+                <Button type="submit" className="bg-action hover:bg-action/90 text-action-foreground">
                   {editingPost ? "Atualizar Post" : "Criar Post"}
                 </Button>
                 {editingPost && (

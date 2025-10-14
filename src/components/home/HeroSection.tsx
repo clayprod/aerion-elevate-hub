@@ -5,7 +5,7 @@ import { YouTubeVideoBackground } from "../YouTubeVideoBackground";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden pt-20">
+    <section className="relative min-h-screen flex items-center overflow-hidden pt-32 pb-20">
       {/* YouTube Video Background with Fallback */}
       <YouTubeVideoBackground
         videoId="IaKUtdAdG5w"
@@ -23,21 +23,21 @@ const HeroSection = () => {
         <div className="absolute top-1/2 left-1/3 w-48 h-48 border-2 border-blue-medium rotate-45 animate-float" style={{ animationDelay: '2s' }} />
       </div>
 
-      <div className="container-custom relative z-30">
+              <div className="container-custom relative z-30 py-8">
         <div className="max-w-4xl">
 
           {/* Main Headline */}
-          <h1 className="text-4xl md:text-6xl font-heading font-bold text-white mb-6 leading-tight animate-slide-up">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-6 leading-tight animate-slide-up">
             A Revolução Autel Chegou ao Brasil
           </h1>
 
           {/* Subheadline */}
-          <p className="text-lg md:text-xl text-white/90 mb-8 leading-relaxed animate-slide-up" style={{ animationDelay: '0.2s' }}>
+          <p className="text-base md:text-lg text-white/90 mb-8 leading-relaxed animate-slide-up" style={{ animationDelay: '0.2s' }}>
             Tecnologia de ponta com custo-benefício superior e suporte técnico especializado local. A escolha inteligente para operações enterprise.
           </p>
 
           {/* Value Props */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10 animate-slide-up" style={{ animationDelay: '0.4s' }}>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 animate-slide-up" style={{ animationDelay: '0.4s' }}>
             <div className="flex items-start space-x-3">
               <div className="w-12 h-12 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
                 <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -104,7 +104,7 @@ const HeroSection = () => {
             <Button
               asChild
               size="lg"
-              className="bg-action hover:bg-action/90 text-white font-heading font-semibold text-base px-8 shadow-glow group"
+              className="bg-action hover:bg-action/90 text-action-foreground font-heading font-semibold text-base px-8 py-3 shadow-glow group rounded-xl transition-all duration-300 hover:shadow-xl"
             >
               <Link to="/produtos" className="flex items-center">
                 Conheça os Produtos

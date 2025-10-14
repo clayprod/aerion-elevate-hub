@@ -328,7 +328,7 @@ const AdminSolutions = () => {
               </div>
 
               <div className="flex gap-4">
-                <Button type="submit" className="bg-action hover:bg-action/90">
+                <Button type="submit" className="bg-action hover:bg-action/90 text-action-foreground">
                   {editingSolution ? "Atualizar Solução" : "Criar Solução"}
                 </Button>
                 {editingSolution && (

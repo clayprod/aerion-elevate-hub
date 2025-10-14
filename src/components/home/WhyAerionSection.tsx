@@ -95,35 +95,6 @@ const WhyAerionSection = () => {
           ))}
         </div>
 
-        {/* Stats Bar */}
-        <div className="mt-16 p-8 rounded-2xl bg-gradient-primary">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <div>
-              <div className="text-4xl md:text-5xl font-heading font-bold text-blue-light mb-2">
-                15km
-              </div>
-              <div className="text-white/80 font-heading font-semibold">
-                Alcance de Transmissão
-              </div>
-            </div>
-            <div>
-              <div className="text-4xl md:text-5xl font-heading font-bold text-blue-light mb-2">
-                42min
-              </div>
-              <div className="text-white/80 font-heading font-semibold">
-                Autonomia de Voo
-              </div>
-            </div>
-            <div>
-              <div className="text-4xl md:text-5xl font-heading font-bold text-blue-light mb-2">
-                720°
-              </div>
-              <div className="text-white/80 font-heading font-semibold">
-                Detecção de Obstáculos
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );

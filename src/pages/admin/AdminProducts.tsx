@@ -290,7 +290,7 @@ const AdminProducts = () => {
               </div>
 
               <div className="flex gap-4">
-                <Button type="submit" className="bg-action hover:bg-action/90">
+                <Button type="submit" className="bg-action hover:bg-action/90 text-action-foreground">
                   {editingProduct ? "Atualizar Produto" : "Criar Produto"}
                 </Button>
                 {editingProduct && (
