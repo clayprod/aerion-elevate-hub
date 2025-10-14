@@ -9,6 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [openMobileDropdown, setOpenMobileDropdown] = useState<string | null>(null);
   const location = useLocation();
   const { user, isAdmin } = useAuth();
 
@@ -22,8 +23,25 @@ const Header = () => {
 
   const navLinks = [
     { name: "Home", path: "/" },
-    { name: "Produtos", path: "/produtos" },
-    { name: "Soluções", path: "/solucoes" },
+    { 
+      name: "Produtos", 
+      path: "/produtos",
+      dropdown: [
+        { name: "EVO Lite Enterprise", path: "/produtos/evo-lite-enterprise" },
+        { name: "EVO Max V2", path: "/produtos/evo-max-v2" },
+        { name: "Autel Alpha", path: "/produtos/autel-alpha" },
+      ]
+    },
+    { 
+      name: "Soluções", 
+      path: "/solucoes",
+      dropdown: [
+        { name: "Segurança Pública", path: "/solucoes/seguranca" },
+        { name: "Inspeção Industrial", path: "/solucoes/industrial" },
+        { name: "Construção Civil", path: "/solucoes/construcao" },
+        { name: "Resgate e Emergências", path: "/solucoes/resgate" },
+      ]
+    },
     { name: "Sobre", path: "/sobre" },
     { name: "Blog", path: "/blog" },
     { name: "Contato", path: "/contato" },
@@ -53,24 +71,42 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`font-heading font-semibold text-sm transition-colors relative group ${
-                  location.pathname === link.path
-                    ? "text-blue-medium"
-                    : "text-gray-dark hover:text-blue-medium"
-                }`}
-              >
-                {link.name}
-                <span
-                  className={`absolute bottom-0 left-0 w-full h-0.5 bg-blue-medium transform origin-left transition-transform duration-300 ${
+              <div key={link.path} className="relative group">
+                <Link
+                  to={link.path}
+                  className={`font-heading font-semibold text-sm transition-colors relative ${
                     location.pathname === link.path
-                      ? "scale-x-100"
-                      : "scale-x-0 group-hover:scale-x-100"
+                      ? "text-blue-medium"
+                      : "text-gray-dark hover:text-blue-medium"
                   }`}
-                />
-              </Link>
+                >
+                  {link.name}
+                  <span
+                    className={`absolute bottom-0 left-0 w-full h-0.5 bg-blue-medium transform origin-left transition-transform duration-300 ${
+                      location.pathname === link.path
+                        ? "scale-x-100"
+                        : "scale-x-0 group-hover:scale-x-100"
+                    }`}
+                  />
+                </Link>
+                
+                {/* Dropdown Menu */}
+                {link.dropdown && (
+                  <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <div className="py-2">
+                      {link.dropdown.map((dropdownLink) => (
+                        <Link
+                          key={dropdownLink.path}
+                          to={dropdownLink.path}
+                          className="block px-4 py-2 text-sm text-gray-dark hover:text-blue-medium hover:bg-blue-medium/5 transition-colors"
+                        >
+                          {dropdownLink.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
             ))}
           </nav>
 
@@ -119,24 +155,73 @@ const Header = () => {
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden pb-6 animate-fade-in">
-            <nav className="flex flex-col space-y-4">
+            <nav className="flex flex-col space-y-2">
               {navLinks.map((link) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className={`font-heading font-semibold text-base py-2 ${
-                    location.pathname === link.path
-                      ? "text-blue-medium"
-                      : "text-gray-dark"
-                  }`}
-                >
-                  {link.name}
-                </Link>
+                <div key={link.path}>
+                  {link.dropdown ? (
+                    <div>
+                      <button
+                        onClick={() => setOpenMobileDropdown(
+                          openMobileDropdown === link.path ? null : link.path
+                        )}
+                        className={`font-heading font-semibold text-base py-2 w-full text-left flex items-center justify-between ${
+                          location.pathname === link.path
+                            ? "text-blue-medium"
+                            : "text-gray-dark"
+                        }`}
+                      >
+                        {link.name}
+                        <svg
+                          className={`w-4 h-4 transition-transform ${
+                            openMobileDropdown === link.path ? "rotate-180" : ""
+                          }`}
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </button>
+                      {openMobileDropdown === link.path && (
+                        <div className="pl-4 space-y-1 mt-2">
+                          {link.dropdown.map((dropdownLink) => (
+                            <Link
+                              key={dropdownLink.path}
+                              to={dropdownLink.path}
+                              onClick={() => {
+                                setIsMobileMenuOpen(false);
+                                setOpenMobileDropdown(null);
+                              }}
+                              className={`block py-1 text-sm ${
+                                location.pathname === dropdownLink.path
+                                  ? "text-blue-medium"
+                                  : "text-gray-dark"
+                              }`}
+                            >
+                              {dropdownLink.name}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <Link
+                      to={link.path}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={`font-heading font-semibold text-base py-2 block ${
+                        location.pathname === link.path
+                          ? "text-blue-medium"
+                          : "text-gray-dark"
+                      }`}
+                    >
+                      {link.name}
+                    </Link>
+                  )}
+                </div>
               ))}
               <Button
                 asChild
-                className="bg-action hover:bg-action/90 text-white font-heading font-semibold w-full"
+                className="bg-action hover:bg-action/90 text-white font-heading font-semibold w-full mt-4"
               >
                 <Link to="/contato" onClick={() => setIsMobileMenuOpen(false)}>
                   Quero ser um Revendedor
