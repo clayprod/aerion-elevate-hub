@@ -213,7 +213,7 @@ const Contato = () => {
                     </a>
 
                     <a
-                      href="https://wa.me/5511943668839"
+                      href="https://wa.me/5511934668839"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-start space-x-4 group hover:bg-gray-light/30 p-3 rounded-lg transition-colors"
@@ -223,7 +223,7 @@ const Contato = () => {
                       </div>
                       <div>
                         <p className="text-sm font-heading font-semibold text-gray-dark">WhatsApp (Comercial)</p>
-                        <p className="text-navy-deep font-semibold">+55 11 94366-8839</p>
+                        <p className="text-navy-deep font-semibold">+55 11 93466-8839</p>
                       </div>
                     </a>
 

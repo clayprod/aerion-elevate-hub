@@ -101,13 +101,13 @@ const Footer = () => {
                 <span>+55 11 5102-4229</span>
               </a>
               <a
-                href="https://wa.me/5511943668839"
+                href="https://wa.me/5511934668839"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center space-x-3 text-gray-medium hover:text-blue-light transition-colors text-sm"
               >
                 <MessageCircle className="h-4 w-4 flex-shrink-0" />
-                <span>+55 11 94366-8839 (WhatsApp)</span>
+                <span>+55 11 93466-8839 (WhatsApp)</span>
               </a>
               <a
                 href="mailto:comercial@aerion.com.br"
