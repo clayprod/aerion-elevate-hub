@@ -5,6 +5,7 @@ import { ProductSpecs } from '@/components/products/ProductSpecs';
 import { ProductDownloads } from '@/components/products/ProductDownloads';
 import { ProductApplications } from '@/components/products/ProductApplications';
 import { getProductFamilyBySlug } from '@/data/products';
+import Header from '@/components/Header';
 
 const EvoLiteEnterprise: React.FC = () => {
   const productFamily = getProductFamilyBySlug('evo-lite-enterprise');
@@ -63,6 +64,7 @@ const EvoLiteEnterprise: React.FC = () => {
 
   return (
     <div className="min-h-screen">
+      <Header />
       <ProductHero
         title={productFamily.name}
         description={productFamily.description}
@@ -70,6 +72,7 @@ const EvoLiteEnterprise: React.FC = () => {
         fallbackImage={productFamily.fallbackImage}
         variant={selectedVariant}
         onVariantChange={setSelectedVariant}
+        productSlug={productFamily.slug}
       />
       
       <ProductGallery

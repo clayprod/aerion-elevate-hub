@@ -70,18 +70,18 @@ const Contato = () => {
         </section>
 
         {/* Contact Content */}
-        <section className="py-20">
+        <section className="py-12">
           <div className="container-custom">
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
               {/* Contact Form */}
               <div className="lg:col-span-3">
-                <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
-                  <h2 className="text-3xl font-heading font-bold text-navy-deep mb-6">
+                <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                  <h2 className="text-2xl font-heading font-bold text-navy-deep mb-4">
                     Envie sua Mensagem
                   </h2>
                   
                   <form onSubmit={handleSubmit}>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                       <div>
                         <label htmlFor="name" className="block text-sm font-heading font-semibold text-navy-deep mb-2">
                           Nome Completo *
@@ -141,7 +141,7 @@ const Contato = () => {
                       </div>
                     </div>
 
-                    <div className="mb-6">
+                    <div className="mb-4">
                       <label htmlFor="vertical" className="block text-sm font-heading font-semibold text-navy-deep mb-2">
                         Vertical de Interesse *
                       </label>
@@ -159,7 +159,7 @@ const Contato = () => {
                       </Select>
                     </div>
 
-                    <div className="mb-8">
+                    <div className="mb-6">
                       <label htmlFor="message" className="block text-sm font-heading font-semibold text-navy-deep mb-2">
                         Mensagem *
                       </label>
@@ -169,7 +169,7 @@ const Contato = () => {
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                         placeholder="Conte-nos sobre suas necessidades..."
                         required
-                        rows={6}
+                        rows={5}
                         className="border-2 focus:border-blue-medium resize-none"
                       />
                       <p className="text-sm text-gray-medium mt-1">Mínimo 10 caracteres</p>
@@ -191,20 +191,20 @@ const Contato = () => {
               </div>
 
               {/* Contact Info */}
-              <div className="lg:col-span-2 space-y-6">
+              <div className="lg:col-span-2 space-y-4">
                 {/* Contact Details Card */}
-                <div className="bg-white rounded-2xl shadow-lg p-8">
-                  <h3 className="text-2xl font-heading font-bold text-navy-deep mb-8">
+                <div className="bg-white rounded-2xl shadow-lg p-6">
+                  <h3 className="text-xl font-heading font-bold text-navy-deep mb-6">
                     Informações de Contato
                   </h3>
                   
-                  <div className="space-y-4">
+                  <div className="space-y-3">
                     <a
                       href="tel:+551151024229"
-                      className="flex items-center space-x-4 group hover:bg-gray-light/30 p-4 rounded-xl transition-all duration-200 hover:shadow-sm"
+                      className="flex items-center space-x-3 group hover:bg-gray-light/30 p-3 rounded-xl transition-all duration-200 hover:shadow-sm"
                     >
-                      <div className="w-14 h-14 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-medium/20 transition-colors">
-                        <Phone className="h-7 w-7 text-blue-medium" />
+                      <div className="w-12 h-12 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-medium/20 transition-colors">
+                        <Phone className="h-6 w-6 text-blue-medium" />
                       </div>
                       <div>
                         <p className="text-sm font-heading font-semibold text-gray-dark mb-1">Telefone</p>
@@ -216,10 +216,10 @@ const Contato = () => {
                       href="https://wa.me/5511934668839"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center space-x-4 group hover:bg-gray-light/30 p-4 rounded-xl transition-all duration-200 hover:shadow-sm"
+                      className="flex items-center space-x-3 group hover:bg-gray-light/30 p-3 rounded-xl transition-all duration-200 hover:shadow-sm"
                     >
-                      <div className="w-14 h-14 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-medium/20 transition-colors">
-                        <MessageCircle className="h-7 w-7 text-blue-medium" />
+                      <div className="w-12 h-12 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-medium/20 transition-colors">
+                        <MessageCircle className="h-6 w-6 text-blue-medium" />
                       </div>
                       <div>
                         <p className="text-sm font-heading font-semibold text-gray-dark mb-1">WhatsApp (Comercial)</p>
@@ -229,10 +229,10 @@ const Contato = () => {
 
                     <a
                       href="mailto:comercial@aerion.com.br"
-                      className="flex items-center space-x-4 group hover:bg-gray-light/30 p-4 rounded-xl transition-all duration-200 hover:shadow-sm"
+                      className="flex items-center space-x-3 group hover:bg-gray-light/30 p-3 rounded-xl transition-all duration-200 hover:shadow-sm"
                     >
-                      <div className="w-14 h-14 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-medium/20 transition-colors">
-                        <Mail className="h-7 w-7 text-blue-medium" />
+                      <div className="w-12 h-12 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-medium/20 transition-colors">
+                        <Mail className="h-6 w-6 text-blue-medium" />
                       </div>
                       <div>
                         <p className="text-sm font-heading font-semibold text-gray-dark mb-1">Email</p>
@@ -240,9 +240,9 @@ const Contato = () => {
                       </div>
                     </a>
 
-                    <div className="flex items-start space-x-4 p-4">
-                      <div className="w-14 h-14 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0">
-                        <MapPin className="h-7 w-7 text-blue-medium" />
+                    <div className="flex items-start space-x-3 p-3">
+                      <div className="w-12 h-12 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0">
+                        <MapPin className="h-6 w-6 text-blue-medium" />
                       </div>
                       <div>
                         <p className="text-sm font-heading font-semibold text-gray-dark mb-1">Endereço</p>
@@ -255,9 +255,9 @@ const Contato = () => {
                       </div>
                     </div>
 
-                    <div className="flex items-center space-x-4 p-4">
-                      <div className="w-14 h-14 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0">
-                        <Clock className="h-7 w-7 text-blue-medium" />
+                    <div className="flex items-center space-x-3 p-3">
+                      <div className="w-12 h-12 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0">
+                        <Clock className="h-6 w-6 text-blue-medium" />
                       </div>
                       <div>
                         <p className="text-sm font-heading font-semibold text-gray-dark mb-1">Horário</p>
@@ -269,10 +269,10 @@ const Contato = () => {
                       href="https://instagram.com/aerion.technologies"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center space-x-4 group hover:bg-gray-light/30 p-4 rounded-xl transition-all duration-200 hover:shadow-sm"
+                      className="flex items-center space-x-3 group hover:bg-gray-light/30 p-3 rounded-xl transition-all duration-200 hover:shadow-sm"
                     >
-                      <div className="w-14 h-14 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-medium/20 transition-colors">
-                        <Instagram className="h-7 w-7 text-blue-medium" />
+                      <div className="w-12 h-12 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-medium/20 transition-colors">
+                        <Instagram className="h-6 w-6 text-blue-medium" />
                       </div>
                       <div>
                         <p className="text-sm font-heading font-semibold text-gray-dark mb-1">Instagram</p>
@@ -283,14 +283,14 @@ const Contato = () => {
                 </div>
 
                 {/* Quick Response Card */}
-                <div className="bg-gradient-to-br from-blue-medium to-blue-dark rounded-2xl shadow-lg p-8 text-white">
-                  <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center mb-4">
-                    <Clock className="h-6 w-6 text-white" />
+                <div className="bg-gradient-to-br from-blue-medium to-blue-dark rounded-2xl shadow-lg p-6 text-white">
+                  <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center mb-3">
+                    <Clock className="h-5 w-5 text-white" />
                   </div>
-                  <h3 className="text-xl font-heading font-bold mb-3">
+                  <h3 className="text-lg font-heading font-bold mb-2">
                     Resposta Rápida
                   </h3>
-                  <p className="text-white/90 leading-relaxed">
+                  <p className="text-white/90 leading-relaxed text-sm">
                     Nossa equipe responde a todas as solicitações em até 24 horas úteis. Para urgências, ligue diretamente.
                   </p>
                 </div>

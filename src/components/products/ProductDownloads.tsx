@@ -43,9 +43,9 @@ export const ProductDownloads: React.FC<ProductDownloadsProps> = ({ downloads, t
   };
 
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-12 bg-gray-light/30">
       <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-4xl font-bold text-center mb-12 text-gray-900">
+        <h2 className="text-4xl font-bold text-center mb-12 text-navy-deep">
           Downloads e Documentos
         </h2>
         
@@ -57,10 +57,10 @@ export const ProductDownloads: React.FC<ProductDownloadsProps> = ({ downloads, t
                   {getFileIcon(download.type)}
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  <h3 className="text-lg font-semibold text-navy-deep mb-2">
                     {download.title}
                   </h3>
-                  <p className="text-gray-600 mb-4 text-sm">
+                  <p className="text-gray-dark mb-4 text-sm">
                     {download.description}
                   </p>
                   <div className="flex items-center justify-between">
@@ -88,15 +88,15 @@ export const ProductDownloads: React.FC<ProductDownloadsProps> = ({ downloads, t
         {/* Contact Section */}
         <div className="mt-12 text-center">
           <Card className="p-8 bg-white">
-            <h3 className="text-xl font-semibold text-gray-900 mb-4">
+            <h3 className="text-xl font-semibold text-navy-deep mb-4">
               Precisa de mais informações?
             </h3>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-dark mb-6">
               Nossa equipe técnica está pronta para ajudar com especificações detalhadas, 
               configurações personalizadas e suporte especializado.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-blue-600 hover:bg-blue-700">
+              <Button className="bg-blue-medium hover:bg-blue-dark">
                 Falar com Especialista
               </Button>
               <Button variant="outline">

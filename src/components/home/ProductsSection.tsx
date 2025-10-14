@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { AutelLogo } from "@/components/AutelLogo";
 import { ArrowRight } from "lucide-react";
 
 const products = [
@@ -32,7 +33,7 @@ const products = [
     ],
     applications: ["Industrial", "Energia", "Inspeções"],
     link: "/produtos/evo-max-v2",
-    image: "/images/products/evo_max/4t/1.jpg"
+    image: "/images/products/evo_max/4t/1.png"
   },
   {
     id: "autel-alpha",
@@ -57,9 +58,12 @@ const ProductsSection = () => {
       <div className="container-custom">
         {/* Section Header */}
         <div className="text-center mb-6">
-          <h2 className="text-4xl md:text-5xl font-heading font-bold text-navy-deep mb-1">
-            Conheça os Produtos Autel
-          </h2>
+          <div className="mb-4">
+            <AutelLogo 
+              className="h-16 md:h-20 w-auto" 
+              textFallback="Conheça os Produtos Autel"
+            />
+          </div>
           <p className="text-lg md:text-xl text-gray-dark max-w-3xl mx-auto">
             Tecnologia de ponta que transforma operações enterprise em resultados mensuráveis
           </p>
@@ -142,7 +146,7 @@ const ProductsSection = () => {
                   </div>
 
                   <div className="inline-flex items-center font-heading font-semibold text-blue-medium group-hover:translate-x-2 transition-transform text-sm">
-                    Ver Especificações Completas
+                    Ver Datasheet
                     <ArrowRight className="ml-1 h-4 w-4" />
                   </div>
                 </div>

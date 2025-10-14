@@ -14,13 +14,13 @@ interface ProductApplicationsProps {
 
 export const ProductApplications: React.FC<ProductApplicationsProps> = ({ applications, title }) => {
   return (
-    <section className="py-16 bg-white">
+    <section className="py-12 bg-white">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl font-bold text-navy-deep mb-4">
             Aplicações e Casos de Uso
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-dark max-w-3xl mx-auto">
             Descubra como o {title} pode transformar suas operações em diferentes setores e aplicações.
           </p>
         </div>
@@ -42,36 +42,15 @@ export const ProductApplications: React.FC<ProductApplicationsProps> = ({ applic
                 </div>
               </div>
               <div className="p-6">
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-gray-dark leading-relaxed">
                   {application.description}
                 </p>
-                <button className="mt-4 text-blue-600 hover:text-blue-700 font-semibold transition-colors">
+                <button className="mt-4 text-blue-medium hover:text-blue-dark font-semibold transition-colors">
                   Saiba mais →
                 </button>
               </div>
             </Card>
           ))}
-        </div>
-        
-        {/* CTA Section */}
-        <div className="mt-16 text-center">
-          <Card className="p-8 bg-gradient-to-r from-blue-600 to-blue-700 text-white">
-            <h3 className="text-2xl font-bold mb-4">
-              Sua Aplicação Não Está Listada?
-            </h3>
-            <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
-              Nossa equipe de especialistas pode ajudar a identificar como o {title} 
-              pode ser adaptado para suas necessidades específicas.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-3 rounded-lg font-semibold transition-colors">
-                Consultoria Gratuita
-              </button>
-              <button className="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-3 rounded-lg font-semibold transition-colors">
-                Agendar Demonstração
-              </button>
-            </div>
-          </Card>
         </div>
       </div>
     </section>

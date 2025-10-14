@@ -20,8 +20,7 @@ const solutions = [
       "Cadastro urbano e regularização fundiária",
       "Integração com software de projeto",
     ],
-    color: "text-blue-dark",
-    bg: "bg-blue-dark",
+    image: "/images/lifestyle/construction-1.jpeg",
   },
   {
     id: "industrial",
@@ -37,8 +36,7 @@ const solutions = [
       "Detecção de hotspots e manutenção preditiva",
       "Operações BVLOS em ambientes críticos",
     ],
-    color: "text-blue-medium",
-    bg: "bg-blue-medium",
+    image: "/images/lifestyle/oil-and-gas-1.jpg",
   },
   {
     id: "seguranca",
@@ -54,8 +52,7 @@ const solutions = [
       "Monitoramento de eventos de massa",
       "Resposta rápida com visão noturna",
     ],
-    color: "text-orange-energy",
-    bg: "bg-orange-energy",
+    image: "/images/lifestyle/public-safety-1-alpha.jpg",
   },
   {
     id: "resgate",
@@ -71,8 +68,7 @@ const solutions = [
       "Monitoramento ambiental e queimadas",
       "Coordenação de equipes de resgate",
     ],
-    color: "text-green-success",
-    bg: "bg-green-success",
+    image: "/images/lifestyle/rescue-2.jpg",
   },
 ];
 
@@ -101,51 +97,60 @@ const Solucoes = () => {
                 className="group hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-blue-medium/20 overflow-hidden animate-fade-in"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <Link to={`/solucoes/${solution.id}`}>
-                  {/* Header with Icon */}
-                  <div className={`${solution.bg} p-8 text-white`}>
-                    <div className="flex items-start space-x-4 mb-4">
-                      <div className="w-16 h-16 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                        <solution.icon className="w-8 h-8" />
-                      </div>
+                <Link to={`/solucoes/${solution.id}`} className="block">
+                  {/* Background Image with Overlay */}
+                  <div className="relative h-80 overflow-hidden">
+                    <img
+                      src={solution.image}
+                      alt={solution.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-black/60 group-hover:bg-black/50 transition-colors" />
+                    
+                    {/* Content Overlay */}
+                    <div className="absolute inset-0 p-8 flex flex-col justify-between">
+                      {/* Header with Icon */}
                       <div>
-                        <h2 className="text-2xl font-heading font-bold mb-1">
-                          {solution.title}
-                        </h2>
-                        <p className="text-sm font-heading font-semibold text-blue-medium">
-                          {solution.tagline}
+                        <div className="flex items-start space-x-4 mb-4">
+                          <div className="w-16 h-16 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                            <solution.icon className="w-8 h-8 text-white" />
+                          </div>
+                          <div>
+                            <h2 className="text-2xl font-heading font-bold mb-1 text-white">
+                              {solution.title}
+                            </h2>
+                            <p className="text-sm font-heading font-semibold text-white/80">
+                              {solution.tagline}
+                            </p>
+                          </div>
+                        </div>
+                        <p className="text-white/90 leading-relaxed">
+                          {solution.description}
                         </p>
                       </div>
+
+                      {/* Bottom Section */}
+                      <div>
+                        <h3 className="font-heading font-bold text-white mb-3">
+                          Principais Necessidades:
+                        </h3>
+                        <ul className="space-y-2 mb-6">
+                          {solution.needs.slice(0, 3).map((need) => (
+                            <li key={need} className="flex items-start text-sm text-white/90">
+                              <svg className="w-5 h-5 mr-2 flex-shrink-0 text-white mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                              </svg>
+                              {need}
+                            </li>
+                          ))}
+                        </ul>
+
+                        <div className="inline-flex items-center font-heading font-semibold text-white group-hover:translate-x-2 transition-transform">
+                          Explorar Solução
+                          <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                        </div>
+                      </div>
                     </div>
-                    <p className="text-white/90 leading-relaxed">
-                      {solution.description}
-                    </p>
-                  </div>
-
-                  {/* Needs List */}
-                  <div className="p-8 bg-white">
-                    <h3 className="font-heading font-bold text-navy-deep mb-4">
-                      Principais Necessidades:
-                    </h3>
-                    <ul className="space-y-2 mb-6">
-                      {solution.needs.slice(0, 4).map((need) => (
-                        <li key={need} className="flex items-start text-sm text-gray-dark">
-                          <svg className={`w-5 h-5 mr-2 flex-shrink-0 ${solution.color} mt-0.5`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                          </svg>
-                          {need}
-                        </li>
-                      ))}
-                    </ul>
-
-                    <Button
-                      className={`w-full ${solution.bg} hover:opacity-90 text-white font-heading font-semibold group`}
-                    >
-                      <span className="flex items-center justify-center">
-                        Explorar Solução
-                        <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                      </span>
-                    </Button>
                   </div>
                 </Link>
               </Card>

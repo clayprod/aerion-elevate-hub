@@ -5,7 +5,7 @@ const differentials = [
   {
     icon: Rocket,
     title: "Tecnologia de Ponta",
-    description: "Drones Autel com tecnologia comparável aos líderes globais, oferecendo desempenho excepcional em aplicações enterprise",
+    description: "Drones Autel com tecnologia digna de um dos líderes globais, oferecendo desempenho excepcional em aplicações enterprise",
     features: [
       "Anti-interferência superior",
       "Navegação visual de alta precisão",

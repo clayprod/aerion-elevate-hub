@@ -5,6 +5,7 @@ import { ProductSpecs } from '@/components/products/ProductSpecs';
 import { ProductDownloads } from '@/components/products/ProductDownloads';
 import { ProductApplications } from '@/components/products/ProductApplications';
 import { getProductFamilyBySlug } from '@/data/products';
+import Header from '@/components/Header';
 
 const AutelAlpha: React.FC = () => {
   const productFamily = getProductFamilyBySlug('autel-alpha');
@@ -56,11 +57,13 @@ const AutelAlpha: React.FC = () => {
 
   return (
     <div className="min-h-screen">
+      <Header />
       <ProductHero
         title={productFamily.name}
         description={productFamily.description}
         youtubeVideoId={productFamily.youtubeVideoId}
         fallbackImage={productFamily.fallbackImage}
+        productSlug={productFamily.slug}
       />
       
       <ProductGallery
