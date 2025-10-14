@@ -1,0 +1,178 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Aerion Brand Colors - HSL Format */
+    --navy-deep: 230 62% 10%;        /* #0A0E27 - Authority, sophistication */
+    --aerion-blue: 209 100% 36%;     /* #0055B8 - Technology, trust */
+    --blue-medium: 200 47% 33%;      /* #2B5F7F - Balance, stability */
+    --teal: 193 48% 43%;             /* #3C8FA2 - Innovation, modernity */
+    --cyan-light: 189 100% 70%;      /* #5DD5F3 - Openness, clarity with better contrast */
+    --orange-energy: 28 100% 50%;    /* #FF7900 - Energy, urgency */
+    --green-success: 151 100% 50%;   /* #00FF7F - Success */
+    --gray-light: 0 0% 96%;          /* #F5F5F5 */
+    --gray-medium: 0 0% 60%;         /* #999999 - Better contrast */
+    --gray-dark: 200 6% 29%;         /* #4D5357 */
+
+    /* Design System Tokens */
+    --background: 0 0% 100%;
+    --foreground: var(--navy-deep);
+
+    --card: 0 0% 100%;
+    --card-foreground: var(--navy-deep);
+
+    --popover: 0 0% 100%;
+    --popover-foreground: var(--navy-deep);
+
+    --primary: var(--aerion-blue);
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: var(--gray-light);
+    --secondary-foreground: var(--navy-deep);
+
+    --muted: var(--gray-light);
+    --muted-foreground: var(--gray-dark);
+
+    --accent: var(--teal);
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: var(--gray-light);
+    --input: var(--gray-light);
+    --ring: var(--aerion-blue);
+
+    --radius: 0.5rem;
+
+    /* Action Colors */
+    --action: var(--orange-energy);
+    --action-foreground: 0 0% 100%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--navy-deep)), hsl(var(--aerion-blue)));
+    --gradient-accent: linear-gradient(135deg, hsl(var(--aerion-blue)), hsl(var(--teal)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--navy-deep)) 0%, hsl(var(--aerion-blue)) 50%, hsl(var(--teal)) 100%);
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(var(--navy-deep) / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(var(--navy-deep) / 0.1);
+    --shadow-lg: 0 10px 15px -3px hsl(var(--navy-deep) / 0.15);
+    --shadow-glow: 0 0 30px hsl(var(--aerion-blue) / 0.3);
+
+    /* Spacing (8px base) */
+    --spacing-xs: 0.5rem;    /* 8px */
+    --spacing-sm: 1rem;      /* 16px */
+    --spacing-md: 1.5rem;    /* 24px */
+    --spacing-lg: 2rem;      /* 32px */
+    --spacing-xl: 3rem;      /* 48px */
+    --spacing-xxl: 5rem;     /* 80px */
+  }
+
+  .dark {
+    --background: var(--navy-deep);
+    --foreground: 0 0% 100%;
+
+    --card: var(--navy-deep);
+    --card-foreground: 0 0% 100%;
+
+    --popover: var(--navy-deep);
+    --popover-foreground: 0 0% 100%;
+
+    --primary: var(--cyan-light);
+    --primary-foreground: var(--navy-deep);
+
+    --secondary: var(--blue-medium);
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: var(--blue-medium);
+    --muted-foreground: var(--gray-medium);
+
+    --accent: var(--teal);
+    --accent-foreground: 0 0% 100%;
+
+    --border: var(--blue-medium);
+    --input: var(--blue-medium);
+    --ring: var(--cyan-light);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+  }
+
+  /* Typography Scale */
+  h1 {
+    @apply text-4xl md:text-5xl font-bold leading-tight;
+    color: hsl(var(--navy-deep));
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl font-semibold leading-tight;
+    color: hsl(var(--navy-deep));
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl font-semibold leading-snug;
+    color: hsl(var(--aerion-blue));
+  }
+
+  h4 {
+    @apply text-xl md:text-2xl font-semibold;
+  }
+
+  /* Smooth Scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Custom Utilities */
+@layer utilities {
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+
+  .gradient-accent {
+    background: var(--gradient-accent);
+  }
+
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .text-gradient {
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600;700&display=swap');
