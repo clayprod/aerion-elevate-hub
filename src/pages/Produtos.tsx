@@ -157,24 +157,6 @@ const Produtos = () => {
             ))}
           </div>
 
-          {/* CTA Section */}
-          <div className="mt-16 text-center p-12 bg-gradient-primary rounded-2xl">
-            <h3 className="text-3xl font-heading font-bold text-white mb-4">
-              Não sabe qual produto escolher?
-            </h3>
-            <p className="text-white/90 text-lg mb-6 max-w-2xl mx-auto">
-              Nossa equipe de especialistas pode ajudá-lo a encontrar a solução perfeita para suas necessidades
-            </p>
-            <Button
-              asChild
-              size="lg"
-              className="bg-white text-aerion-blue hover:bg-white/90 font-heading font-semibold"
-            >
-              <Link to="/contato">
-                Falar com Especialista
-              </Link>
-            </Button>
-          </div>
         </div>
       </main>
 

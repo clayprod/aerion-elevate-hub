@@ -85,26 +85,6 @@ export const ProductDownloads: React.FC<ProductDownloadsProps> = ({ downloads, t
           ))}
         </div>
         
-        {/* Contact Section */}
-        <div className="mt-12 text-center">
-          <Card className="p-8 bg-white">
-            <h3 className="text-xl font-semibold text-navy-deep mb-4">
-              Precisa de mais informações?
-            </h3>
-            <p className="text-gray-dark mb-6">
-              Nossa equipe técnica está pronta para ajudar com especificações detalhadas, 
-              configurações personalizadas e suporte especializado.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-blue-medium hover:bg-blue-dark">
-                Falar com Especialista
-              </Button>
-              <Button variant="outline">
-                Solicitar Demonstração
-              </Button>
-            </div>
-          </Card>
-        </div>
       </div>
     </section>
   );
