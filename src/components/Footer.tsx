@@ -107,7 +107,7 @@ const Footer = () => {
                 className="flex items-center space-x-3 text-gray-medium hover:text-blue-light transition-colors text-sm"
               >
                 <MessageCircle className="h-4 w-4 flex-shrink-0" />
-                <span>+55 11 94366-8839 Comercial</span>
+                <span>+55 11 94366-8839 (WhatsApp)</span>
               </a>
               <a
                 href="mailto:comercial@aerion.com.br"

@@ -222,7 +222,7 @@ const Contato = () => {
                         <MessageCircle className="h-6 w-6 text-green-500" />
                       </div>
                       <div>
-                        <p className="text-sm font-heading font-semibold text-gray-dark">WhatsApp Comercial</p>
+                        <p className="text-sm font-heading font-semibold text-gray-dark">WhatsApp (Comercial)</p>
                         <p className="text-navy-deep font-semibold">+55 11 94366-8839</p>
                       </div>
                     </a>
