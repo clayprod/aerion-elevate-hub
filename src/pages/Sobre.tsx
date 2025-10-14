@@ -30,7 +30,7 @@ const Sobre = () => {
               <div className="text-center mb-12">
                 <div className="mb-6">
                   <AutelLogo 
-                    className="h-20 md:h-24 w-auto" 
+                    className="h-16 md:h-20 w-auto" 
                     textFallback="Sobre a Autel Robotics"
                   />
                 </div>

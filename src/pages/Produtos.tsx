@@ -62,7 +62,7 @@ const Produtos = () => {
           <div className="text-center mb-12">
             <div className="mb-4">
               <AutelLogo 
-                className="h-16 md:h-20 w-auto" 
+                className="h-12 md:h-16 w-auto" 
                 textFallback="Produtos Autel para Sua Operação"
               />
             </div>
