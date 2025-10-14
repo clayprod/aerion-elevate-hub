@@ -4,59 +4,27 @@ import { Building, Factory, Shield, Siren } from "lucide-react";
 
 const solutions = [
   {
-    icon: Building,
-    title: "Construção",
-    tagline: "Agilidade e precisão em obras",
-    description: "Levantamentos topográficos, modelagem BIM, mapeamento urbano e medição de volumes com eficiência incomparável",
-    features: [
-      "Topografia com precisão centimétrica",
-      "Modelagem BIM para cronogramas",
-      "Mapeamento urbano e territorial",
-    ],
-    color: "text-blue-dark",
-    bg: "bg-blue-dark/5",
-    link: "/solucoes/construcao",
-  },
-  {
-    icon: Factory,
-    title: "Industrial",
-    tagline: "Precisão e segurança operacional",
-    description: "Inspeções térmicas em energia, óleo & gás, mineração e operações BVLOS para máxima eficiência",
-    features: [
-      "Inspeção térmica avançada",
-      "Monitoramento óleo & gás",
-      "Inspeção de minas e mineração",
-    ],
-    color: "text-blue-medium",
-    bg: "bg-blue-medium/5",
-    link: "/solucoes/industrial",
-  },
-  {
-    icon: Shield,
-    title: "Segurança",
-    tagline: "Proteção e resposta estratégica",
-    description: "Vigilância inteligente, gestão de tráfego urbano e inteligência operacional em tempo real",
-    features: [
-      "Vigilância 360° contínua",
-      "Gestão de tráfego viário",
-      "Resposta rápida a emergências",
-    ],
-    color: "text-blue-bright",
-    bg: "bg-blue-bright/5",
+    title: "Segurança Pública",
+    description: "Patrulhamento, busca e resgate, monitoramento de eventos",
+    image: "/images/lifestyle/public-safety-1-alpha.jpg",
     link: "/solucoes/seguranca",
   },
   {
-    icon: Siren,
-    title: "Resgate",
-    tagline: "Salvamento e preservação",
-    description: "Busca e resgate, combate a incêndios florestais e preservação ambiental com tecnologia de ponta",
-    features: [
-      "Busca e resgate eficaz",
-      "Combate a incêndios florestais",
-      "Monitoramento ambiental",
-    ],
-    color: "text-green-success",
-    bg: "bg-green-success/5",
+    title: "Inspeção Industrial",
+    description: "Verificação de equipamentos, monitoramento de infraestrutura",
+    image: "/images/lifestyle/oil-and-gas-1.jpg",
+    link: "/solucoes/industrial",
+  },
+  {
+    title: "Construção Civil",
+    description: "Mapeamento de obras, monitoramento de progresso",
+    image: "/images/lifestyle/construction-1.jpeg",
+    link: "/solucoes/construcao",
+  },
+  {
+    title: "Resgate e Emergências",
+    description: "Operações de resgate, busca de pessoas, resposta a emergências",
+    image: "/images/lifestyle/rescue-2.jpg",
     link: "/solucoes/resgate",
   },
 ];
@@ -71,57 +39,42 @@ const SolutionsSection = () => {
             Soluções para Cada Segmento
           </h2>
           <p className="text-lg md:text-xl text-gray-dark max-w-3xl mx-auto">
-            Expertise especializada para as principais verticais de aplicação de tecnologia aérea
+            Descubra como nossa tecnologia pode transformar suas operações em diferentes setores e aplicações
           </p>
         </div>
 
         {/* Solutions Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {solutions.map((solution, index) => (
             <Card
               key={solution.title}
-              className="group hover:shadow-lg transition-all duration-300 border-2 border-transparent hover:border-blue-medium/20 overflow-hidden animate-fade-in"
+              className="group hover:shadow-xl transition-all duration-300 overflow-hidden animate-fade-in"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <Link to={solution.link} className="block p-8">
-                {/* Icon & Header */}
-                <div className="flex items-start space-x-4 mb-6">
-                  <div className={`w-14 h-14 rounded-xl ${solution.bg} flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform`}>
-                    <solution.icon className={`w-7 h-7 ${solution.color}`} />
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-heading font-bold text-navy-deep mb-1 group-hover:text-blue-medium transition-colors">
+              <Link to={solution.link} className="block">
+                <div className="relative h-48 overflow-hidden">
+                  <img
+                    src={solution.image}
+                    alt={solution.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <h3 className="text-white text-lg font-semibold mb-2">
                       {solution.title}
                     </h3>
-                    <p className={`text-sm font-heading font-semibold ${solution.color}`}>
-                      {solution.tagline}
-                    </p>
                   </div>
                 </div>
-
-                {/* Description */}
-                <p className="text-gray-dark mb-6 leading-relaxed">
-                  {solution.description}
-                </p>
-
-                {/* Features */}
-                <ul className="space-y-2 mb-6">
-                  {solution.features.map((feature) => (
-                    <li key={feature} className="flex items-center text-sm text-gray-dark">
-                      <svg className={`w-5 h-5 mr-2 flex-shrink-0 ${solution.color}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-
-                {/* CTA */}
-                <div className={`inline-flex items-center font-heading font-semibold ${solution.color} group-hover:translate-x-2 transition-transform`}>
-                  Saiba mais
-                  <svg className="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
+                <div className="p-6">
+                  <p className="text-gray-dark leading-relaxed mb-4">
+                    {solution.description}
+                  </p>
+                  <div className="inline-flex items-center font-heading font-semibold text-blue-medium group-hover:translate-x-2 transition-transform">
+                    Saiba mais
+                    <svg className="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
                 </div>
               </Link>
             </Card>

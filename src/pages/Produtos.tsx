@@ -18,7 +18,7 @@ const products = [
       "Variantes 640T e 6K",
     ],
     applications: ["Construção", "Topografia", "Mapeamento"],
-    image: "/images/products/evo-lite-640t-white.jpg"
+    image: "/images/products/evo_lite/640t/1.png"
   },
   {
     id: "evo-max-v2",
@@ -32,7 +32,7 @@ const products = [
       "Transmissão de até 15km",
     ],
     applications: ["Industrial", "Energia", "Inspeções"],
-    image: "/images/products/evo-max-4t-white.jpg"
+    image: "/images/products/evo_max/4t/1.jpg"
   },
   {
     id: "autel-alpha",
@@ -46,7 +46,7 @@ const products = [
       "Autonomia de 45 minutos",
     ],
     applications: ["Segurança", "Resgate", "Operações Críticas"],
-    image: "/images/products/autel-alpha-white.jpg"
+    image: "/images/products/alpha/1.png"
   },
 ];
 
@@ -68,37 +68,57 @@ const Produtos = () => {
           </div>
 
           {/* Products Grid */}
-          <div className="grid grid-cols-1 gap-12 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {products.map((product, index) => (
               <Card
                 key={product.id}
                 className="group hover:shadow-xl transition-all duration-300 overflow-hidden animate-fade-in bg-white border-2"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <div className="md:flex">
+                <Link to={`/produtos/${product.id}`} className="block">
+                  {/* Product Image */}
+                  <div className="relative h-48 overflow-hidden">
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      onError={(e) => {
+                        // Fallback to gradient background if image fails to load
+                        e.currentTarget.style.display = 'none';
+                        e.currentTarget.nextElementSibling!.style.display = 'flex';
+                      }}
+                    />
+                    <div className="w-full h-full hidden items-center justify-center bg-gradient-accent">
+                      <svg className="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 3L2 12h3v8h14v-8h3L12 3zm0 2.5L18.5 12H17v6h-4v-4h-2v4H7v-6H5.5L12 5.5z"/>
+                      </svg>
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                  </div>
+
                   {/* Content */}
-                  <div className="md:w-2/3 p-8 md:p-12">
-                    <div className="mb-6">
-                      <h2 className="text-3xl font-heading font-bold text-navy-deep mb-2 group-hover:text-blue-medium transition-colors">
+                  <div className="p-6">
+                    <div className="mb-4">
+                      <h2 className="text-xl font-heading font-bold text-navy-deep mb-2 group-hover:text-blue-medium transition-colors">
                         {product.name}
                       </h2>
-                      <p className="text-base font-heading font-semibold text-blue-medium">
+                      <p className="text-sm font-heading font-semibold text-blue-medium">
                         {product.tagline}
                       </p>
                     </div>
 
-                    <p className="text-gray-dark mb-6 leading-relaxed text-lg">
+                    <p className="text-gray-dark mb-4 leading-relaxed text-sm">
                       {product.description}
                     </p>
 
-                    <div className="mb-8">
-                      <h3 className="font-heading font-bold text-navy-deep mb-3">
+                    <div className="mb-4">
+                      <h3 className="font-heading font-bold text-navy-deep mb-2 text-sm">
                         Especificações Principais:
                       </h3>
-                      <ul className="space-y-2">
-                        {product.keySpecs.map((spec) => (
-                          <li key={spec} className="flex items-start text-gray-dark">
-                            <svg className="w-5 h-5 mr-2 flex-shrink-0 text-aerion-blue mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <ul className="space-y-1">
+                        {product.keySpecs.slice(0, 2).map((spec) => (
+                          <li key={spec} className="flex items-start text-gray-dark text-xs">
+                            <svg className="w-4 h-4 mr-2 flex-shrink-0 text-blue-medium mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                             {spec}
@@ -107,15 +127,15 @@ const Produtos = () => {
                       </ul>
                     </div>
 
-                    <div className="mb-8">
-                      <h3 className="font-heading font-bold text-navy-deep mb-3">
+                    <div className="mb-4">
+                      <h3 className="font-heading font-bold text-navy-deep mb-2 text-sm">
                         Aplicações:
                       </h3>
-                      <div className="flex flex-wrap gap-2">
-                        {product.applications.map((app) => (
+                      <div className="flex flex-wrap gap-1">
+                        {product.applications.slice(0, 2).map((app) => (
                           <span
                             key={app}
-                            className="px-3 py-1 bg-aerion-blue/10 text-aerion-blue rounded-full text-sm font-heading font-semibold"
+                            className="px-2 py-1 bg-blue-medium/10 text-blue-medium rounded-full text-xs font-heading font-semibold"
                           >
                             {app}
                           </span>
@@ -123,47 +143,12 @@ const Produtos = () => {
                       </div>
                     </div>
 
-                    <Button
-                      asChild
-                      size="lg"
-                      className="bg-action hover:bg-action/90 text-action-foreground font-heading font-semibold group"
-                    >
-                      <Link to={`/produtos/${product.id}`} className="flex items-center">
-                        Ver Especificações Completas
-                        <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                      </Link>
-                    </Button>
-                  </div>
-
-                  {/* Product Image */}
-                  <div className="md:w-1/3 bg-gradient-accent p-8 flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="w-48 h-48 mx-auto mb-4 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center overflow-hidden">
-                        <img 
-                          src={product.image} 
-                          alt={product.name}
-                          className="w-full h-full object-cover"
-                          onError={(e) => {
-                            // Fallback to icon if image fails to load
-                            e.currentTarget.style.display = 'none';
-                            e.currentTarget.nextElementSibling!.style.display = 'flex';
-                          }}
-                        />
-                        <div className="w-full h-full hidden items-center justify-center">
-                          <svg className="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 3L2 12h3v8h14v-8h3L12 3zm0 2.5L18.5 12H17v6h-4v-4h-2v4H7v-6H5.5L12 5.5z"/>
-                          </svg>
-                        </div>
-                      </div>
-                      <p className="font-heading font-bold text-xl text-white">
-                        {product.name.split(' ')[0]}
-                      </p>
-                      <p className="text-white/80 text-sm">
-                        Tecnologia Autel
-                      </p>
+                    <div className="inline-flex items-center font-heading font-semibold text-blue-medium group-hover:translate-x-2 transition-transform text-sm">
+                      Ver Especificações Completas
+                      <ArrowRight className="ml-1 h-4 w-4" />
                     </div>
                   </div>
-                </div>
+                </Link>
               </Card>
             ))}
           </div>

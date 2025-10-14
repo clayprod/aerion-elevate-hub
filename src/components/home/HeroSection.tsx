@@ -5,7 +5,7 @@ import { YouTubeVideoBackground } from "../YouTubeVideoBackground";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden pt-32 pb-20">
+    <section className="relative min-h-screen flex items-center overflow-hidden pt-20">
       {/* YouTube Video Background with Fallback */}
       <YouTubeVideoBackground
         videoId="IaKUtdAdG5w"
@@ -23,7 +23,7 @@ const HeroSection = () => {
         <div className="absolute top-1/2 left-1/3 w-48 h-48 border-2 border-blue-medium rotate-45 animate-float" style={{ animationDelay: '2s' }} />
       </div>
 
-              <div className="container-custom relative z-30 py-8">
+              <div className="container-custom relative z-30">
         <div className="max-w-4xl">
 
           {/* Main Headline */}
@@ -37,64 +37,64 @@ const HeroSection = () => {
           </p>
 
           {/* Value Props */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 animate-slide-up" style={{ animationDelay: '0.4s' }}>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8 animate-slide-up" style={{ animationDelay: '0.4s' }}>
             <div className="flex items-start space-x-3">
-              <div className="w-12 h-12 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-10 h-10 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                 </svg>
               </div>
               <div>
-                <h3 className="text-white font-heading font-semibold mb-1">Inteligência Artificial</h3>
-                <p className="text-white/80 text-sm">Reconhecimento automático e navegação inteligente</p>
+                <h3 className="text-white font-heading font-semibold mb-1 text-sm">Inteligência Artificial</h3>
+                <p className="text-white/80 text-xs">Reconhecimento automático e navegação inteligente</p>
               </div>
             </div>
 
             <div className="flex items-start space-x-3">
-              <div className="w-12 h-12 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-10 h-10 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9zM15 13a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
               </div>
               <div>
-                <h3 className="text-white font-heading font-semibold mb-1">Câmeras Térmicas & HD</h3>
-                <p className="text-white/80 text-sm">Térmicas 640T e câmeras 4K de alta resolução</p>
+                <h3 className="text-white font-heading font-semibold mb-1 text-sm">Câmeras Térmicas & HD</h3>
+                <p className="text-white/80 text-xs">Térmicas 640T e câmeras 4K de alta resolução</p>
               </div>
             </div>
 
             <div className="flex items-start space-x-3">
-              <div className="w-12 h-12 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-10 h-10 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
                 </svg>
               </div>
               <div>
-                <h3 className="text-white font-heading font-semibold mb-1">Zoom até 560x</h3>
-                <p className="text-white/80 text-sm">Detecção e identificação a longa distância</p>
+                <h3 className="text-white font-heading font-semibold mb-1 text-sm">Zoom até 560x</h3>
+                <p className="text-white/80 text-xs">Detecção e identificação a longa distância</p>
               </div>
             </div>
 
             <div className="flex items-start space-x-3">
-              <div className="w-12 h-12 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-10 h-10 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
               </div>
               <div>
-                <h3 className="text-white font-heading font-semibold mb-1">Proteção IP55</h3>
-                <p className="text-white/80 text-sm">Resistente a intempéries e condições extremas</p>
+                <h3 className="text-white font-heading font-semibold mb-1 text-sm">Proteção IP55</h3>
+                <p className="text-white/80 text-xs">Resistente a intempéries e condições extremas</p>
               </div>
             </div>
 
             <div className="flex items-start space-x-3">
-              <div className="w-12 h-12 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-10 h-10 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
                 </svg>
               </div>
               <div>
-                <h3 className="text-white font-heading font-semibold mb-1">Software em Português</h3>
-                <p className="text-white/80 text-sm">Interface e suporte técnico localizados</p>
+                <h3 className="text-white font-heading font-semibold mb-1 text-sm">Software em Português</h3>
+                <p className="text-white/80 text-xs">Interface e suporte técnico localizados</p>
               </div>
             </div>
           </div>
