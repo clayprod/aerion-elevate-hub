@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Instagram } from "lucide-react";
 import logo from "@/assets/logo-aerion.png";
 
 const Footer = () => {
@@ -94,13 +94,20 @@ const Footer = () => {
             <h4 className="font-heading font-bold text-lg mb-4">Contato</h4>
             <div className="flex flex-col space-y-3">
               <a
-                href="https://wa.me/5511934668839"
+                href="tel:+551151024229"
+                className="flex items-center space-x-3 text-gray-medium hover:text-cyan-light transition-colors text-sm"
+              >
+                <Phone className="h-4 w-4 flex-shrink-0" />
+                <span>+55 11 5102-4229</span>
+              </a>
+              <a
+                href="https://wa.me/5511943668839"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center space-x-3 text-gray-medium hover:text-cyan-light transition-colors text-sm"
               >
                 <Phone className="h-4 w-4 flex-shrink-0" />
-                <span>+55 11 93466-8839</span>
+                <span>+55 11 94366-8839 (Comercial)</span>
               </a>
               <a
                 href="mailto:comercial@aerion.com.br"
@@ -113,6 +120,15 @@ const Footer = () => {
                 <MapPin className="h-4 w-4 flex-shrink-0 mt-1" />
                 <span>Edifício Itamaracá<br />R. Quintana 887, Cj. 111, 11º Andar<br />Brooklin Novo - SP, 04569-011</span>
               </div>
+              <a
+                href="https://instagram.com/aerion.technologies"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center space-x-3 text-gray-medium hover:text-cyan-light transition-colors text-sm"
+              >
+                <Instagram className="h-4 w-4 flex-shrink-0" />
+                <span>@aerion.technologies</span>
+              </a>
             </div>
           </div>
         </div>

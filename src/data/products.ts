@@ -2,7 +2,7 @@ export interface ProductVariant {
   id: string;
   name: string;
   description: string;
-  image: string;
+  imagePath: string; // Path to folder with numbered images
   specs: Record<string, string>;
 }
 
@@ -39,7 +39,7 @@ export const productFamilies: ProductFamily[] = [
         id: "640t",
         name: "EVO Lite Enterprise 640T",
         description: "Câmera térmica de 640x512 com zoom óptico 30x",
-        image: "/images/products/evo-lite-640t-white.png",
+        imagePath: "/images/products/evo_lite/640t",
         specs: {
           "Câmera Térmica": "640×512 @ 25Hz",
           "Zoom Óptico": "30x",
@@ -52,7 +52,7 @@ export const productFamilies: ProductFamily[] = [
         id: "6k",
         name: "EVO Lite Enterprise 6K",
         description: "Câmera 4K com zoom óptico 30x e estabilização gimbal",
-        image: "/images/products/evo-lite-6k-white.png",
+        imagePath: "/images/products/evo_lite/6k",
         specs: {
           "Câmera": "4K @ 60fps",
           "Zoom Óptico": "30x",
@@ -107,7 +107,7 @@ export const productFamilies: ProductFamily[] = [
         id: "4n",
         name: "EVO Max V2 4N",
         description: "Câmera 4K com zoom óptico 30x e câmera térmica",
-        image: "/images/products/evo-max-4n-white.png",
+        imagePath: "/images/products/evo_max/4n",
         specs: {
           "Câmera Principal": "4K @ 60fps",
           "Câmera Térmica": "640×512 @ 25Hz",
@@ -120,7 +120,7 @@ export const productFamilies: ProductFamily[] = [
         id: "4t",
         name: "EVO Max V2 4T",
         description: "Câmera 4K com zoom óptico 30x e câmera térmica 640T",
-        image: "/images/products/evo-max-4t-white.png",
+        imagePath: "/images/products/evo_max/4t",
         specs: {
           "Câmera Principal": "4K @ 60fps",
           "Câmera Térmica": "640×512 @ 25Hz",
@@ -175,7 +175,7 @@ export const productFamilies: ProductFamily[] = [
         id: "alpha",
         name: "Autel Alpha",
         description: "Drone profissional com câmera térmica 640T e zoom óptico 30x",
-        image: "/images/products/autel-alpha-white.png",
+        imagePath: "/images/products/alpha",
         specs: {
           "Câmera Térmica": "640×512 @ 25Hz",
           "Zoom Óptico": "30x",

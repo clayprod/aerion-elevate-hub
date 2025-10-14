@@ -1,13 +1,29 @@
 import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
+import { useProductImages } from '@/hooks/useProductImages';
 
 interface ProductGalleryProps {
-  images: string[];
+  imagePath: string; // Base path to numbered images (1.png, 2.png, etc.)
   title: string;
 }
 
-export const ProductGallery: React.FC<ProductGalleryProps> = ({ images, title }) => {
+export const ProductGallery: React.FC<ProductGalleryProps> = ({ imagePath, title }) => {
+  const { images, loading } = useProductImages(imagePath);
   const [selectedImage, setSelectedImage] = useState(0);
+
+  if (loading) {
+    return (
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <div className="animate-pulse">Carregando galeria...</div>
+        </div>
+      </section>
+    );
+  }
+
+  if (images.length === 0) {
+    return null; // Don't show gallery if no images available
+  }
 
   return (
     <section className="py-16 bg-gray-50">
@@ -21,17 +37,25 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({ images, title })
           <div className="lg:col-span-2">
             <Card className="overflow-hidden">
               <img
-                src={images[selectedImage]}
-                alt={`${title} - Imagem ${selectedImage + 1}`}
-                className="w-full h-96 object-cover hover:scale-105 transition-transform duration-300"
+                src={images[selectedImage].src}
+                alt={`${title} - ${images[selectedImage].label}`}
+                className="w-full h-96 object-contain bg-white p-8 hover:scale-105 transition-transform duration-300"
               />
+              <div className="p-4 bg-gray-100 text-center border-t">
+                <p className="font-semibold text-gray-900">
+                  {images[selectedImage].label}
+                </p>
+                <p className="text-sm text-gray-600 mt-1">
+                  Vista {images[selectedImage].viewNumber} de {images.length}
+                </p>
+              </div>
             </Card>
           </div>
           
           {/* Thumbnail Grid */}
           <div className="space-y-4">
             <h3 className="text-xl font-semibold text-gray-900 mb-4">
-              Visualizações
+              Visualizações Disponíveis
             </h3>
             <div className="grid grid-cols-2 gap-4">
               {images.map((image, index) => (
@@ -43,18 +67,39 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({ images, title })
                       ? 'ring-2 ring-blue-600 scale-105'
                       : 'hover:scale-105'
                   }`}
+                  title={image.label}
                 >
                   <img
-                    src={image}
-                    alt={`${title} - Thumbnail ${index + 1}`}
-                    className="w-full h-24 object-cover"
+                    src={image.src}
+                    alt={image.label}
+                    className="w-full h-24 object-contain bg-white p-2"
                   />
                   {selectedImage === index && (
                     <div className="absolute inset-0 bg-blue-600 bg-opacity-20" />
                   )}
+                  <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 text-white text-xs py-1 px-2 truncate">
+                    {image.label}
+                  </div>
+                  {image.viewNumber === 8 && (
+                    <div className="absolute top-1 right-1 bg-orange-500 text-white text-xs px-2 py-1 rounded-full">
+                      ✈️
+                    </div>
+                  )}
                 </button>
               ))}
             </div>
+            
+            {/* Destaque para Modo Compactado */}
+            {images.some(img => img.viewNumber === 8) && (
+              <div className="mt-4 p-4 bg-blue-50 rounded-lg border-2 border-blue-200">
+                <p className="text-sm font-semibold text-blue-900">
+                  ✈️ Portátil e Compacto
+                </p>
+                <p className="text-xs text-blue-700 mt-1">
+                  Veja o drone em modo compactado para transporte
+                </p>
+              </div>
+            )}
           </div>
         </div>
         

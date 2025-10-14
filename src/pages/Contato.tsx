@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, Instagram } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -200,17 +200,30 @@ const Contato = () => {
                   
                   <div className="space-y-6">
                     <a
-                      href="https://wa.me/5511934668839"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href="tel:+551151024229"
                       className="flex items-start space-x-4 group hover:bg-gray-light/30 p-3 rounded-lg transition-colors"
                     >
                       <div className="w-12 h-12 rounded-lg bg-aerion-blue/10 flex items-center justify-center flex-shrink-0 group-hover:bg-aerion-blue/20 transition-colors">
                         <Phone className="h-6 w-6 text-aerion-blue" />
                       </div>
                       <div>
-                        <p className="text-sm font-heading font-semibold text-gray-dark">WhatsApp</p>
-                        <p className="text-navy-deep font-semibold">+55 11 93466-8839</p>
+                        <p className="text-sm font-heading font-semibold text-gray-dark">Telefone</p>
+                        <p className="text-navy-deep font-semibold">+55 11 5102-4229</p>
+                      </div>
+                    </a>
+
+                    <a
+                      href="https://wa.me/5511943668839"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-start space-x-4 group hover:bg-gray-light/30 p-3 rounded-lg transition-colors"
+                    >
+                      <div className="w-12 h-12 rounded-lg bg-green-500/10 flex items-center justify-center flex-shrink-0 group-hover:bg-green-500/20 transition-colors">
+                        <Phone className="h-6 w-6 text-green-500" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-heading font-semibold text-gray-dark">WhatsApp Comercial</p>
+                        <p className="text-navy-deep font-semibold">+55 11 94366-8839</p>
                       </div>
                     </a>
 
@@ -251,6 +264,21 @@ const Contato = () => {
                         <p className="text-navy-deep font-semibold">Seg-Sex: 9h-18h</p>
                       </div>
                     </div>
+
+                    <a
+                      href="https://instagram.com/aerion.technologies"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-start space-x-4 group hover:bg-gray-light/30 p-3 rounded-lg transition-colors"
+                    >
+                      <div className="w-12 h-12 rounded-lg bg-pink-500/10 flex items-center justify-center flex-shrink-0 group-hover:bg-pink-500/20 transition-colors">
+                        <Instagram className="h-6 w-6 text-pink-500" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-heading font-semibold text-gray-dark">Instagram</p>
+                        <p className="text-navy-deep font-semibold">@aerion.technologies</p>
+                      </div>
+                    </a>
                   </div>
                 </div>
 
