@@ -53,11 +53,11 @@ const products = [
 
 const ProductsSection = () => {
   return (
-    <section className="py-20 md:py-28 bg-gray-light/30">
+    <section className="py-12 md:py-16 bg-gray-light/30">
       <div className="container-custom">
         {/* Section Header */}
-        <div className="text-center mb-8">
-          <h2 className="text-4xl md:text-5xl font-heading font-bold text-navy-deep mb-2">
+        <div className="text-center mb-6">
+          <h2 className="text-4xl md:text-5xl font-heading font-bold text-navy-deep mb-1">
             Conheça os Produtos Autel
           </h2>
           <p className="text-lg md:text-xl text-gray-dark max-w-3xl mx-auto">

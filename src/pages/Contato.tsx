@@ -70,11 +70,11 @@ const Contato = () => {
         </section>
 
         {/* Contact Content */}
-        <section className="py-16">
+        <section className="py-20">
           <div className="container-custom">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
               {/* Contact Form */}
-              <div className="lg:col-span-2">
+              <div className="lg:col-span-3">
                 <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
                   <h2 className="text-3xl font-heading font-bold text-navy-deep mb-6">
                     Envie sua Mensagem
@@ -191,23 +191,23 @@ const Contato = () => {
               </div>
 
               {/* Contact Info */}
-              <div className="space-y-6">
+              <div className="lg:col-span-2 space-y-6">
                 {/* Contact Details Card */}
                 <div className="bg-white rounded-2xl shadow-lg p-8">
-                  <h3 className="text-2xl font-heading font-bold text-navy-deep mb-6">
+                  <h3 className="text-2xl font-heading font-bold text-navy-deep mb-8">
                     Informações de Contato
                   </h3>
                   
-                  <div className="space-y-6">
+                  <div className="space-y-4">
                     <a
                       href="tel:+551151024229"
-                      className="flex items-start space-x-4 group hover:bg-gray-light/30 p-3 rounded-lg transition-colors"
+                      className="flex items-center space-x-4 group hover:bg-gray-light/30 p-4 rounded-xl transition-all duration-200 hover:shadow-sm"
                     >
-                      <div className="w-12 h-12 rounded-lg bg-blue-medium/10 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-medium/20 transition-colors">
-                        <Phone className="h-6 w-6 text-blue-medium" />
+                      <div className="w-14 h-14 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-medium/20 transition-colors">
+                        <Phone className="h-7 w-7 text-blue-medium" />
                       </div>
                       <div>
-                        <p className="text-sm font-heading font-semibold text-gray-dark">Telefone</p>
+                        <p className="text-sm font-heading font-semibold text-gray-dark mb-1">Telefone</p>
                         <p className="text-navy-deep font-semibold">+55 11 5102-4229</p>
                       </div>
                     </a>
@@ -216,36 +216,36 @@ const Contato = () => {
                       href="https://wa.me/5511934668839"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-start space-x-4 group hover:bg-gray-light/30 p-3 rounded-lg transition-colors"
+                      className="flex items-center space-x-4 group hover:bg-gray-light/30 p-4 rounded-xl transition-all duration-200 hover:shadow-sm"
                     >
-                      <div className="w-12 h-12 rounded-lg bg-green-500/10 flex items-center justify-center flex-shrink-0 group-hover:bg-green-500/20 transition-colors">
-                        <MessageCircle className="h-6 w-6 text-green-500" />
+                      <div className="w-14 h-14 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-medium/20 transition-colors">
+                        <MessageCircle className="h-7 w-7 text-blue-medium" />
                       </div>
                       <div>
-                        <p className="text-sm font-heading font-semibold text-gray-dark">WhatsApp (Comercial)</p>
+                        <p className="text-sm font-heading font-semibold text-gray-dark mb-1">WhatsApp (Comercial)</p>
                         <p className="text-navy-deep font-semibold">+55 11 93466-8839</p>
                       </div>
                     </a>
 
                     <a
                       href="mailto:comercial@aerion.com.br"
-                      className="flex items-start space-x-4 group hover:bg-gray-light/30 p-3 rounded-lg transition-colors"
+                      className="flex items-center space-x-4 group hover:bg-gray-light/30 p-4 rounded-xl transition-all duration-200 hover:shadow-sm"
                     >
-                      <div className="w-12 h-12 rounded-lg bg-blue-dark/10 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-dark/20 transition-colors">
-                        <Mail className="h-6 w-6 text-blue-dark" />
+                      <div className="w-14 h-14 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-medium/20 transition-colors">
+                        <Mail className="h-7 w-7 text-blue-medium" />
                       </div>
                       <div>
-                        <p className="text-sm font-heading font-semibold text-gray-dark">Email</p>
+                        <p className="text-sm font-heading font-semibold text-gray-dark mb-1">Email</p>
                         <p className="text-navy-deep font-semibold">comercial@aerion.com.br</p>
                       </div>
                     </a>
 
-                    <div className="flex items-start space-x-4 p-3">
-                      <div className="w-12 h-12 rounded-lg bg-orange-energy/10 flex items-center justify-center flex-shrink-0">
-                        <MapPin className="h-6 w-6 text-orange-energy" />
+                    <div className="flex items-start space-x-4 p-4">
+                      <div className="w-14 h-14 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0">
+                        <MapPin className="h-7 w-7 text-blue-medium" />
                       </div>
                       <div>
-                        <p className="text-sm font-heading font-semibold text-gray-dark">Endereço</p>
+                        <p className="text-sm font-heading font-semibold text-gray-dark mb-1">Endereço</p>
                         <p className="text-navy-deep font-semibold leading-relaxed">
                           Edifício Itamaracá<br />
                           R. Quintana 887, Cj. 111, 11º Andar<br />
@@ -255,12 +255,12 @@ const Contato = () => {
                       </div>
                     </div>
 
-                    <div className="flex items-start space-x-4 p-3">
-                      <div className="w-12 h-12 rounded-lg bg-green-success/10 flex items-center justify-center flex-shrink-0">
-                        <Clock className="h-6 w-6 text-green-success" />
+                    <div className="flex items-center space-x-4 p-4">
+                      <div className="w-14 h-14 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0">
+                        <Clock className="h-7 w-7 text-blue-medium" />
                       </div>
                       <div>
-                        <p className="text-sm font-heading font-semibold text-gray-dark">Horário</p>
+                        <p className="text-sm font-heading font-semibold text-gray-dark mb-1">Horário</p>
                         <p className="text-navy-deep font-semibold">Seg-Sex: 9h-18h</p>
                       </div>
                     </div>
@@ -269,13 +269,13 @@ const Contato = () => {
                       href="https://instagram.com/aerion.technologies"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-start space-x-4 group hover:bg-gray-light/30 p-3 rounded-lg transition-colors"
+                      className="flex items-center space-x-4 group hover:bg-gray-light/30 p-4 rounded-xl transition-all duration-200 hover:shadow-sm"
                     >
-                      <div className="w-12 h-12 rounded-lg bg-pink-500/10 flex items-center justify-center flex-shrink-0 group-hover:bg-pink-500/20 transition-colors">
-                        <Instagram className="h-6 w-6 text-pink-500" />
+                      <div className="w-14 h-14 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-medium/20 transition-colors">
+                        <Instagram className="h-7 w-7 text-blue-medium" />
                       </div>
                       <div>
-                        <p className="text-sm font-heading font-semibold text-gray-dark">Instagram</p>
+                        <p className="text-sm font-heading font-semibold text-gray-dark mb-1">Instagram</p>
                         <p className="text-navy-deep font-semibold">@aerion.technologies</p>
                       </div>
                     </a>
@@ -283,7 +283,10 @@ const Contato = () => {
                 </div>
 
                 {/* Quick Response Card */}
-                <div className="bg-gradient-accent rounded-2xl shadow-lg p-8 text-white">
+                <div className="bg-gradient-to-br from-blue-medium to-blue-dark rounded-2xl shadow-lg p-8 text-white">
+                  <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center mb-4">
+                    <Clock className="h-6 w-6 text-white" />
+                  </div>
                   <h3 className="text-xl font-heading font-bold mb-3">
                     Resposta Rápida
                   </h3>

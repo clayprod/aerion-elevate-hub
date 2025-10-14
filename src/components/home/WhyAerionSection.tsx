@@ -39,7 +39,7 @@ const differentials = [
 
 const WhyAerionSection = () => {
   return (
-    <section className="py-20 md:py-28 bg-white relative overflow-hidden">
+    <section className="py-12 md:py-16 bg-white relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-0 right-0 w-96 h-96 bg-blue-dark rounded-full blur-3xl" />
@@ -48,8 +48,8 @@ const WhyAerionSection = () => {
 
       <div className="container-custom relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-heading font-bold text-navy-deep mb-4">
+        <div className="text-center mb-8">
+          <h2 className="text-4xl md:text-5xl font-heading font-bold text-navy-deep mb-2">
             Por Que Escolher Aerion?
           </h2>
           <p className="text-lg md:text-xl text-gray-dark max-w-3xl mx-auto">
