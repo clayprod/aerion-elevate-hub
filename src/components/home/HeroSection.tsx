@@ -5,7 +5,7 @@ import { YouTubeVideoBackground } from "../YouTubeVideoBackground";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden pt-20">
+    <section className="relative min-h-screen flex items-center overflow-hidden pt-16 pb-16 sm:pt-20 sm:pb-20 md:pt-24 md:pb-24">
       {/* YouTube Video Background with Fallback */}
       <YouTubeVideoBackground
         videoId="IaKUtdAdG5w"
@@ -23,7 +23,7 @@ const HeroSection = () => {
         <div className="absolute top-1/2 left-1/3 w-48 h-48 border-2 border-blue-medium rotate-45 animate-float" style={{ animationDelay: '2s' }} />
       </div>
 
-              <div className="container-custom relative z-30">
+              <div className="container-custom relative z-30 py-8 sm:py-12 md:py-16">
         <div className="max-w-4xl">
 
           {/* Main Headline */}
@@ -58,7 +58,7 @@ const HeroSection = () => {
               </div>
               <div>
                 <h3 className="text-white font-heading font-semibold mb-1 text-sm">Câmeras térmicas e 6K</h3>
-                <p className="text-white/80 text-xs">Câmeras térmicas singulares ou duplas</p>
+                <p className="text-white/80 text-xs">Não perca nenhum detalhe com alta resolução</p>
               </div>
             </div>
 
@@ -112,7 +112,7 @@ const HeroSection = () => {
           </div>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-4 animate-slide-up" style={{ animationDelay: '0.6s' }}>
+          <div className="flex flex-col sm:flex-row gap-4 mb-8 sm:mb-12 animate-slide-up" style={{ animationDelay: '0.6s' }}>
             <Button
               asChild
               size="lg"
