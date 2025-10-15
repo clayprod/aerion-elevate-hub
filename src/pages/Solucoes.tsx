@@ -90,7 +90,7 @@ const Solucoes = () => {
           </div>
 
           {/* Solutions Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {solutions.map((solution, index) => (
               <Card
                 key={solution.id}
@@ -99,19 +99,62 @@ const Solucoes = () => {
               >
                 <Link to={`/solucoes/${solution.id}`} className="block">
                   {/* Background Image with Overlay */}
-                  <div className="relative h-96 overflow-hidden">
+                  <div className="relative h-64 overflow-hidden">
                     <img
                       src={solution.image}
                       alt={solution.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                     />
-                    <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                     
-                    {/* Title Overlay */}
+                    {/* Title and Tagline Overlay */}
                     <div className="absolute bottom-0 left-0 right-0 p-6">
                       <h2 className="text-2xl font-heading font-bold text-white mb-2">
                         {solution.title}
                       </h2>
+                      <p className="text-white/90 text-sm font-medium">
+                        {solution.tagline}
+                      </p>
+                    </div>
+                  </div>
+                  
+                  {/* Content Section */}
+                  <div className="p-6">
+                    <p className="text-gray-dark leading-relaxed mb-6">
+                      {solution.description}
+                    </p>
+                    
+                    {/* Key Applications */}
+                    <div className="mb-6">
+                      <h4 className="text-sm font-heading font-semibold text-navy-deep mb-3 uppercase tracking-wide">
+                        Principais Aplicações
+                      </h4>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        {solution.needs.slice(0, 4).map((need, needIndex) => (
+                          <div key={needIndex} className="flex items-start space-x-2">
+                            <div className="w-1.5 h-1.5 bg-blue-medium rounded-full mt-2 flex-shrink-0" />
+                            <span className="text-sm text-gray-dark leading-relaxed">
+                              {need}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                      {solution.needs.length > 4 && (
+                        <p className="text-xs text-gray-medium mt-2">
+                          +{solution.needs.length - 4} outras aplicações
+                        </p>
+                      )}
+                    </div>
+                    
+                    {/* CTA */}
+                    <div className="flex items-center justify-between">
+                      <div className="inline-flex items-center font-heading font-semibold text-blue-medium group-hover:translate-x-2 transition-transform">
+                        Saiba mais
+                        <ArrowRight className="w-4 h-4 ml-1" />
+                      </div>
+                      <div className="text-xs text-gray-medium">
+                        Solução completa
+                      </div>
                     </div>
                   </div>
                 </Link>
