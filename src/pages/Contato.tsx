@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Phone, MapPin, Clock, Instagram, MessageCircle } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, Instagram, MessageCircle, Loader2 } from "lucide-react";
+import emailjs from '@emailjs/browser';
 import {
   Select,
   SelectContent,
@@ -16,6 +17,7 @@ import {
 
 const Contato = () => {
   const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -25,9 +27,10 @@ const Contato = () => {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Validação dos campos obrigatórios
     if (!formData.name || !formData.email || !formData.vertical || !formData.message) {
       toast({
         title: "Campos obrigatórios",
@@ -37,19 +40,88 @@ const Contato = () => {
       return;
     }
 
-    toast({
-      title: "Mensagem enviada!",
-      description: "Entraremos em contato em até 24 horas.",
-    });
+    // Validação do email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast({
+        title: "Email inválido",
+        description: "Por favor, insira um email válido.",
+        variant: "destructive",
+      });
+      return;
+    }
 
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      company: "",
-      vertical: "",
-      message: "",
-    });
+    // Validação da mensagem (mínimo 10 caracteres)
+    if (formData.message.length < 10) {
+      toast({
+        title: "Mensagem muito curta",
+        description: "A mensagem deve ter pelo menos 10 caracteres.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      // Configurar EmailJS
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+      if (!serviceId || !templateId || !publicKey) {
+        throw new Error('Configuração do EmailJS não encontrada');
+      }
+
+      // Mapear vertical para texto legível
+      const verticalMap: { [key: string]: string } = {
+        'construcao': 'Construção e Topografia',
+        'industrial': 'Inspeção Industrial e Energia',
+        'seguranca': 'Segurança Pública e Defesa Civil',
+        'resgate': 'Resgate e Emergências',
+        'outro': 'Outro'
+      };
+
+      // Preparar dados para o template
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        phone: formData.phone || 'Não informado',
+        company: formData.company || 'Não informado',
+        vertical: verticalMap[formData.vertical] || formData.vertical,
+        message: formData.message,
+        to_name: 'Equipe Aerion Technologies'
+      };
+
+      // Enviar email via EmailJS
+      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+
+      // Sucesso
+      toast({
+        title: "Mensagem enviada com sucesso!",
+        description: "Entraremos em contato em até 24 horas.",
+      });
+
+      // Limpar formulário
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        company: "",
+        vertical: "",
+        message: "",
+      });
+
+    } catch (error) {
+      console.error('Erro ao enviar email:', error);
+      toast({
+        title: "Erro ao enviar mensagem",
+        description: "Ocorreu um erro ao enviar sua mensagem. Tente novamente ou entre em contato por telefone.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -178,9 +250,17 @@ const Contato = () => {
                     <Button
                       type="submit"
                       size="lg"
-                      className="w-full bg-action hover:bg-action/90 text-action-foreground font-heading font-semibold text-lg"
+                      disabled={isLoading}
+                      className="w-full bg-action hover:bg-action/90 text-action-foreground font-heading font-semibold text-lg disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      Enviar Mensagem
+                      {isLoading ? (
+                        <>
+                          <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                          Enviando...
+                        </>
+                      ) : (
+                        "Enviar Mensagem"
+                      )}
                     </Button>
 
                     <p className="text-xs text-gray-medium text-center mt-4">

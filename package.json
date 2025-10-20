@@ -15,6 +15,7 @@
     "docker:compose": "docker-compose up -d"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.3.3",
     "@hookform/resolvers": "^3.10.0",
     "@radix-ui/react-accordion": "^1.2.11",
     "@radix-ui/react-alert-dialog": "^1.1.14",
