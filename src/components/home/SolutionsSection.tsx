@@ -31,10 +31,10 @@ const solutions = [
 
 const SolutionsSection = () => {
   return (
-    <section className="py-20 md:py-28 bg-white">
+    <section className="py-12 md:py-16 bg-white">
       <div className="container-custom">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-heading font-bold text-navy-deep mb-4">
             Soluções para Cada Segmento
           </h2>
