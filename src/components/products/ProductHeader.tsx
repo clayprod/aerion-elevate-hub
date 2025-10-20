@@ -41,6 +41,15 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
   const [isZooming, setIsZooming] = useState(false);
   const [zoomPosition, setZoomPosition] = useState({ x: 50, y: 50 });
 
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      // You could add a toast notification here if needed
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+    }
+  };
+
   const downloadImage = (imageUrl: string) => {
     const link = document.createElement('a');
     link.href = imageUrl;
@@ -76,17 +85,18 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
               {images.slice(0, 8).map((image, index) => (
                 <div
                   key={index}
-                  className={`relative w-16 h-16 bg-gray-100 rounded-lg cursor-pointer transition-all duration-300 hover:scale-105 p-1 ${
+                  className={`relative w-16 h-16 rounded-lg cursor-pointer transition-all duration-300 hover:scale-105 p-1 ${
                     selectedImage === index 
-                      ? 'ring-2 ring-blue-bright ring-offset-2' 
-                      : ''
+                      ? 'bg-blue-bright border-2 border-blue-bright' 
+                      : 'bg-gray-100 border-2 border-gray-300'
                   }`}
                   onClick={() => setSelectedImage(index)}
                 >
                   <img
                     src={image}
                     alt={`${name} - Miniatura ${index + 1}`}
-                    className="w-full h-full object-contain bg-white p-1 rounded-md"
+                    className="w-full h-full object-contain bg-white rounded-md"
+                    style={{ padding: '2px' }}
                   />
                 </div>
               ))}

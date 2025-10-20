@@ -11,7 +11,6 @@ const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [isSignUp, setIsSignUp] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -22,41 +21,24 @@ const Auth = () => {
     }
   }, [user, navigate]);
 
-  const handleAuth = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      if (isSignUp) {
-        const { error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: {
-            emailRedirectTo: `${window.location.origin}/`,
-          },
-        });
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-        if (error) throw error;
+      if (error) throw error;
 
-        toast({
-          title: "Conta criada!",
-          description: "Você foi registrado com sucesso.",
-        });
-      } else {
-        const { error } = await supabase.auth.signInWithPassword({
-          email,
-          password,
-        });
-
-        if (error) throw error;
-
-        toast({
-          title: "Login realizado!",
-          description: "Bem-vindo de volta.",
-        });
-        
-        navigate("/");
-      }
+      toast({
+        title: "Login realizado!",
+        description: "Bem-vindo de volta.",
+      });
+      
+      navigate("/");
     } catch (error: any) {
       toast({
         title: "Erro",
@@ -72,10 +54,10 @@ const Auth = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-primary">
       <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
         <h1 className="text-3xl font-heading font-bold text-navy-deep mb-6 text-center">
-          {isSignUp ? "Criar Conta" : "Login"}
+          Login Administrativo
         </h1>
 
-        <form onSubmit={handleAuth} className="space-y-4">
+        <form onSubmit={handleLogin} className="space-y-4">
           <div>
             <label htmlFor="email" className="block text-sm font-heading font-semibold text-navy-deep mb-2">
               Email
@@ -111,18 +93,9 @@ const Auth = () => {
             disabled={loading}
             className="w-full bg-action hover:bg-action/90 text-action-foreground font-heading font-semibold"
           >
-            {loading ? "Processando..." : isSignUp ? "Criar Conta" : "Entrar"}
+            {loading ? "Processando..." : "Entrar"}
           </Button>
         </form>
-
-        <div className="mt-6 text-center">
-          <button
-            onClick={() => setIsSignUp(!isSignUp)}
-            className="text-sm text-aerion-blue hover:underline font-heading"
-          >
-            {isSignUp ? "Já tem conta? Faça login" : "Não tem conta? Registre-se"}
-          </button>
-        </div>
       </div>
     </div>
   );
