@@ -8,22 +8,24 @@ Os posts do blog não estão sendo carregados devido a problemas na configuraç�
 - ✅ `Using real Supabase credentials` - Credenciais carregadas
 - ✅ `Supabase client initialized: true` - Cliente inicializado  
 - ❌ `400 (Bad Request)` - Erro na requisição
-- ❌ URL incorreta: `rijzunhodxapuiomvojd.supabase.co` (deveria ser `rsacugkufrqwrgclgbgb.supabase.co`)
+- ❌ URL no .env incorreta: `rsacugkufrqwrgclgbgb.supabase.co` (deveria ser `rijzunhodxapuiomvojd.supabase.co`)
 
 ## Solução
 
 ### 1. Corrigir o arquivo `.env`
 
-O arquivo `.env` está usando `VITE_SUPABASE_PUBLISHABLE_KEY` mas o código espera `VITE_SUPABASE_ANON_KEY`.
+O arquivo `.env` tem **duas configurações incorretas**:
 
-**Altere esta linha no arquivo `.env`:**
+**Substitua TODO o conteúdo do arquivo `.env` por:**
 ```bash
-# ❌ Incorreto (linha atual)
-VITE_SUPABASE_PUBLISHABLE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-
-# ✅ Correto (substitua por esta)
-VITE_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+VITE_SUPABASE_PROJECT_ID="rijzunhodxapuiomvojd"
+VITE_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJzYWN1Z2t1ZnJxd3JnY2xnYmdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAxNTczNTMsImV4cCI6MjA3NTczMzM1M30.XEgEqrKewHPjWN1yFJfN8xXmmsRmrAXAbAq4PqwkDBc"
+VITE_SUPABASE_URL="https://rijzunhodxapuiomvojd.supabase.co"
 ```
+
+**Problemas identificados:**
+- ❌ URL incorreta: `rsacugkufrqwrgclgbgb.supabase.co` → ✅ `rijzunhodxapuiomvojd.supabase.co`
+- ❌ Variável incorreta: `VITE_SUPABASE_PUBLISHABLE_KEY` → ✅ `VITE_SUPABASE_ANON_KEY`
 
 ### 2. Limpar cache e reiniciar
 
