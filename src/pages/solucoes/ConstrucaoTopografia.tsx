@@ -104,25 +104,25 @@ const ConstrucaoTopografia = () => {
     {
       title: "Levantamentos Topográficos",
       description: "Mapeamento preciso de terrenos para projetos de engenharia",
-      image: "/images/lifestyle/construction-1.jpeg",
+      image: "/images/solucoes/casos-uso-construcao/levantamentos-topograficos.jpg",
       results: ["Precisão centimétrica", "Redução de 80% no tempo", "Dados integrados ao BIM"]
     },
     {
       title: "Inspeção de Estruturas",
       description: "Verificação térmica e visual de edifícios e pontes",
-      image: "/images/lifestyle/construction-2.jpg",
+      image: "/images/solucoes/casos-uso-construcao/inspecao-estruturas.jpg",
       results: ["Detecção de falhas", "Relatórios automatizados", "Manutenção preditiva"]
     },
     {
       title: "Mapeamento Urbano",
       description: "Cadastro territorial e planejamento urbano",
-      image: "/images/lifestyle/construction-3.jpg",
+      image: "/images/solucoes/casos-uso-construcao/mapeamento-urbano.jpg",
       results: ["Ortofotos atualizadas", "Modelos 3D precisos", "Planejamento otimizado"]
     },
     {
       title: "Medição de Volumes",
       description: "Cálculo preciso de volumes de terra e materiais",
-      image: "/images/lifestyle/construction-4.jpg",
+      image: "/images/solucoes/casos-uso-construcao/medicao-volumes.jpg",
       results: ["Medições automáticas", "Controle de estoque", "Otimização de custos"]
     }
   ];
@@ -164,7 +164,7 @@ const ConstrucaoTopografia = () => {
               </div>
               <div className="relative">
                 <img
-                  src="/images/lifestyle/construction-1.jpeg"
+                  src="/images/solucoes/casos-uso-construcao/levantamentos-topograficos.jpg"
                   alt="Construção e Topografia com Drones"
                   className="rounded-2xl shadow-2xl"
                 />

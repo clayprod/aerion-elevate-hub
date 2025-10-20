@@ -105,7 +105,7 @@ const InspecaoIndustrial = () => {
     {
       title: "Energia Solar",
       description: "Inspeção térmica de painéis solares e detecção de falhas",
-      image: "/images/lifestyle/oil-and-gas-1.jpg",
+      image: "/images/solucoes/setores-atendidos/energia-solar.jpg",
       applications: [
         "Detecção de hot spots em painéis",
         "Mapeamento de falhas em usinas",
@@ -117,7 +117,7 @@ const InspecaoIndustrial = () => {
     {
       title: "Óleo & Gás",
       description: "Monitoramento de oleodutos, gasodutos e instalações offshore",
-      image: "/images/lifestyle/oil-and-gas-1.jpg",
+      image: "/images/solucoes/setores-atendidos/oleo-gas.jpg",
       applications: [
         "Inspeção de oleodutos",
         "Monitoramento de plataformas",
@@ -129,7 +129,7 @@ const InspecaoIndustrial = () => {
     {
       title: "Mineração",
       description: "Inspeção de equipamentos, pilhas de rejeito e áreas de risco",
-      image: "/images/lifestyle/construction-3.jpg",
+      image: "/images/solucoes/inspecao-industrial/mineracao.jpg",
       applications: [
         "Inspeção de equipamentos pesados",
         "Monitoramento de pilhas de rejeito",
@@ -141,7 +141,7 @@ const InspecaoIndustrial = () => {
     {
       title: "Transmissão de Energia",
       description: "Inspeção de linhas de transmissão, torres e subestações",
-      image: "/images/lifestyle/construction-2.jpg",
+      image: "/images/solucoes/inspecao-industrial/transmissao-energia.jpg",
       applications: [
         "Inspeção de linhas de transmissão",
         "Verificação de torres",
@@ -216,7 +216,7 @@ const InspecaoIndustrial = () => {
               </div>
               <div className="relative">
                 <img
-                  src="/images/lifestyle/oil-and-gas-1.jpg"
+                  src="/images/solucoes/setores-atendidos/oleo-gas.jpg"
                   alt="Inspeção Industrial com Drones"
                   className="rounded-2xl shadow-2xl"
                 />

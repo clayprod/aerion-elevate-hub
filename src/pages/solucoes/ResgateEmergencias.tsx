@@ -106,7 +106,7 @@ const ResgateEmergencias = () => {
     {
       title: "Busca e Resgate de Vítimas",
       description: "Localização eficiente de pessoas desaparecidas com câmera térmica",
-      image: "/images/lifestyle/rescue-2.jpg",
+      image: "/images/solucoes/resgate-emergencias/busca-resgate-vitimas.jpg",
       features: [
         "Detecção térmica de vítimas",
         "Busca em áreas extensas",
@@ -118,7 +118,7 @@ const ResgateEmergencias = () => {
     {
       title: "Combate a Incêndios Florestais",
       description: "Prevenção e combate eficaz a incêndios com detecção precoce",
-      image: "/images/lifestyle/construction-2.jpg",
+      image: "/images/solucoes/resgate-emergencias/combate-incendios-florestais.jpg",
       features: [
         "Detecção de focos de incêndio",
         "Monitoramento de propagação",
@@ -130,7 +130,7 @@ const ResgateEmergencias = () => {
     {
       title: "Resposta a Desastres",
       description: "Avaliação rápida de danos e coordenação de resgate",
-      image: "/images/lifestyle/construction-3.jpg",
+      image: "/images/solucoes/resgate-emergencias/resposta-desastres.jpg",
       features: [
         "Avaliação de danos",
         "Mapeamento de áreas afetadas",
@@ -142,7 +142,7 @@ const ResgateEmergencias = () => {
     {
       title: "Monitoramento Ambiental",
       description: "Prevenção de queimadas e monitoramento de áreas de risco",
-      image: "/images/lifestyle/construction-4.jpg",
+      image: "/images/solucoes/resgate-emergencias/monitoramento-ambiental.jpg",
       features: [
         "Monitoramento de queimadas",
         "Detecção de focos",
@@ -217,7 +217,7 @@ const ResgateEmergencias = () => {
               </div>
               <div className="relative">
                 <img
-                  src="/images/lifestyle/rescue-2.jpg"
+                  src="/images/solucoes/resgate-emergencias/busca-resgate-vitimas.jpg"
                   alt="Resgate e Emergências com Drones"
                   className="rounded-2xl shadow-2xl"
                 />

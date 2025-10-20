@@ -105,7 +105,7 @@ const SegurancaPublica = () => {
     {
       title: "Patrulhamento Inteligente",
       description: "Monitoramento proativo de áreas urbanas e rurais",
-      image: "/images/lifestyle/public-safety-1-alpha.jpg",
+      image: "/images/solucoes/seguranca-publica/patrulhamento-inteligente.jpg",
       features: [
         "Roteiros automatizados",
         "Detecção de anomalias",
@@ -117,7 +117,7 @@ const SegurancaPublica = () => {
     {
       title: "Busca e Resgate",
       description: "Localização eficiente de pessoas desaparecidas",
-      image: "/images/lifestyle/public-safety-2-alpha.jpg",
+      image: "/images/solucoes/seguranca-publica/busca-resgate.jpg",
       features: [
         "Câmera térmica para busca noturna",
         "Alcance de até 20km",
@@ -129,7 +129,7 @@ const SegurancaPublica = () => {
     {
       title: "Gestão de Tráfego",
       description: "Monitoramento e fiscalização de trânsito",
-      image: "/images/lifestyle/public-safety-3-max.jpg",
+      image: "/images/solucoes/seguranca-publica/gestao-trafego.jpg",
       features: [
         "Monitoramento de congestionamentos",
         "Detecção de infrações",
@@ -141,7 +141,7 @@ const SegurancaPublica = () => {
     {
       title: "Monitoramento de Eventos",
       description: "Segurança em eventos de massa e manifestações",
-      image: "/images/lifestyle/construction-1.jpeg",
+      image: "/images/solucoes/seguranca-publica/monitoramento-eventos.jpg",
       features: [
         "Visão aérea completa",
         "Detecção de aglomerações",
@@ -216,7 +216,7 @@ const SegurancaPublica = () => {
               </div>
               <div className="relative">
                 <img
-                  src="/images/lifestyle/public-safety-1-alpha.jpg"
+                  src="/images/solucoes/seguranca-publica/patrulhamento-inteligente.jpg"
                   alt="Segurança Pública com Drones"
                   className="rounded-2xl shadow-2xl"
                 />
