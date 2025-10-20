@@ -284,7 +284,7 @@ const ConstrucaoTopografia = () => {
                     <img
                       src={useCase.image}
                       alt={useCase.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover object-top"
                     />
                   </div>
                   
