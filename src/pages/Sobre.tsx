@@ -16,11 +16,42 @@ const Sobre = () => {
         <section className="bg-gradient-primary py-10 text-white">
           <div className="container-custom text-center">
             <h1 className="text-3xl md:text-4xl font-heading font-bold mb-6">
-              Sobre a Aerion Technologies
+              Sobre a Autel
             </h1>
             <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto">
               Distribuindo o futuro da tecnologia aérea no Brasil desde 2026
             </p>
+          </div>
+        </section>
+
+        {/* Story Section */}
+        <section className="py-10 bg-gray-light/30">
+          <div className="container-custom max-w-4xl">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl md:text-4xl font-heading font-bold text-navy-deep mb-4">
+                Nossa História
+              </h2>
+              <p className="text-lg text-gray-dark max-w-2xl mx-auto">
+                Uma equipe apaixonada por tecnologia e comprometida com a excelência
+              </p>
+            </div>
+            
+            <div className="prose prose-lg mx-auto">
+              <div className="bg-white p-8 rounded-2xl shadow-lg">
+                <p className="text-xl text-gray-dark leading-relaxed mb-6">
+                  Nossa equipe é formada por especialistas apaixonados por tecnologia aérea, com anos de experiência em aplicações profissionais de drones. Cada membro da Aerion Technologies traz consigo um profundo conhecimento técnico e uma visão clara de como a tecnologia pode transformar operações e impulsionar resultados.
+                </p>
+                <p className="text-lg text-gray-dark leading-relaxed mb-6">
+                  Nossa paixão vai além da simples distribuição de produtos. Somos entusiastas da tecnologia que acreditam no potencial transformador dos drones profissionais. Cada projeto que desenvolvemos é uma oportunidade de demonstrar nossa expertise e comprometimento com a excelência técnica.
+                </p>
+                <p className="text-lg text-gray-dark leading-relaxed mb-6">
+                  Construímos não apenas uma rede de distribuição, mas uma comunidade de especialistas que compreendem as nuances de cada setor. Nossa equipe dedica-se a entender profundamente as necessidades específicas de nossos clientes, desde os desafios únicos da construção civil até as exigências críticas da segurança pública.
+                </p>
+                <p className="text-lg text-gray-dark leading-relaxed">
+                  Esta paixão pela tecnologia e compromisso com a excelência é o que nos motiva a trazer as melhores soluções Autel para o Brasil, sempre com o suporte técnico especializado que nossos clientes merecem.
+                </p>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -32,7 +63,7 @@ const Sobre = () => {
                 <div className="mb-6">
                   <AutelLogo 
                     className="h-10 md:h-12 w-auto" 
-                    textFallback="Sobre a Autel Robotics"
+                    textFallback="Sobre a Autel"
                   />
                 </div>
                 <p className="text-lg text-gray-dark max-w-3xl mx-auto">
@@ -127,33 +158,6 @@ const Sobre = () => {
           </div>
         </section>
 
-        {/* Story Section */}
-        <section className="py-10 bg-gray-light/30">
-          <div className="container-custom max-w-4xl">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-navy-deep mb-4">
-                Nossa História
-              </h2>
-              <p className="text-lg text-gray-dark max-w-2xl mx-auto">
-                Como nos tornamos o distribuidor oficial da Autel Robotics no Brasil
-              </p>
-            </div>
-            
-            <div className="prose prose-lg mx-auto">
-              <div className="bg-white p-8 rounded-2xl shadow-lg">
-                <p className="text-xl text-gray-dark leading-relaxed mb-6">
-                  A Aerion Technologies nasceu com a missão de democratizar o acesso à tecnologia de drones profissionais no Brasil, oferecendo soluções Autel de ponta com custo-benefício superior e suporte técnico especializado.
-                </p>
-                <p className="text-lg text-gray-dark leading-relaxed mb-6">
-                  Nossa parceria estratégica com a Autel Robotics nos permite oferecer tecnologia digna de um dos líderes mundiais, com investimento mais inteligente e suporte local diferenciado.
-                </p>
-                <p className="text-lg text-gray-dark leading-relaxed">
-                  Não somos apenas distribuidores – somos parceiros estratégicos que entendem as necessidades específicas de cada vertical de aplicação, desde construção e topografia até segurança pública e operações de resgate.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* Mission, Vision, Values */}
         <section className="py-10 bg-white">
@@ -161,8 +165,8 @@ const Sobre = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Mission */}
               <div className="bg-gray-light/50 p-8 rounded-2xl shadow-lg text-center">
-                <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-accent flex items-center justify-center shadow-glow">
-                  <Target className="w-8 h-8 text-white" />
+                <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-accent flex items-center justify-center shadow-glow">
+                  <Target className="w-10 h-10 text-white" />
                 </div>
                 <h2 className="text-2xl font-heading font-bold text-navy-deep mb-4">
                   Nossa Missão
@@ -174,8 +178,8 @@ const Sobre = () => {
 
               {/* Vision */}
               <div className="bg-gray-light/50 p-8 rounded-2xl shadow-lg text-center">
-                <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-accent flex items-center justify-center shadow-glow">
-                  <Eye className="w-8 h-8 text-white" />
+                <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-accent flex items-center justify-center shadow-glow">
+                  <Eye className="w-10 h-10 text-white" />
                 </div>
                 <h2 className="text-2xl font-heading font-bold text-navy-deep mb-4">
                   Nossa Visão 2028
@@ -187,8 +191,8 @@ const Sobre = () => {
 
               {/* Values */}
               <div className="bg-gray-light/50 p-8 rounded-2xl shadow-lg text-center">
-                <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-accent flex items-center justify-center shadow-glow">
-                  <Award className="w-8 h-8 text-white" />
+                <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-accent flex items-center justify-center shadow-glow">
+                  <Award className="w-10 h-10 text-white" />
                 </div>
                 <h2 className="text-2xl font-heading font-bold text-navy-deep mb-4">
                   Nossos Valores
@@ -277,26 +281,6 @@ const Sobre = () => {
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="py-10 bg-gradient-primary">
-          <div className="container-custom text-center">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-6">
-              Pronto para Conhecer Nossa Equipe?
-            </h2>
-            <p className="text-xl text-blue-light mb-8 max-w-2xl mx-auto">
-              Entre em contato e descubra como podemos ajudar a transformar suas operações
-            </p>
-            <Button
-              asChild
-              size="lg"
-              className="bg-white text-blue-medium hover:bg-white/90 font-heading font-semibold text-lg"
-            >
-              <Link to="/contato">
-                Fale Conosco
-              </Link>
-            </Button>
-          </div>
-        </section>
       </main>
 
       <Footer />
