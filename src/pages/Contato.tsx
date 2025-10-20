@@ -58,7 +58,7 @@ const Contato = () => {
       
       <main className="pt-28 pb-20">
         {/* Hero Section */}
-        <section className="bg-gradient-primary py-4 text-white">
+        <section className="bg-gradient-primary py-2 text-white">
           <div className="container-custom text-center">
             <h1 className="text-3xl md:text-4xl font-heading font-bold mb-4">
               Entre em Contato
@@ -282,18 +282,6 @@ const Contato = () => {
                   </div>
                 </div>
 
-                {/* Quick Response Card */}
-                <div className="bg-gradient-to-br from-blue-medium to-blue-dark rounded-2xl shadow-lg p-6 text-white">
-                  <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center mb-3">
-                    <Clock className="h-5 w-5 text-white" />
-                  </div>
-                  <h3 className="text-lg font-heading font-bold mb-2">
-                    Resposta Rápida
-                  </h3>
-                  <p className="text-white/90 leading-relaxed text-sm">
-                    Nossa equipe responde a todas as solicitações em até 24 horas úteis. Para urgências, ligue diretamente.
-                  </p>
-                </div>
               </div>
             </div>
           </div>
