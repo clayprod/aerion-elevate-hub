@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Mail, Phone, MapPin, Clock, Instagram, MessageCircle, Loader2 } from "lucide-react";
 import emailjs from '@emailjs/browser';
+import SuccessDialog from "@/components/ui/success-dialog";
 import {
   Select,
   SelectContent,
@@ -18,6 +19,10 @@ import {
 const Contato = () => {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  const [showDialog, setShowDialog] = useState(false);
+  const [dialogType, setDialogType] = useState<"success" | "error">("success");
+  const [dialogTitle, setDialogTitle] = useState("");
+  const [dialogMessage, setDialogMessage] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -96,11 +101,11 @@ const Contato = () => {
       // Enviar email via EmailJS
       await emailjs.send(serviceId, templateId, templateParams, publicKey);
 
-      // Sucesso
-      toast({
-        title: "Mensagem enviada com sucesso!",
-        description: "Entraremos em contato em até 24 horas.",
-      });
+      // Sucesso - mostrar diálogo
+      setDialogType("success");
+      setDialogTitle("Mensagem Enviada!");
+      setDialogMessage("Obrigado pelo seu contato! Você receberá um e-mail de confirmação e responderemos em até 1 dia útil.");
+      setShowDialog(true);
 
       // Limpar formulário
       setFormData({
@@ -114,11 +119,12 @@ const Contato = () => {
 
     } catch (error) {
       console.error('Erro ao enviar email:', error);
-      toast({
-        title: "Erro ao enviar mensagem",
-        description: "Ocorreu um erro ao enviar sua mensagem. Tente novamente ou entre em contato por telefone.",
-        variant: "destructive",
-      });
+      
+      // Erro - mostrar diálogo
+      setDialogType("error");
+      setDialogTitle("Erro ao Enviar");
+      setDialogMessage("Ocorreu um erro ao enviar sua mensagem. Tente novamente ou entre em contato por telefone.");
+      setShowDialog(true);
     } finally {
       setIsLoading(false);
     }
@@ -369,6 +375,15 @@ const Contato = () => {
       </main>
 
       <Footer />
+      
+      {/* Success/Error Dialog */}
+      <SuccessDialog
+        isOpen={showDialog}
+        onClose={() => setShowDialog(false)}
+        type={dialogType}
+        title={dialogTitle}
+        message={dialogMessage}
+      />
     </div>
   );
 };

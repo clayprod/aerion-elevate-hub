@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Instagram, MessageCircle } from "lucide-react";
 import logo from "@/assets/logo-aerion.png";
+import CookieManager from "./CookieManager";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -140,25 +141,28 @@ const Footer = () => {
               <p>© {currentYear} Aerion Technologies Ltda. Todos os direitos reservados.</p>
               <p className="mt-1">CNPJ: 61.217.015/0001-09</p>
             </div>
-            <div className="flex space-x-6">
-              <a
-                href="/auth"
-                className="text-gray-medium hover:text-blue-light transition-colors text-sm"
-              >
-                Administrador
-              </a>
-              <Link
-                to="/politica-privacidade"
-                className="text-gray-medium hover:text-blue-light transition-colors text-sm"
-              >
-                Política de Privacidade
-              </Link>
-              <Link
-                to="/termos-uso"
-                className="text-gray-medium hover:text-blue-light transition-colors text-sm"
-              >
-                Termos de Uso
-              </Link>
+            <div className="flex flex-col md:flex-row items-center gap-4">
+              <CookieManager />
+              <div className="flex space-x-6">
+                <a
+                  href="/auth"
+                  className="text-gray-medium hover:text-blue-light transition-colors text-sm"
+                >
+                  Administrador
+                </a>
+                <Link
+                  to="/politica-privacidade"
+                  className="text-gray-medium hover:text-blue-light transition-colors text-sm"
+                >
+                  Política de Privacidade
+                </Link>
+                <Link
+                  to="/termos-uso"
+                  className="text-gray-medium hover:text-blue-light transition-colors text-sm"
+                >
+                  Termos de Uso
+                </Link>
+              </div>
             </div>
           </div>
         </div>

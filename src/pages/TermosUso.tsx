@@ -182,7 +182,7 @@ const TermosUso = () => {
                       </p>
                       <div className="bg-gray-50 p-6 rounded-xl">
                         <p className="text-gray-700 mb-2">
-                          <strong>Email:</strong> comercial@aerion.com.br
+                          <strong>Email:</strong> contato@aerion.com.br
                         </p>
                         <p className="text-gray-700 mb-2">
                           <strong>Telefone:</strong> +55 11 5102-4229

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import SuccessDialog from "@/components/ui/success-dialog";
 import {
   Select,
   SelectContent,
@@ -13,6 +14,10 @@ import {
 
 const ContactSection = () => {
   const { toast } = useToast();
+  const [showDialog, setShowDialog] = useState(false);
+  const [dialogType, setDialogType] = useState<"success" | "error">("success");
+  const [dialogTitle, setDialogTitle] = useState("");
+  const [dialogMessage, setDialogMessage] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -35,10 +40,32 @@ const ContactSection = () => {
       return;
     }
 
-    toast({
-      title: "Mensagem enviada!",
-      description: "Entraremos em contato em até 24 horas.",
-    });
+    // Validação do email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast({
+        title: "Email inválido",
+        description: "Por favor, insira um email válido.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Validação da mensagem (mínimo 10 caracteres)
+    if (formData.message.length < 10) {
+      toast({
+        title: "Mensagem muito curta",
+        description: "A mensagem deve ter pelo menos 10 caracteres.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Simular envio bem-sucedido (aqui você pode integrar com EmailJS se necessário)
+    setDialogType("success");
+    setDialogTitle("Mensagem Enviada!");
+    setDialogMessage("Obrigado pelo seu contato! Você receberá um e-mail de confirmação e responderemos em até 1 dia útil.");
+    setShowDialog(true);
 
     // Reset form
     setFormData({
@@ -183,6 +210,15 @@ const ContactSection = () => {
           </form>
         </div>
       </div>
+      
+      {/* Success/Error Dialog */}
+      <SuccessDialog
+        isOpen={showDialog}
+        onClose={() => setShowDialog(false)}
+        type={dialogType}
+        title={dialogTitle}
+        message={dialogMessage}
+      />
     </section>
   );
 };

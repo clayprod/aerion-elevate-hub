@@ -28,20 +28,24 @@ import AdminProducts from "./pages/admin/AdminProducts";
 import AdminSolutions from "./pages/admin/AdminSolutions";
 import AdminSettings from "./pages/admin/AdminSettings";
 import { AuthProvider } from "./contexts/AuthContext";
+import { CookieProvider } from "./contexts/CookieContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ScrollToTop from "./components/ScrollToTop";
+import CookieConsent from "./components/CookieConsent";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <ScrollToTop />
-          <Routes>
+      <CookieProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <ScrollToTop />
+            <CookieConsent />
+            <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/produtos" element={<Produtos />} />
             <Route path="/produtos/evo-lite-enterprise" element={<EvoLiteEnterprise />} />
@@ -115,6 +119,7 @@ const App = () => (
           </Routes>
         </BrowserRouter>
       </TooltipProvider>
+      </CookieProvider>
     </AuthProvider>
   </QueryClientProvider>
 );
