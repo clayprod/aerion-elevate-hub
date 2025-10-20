@@ -65,7 +65,7 @@ export const productFamilies: ProductFamily[] = [
     brochure: "/downloads/Brochure_Autel_Evo_Lite_Enterprise1_Aerion.pdf",
     productCodes: {
       sku: "EVO-LITE-ENT",
-      ean: "7899831301577",
+      ean: "Pendente",
       ncm: "8802.12.00"
     },
     keyFeatures: [
@@ -336,7 +336,7 @@ export const productFamilies: ProductFamily[] = [
     brochure: "/downloads/EVO_Max_Series_V2_Brochure_PT.pdf",
     productCodes: {
       sku: "EVO-MAX-V2",
-      ean: "7899831301584",
+      ean: "Pendente",
       ncm: "8802.12.00"
     },
     keyFeatures: [
@@ -505,7 +505,7 @@ export const productFamilies: ProductFamily[] = [
       {
         id: "4t",
         name: "EVO Max V2 4T",
-        description: "Câmera 4K com zoom óptico 30x e câmera térmica 640T",
+        description: "Câmera 4K com zoom óptico 10x e câmera térmica 640×512",
         imagePath: "/images/products/evo_max/4t",
         specs: {
           "CATEGORIA E PORTABILIDADE": {
@@ -639,13 +639,13 @@ export const productFamilies: ProductFamily[] = [
     brochure: "/downloads/Brochure_Autel_Alpha_Aerion.pdf",
     productCodes: {
       sku: "AUTEL-ALPHA",
-      ean: "7899831301591",
+      ean: "Pendente",
       ncm: "8802.12.00"
     },
     keyFeatures: [
-      "Câmera térmica de alta resolução 640×512 com zoom óptico 30x",
-      "Alcance de transmissão de até 21km - o maior da categoria",
-      "Tempo de voo de até 45 minutos com bateria otimizada",
+      "Câmera térmica dual 640×512 com zoom óptico 35x",
+      "Alcance de transmissão de até 20km - o maior da categoria",
+      "Tempo de voo de até 40 minutos com bateria otimizada",
       "Resistência IP55 para operações em condições extremas",
       "Tecnologia AI avançada para reconhecimento automático",
       "Sistema de estabilização gimbal 3-eixos profissional",

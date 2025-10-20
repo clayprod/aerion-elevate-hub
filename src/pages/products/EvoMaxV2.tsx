@@ -74,9 +74,9 @@ const EvoMaxV2: React.FC = () => {
       name: '4N',
       keyFeatures: [
         'Câmera noturna Starlight de alta sensibilidade',
-        'Zoom óptico 35x com zoom híbrido 560x',
-        'Autonomia de até 45 minutos',
-        'Resistência ao vento de 15 m/s',
+        'Zoom digital 8x com estabilização avançada',
+        'Autonomia de até 42 minutos',
+        'Resistência ao vento de 12 m/s',
         'Alcance de observação até 8 km'
       ]
     },
@@ -85,9 +85,9 @@ const EvoMaxV2: React.FC = () => {
       name: '4T',
       keyFeatures: [
         'Câmera térmica de alta resolução 640x512',
-        'Zoom óptico 30x com zoom híbrido 160x',
-        'Autonomia de até 45 minutos',
-        'Resistência ao vento de 15 m/s',
+        'Zoom óptico 10x com zoom híbrido 160x',
+        'Autonomia de até 42 minutos',
+        'Resistência ao vento de 12 m/s',
         'Faixa de temperatura -20°C a 550°C'
       ]
     }

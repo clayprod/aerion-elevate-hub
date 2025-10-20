@@ -74,8 +74,8 @@ const EvoLiteEnterprise: React.FC = () => {
       name: '640T',
       keyFeatures: [
         'Câmera térmica de alta resolução 640x512',
-        'Zoom óptico 30x',
-        'Autonomia de até 42 minutos',
+        'Zoom digital térmico 20x',
+        'Autonomia de até 40 minutos',
         'Resistência ao vento de 12 m/s',
         'Transmissão de vídeo 1080P@60fps'
       ]
@@ -85,7 +85,7 @@ const EvoLiteEnterprise: React.FC = () => {
       name: '6K',
       keyFeatures: [
         'Câmera visual 6K de alta resolução',
-        'Zoom óptico 10x',
+        'Zoom digital 16x',
         'Autonomia de até 40 minutos',
         'Resistência ao vento de 12 m/s',
         'Transmissão de vídeo 4K@30fps'
