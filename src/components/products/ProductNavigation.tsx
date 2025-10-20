@@ -64,7 +64,7 @@ export const ProductNavigation: React.FC<ProductNavigationProps> = ({ sections }
   };
 
   const defaultSections: NavigationItem[] = [
-    { id: 'main-info', label: 'Informações', icon: <Info className="w-4 h-4" /> },
+    { id: 'product-info', label: 'Informações', icon: <Info className="w-4 h-4" /> },
     { id: 'key-features', label: 'Características', icon: <Star className="w-4 h-4" /> },
     { id: 'photo-gallery', label: 'Fotos', icon: <Camera className="w-4 h-4" /> },
     { id: 'video-gallery', label: 'Vídeos', icon: <Play className="w-4 h-4" /> },

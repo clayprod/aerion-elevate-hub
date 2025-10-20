@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { ProductHero } from '@/components/products/ProductHero';
-import { ProductApplications } from '@/components/products/ProductApplications';
-import { ProductTabNavigation } from '@/components/products/ProductTabNavigation';
-import { ProductDescription } from '@/components/products/ProductDescription';
+import { ProductHeader } from '@/components/products/ProductHeader';
+import { ProductNavigation } from '@/components/products/ProductNavigation';
 import { ProductKeyFeatures } from '@/components/products/ProductKeyFeatures';
 import { ProductTechnicalData } from '@/components/products/ProductTechnicalData';
 import { ProductVintageVideoGallery } from '@/components/products/ProductVintageVideoGallery';
 import { ProductPhotoGallery } from '@/components/products/ProductPhotoGallery';
+import { ProductApplications } from '@/components/products/ProductApplications';
 import { ProductDownloadSection } from '@/components/products/ProductDownloadSection';
 import { getProductFamilyBySlug } from '@/data/products';
 import Header from '@/components/Header';
@@ -15,7 +14,6 @@ import Footer from '@/components/Footer';
 const EvoMaxV2: React.FC = () => {
   const productFamily = getProductFamilyBySlug('evo-max-v2');
   const [selectedVariant, setSelectedVariant] = useState('4n');
-  const [activeTab, setActiveTab] = useState('description');
 
   if (!productFamily) {
     return <div>Produto não encontrado</div>;
@@ -68,99 +66,92 @@ const EvoMaxV2: React.FC = () => {
     }
   ];
 
-  const copyAllInfo = () => {
-    const info = `${productFamily.name}\n\n${productFamily.description}\n\nCaracterísticas Principais:\n${productFamily.keyFeatures.map((feature, index) => `${index + 1}. ${feature}`).join('\n')}`;
-    navigator.clipboard.writeText(info);
-  };
-
-  const tabs = [
-    {
-      id: 'description',
-      label: 'Descrição do Produto',
-      content: (
-        <ProductDescription
-          title={productFamily.name}
-          description={productFamily.description}
-          keyFeatures={productFamily.keyFeatures}
-          productCodes={productFamily.productCodes}
-        />
-      )
-    },
-    {
-      id: 'characteristics',
-      label: 'Características Principais',
-      content: (
-        <ProductKeyFeatures
-          features={productFamily.keyFeatures}
-          title={productFamily.name}
-        />
-      )
-    },
-    {
-      id: 'technical',
-      label: 'Dados Técnicos',
-      content: (
-        <ProductTechnicalData
-          technicalData={productFamily.technicalData}
-          specs={currentVariant.specs}
-          components={productFamily.components}
-          accessoriesIncluded={productFamily.accessoriesIncluded}
-          title={currentVariant.name}
-        />
-      )
-    },
-    {
-      id: 'downloads',
-      label: 'Material de Apoio para Download',
-      content: (
-        <ProductDownloadSection
-          downloads={downloads}
-          title={productFamily.name}
-        />
-      )
-    },
-    {
-      id: 'gallery',
-      label: 'Galeria de Fotos e Vídeos',
-      content: (
-        <div className="space-y-12">
-          <ProductPhotoGallery
-            photoGallery={productFamily.photoGallery}
-            title={productFamily.name}
-          />
-          <ProductVintageVideoGallery
-            videos={productFamily.videos}
-            title={productFamily.name}
-          />
-        </div>
-      )
-    }
+  // Combine all images for the header
+  const allImages = [
+    ...productFamily.photoGallery.product,
+    ...productFamily.photoGallery.lifestyle,
+    ...productFamily.photoGallery.details
   ];
 
   return (
     <div className="min-h-screen">
       <Header />
-      <ProductHero
-        title={productFamily.name}
+      
+      <ProductNavigation sections={[]} />
+      
+      {/* Product Header - E-commerce Layout */}
+      <ProductHeader
+        name={productFamily.name}
         description={productFamily.description}
-        youtubeVideoId={productFamily.youtubeVideoId}
-        fallbackImage={productFamily.fallbackImage}
-        variant={selectedVariant}
-        onVariantChange={setSelectedVariant}
-        productSlug={productFamily.slug}
+        productCodes={productFamily.productCodes}
+        keyFeatures={productFamily.keyFeatures}
+        images={allImages}
+        category="Drone Profissional"
       />
       
-      <ProductTabNavigation
-        tabs={tabs}
-        activeTab={activeTab}
-        onTabChange={setActiveTab}
-        onCopyInfo={copyAllInfo}
-      />
+      {/* Key Features Section */}
+      <section id="key-features" className="py-12 bg-gray-light/30">
+        <div className="max-w-7xl mx-auto px-6">
+          <ProductKeyFeatures
+            features={productFamily.keyFeatures}
+            title={productFamily.name}
+          />
+        </div>
+      </section>
       
-      <ProductApplications
-        applications={productFamily.applications}
-        title={productFamily.name}
-      />
+      {/* Photo Gallery Section */}
+      <section id="photo-gallery" className="py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <ProductPhotoGallery
+            photoGallery={productFamily.photoGallery}
+            title={productFamily.name}
+          />
+        </div>
+      </section>
+      
+      {/* Video Gallery Section */}
+      <section id="video-gallery" className="py-12 bg-gray-light/30">
+        <div className="max-w-7xl mx-auto px-6">
+          <ProductVintageVideoGallery
+            videos={productFamily.videos}
+            title={productFamily.name}
+          />
+        </div>
+      </section>
+      
+      {/* Technical Data Section */}
+      <section id="technical-data" className="py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <ProductTechnicalData
+            technicalData={productFamily.technicalData}
+            specs={currentVariant.specs}
+            components={productFamily.components}
+            accessoriesIncluded={productFamily.accessoriesIncluded}
+            title={currentVariant.name}
+          />
+        </div>
+      </section>
+      
+      {/* Applications Section */}
+      <section id="applications" className="py-12 bg-gray-light/30">
+        <div className="max-w-7xl mx-auto px-6">
+          <ProductApplications
+            applications={productFamily.applications}
+            title={productFamily.name}
+          />
+        </div>
+      </section>
+      
+      {/* Downloads Section */}
+      <section id="downloads" className="py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <ProductDownloadSection
+            downloads={downloads}
+            title={productFamily.name}
+          />
+        </div>
+      </section>
+      
       <Footer />
     </div>
   );
