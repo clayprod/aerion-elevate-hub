@@ -76,7 +76,7 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
           {/* Product Images */}
           <div className="flex gap-4">
             {/* Thumbnail Images - Vertical Scroll */}
-            <div className="flex-shrink-0 w-16 space-y-2 overflow-y-auto" style={{ maxHeight: '600px', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+            <div className="flex-shrink-0 w-16 space-y-2 overflow-y-auto overflow-x-visible" style={{ maxHeight: '600px', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
               <style jsx>{`
                 div::-webkit-scrollbar {
                   display: none;
@@ -87,7 +87,7 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
                   key={index}
                   className={`relative w-16 h-16 rounded-lg cursor-pointer transition-all duration-300 hover:scale-105 px-2 py-1 ${
                     selectedImage === index 
-                      ? 'bg-blue-bright border border-blue-bright' 
+                      ? 'bg-gray-100 border border-blue-bright' 
                       : 'bg-gray-100 border border-gray-300'
                   }`}
                   onClick={() => setSelectedImage(index)}
