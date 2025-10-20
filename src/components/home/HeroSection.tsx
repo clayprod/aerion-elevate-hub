@@ -10,7 +10,7 @@ const HeroSection = () => {
       <div className="absolute inset-0 overflow-hidden" style={{ height: '100vh', top: 0 }}>
         <YouTubeVideoBackground
           videoId="IaKUtdAdG5w"
-          fallbackImage="/images/lifestyle/public-safety-3-max.jpg"
+          fallbackImage=""
           className="object-cover"
         />
         

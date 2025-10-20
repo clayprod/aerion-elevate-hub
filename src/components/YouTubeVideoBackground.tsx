@@ -43,15 +43,8 @@ export const YouTubeVideoBackground: React.FC<YouTubeVideoBackgroundProps> = ({
           onError={handleVideoError}
         />
       ) : (
-        // Fallback image with same responsive behavior
-        <div
-          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url(${fallbackImage})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'
-          }}
-        />
+        // Black background when video doesn't load
+        <div className="absolute inset-0 w-full h-full bg-black" />
       )}
     </div>
   );
