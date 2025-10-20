@@ -105,25 +105,29 @@ const ConstrucaoTopografia = () => {
       title: "Levantamentos Topográficos",
       description: "Mapeamento preciso de terrenos para projetos de engenharia",
       image: "/images/solucoes/casos-uso-construcao/levantamentos-topograficos.jpg",
-      results: ["Precisão centimétrica", "Redução de 80% no tempo", "Dados integrados ao BIM"]
+      results: ["Precisão centimétrica", "Redução de 80% no tempo", "Dados integrados ao BIM"],
+      alignTop: false
     },
     {
       title: "Inspeção de Estruturas",
       description: "Verificação térmica e visual de edifícios e pontes",
       image: "/images/solucoes/casos-uso-construcao/inspecao-estruturas.jpg",
-      results: ["Detecção de falhas", "Relatórios automatizados", "Manutenção preditiva"]
+      results: ["Detecção de falhas", "Relatórios automatizados", "Manutenção preditiva"],
+      alignTop: false
     },
     {
       title: "Mapeamento Urbano",
       description: "Cadastro territorial e planejamento urbano",
       image: "/images/solucoes/casos-uso-construcao/mapeamento-urbano.jpg",
-      results: ["Ortofotos atualizadas", "Modelos 3D precisos", "Planejamento otimizado"]
+      results: ["Ortofotos atualizadas", "Modelos 3D precisos", "Planejamento otimizado"],
+      alignTop: true
     },
     {
       title: "Medição de Volumes",
       description: "Cálculo preciso de volumes de terra e materiais",
       image: "/images/solucoes/casos-uso-construcao/medicao-volumes.jpg",
-      results: ["Medições automáticas", "Controle de estoque", "Otimização de custos"]
+      results: ["Medições automáticas", "Controle de estoque", "Otimização de custos"],
+      alignTop: true
     }
   ];
 
@@ -284,7 +288,7 @@ const ConstrucaoTopografia = () => {
                     <img
                       src={useCase.image}
                       alt={useCase.title}
-                      className="w-full h-full object-cover object-top"
+                      className={`w-full h-full object-cover ${useCase.alignTop ? 'object-top' : ''}`}
                     />
                   </div>
                   
