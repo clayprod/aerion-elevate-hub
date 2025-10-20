@@ -181,101 +181,46 @@ All colors MUST be HSL.
 /* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600;700&display=swap');
 
-/* Video Background Styles */
+/* Responsive Video Background */
 @layer utilities {
-  .video-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: 0;
-  }
-
-  .video-background iframe {
+  .video-responsive {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100vw;
-    height: 100vh;
-    min-width: 100%;
-    min-height: 100%;
-    border: none;
+    height: 56.25vw; /* 16:9 aspect ratio */
+    min-height: 100vh;
+    min-width: 177.77777778vh; /* 16:9 aspect ratio */
     object-fit: cover;
-    /* Ensure video covers the entire container height */
-    min-height: 100vh;
-    height: auto;
   }
 
-  /* Ensure full coverage on all screen sizes */
-  .hero-video-container {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    min-height: 100vh;
-    overflow: hidden;
-  }
-
-  .hero-video-container .video-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    /* Ensure video covers the entire section including padding */
-    min-height: 100vh;
-  }
-
-  /* Mobile-specific optimizations */
+  /* Mobile optimizations */
   @media (max-width: 768px) {
-    .hero-video-container {
-      height: 100vh;
-      min-height: 100vh;
-    }
-    
-    .video-background iframe {
+    .video-responsive {
       width: 100vw;
-      height: 100vh;
-      min-width: 100%;
+      height: 56.25vw;
       min-height: 100vh;
-      /* Force full coverage on mobile */
-      transform: translate(-50%, -50%) scale(1.1);
+      min-width: 177.77777778vh;
     }
   }
 
   @media (max-width: 480px) {
-    .hero-video-container {
-      height: 100vh;
-      min-height: 100vh;
-    }
-    
-    .video-background iframe {
+    .video-responsive {
       width: 100vw;
-      height: 100vh;
-      min-width: 100%;
+      height: 56.25vw;
       min-height: 100vh;
-      /* Force full coverage on small mobile */
-      transform: translate(-50%, -50%) scale(1.2);
+      min-width: 177.77777778vh;
     }
   }
 
-  /* Landscape mobile optimization */
+  /* Landscape mobile */
   @media (max-height: 500px) and (orientation: landscape) {
-    .hero-video-container {
-      height: 100vh;
-      min-height: 100vh;
-    }
-    
-    .video-background iframe {
+    .video-responsive {
       width: 100vw;
-      height: 100vh;
-      min-width: 100%;
+      height: 56.25vw;
       min-height: 100vh;
-      transform: translate(-50%, -50%) scale(1.1);
+      min-width: 177.77777778vh;
     }
   }
 }

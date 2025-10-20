@@ -5,7 +5,7 @@ import { YouTubeVideoBackground } from "../YouTubeVideoBackground";
 
 const HeroSection = () => {
   return (
-    <section className="hero-video-container relative min-h-screen flex items-center overflow-hidden pt-16 pb-16 sm:pt-20 sm:pb-20 md:pt-24 md:pb-24">
+    <section className="relative min-h-screen flex items-center overflow-hidden pt-16 pb-16 sm:pt-20 sm:pb-20 md:pt-24 md:pb-24">
       {/* YouTube Video Background with Fallback */}
       <YouTubeVideoBackground
         videoId="IaKUtdAdG5w"
