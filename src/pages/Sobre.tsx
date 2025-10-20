@@ -223,10 +223,10 @@ const Sobre = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-heading font-bold text-navy-deep mb-2">
-                    Tecnologia Autel Digna dos Líderes Globais
+                    Tecnologia Autel — Padrão de Líder Global
                   </h3>
                   <p className="text-gray-dark leading-relaxed">
-                    Oferecemos drones com tecnologia digna de um dos líderes globais, com especificações técnicas e desempenho excepcional em aplicações enterprise, mas com custo-benefício significativamente superior.
+                    Oferecemos drones com tecnologia de ponta, desenvolvida por uma das líderes globais do setor. Nossas soluções entregam desempenho excepcional em aplicações profissionais — combinando precisão, robustez e confiabilidade — com um custo-benefício altamente competitivo, superando os principais concorrentes do mercado enterprise.
                   </p>
                 </div>
               </div>
