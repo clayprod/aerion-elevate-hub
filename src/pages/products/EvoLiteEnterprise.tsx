@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import { ProductHero } from '@/components/products/ProductHero';
-import { ProductGallery } from '@/components/products/ProductGallery';
-import { ProductSpecs } from '@/components/products/ProductSpecs';
-import { ProductDownloads } from '@/components/products/ProductDownloads';
 import { ProductApplications } from '@/components/products/ProductApplications';
-import { ProductMainInfo } from '@/components/products/ProductMainInfo';
+import { ProductTabNavigation } from '@/components/products/ProductTabNavigation';
+import { ProductDescription } from '@/components/products/ProductDescription';
 import { ProductKeyFeatures } from '@/components/products/ProductKeyFeatures';
 import { ProductTechnicalData } from '@/components/products/ProductTechnicalData';
-import { ProductVideoGallery } from '@/components/products/ProductVideoGallery';
+import { ProductVintageVideoGallery } from '@/components/products/ProductVintageVideoGallery';
 import { ProductPhotoGallery } from '@/components/products/ProductPhotoGallery';
-import { ProductNavigation } from '@/components/products/ProductNavigation';
+import { ProductDownloadSection } from '@/components/products/ProductDownloadSection';
 import { getProductFamilyBySlug } from '@/data/products';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -17,6 +15,7 @@ import Footer from '@/components/Footer';
 const EvoLiteEnterprise: React.FC = () => {
   const productFamily = getProductFamilyBySlug('evo-lite-enterprise');
   const [selectedVariant, setSelectedVariant] = useState('640t');
+  const [activeTab, setActiveTab] = useState('description');
 
   if (!productFamily) {
     return <div>Produto não encontrado</div>;
@@ -69,6 +68,75 @@ const EvoLiteEnterprise: React.FC = () => {
     }
   ];
 
+  const copyAllInfo = () => {
+    const info = `${productFamily.name}\n\n${productFamily.description}\n\nCaracterísticas Principais:\n${productFamily.keyFeatures.map((feature, index) => `${index + 1}. ${feature}`).join('\n')}`;
+    navigator.clipboard.writeText(info);
+  };
+
+  const tabs = [
+    {
+      id: 'description',
+      label: 'Descrição do Produto',
+      content: (
+        <ProductDescription
+          title={productFamily.name}
+          description={productFamily.description}
+          keyFeatures={productFamily.keyFeatures}
+          productCodes={productFamily.productCodes}
+        />
+      )
+    },
+    {
+      id: 'characteristics',
+      label: 'Características Principais',
+      content: (
+        <ProductKeyFeatures
+          features={productFamily.keyFeatures}
+          title={productFamily.name}
+        />
+      )
+    },
+    {
+      id: 'technical',
+      label: 'Dados Técnicos',
+      content: (
+        <ProductTechnicalData
+          technicalData={productFamily.technicalData}
+          specs={currentVariant.specs}
+          components={productFamily.components}
+          accessoriesIncluded={productFamily.accessoriesIncluded}
+          title={currentVariant.name}
+        />
+      )
+    },
+    {
+      id: 'downloads',
+      label: 'Material de Apoio para Download',
+      content: (
+        <ProductDownloadSection
+          downloads={downloads}
+          title={productFamily.name}
+        />
+      )
+    },
+    {
+      id: 'gallery',
+      label: 'Galeria de Fotos e Vídeos',
+      content: (
+        <div className="space-y-12">
+          <ProductPhotoGallery
+            photoGallery={productFamily.photoGallery}
+            title={productFamily.name}
+          />
+          <ProductVintageVideoGallery
+            videos={productFamily.videos}
+            title={productFamily.name}
+          />
+        </div>
+      )
+    }
+  ];
+
   return (
     <div className="min-h-screen">
       <Header />
@@ -82,45 +150,15 @@ const EvoLiteEnterprise: React.FC = () => {
         productSlug={productFamily.slug}
       />
       
-      <ProductNavigation sections={[]} />
-      
-      <ProductMainInfo
-        name={productFamily.name}
-        category="Drone Profissional"
-        productCodes={productFamily.productCodes}
-        description={productFamily.description}
-      />
-      
-      <ProductKeyFeatures
-        features={productFamily.keyFeatures}
-        title={productFamily.name}
-      />
-      
-      <ProductPhotoGallery
-        photoGallery={productFamily.photoGallery}
-        title={productFamily.name}
-      />
-      
-      <ProductVideoGallery
-        videos={productFamily.videos}
-        title={productFamily.name}
-      />
-      
-      <ProductTechnicalData
-        technicalData={productFamily.technicalData}
-        specs={currentVariant.specs}
-        components={productFamily.components}
-        accessoriesIncluded={productFamily.accessoriesIncluded}
-        title={currentVariant.name}
+      <ProductTabNavigation
+        tabs={tabs}
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        onCopyInfo={copyAllInfo}
       />
       
       <ProductApplications
         applications={productFamily.applications}
-        title={productFamily.name}
-      />
-      
-      <ProductDownloads
-        downloads={downloads}
         title={productFamily.name}
       />
       <Footer />
