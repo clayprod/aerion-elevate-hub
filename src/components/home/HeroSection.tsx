@@ -5,7 +5,7 @@ import { YouTubeVideoBackground } from "../YouTubeVideoBackground";
 
 const HeroSection = () => {
   return (
-    <section className="relative h-screen flex items-center justify-center pt-32 pb-16 sm:pt-52 sm:pb-28 md:pt-56 md:pb-32">
+    <section className="relative h-screen flex items-center justify-center pt-40 pb-16 sm:pt-52 sm:pb-28 md:pt-56 md:pb-32">
       {/* Video Background Container - constrained to viewport */}
       <div className="absolute inset-0 overflow-hidden" style={{ height: '100vh', top: 0 }}>
         <YouTubeVideoBackground
