@@ -5,7 +5,7 @@ import { YouTubeVideoBackground } from "../YouTubeVideoBackground";
 
 const HeroSection = () => {
   return (
-    <section className="relative h-screen flex items-center justify-center pt-48 pb-24 sm:pt-52 sm:pb-28 md:pt-56 md:pb-32">
+    <section className="relative h-screen flex items-center justify-center pt-52 pb-32 sm:pt-52 sm:pb-28 md:pt-56 md:pb-32">
       {/* Video Background Container - constrained to viewport */}
       <div className="absolute inset-0 overflow-hidden" style={{ height: '100vh', top: 0 }}>
         <YouTubeVideoBackground
@@ -19,21 +19,21 @@ const HeroSection = () => {
         
       </div>
 
-              <div className="container-custom relative z-30 py-8 sm:py-6 md:py-8">
+              <div className="container-custom relative z-30 py-12 sm:py-8 md:py-8 px-6 sm:px-8 md:px-8">
         <div className="max-w-4xl">
 
           {/* Main Headline */}
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-8 leading-tight animate-slide-up">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-10 leading-tight animate-slide-up">
             A Revolução Autel Chegou ao Brasil
           </h1>
 
           {/* Subheadline */}
-          <p className="text-base md:text-lg text-white/90 mb-10 leading-relaxed animate-slide-up" style={{ animationDelay: '0.2s' }}>
+          <p className="text-base md:text-lg text-white/90 mb-12 leading-relaxed animate-slide-up" style={{ animationDelay: '0.2s' }}>
             Tecnologia de ponta com custo-benefício superior e suporte técnico especializado local. A escolha inteligente para operações enterprise.
           </p>
 
           {/* Value Props */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8 animate-slide-up" style={{ animationDelay: '0.4s' }}>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 animate-slide-up" style={{ animationDelay: '0.4s' }}>
             <div className="flex items-start space-x-3">
               <div className="w-10 h-10 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
                 <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -108,7 +108,7 @@ const HeroSection = () => {
           </div>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-4 mb-4 sm:mb-6 animate-slide-up" style={{ animationDelay: '0.6s' }}>
+          <div className="flex flex-col sm:flex-row gap-6 mb-6 sm:mb-8 animate-slide-up" style={{ animationDelay: '0.6s' }}>
             <Button
               asChild
               size="lg"
