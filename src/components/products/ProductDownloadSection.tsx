@@ -30,7 +30,6 @@ export const ProductDownloadSection: React.FC<ProductDownloadSectionProps> = ({
 
   // Get main downloads
   const datasheets = downloads.filter(d => d.type === 'pdf' && (d.title.toLowerCase().includes('brochure') || d.title.toLowerCase().includes('datasheet') || d.title.toLowerCase().includes('especificação')));
-  const manuals = downloads.filter(d => d.type === 'pdf' && d.title.toLowerCase().includes('manual'));
 
   return (
     <div className="space-y-4">
@@ -49,16 +48,6 @@ export const ProductDownloadSection: React.FC<ProductDownloadSectionProps> = ({
           >
             <FileText className="w-4 h-4 mr-2" />
             Datasheet
-          </Button>
-        )}
-        
-        {manuals.length > 0 && (
-          <Button
-            onClick={() => handleDownload(manuals[0].url, manuals[0].title)}
-            className="w-full bg-blue-medium text-white hover:bg-blue-dark justify-start"
-          >
-            <FileText className="w-4 h-4 mr-2" />
-            Manual
           </Button>
         )}
       </div>
