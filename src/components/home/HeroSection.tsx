@@ -5,22 +5,24 @@ import { YouTubeVideoBackground } from "../YouTubeVideoBackground";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden pt-16 pb-16 sm:pt-20 sm:pb-20 md:pt-24 md:pb-24">
-      {/* YouTube Video Background with Fallback */}
-      <YouTubeVideoBackground
-        videoId="IaKUtdAdG5w"
-        fallbackImage="/images/lifestyle/public-safety-3-max.jpg"
-        className="object-cover"
-      />
-      
-      {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black bg-opacity-60 z-20" />
-      
-      {/* Geometric Pattern Overlay */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-20 right-20 w-96 h-96 border-2 border-blue-light rotate-45 animate-float" />
-        <div className="absolute bottom-32 left-20 w-72 h-72 border-2 border-blue-light rotate-12 animate-float" style={{ animationDelay: '1s' }} />
-        <div className="absolute top-1/2 left-1/3 w-48 h-48 border-2 border-blue-medium rotate-45 animate-float" style={{ animationDelay: '2s' }} />
+    <section className="relative min-h-screen flex items-center pt-16 pb-16 sm:pt-20 sm:pb-20 md:pt-24 md:pb-24">
+      {/* Video Background Container - constrained to viewport */}
+      <div className="absolute inset-0 overflow-hidden" style={{ height: '100vh', top: 0 }}>
+        <YouTubeVideoBackground
+          videoId="IaKUtdAdG5w"
+          fallbackImage="/images/lifestyle/public-safety-3-max.jpg"
+          className="object-cover"
+        />
+        
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black bg-opacity-60 z-20" />
+        
+        {/* Geometric Pattern Overlay */}
+        <div className="absolute inset-0 opacity-10 z-20">
+          <div className="absolute top-20 right-20 w-96 h-96 border-2 border-blue-light rotate-45 animate-float" />
+          <div className="absolute bottom-32 left-20 w-72 h-72 border-2 border-blue-light rotate-12 animate-float" style={{ animationDelay: '1s' }} />
+          <div className="absolute top-1/2 left-1/3 w-48 h-48 border-2 border-blue-medium rotate-45 animate-float" style={{ animationDelay: '2s' }} />
+        </div>
       </div>
 
               <div className="container-custom relative z-30 py-8 sm:py-12 md:py-16">
@@ -140,7 +142,7 @@ const HeroSection = () => {
       </div>
 
       {/* Bottom Wave */}
-      <div className="absolute bottom-0 left-0 right-0">
+      <div className="absolute bottom-0 left-0 right-0 z-30">
         <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
           <path d="M0 0L60 10C120 20 240 40 360 46.7C480 53 600 47 720 43.3C840 40 960 40 1080 46.7C1200 53 1320 67 1380 73.3L1440 80V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0V0Z" fill="white"/>
         </svg>
