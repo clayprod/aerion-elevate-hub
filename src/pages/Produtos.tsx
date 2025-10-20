@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import MobileFloatingCTA from "@/components/MobileFloatingCTA";
 import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -161,6 +162,7 @@ const Produtos = () => {
       </main>
 
       <Footer />
+      <MobileFloatingCTA />
     </div>
   );
 };

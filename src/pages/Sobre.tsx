@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import MobileFloatingCTA from "@/components/MobileFloatingCTA";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Target, Eye, Award, Globe, Users, Shield } from "lucide-react";
@@ -299,6 +300,7 @@ const Sobre = () => {
       </main>
 
       <Footer />
+      <MobileFloatingCTA />
     </div>
   );
 };

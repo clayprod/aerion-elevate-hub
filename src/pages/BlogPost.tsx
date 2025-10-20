@@ -132,6 +132,7 @@ const BlogPost = () => {
       </main>
 
       <Footer />
+      <MobileFloatingCTA />
     </div>
   );
 };

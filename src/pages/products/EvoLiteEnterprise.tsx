@@ -8,6 +8,7 @@ import { ProductDownloadSection } from '@/components/products/ProductDownloadSec
 import { getProductFamilyBySlug } from '@/data/products';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import MobileFloatingCTA from '@/components/MobileFloatingCTA';
 
 const EvoLiteEnterprise: React.FC = () => {
   const productFamily = getProductFamilyBySlug('evo-lite-enterprise');
@@ -165,6 +166,7 @@ const EvoLiteEnterprise: React.FC = () => {
       </section>
       
       <Footer />
+      <MobileFloatingCTA />
     </div>
   );
 };

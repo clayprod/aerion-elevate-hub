@@ -8,6 +8,7 @@ import { ProductDownloadSection } from '@/components/products/ProductDownloadSec
 import { getProductFamilyBySlug } from '@/data/products';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import MobileFloatingCTA from '@/components/MobileFloatingCTA';
 
 const EvoMaxV2: React.FC = () => {
   const productFamily = getProductFamilyBySlug('evo-max-v2');
@@ -165,6 +166,7 @@ const EvoMaxV2: React.FC = () => {
       </section>
       
       <Footer />
+      <MobileFloatingCTA />
     </div>
   );
 };
