@@ -4,6 +4,12 @@ import { ProductGallery } from '@/components/products/ProductGallery';
 import { ProductSpecs } from '@/components/products/ProductSpecs';
 import { ProductDownloads } from '@/components/products/ProductDownloads';
 import { ProductApplications } from '@/components/products/ProductApplications';
+import { ProductMainInfo } from '@/components/products/ProductMainInfo';
+import { ProductKeyFeatures } from '@/components/products/ProductKeyFeatures';
+import { ProductTechnicalData } from '@/components/products/ProductTechnicalData';
+import { ProductVideoGallery } from '@/components/products/ProductVideoGallery';
+import { ProductPhotoGallery } from '@/components/products/ProductPhotoGallery';
+import { ProductNavigation } from '@/components/products/ProductNavigation';
 import { getProductFamilyBySlug } from '@/data/products';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -76,13 +82,35 @@ const EvoMaxV2: React.FC = () => {
         productSlug={productFamily.slug}
       />
       
-      <ProductGallery
-        images={productFamily.gallery}
-        title={currentVariant.name}
+      <ProductNavigation sections={[]} />
+      
+      <ProductMainInfo
+        name={productFamily.name}
+        category="Drone Profissional"
+        productCodes={productFamily.productCodes}
+        description={productFamily.description}
       />
       
-      <ProductSpecs
+      <ProductKeyFeatures
+        features={productFamily.keyFeatures}
+        title={productFamily.name}
+      />
+      
+      <ProductPhotoGallery
+        photoGallery={productFamily.photoGallery}
+        title={productFamily.name}
+      />
+      
+      <ProductVideoGallery
+        videos={productFamily.videos}
+        title={productFamily.name}
+      />
+      
+      <ProductTechnicalData
+        technicalData={productFamily.technicalData}
         specs={currentVariant.specs}
+        components={productFamily.components}
+        accessoriesIncluded={productFamily.accessoriesIncluded}
         title={currentVariant.name}
       />
       
