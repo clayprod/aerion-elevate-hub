@@ -5,6 +5,7 @@ import SolutionsSection from "@/components/home/SolutionsSection";
 import ProductsSection from "@/components/home/ProductsSection";
 import WhyAerionSection from "@/components/home/WhyAerionSection";
 import ContactSection from "@/components/home/ContactSection";
+import MobileFloatingCTA from "@/components/MobileFloatingCTA";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
@@ -36,6 +37,7 @@ const Index = () => {
         <ContactSection />
       </main>
       <Footer />
+      <MobileFloatingCTA />
     </div>
   );
 };
