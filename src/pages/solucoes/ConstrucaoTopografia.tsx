@@ -113,7 +113,7 @@ const ConstrucaoTopografia = () => {
       description: "Verificação térmica e visual de edifícios e pontes",
       image: "/images/solucoes/casos-uso-construcao/inspecao-estruturas.jpg",
       results: ["Detecção de falhas", "Relatórios automatizados", "Manutenção preditiva"],
-      alignTop: false
+      alignTop: true
     },
     {
       title: "Mapeamento Urbano",
