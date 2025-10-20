@@ -53,13 +53,18 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
           {/* Product Images */}
           <div className="flex gap-4">
             {/* Thumbnail Images - Vertical Scroll */}
-            <div className="flex-shrink-0 w-16 space-y-2 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 hover:scrollbar-thumb-gray-500" style={{ maxHeight: '600px' }}>
+            <div className="flex-shrink-0 w-16 space-y-2 overflow-y-auto" style={{ maxHeight: '600px', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+              <style jsx>{`
+                div::-webkit-scrollbar {
+                  display: none;
+                }
+              `}</style>
               {images.slice(0, 8).map((image, index) => (
                 <div
                   key={index}
-                  className={`relative w-16 h-16 bg-gray-100 rounded-lg overflow-hidden cursor-pointer transition-all duration-300 hover:scale-105 ${
+                  className={`relative w-16 h-16 bg-gray-100 rounded-lg overflow-hidden cursor-pointer transition-all duration-300 hover:scale-105 p-0.5 ${
                     selectedImage === index 
-                      ? 'ring-2 ring-blue-bright ring-offset-2' 
+                      ? 'ring-2 ring-blue-bright ring-offset-1' 
                       : ''
                   }`}
                   onClick={() => setSelectedImage(index)}
@@ -67,7 +72,7 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
                   <img
                     src={image}
                     alt={`${name} - Miniatura ${index + 1}`}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover rounded-md"
                   />
                 </div>
               ))}

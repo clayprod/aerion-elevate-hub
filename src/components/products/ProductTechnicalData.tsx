@@ -22,7 +22,7 @@ interface TechnicalDataProps {
       packaging?: string;
     };
   };
-  specs: Record<string, string>;
+  specs: Record<string, Record<string, string>>;
   components: string[];
   accessoriesIncluded: string[];
   title: string;
@@ -111,23 +111,32 @@ export const ProductTechnicalData: React.FC<TechnicalDataProps> = ({
 
   const renderSpecsCard = () => (
     <Card className="p-6 bg-gray-50">
-      <h3 className="text-lg font-bold text-navy-deep mb-4 flex items-center gap-2">
+      <h3 className="text-lg font-bold text-navy-deep mb-6 flex items-center gap-2">
         <Settings className="w-5 h-5" />
         DADOS TÉCNICOS
       </h3>
-      <div className="space-y-3">
-        {Object.entries(specs).map(([key, value], index) => (
-          <div key={index} className="flex items-center justify-between py-2 border-b border-gray-200 last:border-b-0">
-            <span className="font-medium text-gray-dark">{key}:</span>
-            <div className="flex items-center gap-2">
-              <span className="text-navy-deep font-semibold">{value}</span>
-              <button
-                onClick={() => copyToClipboard(value)}
-                className="p-1 hover:bg-gray-200 rounded transition-colors"
-                title="Copiar valor"
-              >
-                <Copy className="w-3 h-3 text-gray-500" />
-              </button>
+      <div className="space-y-6">
+        {Object.entries(specs).map(([category, categorySpecs], categoryIndex) => (
+          <div key={categoryIndex} className="space-y-3">
+            <h4 className="text-md font-semibold text-navy-deep border-b border-gray-300 pb-2">
+              {category}
+            </h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+              {Object.entries(categorySpecs).map(([key, value], specIndex) => (
+                <div key={specIndex} className="flex items-center justify-between py-2 px-3 bg-white rounded border border-gray-200 hover:border-gray-300 transition-colors">
+                  <span className="font-medium text-gray-dark text-sm">{key}:</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-navy-deep font-semibold text-sm">{value}</span>
+                    <button
+                      onClick={() => copyToClipboard(value)}
+                      className="p-1 hover:bg-gray-200 rounded transition-colors"
+                      title="Copiar valor"
+                    >
+                      <Copy className="w-3 h-3 text-gray-500" />
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         ))}

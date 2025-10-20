@@ -3,7 +3,7 @@ export interface ProductVariant {
   name: string;
   description: string;
   imagePath: string; // Path to folder with numbered images
-  specs: Record<string, string>;
+  specs: Record<string, Record<string, string>>;
 }
 
 export interface ProductFamily {
@@ -151,71 +151,72 @@ export const productFamilies: ProductFamily[] = [
         description: "Câmera térmica de 640x512 com zoom óptico 30x",
         imagePath: "/images/products/evo_lite/640t",
         specs: {
-          // CATEGORIA E PORTABILIDADE
-          "Design": "Dobrável compacto",
-          "Peso (com bateria e gimbal)": "866 g",
-          "Dimensões dobrado": "210×123×95 mm",
-          "Dimensões desdobrado": "433×516×95 mm",
-          "Distância diagonal": "368 mm",
-          "Classificação IP": "Não especificado",
-          
-          // DESEMPENHO DE VOO
-          "Autonomia máxima": "40 min",
-          "Velocidade máxima": "19 m/s",
-          "Resistência ao vento": "12 m/s",
-          "Altitude máxima": "7.000 m",
-          "Distância de transmissão": "12 km",
-          "Peso máximo decolagem": "806 g",
-          
-          // CÂMERA TÉRMICA
-          "Possui câmera térmica": "Sim",
-          "Resolução térmica": "640×512",
-          "Termógrafo": "Microbolômetro VOX",
-          "Zoom digital térmico": "20x",
-          "Distância focal térmica": "9.1 mm",
-          "Faixa de temperatura": "-20°C a 150°C / 0°C a 350°C",
-          "Precisão temperatura": "±3°C ou ±3%",
-          
-          // CÂMERA RGB PRINCIPAL
-          "Sensor RGB": "CMOS 1/2\", 48 MP",
-          "Abertura": "f/2.8",
-          "FOV": "83.4° (DFOV)",
-          "Distância focal equiv.": "24 mm",
-          "Resolução de foto": "8000×6000",
-          "Resolução de vídeo": "4K@30fps",
-          "Zoom digital": "16x",
-          
-          // GIMBAL E ESTABILIZAÇÃO
-          "Tipo de gimbal": "3 eixos",
-          "Número de câmeras": "2 (Térmica + RGB)",
-          
-          // SISTEMA DE POSICIONAMENTO
-          "GNSS": "GPS+GLONASS+Galileo+BDS",
-          "Módulo RTK": "Não",
-          "Navegação visual": "Padrão",
-          
-          // EVITAÇÃO DE OBSTÁCULOS
-          "Sistema de evitação": "Tridirecional",
-          "Sensores": "3 direções",
-          
-          // COMUNICAÇÃO E CONTROLE
-          "Frequência operacional": "2.4/5.8 GHz",
-          "Controle remoto": "Tela integrado",
-          "Rede A-Mesh": "Não",
-          "Anti-interferência": "Padrão",
-          
-          // BATERIA E ENERGIA
-          "Tipo de bateria": "LiPo 3S, 5.000 mAh",
-          "Troca a quente": "Não",
-          "Tensão carregamento": "12.75V",
-          
-          // RECURSOS ESPECIAIS
-          "Voo autônomo": "Básico",
-          "Planejamento 3D": "Básico",
-          "Reconhecimento IA": "Sim",
-          
-          // SOFTWARE E COMPATIBILIDADE
-          "App de controle": "Autel Enterprise"
+          "CATEGORIA E PORTABILIDADE": {
+            "Design": "Dobrável compacto",
+            "Peso (com bateria e gimbal)": "866 g",
+            "Dimensões dobrado": "210×123×95 mm",
+            "Dimensões desdobrado": "433×516×95 mm",
+            "Distância diagonal": "368 mm",
+            "Classificação IP": "Não especificado"
+          },
+          "DESEMPENHO DE VOO": {
+            "Autonomia máxima": "40 min",
+            "Velocidade máxima": "19 m/s",
+            "Resistência ao vento": "12 m/s",
+            "Altitude máxima": "7.000 m",
+            "Distância de transmissão": "12 km",
+            "Peso máximo decolagem": "806 g"
+          },
+          "CÂMERA TÉRMICA": {
+            "Possui câmera térmica": "Sim",
+            "Resolução térmica": "640×512",
+            "Termógrafo": "Microbolômetro VOX",
+            "Zoom digital térmico": "20x",
+            "Distância focal térmica": "9.1 mm",
+            "Faixa de temperatura": "-20°C a 150°C / 0°C a 350°C",
+            "Precisão temperatura": "±3°C ou ±3%"
+          },
+          "CÂMERA RGB PRINCIPAL": {
+            "Sensor RGB": "CMOS 1/2\", 48 MP",
+            "Abertura": "f/2.8",
+            "FOV": "83.4° (DFOV)",
+            "Distância focal equiv.": "24 mm",
+            "Resolução de foto": "8000×6000",
+            "Resolução de vídeo": "4K@30fps",
+            "Zoom digital": "16x"
+          },
+          "GIMBAL E ESTABILIZAÇÃO": {
+            "Tipo de gimbal": "3 eixos",
+            "Número de câmeras": "2 (Térmica + RGB)"
+          },
+          "SISTEMA DE POSICIONAMENTO": {
+            "GNSS": "GPS+GLONASS+Galileo+BDS",
+            "Módulo RTK": "Não",
+            "Navegação visual": "Padrão"
+          },
+          "EVITAÇÃO DE OBSTÁCULOS": {
+            "Sistema de evitação": "Tridirecional",
+            "Sensores": "3 direções"
+          },
+          "COMUNICAÇÃO E CONTROLE": {
+            "Frequência operacional": "2.4/5.8 GHz",
+            "Controle remoto": "Tela integrado",
+            "Rede A-Mesh": "Não",
+            "Anti-interferência": "Padrão"
+          },
+          "BATERIA E ENERGIA": {
+            "Tipo de bateria": "LiPo 3S, 5.000 mAh",
+            "Troca a quente": "Não",
+            "Tensão carregamento": "12.75V"
+          },
+          "RECURSOS ESPECIAIS": {
+            "Voo autônomo": "Básico",
+            "Planejamento 3D": "Básico",
+            "Reconhecimento IA": "Sim"
+          },
+          "SOFTWARE E COMPATIBILIDADE": {
+            "App de controle": "Autel Enterprise"
+          }
         }
       },
       {
@@ -224,66 +225,67 @@ export const productFamilies: ProductFamily[] = [
         description: "Câmera 4K com zoom óptico 30x e estabilização gimbal",
         imagePath: "/images/products/evo_lite/6k",
         specs: {
-          // CATEGORIA E PORTABILIDADE
-          "Design": "Dobrável compacto",
-          "Peso (com bateria e gimbal)": "866 g",
-          "Dimensões dobrado": "210×123×95 mm",
-          "Dimensões desdobrado": "433×516×95 mm",
-          "Distância diagonal": "368 mm",
-          "Classificação IP": "Não especificado",
-          
-          // DESEMPENHO DE VOO
-          "Autonomia máxima": "40 min",
-          "Velocidade máxima": "19 m/s",
-          "Resistência ao vento": "12 m/s",
-          "Altitude máxima": "7.000 m",
-          "Distância de transmissão": "12 km",
-          "Peso máximo decolagem": "866 g",
-          
-          // CÂMERA TÉRMICA
-          "Possui câmera térmica": "Não",
-          
-          // CÂMERA RGB PRINCIPAL
-          "Sensor RGB": "CMOS 1\", 20 MP",
-          "Abertura": "f/2.8 a f/11",
-          "FOV": "82° (DFOV)",
-          "Distância focal equiv.": "29 mm",
-          "Resolução de foto": "5472×3076 / 3840×2160",
-          "Resolução de vídeo": "4K@30fps",
-          "Zoom digital": "16x",
-          "ISO máximo": "48.000 (modo noturno)",
-          
-          // GIMBAL E ESTABILIZAÇÃO
-          "Tipo de gimbal": "3 eixos",
-          "Número de câmeras": "1 (RGB)",
-          
-          // SISTEMA DE POSICIONAMENTO
-          "GNSS": "GPS+GLONASS+Galileo+BDS",
-          "Módulo RTK": "Não",
-          "Navegação visual": "Padrão",
-          
-          // EVITAÇÃO DE OBSTÁCULOS
-          "Sistema de evitação": "Tridirecional",
-          "Sensores": "3 direções",
-          
-          // COMUNICAÇÃO E CONTROLE
-          "Frequência operacional": "2.4/5.8 GHz",
-          "Controle remoto": "Tela integrado",
-          "Rede A-Mesh": "Não",
-          "Anti-interferência": "Padrão",
-          
-          // BATERIA E ENERGIA
-          "Tipo de bateria": "LiPo 3S, 5.000 mAh",
-          "Troca a quente": "Não",
-          "Tensão carregamento": "12.75V",
-          
-          // RECURSOS ESPECIAIS
-          "Voo autônomo": "Básico",
-          "Planejamento 3D": "Básico",
-          "Reconhecimento IA": "Sim",
-          
-          // SOFTWARE E COMPATIBILIDADE
-          "App de controle": "Autel Enterprise"
+          "CATEGORIA E PORTABILIDADE": {
+            "Design": "Dobrável compacto",
+            "Peso (com bateria e gimbal)": "866 g",
+            "Dimensões dobrado": "210×123×95 mm",
+            "Dimensões desdobrado": "433×516×95 mm",
+            "Distância diagonal": "368 mm",
+            "Classificação IP": "Não especificado"
+          },
+          "DESEMPENHO DE VOO": {
+            "Autonomia máxima": "40 min",
+            "Velocidade máxima": "19 m/s",
+            "Resistência ao vento": "12 m/s",
+            "Altitude máxima": "7.000 m",
+            "Distância de transmissão": "12 km",
+            "Peso máximo decolagem": "866 g"
+          },
+          "CÂMERA TÉRMICA": {
+            "Possui câmera térmica": "Não"
+          },
+          "CÂMERA RGB PRINCIPAL": {
+            "Sensor RGB": "CMOS 1\", 20 MP",
+            "Abertura": "f/2.8 a f/11",
+            "FOV": "82° (DFOV)",
+            "Distância focal equiv.": "29 mm",
+            "Resolução de foto": "5472×3076 / 3840×2160",
+            "Resolução de vídeo": "4K@30fps",
+            "Zoom digital": "16x",
+            "ISO máximo": "48.000 (modo noturno)"
+          },
+          "GIMBAL E ESTABILIZAÇÃO": {
+            "Tipo de gimbal": "3 eixos",
+            "Número de câmeras": "1 (RGB)"
+          },
+          "SISTEMA DE POSICIONAMENTO": {
+            "GNSS": "GPS+GLONASS+Galileo+BDS",
+            "Módulo RTK": "Não",
+            "Navegação visual": "Padrão"
+          },
+          "EVITAÇÃO DE OBSTÁCULOS": {
+            "Sistema de evitação": "Tridirecional",
+            "Sensores": "3 direções"
+          },
+          "COMUNICAÇÃO E CONTROLE": {
+            "Frequência operacional": "2.4/5.8 GHz",
+            "Controle remoto": "Tela integrado",
+            "Rede A-Mesh": "Não",
+            "Anti-interferência": "Padrão"
+          },
+          "BATERIA E ENERGIA": {
+            "Tipo de bateria": "LiPo 3S, 5.000 mAh",
+            "Troca a quente": "Não",
+            "Tensão carregamento": "12.75V"
+          },
+          "RECURSOS ESPECIAIS": {
+            "Voo autônomo": "Básico",
+            "Planejamento 3D": "Básico",
+            "Reconhecimento IA": "Sim"
+          },
+          "SOFTWARE E COMPATIBILIDADE": {
+            "App de controle": "Autel Enterprise"
+          }
         }
       }
     ],
@@ -419,84 +421,85 @@ export const productFamilies: ProductFamily[] = [
         description: "Câmera 4K com zoom óptico 30x e câmera térmica",
         imagePath: "/images/products/evo_max/4n",
         specs: {
-          // CATEGORIA E PORTABILIDADE
-          "Design": "Dobrável robusto",
-          "Peso (com bateria e gimbal)": "1700 g",
-          "Dimensões dobrado": "562×651×147 mm",
-          "Dimensões desdobrado": "562×651×147 mm",
-          "Classificação IP": "IP43",
-          
-          // DESEMPENHO DE VOO
-          "Autonomia máxima": "42 min",
-          "Velocidade máxima": "23 m/s",
-          "Resistência ao vento": "12 m/s",
-          "Distância de transmissão": "20 km",
-          "Peso máximo decolagem": "1999 g",
-          "Qualidade transmissão": "1080P@60fps",
-          "Latência transmissão": "<150ms",
-          
-          // CÂMERA TÉRMICA
-          "Possui câmera térmica": "Sim",
-          "Resolução térmica": "640×512",
-          "Termógrafo": "Microbolômetro VOX",
-          "Zoom digital térmico": "20x",
-          "Distância focal térmica": "9.1 mm",
-          "Faixa de temperatura": "-20°C a 150°C / 0°C a 550°C",
-          
-          // CÂMERA RGB PRINCIPAL
-          "Sensor RGB": "CMOS 1/1.28\", 50 MP",
-          "Abertura": "f/1.85",
-          "FOV": "85°",
-          "Distância focal equiv.": "20 mm",
-          "Resolução de foto": "8192×6144",
-          "Resolução de vídeo": "4K@30fps",
-          "Zoom digital": "8x",
-          
-          // VISÃO NOTURNA / STARLIGHT
-          "Possui visão noturna": "Sim",
-          "Sensor Starlight": "2.3 MP, LUX 0.0001",
-          "Resolução vídeo noturna": "1920×1200 @ 30P",
-          "Zoom digital noturno": "8x",
-          
-          // SENSORES E MEDIÇÃO
-          "Telêmetro laser": "Sim (5-1200m)",
-          "Precisão laser": "±(1m+D*0.15%)",
-          
-          // GIMBAL E ESTABILIZAÇÃO
-          "Tipo de gimbal": "3 eixos (Fusion 4N V2)",
-          "Número de câmeras": "3 (Térmica + RGB + Starlight)",
-          
-          // SISTEMA DE POSICIONAMENTO
-          "GNSS": "GPS+GLONASS+Galileo+BDS",
-          "Módulo RTK": "Opcional",
-          "Precisão RTK": "Centimétrica",
-          "Navegação visual": "SLAM alta precisão",
-          
-          // EVITAÇÃO DE OBSTÁCULOS
-          "Sistema de evitação": "720° omnidirecional",
-          "Sensores": "Múltiplas direções",
-          
-          // COMUNICAÇÃO E CONTROLE
-          "Frequência operacional": "900MHz / 2.4 / 5.2 / 5.8 GHz",
-          "Controle remoto": "Autel V3 (tela 7.9\")",
-          "Resolução tela": "2048×1536",
-          "Brilho da tela": "2000 nits",
-          "Rede A-Mesh": "Sim",
-          "Anti-interferência": "Superior",
-          
-          // BATERIA E ENERGIA
-          "Tipo de bateria": "ABX41-D inteligente",
-          "Detecção bateria local": "Sim (ABX41-D)",
-          
-          // RECURSOS ESPECIAIS
-          "Voo autônomo": "Autonomy Engine",
-          "Planejamento 3D": "Sim",
-          "Reconhecimento IA": "Sim",
-          
-          // SOFTWARE E COMPATIBILIDADE
-          "App de controle": "Autel Enterprise",
-          "Combinação alto-falante": "Opcional",
-          "EVO Nest (base auto)": "Opcional"
+          "CATEGORIA E PORTABILIDADE": {
+            "Design": "Dobrável robusto",
+            "Peso (com bateria e gimbal)": "1700 g",
+            "Dimensões dobrado": "562×651×147 mm",
+            "Dimensões desdobrado": "562×651×147 mm",
+            "Classificação IP": "IP43"
+          },
+          "DESEMPENHO DE VOO": {
+            "Autonomia máxima": "42 min",
+            "Velocidade máxima": "23 m/s",
+            "Resistência ao vento": "12 m/s",
+            "Distância de transmissão": "20 km",
+            "Peso máximo decolagem": "1999 g",
+            "Qualidade transmissão": "1080P@60fps",
+            "Latência transmissão": "<150ms"
+          },
+          "CÂMERA TÉRMICA": {
+            "Possui câmera térmica": "Sim",
+            "Resolução térmica": "640×512",
+            "Termógrafo": "Microbolômetro VOX",
+            "Zoom digital térmico": "20x",
+            "Distância focal térmica": "9.1 mm",
+            "Faixa de temperatura": "-20°C a 150°C / 0°C a 550°C"
+          },
+          "CÂMERA RGB PRINCIPAL": {
+            "Sensor RGB": "CMOS 1/1.28\", 50 MP",
+            "Abertura": "f/1.85",
+            "FOV": "85°",
+            "Distância focal equiv.": "20 mm",
+            "Resolução de foto": "8192×6144",
+            "Resolução de vídeo": "4K@30fps",
+            "Zoom digital": "8x"
+          },
+          "VISÃO NOTURNA / STARLIGHT": {
+            "Possui visão noturna": "Sim",
+            "Sensor Starlight": "2.3 MP, LUX 0.0001",
+            "Resolução vídeo noturna": "1920×1200 @ 30P",
+            "Zoom digital noturno": "8x"
+          },
+          "SENSORES E MEDIÇÃO": {
+            "Telêmetro laser": "Sim (5-1200m)",
+            "Precisão laser": "±(1m+D*0.15%)"
+          },
+          "GIMBAL E ESTABILIZAÇÃO": {
+            "Tipo de gimbal": "3 eixos (Fusion 4N V2)",
+            "Número de câmeras": "3 (Térmica + RGB + Starlight)"
+          },
+          "SISTEMA DE POSICIONAMENTO": {
+            "GNSS": "GPS+GLONASS+Galileo+BDS",
+            "Módulo RTK": "Opcional",
+            "Precisão RTK": "Centimétrica",
+            "Navegação visual": "SLAM alta precisão"
+          },
+          "EVITAÇÃO DE OBSTÁCULOS": {
+            "Sistema de evitação": "720° omnidirecional",
+            "Sensores": "Múltiplas direções"
+          },
+          "COMUNICAÇÃO E CONTROLE": {
+            "Frequência operacional": "900MHz / 2.4 / 5.2 / 5.8 GHz",
+            "Controle remoto": "Autel V3 (tela 7.9\")",
+            "Resolução tela": "2048×1536",
+            "Brilho da tela": "2000 nits",
+            "Rede A-Mesh": "Sim",
+            "Anti-interferência": "Superior"
+          },
+          "BATERIA E ENERGIA": {
+            "Tipo de bateria": "ABX41-D inteligente",
+            "Detecção bateria local": "Sim (ABX41-D)"
+          },
+          "RECURSOS ESPECIAIS": {
+            "Voo autônomo": "Autonomy Engine",
+            "Planejamento 3D": "Sim",
+            "Reconhecimento IA": "Sim"
+          },
+          "SOFTWARE E COMPATIBILIDADE": {
+            "App de controle": "Autel Enterprise",
+            "Combinação alto-falante": "Opcional",
+            "EVO Nest (base auto)": "Opcional"
+          }
         }
       },
       {
@@ -505,86 +508,87 @@ export const productFamilies: ProductFamily[] = [
         description: "Câmera 4K com zoom óptico 30x e câmera térmica 640T",
         imagePath: "/images/products/evo_max/4t",
         specs: {
-          // CATEGORIA E PORTABILIDADE
-          "Design": "Dobrável robusto",
-          "Peso (com bateria e gimbal)": "1665 g",
-          "Dimensões dobrado": "576×660×149 mm",
-          "Dimensões desdobrado": "576×600×149 mm",
-          "Classificação IP": "IP43",
-          
-          // DESEMPENHO DE VOO
-          "Autonomia máxima": "42 min",
-          "Velocidade máxima": "23 m/s",
-          "Resistência ao vento": "12 m/s",
-          "Distância de transmissão": "20 km",
-          "Peso máximo decolagem": "1999 g",
-          "Qualidade transmissão": "1080P@60fps",
-          "Latência transmissão": "<150ms",
-          
-          // CÂMERA TÉRMICA
-          "Possui câmera térmica": "Sim",
-          "Resolução térmica": "640×512",
-          "Termógrafo": "Microbolômetro VOX",
-          "Zoom digital térmico": "10x",
-          "Distância focal térmica": "9.1 mm",
-          "Faixa de temperatura": "-20°C a 150°C / 0°C a 550°C",
-          
-          // CÂMERA RGB PRINCIPAL
-          "Sensor RGB": "CMOS 1/2\", 48 MP",
-          "Abertura": "f/2.8",
-          "FOV": "83.4°",
-          "Distância focal equiv.": "24 mm",
-          "Resolução de foto": "8000×6000",
-          "Resolução de vídeo": "4K@30fps",
-          
-          // CÂMERA ZOOM / TELEOBJETIVA
-          "Possui câmera zoom": "Sim",
-          "Sensor zoom": "CMOS 1/2\", 48 MP",
-          "Zoom óptico": "10x",
-          "Zoom híbrido máximo": "160x",
-          "Resolução vídeo zoom": "30P 4000×3000",
-          "ISO zoom": "100-25600",
-          "Alcance observação": "Até 2 km",
-          
-          // SENSORES E MEDIÇÃO
-          "Telêmetro laser": "Sim (5-1200m)",
-          "Precisão laser": "±(1m+D*0.15%)",
-          
-          // GIMBAL E ESTABILIZAÇÃO
-          "Tipo de gimbal": "3 eixos (Fusion 4T V2)",
-          "Número de câmeras": "3 (Térmica + RGB + Zoom)",
-          
-          // SISTEMA DE POSICIONAMENTO
-          "GNSS": "GPS+GLONASS+Galileo+BDS",
-          "Módulo RTK": "Opcional",
-          "Precisão RTK": "Centimétrica",
-          "Navegação visual": "SLAM alta precisão",
-          
-          // EVITAÇÃO DE OBSTÁCULOS
-          "Sistema de evitação": "720° omnidirecional",
-          "Sensores": "Múltiplas direções",
-          
-          // COMUNICAÇÃO E CONTROLE
-          "Frequência operacional": "900MHz / 2.4 / 5.2 / 5.8 GHz",
-          "Controle remoto": "Autel V3 (tela 7.9\")",
-          "Resolução tela": "2048×1536",
-          "Brilho da tela": "2000 nits",
-          "Rede A-Mesh": "Sim",
-          "Anti-interferência": "Superior",
-          
-          // BATERIA E ENERGIA
-          "Tipo de bateria": "ABX41-D inteligente",
-          "Detecção bateria local": "Sim (ABX41-D)",
-          
-          // RECURSOS ESPECIAIS
-          "Voo autônomo": "Autonomy Engine",
-          "Planejamento 3D": "Sim",
-          "Reconhecimento IA": "Sim",
-          
-          // SOFTWARE E COMPATIBILIDADE
-          "App de controle": "Autel Enterprise",
-          "Combinação alto-falante": "Opcional",
-          "EVO Nest (base auto)": "Opcional"
+          "CATEGORIA E PORTABILIDADE": {
+            "Design": "Dobrável robusto",
+            "Peso (com bateria e gimbal)": "1665 g",
+            "Dimensões dobrado": "576×660×149 mm",
+            "Dimensões desdobrado": "576×600×149 mm",
+            "Classificação IP": "IP43"
+          },
+          "DESEMPENHO DE VOO": {
+            "Autonomia máxima": "42 min",
+            "Velocidade máxima": "23 m/s",
+            "Resistência ao vento": "12 m/s",
+            "Distância de transmissão": "20 km",
+            "Peso máximo decolagem": "1999 g",
+            "Qualidade transmissão": "1080P@60fps",
+            "Latência transmissão": "<150ms"
+          },
+          "CÂMERA TÉRMICA": {
+            "Possui câmera térmica": "Sim",
+            "Resolução térmica": "640×512",
+            "Termógrafo": "Microbolômetro VOX",
+            "Zoom digital térmico": "10x",
+            "Distância focal térmica": "9.1 mm",
+            "Faixa de temperatura": "-20°C a 150°C / 0°C a 550°C"
+          },
+          "CÂMERA RGB PRINCIPAL": {
+            "Sensor RGB": "CMOS 1/2\", 48 MP",
+            "Abertura": "f/2.8",
+            "FOV": "83.4°",
+            "Distância focal equiv.": "24 mm",
+            "Resolução de foto": "8000×6000",
+            "Resolução de vídeo": "4K@30fps"
+          },
+          "CÂMERA ZOOM / TELEOBJETIVA": {
+            "Possui câmera zoom": "Sim",
+            "Sensor zoom": "CMOS 1/2\", 48 MP",
+            "Zoom óptico": "10x",
+            "Zoom híbrido máximo": "160x",
+            "Resolução vídeo zoom": "30P 4000×3000",
+            "ISO zoom": "100-25600",
+            "Alcance observação": "Até 2 km"
+          },
+          "SENSORES E MEDIÇÃO": {
+            "Telêmetro laser": "Sim (5-1200m)",
+            "Precisão laser": "±(1m+D*0.15%)"
+          },
+          "GIMBAL E ESTABILIZAÇÃO": {
+            "Tipo de gimbal": "3 eixos (Fusion 4T V2)",
+            "Número de câmeras": "3 (Térmica + RGB + Zoom)"
+          },
+          "SISTEMA DE POSICIONAMENTO": {
+            "GNSS": "GPS+GLONASS+Galileo+BDS",
+            "Módulo RTK": "Opcional",
+            "Precisão RTK": "Centimétrica",
+            "Navegação visual": "SLAM alta precisão"
+          },
+          "EVITAÇÃO DE OBSTÁCULOS": {
+            "Sistema de evitação": "720° omnidirecional",
+            "Sensores": "Múltiplas direções"
+          },
+          "COMUNICAÇÃO E CONTROLE": {
+            "Frequência operacional": "900MHz / 2.4 / 5.2 / 5.8 GHz",
+            "Controle remoto": "Autel V3 (tela 7.9\")",
+            "Resolução tela": "2048×1536",
+            "Brilho da tela": "2000 nits",
+            "Rede A-Mesh": "Sim",
+            "Anti-interferência": "Superior"
+          },
+          "BATERIA E ENERGIA": {
+            "Tipo de bateria": "ABX41-D inteligente",
+            "Detecção bateria local": "Sim (ABX41-D)"
+          },
+          "RECURSOS ESPECIAIS": {
+            "Voo autônomo": "Autonomy Engine",
+            "Planejamento 3D": "Sim",
+            "Reconhecimento IA": "Sim"
+          },
+          "SOFTWARE E COMPATIBILIDADE": {
+            "App de controle": "Autel Enterprise",
+            "Combinação alto-falante": "Opcional",
+            "EVO Nest (base auto)": "Opcional"
+          }
         }
       }
     ],
@@ -687,7 +691,7 @@ export const productFamilies: ProductFamily[] = [
     ],
     videos: [
       {
-        title: "Autel Alpha - Apresentação Oficial",
+        title: "Autel Alpha - O novo rei dos drones",
         description: "Conheça o drone profissional mais avançado da linha Autel",
         youtubeId: "N8R7epI0m1M"
       }
@@ -722,86 +726,87 @@ export const productFamilies: ProductFamily[] = [
         description: "Drone profissional com câmera térmica 640T e zoom óptico 30x",
         imagePath: "/images/products/alpha",
         specs: {
-          // CATEGORIA E PORTABILIDADE
-          "Design": "Industrial dobrável",
-          "Peso (com bateria e gimbal)": "6340 g",
-          "Dimensões dobrado": "455×203×248 mm (sem hélices)",
-          "Dimensões desdobrado": "1205×580×278 mm",
-          "Distância diagonal": "814 mm",
-          "Classificação IP": "IP55",
-          
-          // DESEMPENHO DE VOO
-          "Autonomia máxima": "40 min",
-          "Velocidade máxima": "24 m/s",
-          "Resistência ao vento": "12 m/s",
-          "Distância de transmissão": "20 km",
-          "Peso máximo decolagem": "8400 g",
-          "Qualidade transmissão": "1080P@60fps",
-          "Latência transmissão": "<150ms",
-          
-          // CÂMERA TÉRMICA
-          "Possui câmera térmica": "Sim (Dual)",
-          "Resolução térmica": "640×512 (dual)",
-          "Termógrafo": "Microbolômetro VOX",
-          "Zoom digital térmico": "50x",
-          "Distância focal térmica": "13mm (curto) / 45mm (longo)",
-          
-          // CÂMERA RGB PRINCIPAL
-          "Sensor RGB": "CMOS 48 MP",
-          "Abertura": "f/2.8",
-          "FOV": "84°",
-          "Distância focal equiv.": "24 mm",
-          "Resolução de foto": "8000×6000",
-          "Resolução de vídeo": "4K",
-          
-          // CÂMERA ZOOM / TELEOBJETIVA
-          "Possui câmera zoom": "Sim",
-          "Sensor zoom": "CMOS 8 MP",
-          "Zoom óptico": "35x",
-          "Zoom híbrido máximo": "560x",
-          "Resolução vídeo zoom": "4K",
-          "ISO zoom": "Ultra-sensível até 160.000",
-          "Alcance observação": "Até 8 km",
-          
-          // SENSORES E MEDIÇÃO
-          "Telêmetro laser": "Sim (10-2000m)",
-          "Precisão laser": "<400m: ±1m; >400m: D × 0.3%",
-          
-          // GIMBAL E ESTABILIZAÇÃO
-          "Tipo de gimbal": "DG 135T (próxima geração)",
-          "Número de câmeras": "5 (Térmica dual + RGB + Zoom + Laser)",
-          
-          // SISTEMA DE POSICIONAMENTO
-          "GNSS": "GPS+GLONASS+Galileo+BDS",
-          "Módulo RTK": "Integrado (antena dupla)",
-          "Precisão RTK": "Milimétrica",
-          "Navegação visual": "GNSS + SLAM adaptativo",
-          
-          // EVITAÇÃO DE OBSTÁCULOS
-          "Sistema de evitação": "720° omnidirecional definitivo",
-          "Sensores": "Visão dual + fisheye + radar milimétrico",
-          "Alcance detecção": "6 direções + radar",
-          
-          // COMUNICAÇÃO E CONTROLE
-          "Frequência operacional": "900MHz / 2.4 / 5.2 / 5.8 GHz",
-          "Controle remoto": "Autel V3 (tela 7.9\")",
-          "Resolução tela": "2048×1536",
-          "Brilho da tela": "2000 nits",
-          "Rede A-Mesh": "Sim",
-          "Anti-interferência": "Superior",
-          
-          // BATERIA E ENERGIA
-          "Tipo de bateria": "Dual-battery 237Wh cada",
-          "Troca a quente": "Sim",
-          
-          // RECURSOS ESPECIAIS
-          "Voo autônomo": "Autonomy Engine avançado",
-          "Planejamento 3D": "Sim",
-          "Reconhecimento IA": "Sim",
-          "Expansão de carga útil": "Sim (flexível)",
-          
-          // SOFTWARE E COMPATIBILIDADE
-          "App de controle": "Autel Enterprise"
+          "CATEGORIA E PORTABILIDADE": {
+            "Design": "Industrial dobrável",
+            "Peso (com bateria e gimbal)": "6340 g",
+            "Dimensões dobrado": "455×203×248 mm (sem hélices)",
+            "Dimensões desdobrado": "1205×580×278 mm",
+            "Distância diagonal": "814 mm",
+            "Classificação IP": "IP55"
+          },
+          "DESEMPENHO DE VOO": {
+            "Autonomia máxima": "40 min",
+            "Velocidade máxima": "24 m/s",
+            "Resistência ao vento": "12 m/s",
+            "Distância de transmissão": "20 km",
+            "Peso máximo decolagem": "8400 g",
+            "Qualidade transmissão": "1080P@60fps",
+            "Latência transmissão": "<150ms"
+          },
+          "CÂMERA TÉRMICA": {
+            "Possui câmera térmica": "Sim (Dual)",
+            "Resolução térmica": "640×512 (dual)",
+            "Termógrafo": "Microbolômetro VOX",
+            "Zoom digital térmico": "50x",
+            "Distância focal térmica": "13mm (curto) / 45mm (longo)"
+          },
+          "CÂMERA RGB PRINCIPAL": {
+            "Sensor RGB": "CMOS 48 MP",
+            "Abertura": "f/2.8",
+            "FOV": "84°",
+            "Distância focal equiv.": "24 mm",
+            "Resolução de foto": "8000×6000",
+            "Resolução de vídeo": "4K"
+          },
+          "CÂMERA ZOOM / TELEOBJETIVA": {
+            "Possui câmera zoom": "Sim",
+            "Sensor zoom": "CMOS 8 MP",
+            "Zoom óptico": "35x",
+            "Zoom híbrido máximo": "560x",
+            "Resolução vídeo zoom": "4K",
+            "ISO zoom": "Ultra-sensível até 160.000",
+            "Alcance observação": "Até 8 km"
+          },
+          "SENSORES E MEDIÇÃO": {
+            "Telêmetro laser": "Sim (10-2000m)",
+            "Precisão laser": "<400m: ±1m; >400m: D × 0.3%"
+          },
+          "GIMBAL E ESTABILIZAÇÃO": {
+            "Tipo de gimbal": "DG 135T (próxima geração)",
+            "Número de câmeras": "5 (Térmica dual + RGB + Zoom + Laser)"
+          },
+          "SISTEMA DE POSICIONAMENTO": {
+            "GNSS": "GPS+GLONASS+Galileo+BDS",
+            "Módulo RTK": "Integrado (antena dupla)",
+            "Precisão RTK": "Milimétrica",
+            "Navegação visual": "GNSS + SLAM adaptativo"
+          },
+          "EVITAÇÃO DE OBSTÁCULOS": {
+            "Sistema de evitação": "720° omnidirecional definitivo",
+            "Sensores": "Visão dual + fisheye + radar milimétrico",
+            "Alcance detecção": "6 direções + radar"
+          },
+          "COMUNICAÇÃO E CONTROLE": {
+            "Frequência operacional": "900MHz / 2.4 / 5.2 / 5.8 GHz",
+            "Controle remoto": "Autel V3 (tela 7.9\")",
+            "Resolução tela": "2048×1536",
+            "Brilho da tela": "2000 nits",
+            "Rede A-Mesh": "Sim",
+            "Anti-interferência": "Superior"
+          },
+          "BATERIA E ENERGIA": {
+            "Tipo de bateria": "Dual-battery 237Wh cada",
+            "Troca a quente": "Sim"
+          },
+          "RECURSOS ESPECIAIS": {
+            "Voo autônomo": "Autonomy Engine avançado",
+            "Planejamento 3D": "Sim",
+            "Reconhecimento IA": "Sim",
+            "Expansão de carga útil": "Sim (flexível)"
+          },
+          "SOFTWARE E COMPATIBILIDADE": {
+            "App de controle": "Autel Enterprise"
+          }
         }
       }
     ],
