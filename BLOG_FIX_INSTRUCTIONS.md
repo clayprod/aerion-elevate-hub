@@ -2,7 +2,13 @@
 
 ## Problema Identificado
 
-Os posts do blog não estão sendo carregados devido a um problema na configuração das variáveis de ambiente do Supabase.
+Os posts do blog não estão sendo carregados devido a problemas na configuração das variáveis de ambiente do Supabase.
+
+### Evidências do Console:
+- ✅ `Using real Supabase credentials` - Credenciais carregadas
+- ✅ `Supabase client initialized: true` - Cliente inicializado  
+- ❌ `400 (Bad Request)` - Erro na requisição
+- ❌ URL incorreta: `rijzunhodxapuiomvojd.supabase.co` (deveria ser `rsacugkufrqwrgclgbgb.supabase.co`)
 
 ## Solução
 
@@ -19,12 +25,14 @@ VITE_SUPABASE_PUBLISHABLE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 VITE_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 ```
 
-### 2. Reiniciar o servidor de desenvolvimento
+### 2. Limpar cache e reiniciar
 
 Após fazer a alteração no arquivo `.env`:
 
-1. Pare o servidor de desenvolvimento (Ctrl+C)
-2. Inicie novamente com `npm run dev` ou `bun dev`
+1. **Limpe o cache do navegador** (Ctrl+Shift+R ou F12 > Application > Storage > Clear storage)
+2. Pare o servidor de desenvolvimento (Ctrl+C)
+3. Inicie novamente com `npm run dev` ou `bun dev`
+4. **Abra uma aba anônima/privada** para testar
 
 ### 3. Verificar a correção
 

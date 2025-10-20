@@ -14,6 +14,9 @@ const DebugSupabase = () => {
         console.log("Environment variables:");
         console.log("VITE_SUPABASE_URL:", import.meta.env.VITE_SUPABASE_URL);
         console.log("VITE_SUPABASE_ANON_KEY:", import.meta.env.VITE_SUPABASE_ANON_KEY ? "Present" : "Missing");
+        console.log("VITE_SUPABASE_PUBLISHABLE_KEY:", import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ? "Present" : "Missing");
+        console.log("Supabase client URL:", supabase.supabaseUrl);
+        console.log("Supabase client key:", supabase.supabaseKey ? "Present" : "Missing");
         
         // Test basic connection
         const { data, error } = await supabase
