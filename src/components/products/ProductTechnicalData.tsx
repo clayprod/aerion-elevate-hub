@@ -118,7 +118,7 @@ export const ProductTechnicalData: React.FC<TechnicalDataProps> = ({
       <div className="space-y-6">
         {Object.entries(specs).map(([category, categorySpecs], categoryIndex) => (
           <div key={categoryIndex} className="space-y-3">
-            <h4 className="text-md font-semibold text-navy-deep border-b border-gray-300 pb-2">
+            <h4 className="text-sm font-semibold text-navy-deep border-b border-gray-300 pb-2">
               {category}
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
