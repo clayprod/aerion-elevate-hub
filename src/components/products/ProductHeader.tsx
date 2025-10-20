@@ -186,7 +186,7 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
             </div>
             
             {/* Action Buttons */}
-            <div className="flex gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Button
                 onClick={() => {
                   const element = document.getElementById('technical-data');
