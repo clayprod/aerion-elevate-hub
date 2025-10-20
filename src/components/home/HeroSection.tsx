@@ -5,7 +5,7 @@ import { YouTubeVideoBackground } from "../YouTubeVideoBackground";
 
 const HeroSection = () => {
   return (
-    <section className="relative h-screen flex items-center justify-center pt-52 pb-32 sm:pt-52 sm:pb-28 md:pt-56 md:pb-32">
+    <section className="relative min-h-screen flex items-start justify-center pt-24 pb-16 sm:pt-28 sm:pb-20 md:pt-32 md:pb-24">
       {/* Video Background Container - constrained to viewport */}
       <div className="absolute inset-0 overflow-hidden" style={{ height: '100vh', top: 0 }}>
         <YouTubeVideoBackground
@@ -19,7 +19,7 @@ const HeroSection = () => {
         
       </div>
 
-              <div className="container-custom relative z-30 py-12 sm:py-8 md:py-8 px-6 sm:px-8 md:px-8">
+              <div className="container-custom relative z-30 py-8 sm:py-6 md:py-8 px-6 sm:px-8 md:px-8">
         <div className="max-w-4xl">
 
           {/* Main Headline */}
@@ -108,7 +108,7 @@ const HeroSection = () => {
           </div>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-6 mb-6 sm:mb-8 animate-slide-up" style={{ animationDelay: '0.6s' }}>
+          <div className="flex flex-col sm:flex-row gap-6 mb-12 sm:mb-16 animate-slide-up" style={{ animationDelay: '0.6s' }}>
             <Button
               asChild
               size="lg"

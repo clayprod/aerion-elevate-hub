@@ -87,8 +87,8 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
                   key={index}
                   className={`relative w-16 h-16 rounded-lg cursor-pointer transition-all duration-300 hover:scale-105 px-2 py-1 ${
                     selectedImage === index 
-                      ? 'bg-gray-100 border border-blue-bright' 
-                      : 'bg-gray-100 border border-gray-300'
+                      ? 'bg-gray-100 border-2 border-blue-bright' 
+                      : 'bg-gray-100 border-2 border-gray-300'
                   }`}
                   onClick={() => setSelectedImage(index)}
                 >
