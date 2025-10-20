@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileFloatingCTA from "@/components/MobileFloatingCTA";
+import DebugSupabase from "@/components/DebugSupabase";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Card } from "@/components/ui/card";
@@ -10,9 +11,10 @@ import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
 const Blog = () => {
-  const { data: posts, isLoading } = useQuery({
+  const { data: posts, isLoading, error } = useQuery({
     queryKey: ["blog-posts"],
     queryFn: async () => {
+      console.log("🔍 Fetching blog posts...");
       const { data, error } = await supabase
         .from("blog_posts")
         .select(`
@@ -22,7 +24,12 @@ const Blog = () => {
         .eq("published", true)
         .order("published_at", { ascending: false });
 
-      if (error) throw error;
+      if (error) {
+        console.error("❌ Error fetching blog posts:", error);
+        throw error;
+      }
+      
+      console.log("✅ Blog posts fetched:", data);
       return data;
     },
   });
@@ -50,6 +57,18 @@ const Blog = () => {
             {isLoading ? (
               <div className="text-center py-12">
                 <p className="text-gray-dark">Carregando posts...</p>
+              </div>
+            ) : error ? (
+              <div className="text-center py-12">
+                <h2 className="text-2xl font-heading font-bold text-navy-deep mb-4">
+                  Erro ao carregar posts
+                </h2>
+                <p className="text-gray-dark mb-4">
+                  Não foi possível carregar os posts do blog. Verifique a conexão e tente novamente.
+                </p>
+                <p className="text-sm text-gray-500">
+                  Erro: {error.message}
+                </p>
               </div>
             ) : posts && posts.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -112,6 +131,7 @@ const Blog = () => {
 
       <Footer />
       <MobileFloatingCTA />
+      <DebugSupabase />
     </div>
   );
 };
