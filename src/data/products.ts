@@ -69,11 +69,11 @@ export const productFamilies: ProductFamily[] = [
       ncm: "8802.12.00"
     },
     keyFeatures: [
-      "Câmera térmica de alta resolução 640×512 com zoom óptico 30x",
-      "Tempo de voo de até 42 minutos com bateria de longa duração",
-      "Alcance de transmissão de até 15km em condições ideais",
+      "Câmera térmica de alta resolução 640×512 com zoom digital térmico 20x",
+      "Tempo de voo de até 40 minutos com bateria de longa duração",
+      "Alcance de transmissão de até 12km em condições ideais",
       "Sistema de estabilização gimbal 3-eixos para imagens nítidas",
-      "Resistente a condições climáticas adversas (IP55)",
+      "Design compacto e dobrável para máxima portabilidade",
       "Tecnologia AI para reconhecimento automático de objetos",
       "Compatível com múltiplas aplicações profissionais"
     ],
@@ -148,7 +148,7 @@ export const productFamilies: ProductFamily[] = [
       {
         id: "640t",
         name: "EVO Lite Enterprise 640T",
-        description: "Câmera térmica de 640x512 com zoom óptico 30x",
+        description: "Câmera térmica de 640x512 com zoom digital térmico 20x",
         imagePath: "/images/products/evo_lite/640t",
         specs: {
           "CATEGORIA E PORTABILIDADE": {
@@ -222,7 +222,7 @@ export const productFamilies: ProductFamily[] = [
       {
         id: "6k",
         name: "EVO Lite Enterprise 6K",
-        description: "Câmera 4K com zoom óptico 30x e estabilização gimbal",
+        description: "Câmera 4K com zoom digital 16x e estabilização gimbal",
         imagePath: "/images/products/evo_lite/6k",
         specs: {
           "CATEGORIA E PORTABILIDADE": {
@@ -330,7 +330,7 @@ export const productFamilies: ProductFamily[] = [
     id: "evo-max-v2",
     name: "EVO Max V2",
     slug: "evo-max-v2",
-    description: "Plataforma profissional robusta com sistema de câmeras triplas e tecnologia omnidirecional de evitação de obstáculos. Equipado com câmera térmica 640×512, zoom óptico até 160x e visão noturna Starlight, é a escolha definitiva para operações críticas em segurança pública, energia e inspeções industriais de longo alcance até 20km.",
+    description: "Plataforma profissional robusta com sistema de câmeras triplas e tecnologia omnidirecional de evitação de obstáculos. Equipado com câmera térmica 640×512, zoom óptico até 35x (4N) ou 10x (4T) com zoom híbrido até 160x e visão noturna Starlight, é a escolha definitiva para operações críticas em segurança pública, energia e inspeções industriais de longo alcance até 20km.",
     youtubeVideoId: "IaKUtdAdG5w",
     fallbackImage: "/images/lifestyle/public-safety-3-max.jpg",
     brochure: "/downloads/EVO_Max_Series_V2_Brochure_PT.pdf",
@@ -340,11 +340,11 @@ export const productFamilies: ProductFamily[] = [
       ncm: "8802.12.00"
     },
     keyFeatures: [
-      "Sistema de câmeras duplas: 4K + Térmica 640×512",
-      "Zoom óptico 30x com estabilização avançada",
-      "Alcance de transmissão de até 15km",
+      "Sistema de câmeras triplas: 4K + Térmica 640×512 + Starlight",
+      "Zoom óptico até 35x (4N) ou 10x (4T) com estabilização avançada",
+      "Alcance de transmissão de até 20km",
       "Tempo de voo de até 42 minutos",
-      "Resistência IP55 para operações em condições adversas",
+      "Resistência IP43 para operações em condições adversas",
       "Tecnologia AI para reconhecimento e rastreamento",
       "Compatível com aplicações táticas e industriais"
     ],
@@ -418,7 +418,7 @@ export const productFamilies: ProductFamily[] = [
       {
         id: "4n",
         name: "EVO Max V2 4N",
-        description: "Câmera 4K com zoom óptico 30x e câmera térmica",
+        description: "Câmera 4K com zoom digital 8x, câmera térmica e visão noturna Starlight",
         imagePath: "/images/products/evo_max/4n",
         specs: {
           "CATEGORIA E PORTABILIDADE": {

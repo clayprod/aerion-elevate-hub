@@ -14,10 +14,10 @@ const products = [
     tagline: "Compacto, Portátil, Eficiente",
     description: "Solução compacta e portátil ideal para levantamentos topográficos rápidos, mapeamento de áreas e inspeções térmicas. Combina mobilidade excepcional com câmera térmica 640×512 ou sensor RGB de 20MP, oferecendo o equilíbrio perfeito entre performance profissional e portabilidade para operações ágeis no campo.",
     keySpecs: [
-      "Autonomia de 42 minutos",
-      "Câmera 4K com zoom 30x",
-      "Peso de apenas 1.25kg",
-      "Variantes 640T e 6K",
+      "Autonomia de 40 minutos",
+      "Câmera térmica 640×512 com zoom digital 20x",
+      "Peso de apenas 866g",
+      "Alcance de transmissão até 12km",
     ],
     applications: ["Construção", "Topografia", "Mapeamento"],
     image: "/images/products/evo_lite/640t/1.png"
@@ -26,12 +26,12 @@ const products = [
     id: "evo-max-v2",
     name: "EVO Max V2",
     tagline: "Precisão e Potência em Um Só Drone",
-    description: "Plataforma profissional robusta com sistema de câmeras triplas e tecnologia omnidirecional de evitação de obstáculos. Equipado com câmera térmica 640×512, zoom óptico até 160x e visão noturna Starlight, é a escolha definitiva para operações críticas em segurança pública, energia e inspeções industriais de longo alcance até 20km.",
+    description: "Plataforma profissional robusta com sistema de câmeras triplas e tecnologia omnidirecional de evitação de obstáculos. Equipado com câmera térmica 640×512, zoom óptico até 35x (4N) ou 10x (4T) com zoom híbrido até 160x e visão noturna Starlight, é a escolha definitiva para operações críticas em segurança pública, energia e inspeções industriais de longo alcance até 20km.",
     keySpecs: [
-      "Zoom óptico de 30x",
-      "Câmera térmica integrada",
+      "Zoom óptico até 35x (4N) ou 10x (4T)",
+      "Câmera térmica 640×512 integrada",
       "Autonomia de 42 minutos",
-      "Transmissão de até 15km",
+      "Transmissão de até 20km",
     ],
     applications: ["Industrial", "Energia", "Inspeções"],
     image: "/images/products/evo_max/4t/1.png"
@@ -42,10 +42,10 @@ const products = [
     tagline: "Resistência e Alcance para Operações Críticas",
     description: "O drone industrial mais avançado da categoria com sistema de câmeras quíntuplo e tecnologia dual-térmica. Com zoom híbrido de até 560x, telêmetro laser de 2000m, RTK integrado de precisão milimétrica e sistema de troca a quente de baterias, o Autel Alpha é a solução definitiva para missões táticas complexas, inspeções de infraestrutura crítica e operações de longo alcance até 8km.",
     keySpecs: [
-      "Alcance de transmissão de 21km",
+      "Alcance de transmissão de 20km",
       "Resistente a chuva e vento (IP55)",
-      "Câmera térmica 640T",
-      "Autonomia de 45 minutos",
+      "Zoom óptico 35x com híbrido até 560x",
+      "Autonomia de 40 minutos",
     ],
     applications: ["Segurança", "Resgate", "Operações Críticas"],
     image: "/images/products/alpha/1.png"
