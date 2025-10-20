@@ -58,7 +58,7 @@ const Contato = () => {
       
       <main className="pt-28 pb-20">
         {/* Hero Section */}
-        <section className="bg-gradient-primary py-8 text-white">
+        <section className="bg-gradient-primary py-4 text-white">
           <div className="container-custom text-center">
             <h1 className="text-3xl md:text-4xl font-heading font-bold mb-4">
               Entre em Contato
@@ -70,7 +70,7 @@ const Contato = () => {
         </section>
 
         {/* Contact Content */}
-        <section className="py-12 bg-gray-50">
+        <section className="py-8 bg-gray-100">
           <div className="container-custom">
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
               {/* Contact Form */}
