@@ -85,10 +85,10 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
               {images.slice(0, 8).map((image, index) => (
                 <div
                   key={index}
-                  className={`relative w-16 h-16 rounded-lg cursor-pointer transition-all duration-300 hover:scale-105 p-1 ${
+                  className={`relative w-16 h-16 rounded-lg cursor-pointer transition-all duration-300 hover:scale-105 px-2 py-1 ${
                     selectedImage === index 
-                      ? 'bg-blue-bright border-2 border-blue-bright' 
-                      : 'bg-gray-100 border-2 border-gray-300'
+                      ? 'bg-blue-bright border border-blue-bright' 
+                      : 'bg-gray-100 border border-gray-300'
                   }`}
                   onClick={() => setSelectedImage(index)}
                 >
@@ -96,7 +96,7 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
                     src={image}
                     alt={`${name} - Miniatura ${index + 1}`}
                     className="w-full h-full object-contain bg-white rounded-md"
-                    style={{ padding: '2px' }}
+                    style={{ padding: '4px 2px' }}
                   />
                 </div>
               ))}
