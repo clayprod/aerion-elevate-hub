@@ -7,10 +7,11 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Card } from "@/components/ui/card";
-import { Trash2, Edit, Plus } from "lucide-react";
+import { Trash2, Edit, Plus, Save, Eye, ArrowLeft } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import RichTextEditor from "@/components/RichTextEditor";
 
 interface BlogPost {
   id: string;
@@ -173,17 +174,43 @@ const AdminBlog = () => {
     <div className="min-h-screen">
       <Header />
 
-      <main className="pt-28 pb-20">
-        <div className="container-custom max-w-6xl">
-          <h1 className="text-4xl font-heading font-bold text-navy-deep mb-8">
-            Administração do Blog
-          </h1>
+      <main className="pt-28 pb-20 bg-gray-50 min-h-screen">
+        <div className="container-custom max-w-7xl">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h1 className="text-4xl font-heading font-bold text-navy-deep mb-2">
+                Administração do Blog
+              </h1>
+              <p className="text-gray-600">Gerencie posts, conteúdo e publicações do blog</p>
+            </div>
+            <Button
+              onClick={resetForm}
+              variant="outline"
+              className="flex items-center gap-2"
+            >
+              <Plus className="w-4 h-4" />
+              Novo Post
+            </Button>
+          </div>
 
           {/* Form */}
-          <Card className="p-8 mb-12">
-            <h2 className="text-2xl font-heading font-bold text-navy-deep mb-6">
-              {editingPost ? "Editar Post" : "Novo Post"}
-            </h2>
+          <Card className="p-8 mb-8 shadow-lg">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-heading font-bold text-navy-deep">
+                {editingPost ? "Editar Post" : "Novo Post"}
+              </h2>
+              {editingPost && (
+                <Button
+                  onClick={resetForm}
+                  variant="outline"
+                  size="sm"
+                  className="flex items-center gap-2"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  Cancelar Edição
+                </Button>
+              )}
+            </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -232,11 +259,11 @@ const AdminBlog = () => {
                 <label className="block text-sm font-heading font-semibold text-navy-deep mb-2">
                   Conteúdo *
                 </label>
-                <Textarea
+                <RichTextEditor
                   value={formData.content}
-                  onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                  rows={12}
-                  required
+                  onChange={(value) => setFormData({ ...formData, content: value })}
+                  placeholder="Digite o conteúdo do post aqui..."
+                  height="400px"
                 />
               </div>
 
@@ -284,8 +311,12 @@ const AdminBlog = () => {
                 </label>
               </div>
 
-              <div className="flex gap-4">
-                <Button type="submit" className="bg-action hover:bg-action/90 text-action-foreground">
+              <div className="flex gap-4 pt-4 border-t border-gray-200">
+                <Button 
+                  type="submit" 
+                  className="bg-aerion-blue hover:bg-aerion-blue/90 text-white flex items-center gap-2"
+                >
+                  <Save className="w-4 h-4" />
                   {editingPost ? "Atualizar Post" : "Criar Post"}
                 </Button>
                 {editingPost && (
@@ -298,7 +329,7 @@ const AdminBlog = () => {
           </Card>
 
           {/* Posts List */}
-          <div>
+          <Card className="p-6">
             <h2 className="text-2xl font-heading font-bold text-navy-deep mb-6">Posts Existentes</h2>
             <div className="grid grid-cols-1 gap-4">
               {posts.map((post) => (
@@ -319,22 +350,35 @@ const AdminBlog = () => {
                         variant="outline"
                         size="sm"
                         onClick={() => handleEdit(post)}
+                        className="flex items-center gap-2"
                       >
                         <Edit className="w-4 h-4" />
+                        Editar
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => window.open(`/blog/${post.slug}`, '_blank')}
+                        className="flex items-center gap-2"
+                      >
+                        <Eye className="w-4 h-4" />
+                        Ver
                       </Button>
                       <Button
                         variant="outline"
                         size="sm"
                         onClick={() => handleDelete(post.id)}
+                        className="flex items-center gap-2 text-red-600 hover:text-red-700 hover:border-red-300"
                       >
                         <Trash2 className="w-4 h-4" />
+                        Excluir
                       </Button>
                     </div>
                   </div>
                 </Card>
               ))}
             </div>
-          </div>
+          </Card>
         </div>
       </main>
 
