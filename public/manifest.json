@@ -1,5 +1,7 @@
 {
- "name": "App",
+ "name": "Aerion Technologies",
+ "short_name": "Aerion",
+ "description": "Distribuidor oficial Autel no Brasil",
  "icons": [
   {
    "src": "\/android-icon-36x36.png",
