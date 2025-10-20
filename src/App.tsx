@@ -15,6 +15,10 @@ import BlogPost from "./pages/BlogPost";
 import AutelAlpha from "./pages/products/AutelAlpha";
 import EvoLiteEnterprise from "./pages/products/EvoLiteEnterprise";
 import EvoMaxV2 from "./pages/products/EvoMaxV2";
+import ConstrucaoTopografia from "./pages/solucoes/ConstrucaoTopografia";
+import InspecaoIndustrial from "./pages/solucoes/InspecaoIndustrial";
+import SegurancaPublica from "./pages/solucoes/SegurancaPublica";
+import ResgateEmergencias from "./pages/solucoes/ResgateEmergencias";
 import AdminBlog from "./pages/admin/AdminBlog";
 import Dashboard from "./pages/admin/Dashboard";
 import AdminHero from "./pages/admin/AdminHero";
@@ -42,6 +46,10 @@ const App = () => (
             <Route path="/produtos/evo-max-v2" element={<EvoMaxV2 />} />
             <Route path="/produtos/autel-alpha" element={<AutelAlpha />} />
             <Route path="/solucoes" element={<Solucoes />} />
+            <Route path="/solucoes/construcao" element={<ConstrucaoTopografia />} />
+            <Route path="/solucoes/industrial" element={<InspecaoIndustrial />} />
+            <Route path="/solucoes/seguranca" element={<SegurancaPublica />} />
+            <Route path="/solucoes/resgate" element={<ResgateEmergencias />} />
             <Route path="/sobre" element={<Sobre />} />
             <Route path="/contato" element={<Contato />} />
             <Route path="/blog" element={<Blog />} />
