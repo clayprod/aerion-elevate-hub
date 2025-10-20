@@ -208,7 +208,7 @@ const Contato = () => {
                       </div>
                       <div>
                         <p className="text-sm font-heading font-semibold text-gray-dark mb-1">Telefone</p>
-                        <p className="text-navy-deep font-semibold">+55 11 5102-4229</p>
+                        <p className="text-navy-deep">+55 11 5102-4229</p>
                       </div>
                     </a>
 
@@ -223,7 +223,7 @@ const Contato = () => {
                       </div>
                       <div>
                         <p className="text-sm font-heading font-semibold text-gray-dark mb-1">WhatsApp (Comercial)</p>
-                        <p className="text-navy-deep font-semibold">+55 11 93466-8839</p>
+                        <p className="text-navy-deep">+55 11 93466-8839</p>
                       </div>
                     </a>
 
@@ -236,7 +236,7 @@ const Contato = () => {
                       </div>
                       <div>
                         <p className="text-sm font-heading font-semibold text-gray-dark mb-1">Email</p>
-                        <p className="text-navy-deep font-semibold">comercial@aerion.com.br</p>
+                        <p className="text-navy-deep">comercial@aerion.com.br</p>
                       </div>
                     </a>
 
@@ -246,7 +246,7 @@ const Contato = () => {
                       </div>
                       <div>
                         <p className="text-sm font-heading font-semibold text-gray-dark mb-1">Endereço</p>
-                        <p className="text-navy-deep font-semibold leading-relaxed">
+                        <p className="text-navy-deep leading-relaxed">
                           Edifício Itamaracá<br />
                           R. Quintana 887, Cj. 111, 11º Andar<br />
                           Brooklin Novo - SP<br />
@@ -261,7 +261,7 @@ const Contato = () => {
                       </div>
                       <div>
                         <p className="text-sm font-heading font-semibold text-gray-dark mb-1">Horário</p>
-                        <p className="text-navy-deep font-semibold">Seg-Sex: 9h-18h</p>
+                        <p className="text-navy-deep">Seg-Sex: 9h-18h</p>
                       </div>
                     </div>
 
@@ -276,7 +276,7 @@ const Contato = () => {
                       </div>
                       <div>
                         <p className="text-sm font-heading font-semibold text-gray-dark mb-1">Instagram</p>
-                        <p className="text-navy-deep font-semibold">@aerion.technologies</p>
+                        <p className="text-navy-deep">@aerion.technologies</p>
                       </div>
                     </a>
                   </div>

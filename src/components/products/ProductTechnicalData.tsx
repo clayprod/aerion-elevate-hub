@@ -38,8 +38,8 @@ export const ProductTechnicalData: React.FC<TechnicalDataProps> = ({
     navigator.clipboard.writeText(text);
   };
 
-  const renderDataCard = (title: string, data: Record<string, string>, icon: React.ReactNode) => (
-    <Card className="p-6 bg-gray-50">
+  const renderDataCard = (title: string, data: Record<string, string>, icon: React.ReactNode, isLarge = false) => (
+    <Card className={`p-6 bg-gray-50 ${isLarge ? 'md:col-span-2' : ''}`}>
       <h3 className="text-lg font-bold text-navy-deep mb-4 flex items-center gap-2">
         {icon}
         {title}
@@ -128,37 +128,27 @@ export const ProductTechnicalData: React.FC<TechnicalDataProps> = ({
     </Card>
   );
 
-  const renderAccessoriesCard = () => (
-    <Card className="p-6 bg-gray-50">
-      <h3 className="text-lg font-bold text-navy-deep mb-4 flex items-center gap-2">
-        <Gift className="w-5 h-5" />
-        ACESSÓRIOS
-      </h3>
-      <div className="space-y-2">
-        {accessoriesIncluded.map((item, index) => (
-          <div key={index} className="text-gray-dark">
-            {index + 1} {item}
-          </div>
-        ))}
-      </div>
-    </Card>
-  );
-
-  const renderComponentsCard = () => (
-    <Card className="p-6 bg-gray-50">
-      <h3 className="text-lg font-bold text-navy-deep mb-4 flex items-center gap-2">
-        <Wrench className="w-5 h-5" />
-        COMPONENTES
-      </h3>
-      <div className="space-y-2">
-        {components.map((item, index) => (
-          <div key={index} className="text-gray-dark">
-            {item}
-          </div>
-        ))}
-      </div>
-    </Card>
-  );
+  const renderAccessoriesCard = () => {
+    const allAccessories = [...(accessoriesIncluded || []), ...(components || [])];
+    
+    return (
+      <Card className="p-6 bg-gray-50">
+        <h3 className="text-lg font-bold text-navy-deep mb-4 flex items-center gap-2">
+          <Gift className="w-5 h-5" />
+          ACESSÓRIOS
+        </h3>
+        <p className="text-sm text-gray-600 mb-4">Itens inclusos no pacote</p>
+        <div className="space-y-2">
+          {allAccessories.map((item, index) => (
+            <div key={index} className="flex items-center gap-2 py-2 border-b border-gray-200 last:border-b-0">
+              <span className="text-blue-medium font-bold">•</span>
+              <span className="text-gray-dark">{item}</span>
+            </div>
+          ))}
+        </div>
+      </Card>
+    );
+  };
 
   return (
     <div className="space-y-6">
@@ -166,24 +156,15 @@ export const ProductTechnicalData: React.FC<TechnicalDataProps> = ({
         Dados Técnicos
       </h2>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Left Column */}
-        <div className="space-y-6">
-          {technicalData.cadastral && renderDataCard("DADOS CADASTRAIS", technicalData.cadastral, <FileText className="w-5 h-5" />)}
-          {renderSpecsCard()}
-        </div>
-        
-        {/* Right Column */}
-        <div className="space-y-6">
-          {technicalData.commercial && renderDataCard("DADOS COMERCIAIS", technicalData.commercial, <DollarSign className="w-5 h-5" />)}
-          {renderLogisticsCard()}
-        </div>
+      {/* Dados Técnicos - Prioridade (área maior) */}
+      <div className="mb-6">
+        {renderSpecsCard()}
       </div>
       
-      {/* Bottom Row */}
+      {/* Dados Comerciais e Acessórios lado a lado */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {technicalData.commercial && renderDataCard("DADOS COMERCIAIS", technicalData.commercial, <DollarSign className="w-5 h-5" />)}
         {renderAccessoriesCard()}
-        {renderComponentsCard()}
       </div>
     </div>
   );

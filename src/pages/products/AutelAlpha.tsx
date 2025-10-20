@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { ProductHeader } from '@/components/products/ProductHeader';
-import { ProductNavigation } from '@/components/products/ProductNavigation';
-import { ProductKeyFeatures } from '@/components/products/ProductKeyFeatures';
+import { ProductStickyMenu } from '@/components/products/ProductStickyMenu';
 import { ProductTechnicalData } from '@/components/products/ProductTechnicalData';
-import { ProductVintageVideoGallery } from '@/components/products/ProductVintageVideoGallery';
-import { ProductPhotoGallery } from '@/components/products/ProductPhotoGallery';
+import { ProductVideoGallery } from '@/components/products/ProductVideoGallery';
 import { ProductApplications } from '@/components/products/ProductApplications';
 import { ProductDownloadSection } from '@/components/products/ProductDownloadSection';
 import { getProductFamilyBySlug } from '@/data/products';
@@ -59,18 +57,21 @@ const AutelAlpha: React.FC = () => {
     }
   ];
 
-  // Combine all images for the header
-  const allImages = [
-    ...productFamily.photoGallery.product,
-    ...productFamily.photoGallery.lifestyle,
-    ...productFamily.photoGallery.details
+  // Use only product images for the header
+  const productImages = productFamily.photoGallery.product;
+
+  const menuItems = [
+    { id: 'technical-data', label: 'Dados Técnicos' },
+    { id: 'applications', label: 'Aplicações' },
+    { id: 'downloads', label: 'Downloads' },
+    { id: 'videos', label: 'Vídeos' }
   ];
 
   return (
     <div className="min-h-screen">
       <Header />
       
-      <ProductNavigation sections={[]} />
+      <ProductStickyMenu items={menuItems} />
       
       {/* Product Header - E-commerce Layout */}
       <ProductHeader
@@ -78,39 +79,9 @@ const AutelAlpha: React.FC = () => {
         description={productFamily.description}
         productCodes={productFamily.productCodes}
         keyFeatures={productFamily.keyFeatures}
-        images={allImages}
+        images={productImages}
         category="Drone Profissional"
       />
-      
-      {/* Key Features Section */}
-      <section id="key-features" className="py-12 bg-gray-light/30">
-        <div className="max-w-7xl mx-auto px-6">
-          <ProductKeyFeatures
-            features={productFamily.keyFeatures}
-            title={productFamily.name}
-          />
-        </div>
-      </section>
-      
-      {/* Photo Gallery Section */}
-      <section id="photo-gallery" className="py-12 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <ProductPhotoGallery
-            photoGallery={productFamily.photoGallery}
-            title={productFamily.name}
-          />
-        </div>
-      </section>
-      
-      {/* Video Gallery Section */}
-      <section id="video-gallery" className="py-12 bg-gray-light/30">
-        <div className="max-w-7xl mx-auto px-6">
-          <ProductVintageVideoGallery
-            videos={productFamily.videos}
-            title={productFamily.name}
-          />
-        </div>
-      </section>
       
       {/* Technical Data Section */}
       <section id="technical-data" className="py-12 bg-white">
@@ -140,6 +111,16 @@ const AutelAlpha: React.FC = () => {
         <div className="max-w-7xl mx-auto px-6">
           <ProductDownloadSection
             downloads={downloads}
+            title={productFamily.name}
+          />
+        </div>
+      </section>
+      
+      {/* Videos Section */}
+      <section id="videos" className="py-12 bg-gray-light/30">
+        <div className="max-w-7xl mx-auto px-6">
+          <ProductVideoGallery
+            videos={productFamily.videos}
             title={productFamily.name}
           />
         </div>
