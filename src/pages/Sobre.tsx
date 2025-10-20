@@ -72,7 +72,7 @@ const Sobre = () => {
 
               {/* Values */}
               <div className="bg-gray-light/50 p-8 rounded-2xl shadow-lg text-center">
-                <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-navy-deep to-blue-dark flex items-center justify-center shadow-lg">
+                <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-blue-800 to-blue-900 flex items-center justify-center shadow-lg">
                   <Award className="w-10 h-10 text-white" />
                 </div>
                 <h2 className="text-2xl font-heading font-bold text-navy-deep mb-4">
