@@ -120,11 +120,6 @@ export const productFamilies: ProductFamily[] = [
         title: "EVO Lite Enterprise - Demonstração Completa",
         description: "Conheça todas as funcionalidades do EVO Lite Enterprise em ação",
         youtubeId: "1MwBSeCUb7w"
-      },
-      {
-        title: "Tutorial de Operação - EVO Lite Enterprise",
-        description: "Aprenda a operar o drone com este tutorial passo a passo",
-        youtubeId: "demo-tutorial-evo-lite"
       }
     ],
     photoGallery: {
@@ -279,11 +274,6 @@ export const productFamilies: ProductFamily[] = [
         title: "EVO Max V2 - Demonstração Completa",
         description: "Conheça todas as funcionalidades do EVO Max V2 em ação",
         youtubeId: "IaKUtdAdG5w"
-      },
-      {
-        title: "Tutorial de Operação - EVO Max V2",
-        description: "Aprenda a operar o drone com este tutorial passo a passo",
-        youtubeId: "demo-tutorial-evo-max"
       }
     ],
     photoGallery: {
@@ -434,14 +424,9 @@ export const productFamilies: ProductFamily[] = [
     ],
     videos: [
       {
-        title: "Autel Alpha - Demonstração Completa",
-        description: "Conheça todas as funcionalidades do Autel Alpha em ação",
-        youtubeId: "demo-autel-alpha"
-      },
-      {
-        title: "Tutorial de Operação - Autel Alpha",
-        description: "Aprenda a operar o drone com este tutorial passo a passo",
-        youtubeId: "demo-tutorial-autel-alpha"
+        title: "Autel Alpha - Apresentação Oficial",
+        description: "Conheça o drone profissional mais avançado da linha Autel",
+        youtubeId: "N8R7epI0m1M"
       }
     ],
     photoGallery: {

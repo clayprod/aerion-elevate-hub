@@ -138,9 +138,9 @@ export const ProductTechnicalData: React.FC<TechnicalDataProps> = ({
           ACESSÓRIOS
         </h3>
         <p className="text-sm text-gray-600 mb-4">Itens inclusos no pacote</p>
-        <div className="space-y-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2">
           {allAccessories.map((item, index) => (
-            <div key={index} className="flex items-center gap-2 py-2 border-b border-gray-200 last:border-b-0">
+            <div key={index} className="flex items-center gap-2 py-2">
               <span className="text-blue-medium font-bold">•</span>
               <span className="text-gray-dark">{item}</span>
             </div>
@@ -161,10 +161,14 @@ export const ProductTechnicalData: React.FC<TechnicalDataProps> = ({
         {renderSpecsCard()}
       </div>
       
-      {/* Dados Comerciais e Acessórios lado a lado */}
+      {/* Acessórios em 2 colunas */}
+      <div className="mb-6">
+        {renderAccessoriesCard()}
+      </div>
+      
+      {/* Dados Comerciais abaixo */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {technicalData.commercial && renderDataCard("DADOS COMERCIAIS", technicalData.commercial, <DollarSign className="w-5 h-5" />)}
-        {renderAccessoriesCard()}
       </div>
     </div>
   );

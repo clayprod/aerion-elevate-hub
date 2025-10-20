@@ -53,7 +53,7 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
           {/* Product Images */}
           <div className="flex gap-4">
             {/* Thumbnail Images - Vertical Scroll */}
-            <div className="flex-shrink-0 w-20 space-y-2 overflow-y-auto max-h-[600px]">
+            <div className="flex-shrink-0 w-20 space-y-2 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 hover:scrollbar-thumb-gray-500" style={{ maxHeight: '600px' }}>
               {images.slice(0, 8).map((image, index) => (
                 <Card 
                   key={index} 
@@ -101,13 +101,6 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
           
           {/* Product Information */}
           <div className="space-y-6">
-            {/* Category Badge */}
-            <div className="flex items-center gap-3">
-              <Badge variant="secondary" className="bg-blue-medium text-white">
-                {category}
-              </Badge>
-              <span className="text-sm text-gray-dark">Drone Profissional</span>
-            </div>
             
             {/* Product Name */}
             <h1 className="text-4xl font-bold text-navy-deep">
@@ -181,23 +174,26 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
             {/* Action Buttons */}
             <div className="flex gap-4 pt-4">
               <Button
-                onClick={() => copyToClipboard(`${name}\n\n${description}\n\nCaracterísticas:\n${displayFeatures.join('\n')}`)}
-                className="bg-green-success hover:bg-green-600"
-              >
-                <Copy className="w-4 h-4 mr-2" />
-                Copiar informações
-              </Button>
-              <Button 
                 onClick={() => {
                   const element = document.getElementById('technical-data');
                   if (element) {
                     element.scrollIntoView({ behavior: 'smooth' });
                   }
                 }}
-                className="bg-blue-bright text-black hover:bg-blue-bright/90"
+                size="lg"
+                className="bg-action hover:bg-action/90 text-action-foreground font-heading font-semibold text-base px-8 py-3 shadow-glow group rounded-xl transition-all duration-300 hover:shadow-xl"
               >
-                <Eye className="w-4 h-4 mr-2" />
+                <Eye className="w-5 h-5 mr-2" />
                 Ver especificações
+              </Button>
+              <Button
+                onClick={() => copyToClipboard(`${name}\n\n${description}\n\nCaracterísticas:\n${displayFeatures.join('\n')}`)}
+                size="lg"
+                variant="outline"
+                className="bg-transparent border-2 border-gray-300 text-navy-deep hover:bg-gray-50 font-heading font-semibold text-base px-8 py-3 rounded-xl transition-all duration-300"
+              >
+                <Copy className="w-5 h-5 mr-2" />
+                Copiar informações
               </Button>
             </div>
           </div>

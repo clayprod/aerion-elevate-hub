@@ -29,8 +29,8 @@ export const ProductDownloadSection: React.FC<ProductDownloadSectionProps> = ({
   };
 
   // Get main downloads
-  const presentations = downloads.filter(d => d.type === 'pdf' && d.title.toLowerCase().includes('brochure'));
-  const datasheets = downloads.filter(d => d.type === 'pdf' && (d.title.toLowerCase().includes('datasheet') || d.title.toLowerCase().includes('especificação')));
+  const datasheets = downloads.filter(d => d.type === 'pdf' && (d.title.toLowerCase().includes('brochure') || d.title.toLowerCase().includes('datasheet') || d.title.toLowerCase().includes('especificação')));
+  const manuals = downloads.filter(d => d.type === 'pdf' && d.title.toLowerCase().includes('manual'));
 
   return (
     <div className="space-y-6">
@@ -40,16 +40,6 @@ export const ProductDownloadSection: React.FC<ProductDownloadSectionProps> = ({
       
       {/* Main Download Buttons - Only 2 */}
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
-        {presentations.length > 0 && (
-          <Button
-            onClick={() => handleDownload(presentations[0].url, presentations[0].title)}
-            className="bg-gray-800 text-white hover:bg-gray-700 px-8 py-4 text-lg"
-          >
-            <Presentation className="w-5 h-5 mr-2" />
-            Apresentação
-          </Button>
-        )}
-        
         {datasheets.length > 0 && (
           <Button
             onClick={() => handleDownload(datasheets[0].url, datasheets[0].title)}
@@ -57,6 +47,16 @@ export const ProductDownloadSection: React.FC<ProductDownloadSectionProps> = ({
           >
             <FileText className="w-5 h-5 mr-2" />
             Datasheet
+          </Button>
+        )}
+        
+        {manuals.length > 0 && (
+          <Button
+            onClick={() => handleDownload(manuals[0].url, manuals[0].title)}
+            className="bg-gray-800 text-white hover:bg-gray-700 px-8 py-4 text-lg"
+          >
+            <FileText className="w-5 h-5 mr-2" />
+            Manual
           </Button>
         )}
       </div>
