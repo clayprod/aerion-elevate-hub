@@ -38,6 +38,8 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
   onVariantChange
 }) => {
   const [selectedImage, setSelectedImage] = useState(0);
+  const [isZooming, setIsZooming] = useState(false);
+  const [zoomPosition, setZoomPosition] = useState({ x: 50, y: 50 });
 
   const downloadImage = (imageUrl: string) => {
     const link = document.createElement('a');
@@ -46,6 +48,13 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setZoomPosition({ x, y });
   };
 
   const currentVariant = variants.find(v => v.id === selectedVariant);
@@ -67,9 +76,9 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
               {images.slice(0, 8).map((image, index) => (
                 <div
                   key={index}
-                  className={`relative w-16 h-16 bg-gray-100 rounded-lg overflow-hidden cursor-pointer transition-all duration-300 hover:scale-105 p-1 ${
+                  className={`relative w-16 h-16 bg-gray-100 rounded-lg cursor-pointer transition-all duration-300 hover:scale-105 p-1 ${
                     selectedImage === index 
-                      ? 'ring-2 ring-blue-bright ring-offset-0' 
+                      ? 'ring-2 ring-blue-bright ring-offset-2' 
                       : ''
                   }`}
                   onClick={() => setSelectedImage(index)}
@@ -86,11 +95,20 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
             {/* Main Image */}
             <div className="flex-1">
               <Card className="overflow-hidden">
-                <div className="relative aspect-square bg-gray-100">
+                <div 
+                  className="relative aspect-square bg-gray-100 overflow-hidden cursor-zoom-in"
+                  onMouseEnter={() => setIsZooming(true)}
+                  onMouseLeave={() => setIsZooming(false)}
+                  onMouseMove={handleMouseMove}
+                >
                   <img
                     src={images[selectedImage]}
                     alt={`${name} - Vista ${selectedImage + 1}`}
-                    className="w-full h-full object-contain p-8"
+                    className="w-full h-full object-contain p-8 transition-transform duration-300"
+                    style={{
+                      transform: isZooming ? 'scale(2)' : 'scale(1)',
+                      transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%`
+                    }}
                   />
                   <div className="absolute top-4 right-4">
                     <Button
