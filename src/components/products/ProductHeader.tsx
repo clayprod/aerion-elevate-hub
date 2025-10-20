@@ -53,25 +53,23 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
           {/* Product Images */}
           <div className="flex gap-4">
             {/* Thumbnail Images - Vertical Scroll */}
-            <div className="flex-shrink-0 w-20 space-y-2 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 hover:scrollbar-thumb-gray-500" style={{ maxHeight: '600px' }}>
+            <div className="flex-shrink-0 w-16 space-y-2 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 hover:scrollbar-thumb-gray-500" style={{ maxHeight: '600px' }}>
               {images.slice(0, 8).map((image, index) => (
-                <Card 
-                  key={index} 
-                  className={`overflow-hidden cursor-pointer transition-all duration-300 ${
+                <div
+                  key={index}
+                  className={`relative w-16 h-16 bg-gray-100 rounded-lg overflow-hidden cursor-pointer transition-all duration-300 hover:scale-105 ${
                     selectedImage === index 
-                      ? 'ring-2 ring-blue-bright' 
-                      : 'hover:scale-105'
+                      ? 'ring-2 ring-blue-bright ring-offset-2' 
+                      : ''
                   }`}
                   onClick={() => setSelectedImage(index)}
                 >
-                  <div className="relative w-20 h-20 bg-gray-100">
-                    <img
-                      src={image}
-                      alt={`${name} - Miniatura ${index + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                </Card>
+                  <img
+                    src={image}
+                    alt={`${name} - Miniatura ${index + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               ))}
             </div>
             
@@ -130,6 +128,12 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
             <p className="text-lg text-gray-dark leading-relaxed">
               {description}
             </p>
+            
+            {/* Brand */}
+            <div className="flex items-center gap-2 text-sm">
+              <span className="font-medium text-gray-dark">Marca:</span>
+              <span className="font-semibold text-navy-deep">Autel</span>
+            </div>
             
             {/* Variant Selector */}
             {variants.length > 0 && (

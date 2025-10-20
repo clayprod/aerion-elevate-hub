@@ -4,7 +4,6 @@ import { ProductStickyMenu } from '@/components/products/ProductStickyMenu';
 import { ProductTechnicalData } from '@/components/products/ProductTechnicalData';
 import { ProductVideoGallery } from '@/components/products/ProductVideoGallery';
 import { ProductApplications } from '@/components/products/ProductApplications';
-import { ProductDownloadSection } from '@/components/products/ProductDownloadSection';
 import { getProductFamilyBySlug } from '@/data/products';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -64,7 +63,6 @@ const AutelAlpha: React.FC = () => {
   const menuItems = [
     { id: 'technical-data', label: 'Dados Técnicos' },
     { id: 'applications', label: 'Aplicações' },
-    { id: 'downloads', label: 'Downloads' },
     { id: 'videos', label: 'Vídeos' }
   ];
 
@@ -93,6 +91,7 @@ const AutelAlpha: React.FC = () => {
             components={productFamily.components}
             accessoriesIncluded={productFamily.accessoriesIncluded}
             title={currentVariant.name}
+            downloads={downloads}
           />
         </div>
       </section>
@@ -102,16 +101,6 @@ const AutelAlpha: React.FC = () => {
         <div className="max-w-7xl mx-auto px-6">
           <ProductApplications
             applications={productFamily.applications}
-            title={productFamily.name}
-          />
-        </div>
-      </section>
-      
-      {/* Downloads Section */}
-      <section id="downloads" className="py-12 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <ProductDownloadSection
-            downloads={downloads}
             title={productFamily.name}
           />
         </div>

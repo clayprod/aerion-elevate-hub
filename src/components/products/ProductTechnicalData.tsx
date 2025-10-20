@@ -9,6 +9,7 @@ import {
   Gift,
   Copy
 } from 'lucide-react';
+import { ProductDownloadSection } from './ProductDownloadSection';
 
 interface TechnicalDataProps {
   technicalData: {
@@ -25,6 +26,11 @@ interface TechnicalDataProps {
   components: string[];
   accessoriesIncluded: string[];
   title: string;
+  downloads?: Array<{
+    title: string;
+    url: string;
+    type: string;
+  }>;
 }
 
 export const ProductTechnicalData: React.FC<TechnicalDataProps> = ({
@@ -32,7 +38,8 @@ export const ProductTechnicalData: React.FC<TechnicalDataProps> = ({
   specs,
   components,
   accessoriesIncluded,
-  title
+  title,
+  downloads
 }) => {
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -166,9 +173,15 @@ export const ProductTechnicalData: React.FC<TechnicalDataProps> = ({
         {renderAccessoriesCard()}
       </div>
       
-      {/* Dados Comerciais abaixo */}
+      {/* Dados Comerciais e Material de Apoio lado a lado */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {technicalData.commercial && renderDataCard("DADOS COMERCIAIS", technicalData.commercial, <DollarSign className="w-5 h-5" />)}
+        
+        {downloads && downloads.length > 0 && (
+          <Card className="p-6 bg-gray-50">
+            <ProductDownloadSection downloads={downloads} title={title} />
+          </Card>
+        )}
       </div>
     </div>
   );

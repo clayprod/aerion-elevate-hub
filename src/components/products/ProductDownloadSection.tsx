@@ -33,19 +33,21 @@ export const ProductDownloadSection: React.FC<ProductDownloadSectionProps> = ({
   const manuals = downloads.filter(d => d.type === 'pdf' && d.title.toLowerCase().includes('manual'));
 
   return (
-    <div className="space-y-6">
-      <h2 className="text-3xl font-bold text-navy-deep mb-6">
-        Material de Apoio para Download
-      </h2>
+    <div className="space-y-4">
+      <h3 className="text-lg font-bold text-navy-deep flex items-center gap-2">
+        <Download className="w-5 h-5" />
+        MATERIAL DE APOIO
+      </h3>
+      <p className="text-sm text-gray-600 mb-4">Downloads disponíveis</p>
       
-      {/* Main Download Buttons - Only 2 */}
-      <div className="flex flex-col sm:flex-row gap-4 justify-center">
+      {/* Download Buttons */}
+      <div className="space-y-3">
         {datasheets.length > 0 && (
           <Button
             onClick={() => handleDownload(datasheets[0].url, datasheets[0].title)}
-            className="bg-gray-800 text-white hover:bg-gray-700 px-8 py-4 text-lg"
+            className="w-full bg-blue-medium text-white hover:bg-blue-dark justify-start"
           >
-            <FileText className="w-5 h-5 mr-2" />
+            <FileText className="w-4 h-4 mr-2" />
             Datasheet
           </Button>
         )}
@@ -53,9 +55,9 @@ export const ProductDownloadSection: React.FC<ProductDownloadSectionProps> = ({
         {manuals.length > 0 && (
           <Button
             onClick={() => handleDownload(manuals[0].url, manuals[0].title)}
-            className="bg-gray-800 text-white hover:bg-gray-700 px-8 py-4 text-lg"
+            className="w-full bg-blue-medium text-white hover:bg-blue-dark justify-start"
           >
-            <FileText className="w-5 h-5 mr-2" />
+            <FileText className="w-4 h-4 mr-2" />
             Manual
           </Button>
         )}
