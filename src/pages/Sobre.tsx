@@ -12,18 +12,6 @@ const Sobre = () => {
       <Header />
       
       <main className="pt-28 pb-20">
-        {/* Hero Section */}
-        <section className="bg-gradient-primary py-10 text-white">
-          <div className="container-custom text-center">
-            <h1 className="text-3xl md:text-4xl font-heading font-bold mb-6">
-              Sobre a Autel
-            </h1>
-            <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto">
-              Distribuindo o futuro da tecnologia aérea no Brasil desde 2026
-            </p>
-          </div>
-        </section>
-
         {/* Story Section */}
         <section className="py-10 bg-gray-light/30">
           <div className="container-custom max-w-4xl">
@@ -84,7 +72,7 @@ const Sobre = () => {
 
               {/* Values */}
               <div className="bg-gray-light/50 p-8 rounded-2xl shadow-lg text-center">
-                <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-orange-energy to-orange-600 flex items-center justify-center shadow-lg">
+                <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-orange-energy to-orange-500 flex items-center justify-center shadow-lg">
                   <Award className="w-10 h-10 text-white" />
                 </div>
                 <h2 className="text-2xl font-heading font-bold text-navy-deep mb-4">
