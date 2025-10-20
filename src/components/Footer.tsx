@@ -147,18 +147,18 @@ const Footer = () => {
               >
                 Administrador
               </a>
-              <a
-                href="#"
+              <Link
+                to="/politica-privacidade"
                 className="text-gray-medium hover:text-blue-light transition-colors text-sm"
               >
                 Política de Privacidade
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to="/termos-uso"
                 className="text-gray-medium hover:text-blue-light transition-colors text-sm"
               >
                 Termos de Uso
-              </a>
+              </Link>
             </div>
           </div>
         </div>
