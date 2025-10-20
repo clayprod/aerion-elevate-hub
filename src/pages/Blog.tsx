@@ -36,7 +36,7 @@ const Blog = () => {
 
       <main className="pt-28 pb-20">
         {/* Hero Section */}
-        <section className="bg-gradient-primary py-16 text-white">
+        <section className="bg-gradient-primary py-8 text-white">
           <div className="container-custom text-center">
             <h1 className="text-3xl md:text-4xl font-heading font-bold mb-4">
               Blog Aerion
@@ -48,7 +48,7 @@ const Blog = () => {
         </section>
 
         {/* Posts Grid */}
-        <section className="py-16">
+        <section className="py-8">
           <div className="container-custom">
             {isLoading ? (
               <div className="text-center py-12">

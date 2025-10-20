@@ -40,7 +40,7 @@ const BlogPost = () => {
         ) : post ? (
           <>
             {/* Header */}
-            <section className="bg-gradient-primary py-16 text-white">
+            <section className="bg-gradient-primary py-8 text-white">
               <div className="container-custom max-w-4xl">
                 <Button
                   asChild
@@ -76,7 +76,7 @@ const BlogPost = () => {
 
             {/* Cover Image */}
             {post.cover_image && (
-              <div className="container-custom max-w-4xl my-12">
+              <div className="container-custom max-w-4xl my-6">
                 <img
                   src={post.cover_image}
                   alt={post.title}
@@ -86,7 +86,7 @@ const BlogPost = () => {
             )}
 
             {/* Content */}
-            <article className="container-custom max-w-4xl">
+            <article className="container-custom max-w-4xl py-4">
               <div className="prose prose-lg max-w-none">
                 <div dangerouslySetInnerHTML={{ __html: post.content }} className="text-gray-dark leading-relaxed whitespace-pre-wrap" />
               </div>
