@@ -18,10 +18,7 @@ const BlogPost = () => {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("blog_posts")
-        .select(`
-          *,
-          author:profiles!blog_posts_author_id_fkey(full_name)
-        `)
+        .select("*")
         .eq("slug", slug)
         .eq("published", true)
         .single();
@@ -67,13 +64,6 @@ const BlogPost = () => {
                 </h1>
 
                 <div className="flex flex-wrap items-center gap-6 text-cyan-light">
-                  {(post as any).author?.full_name && (
-                    <div className="flex items-center space-x-2">
-                      <User className="w-5 h-5" />
-                      <span>{(post as any).author.full_name}</span>
-                    </div>
-                  )}
-
                   {post.published_at && (
                     <div className="flex items-center space-x-2">
                       <Calendar className="w-5 h-5" />

@@ -74,7 +74,7 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Product Images */}
-          <div className="flex gap-4">
+          <div className="flex gap-4 px-2">
             {/* Thumbnail Images - Vertical Scroll */}
             <div className="flex-shrink-0 w-16 space-y-2 overflow-y-auto overflow-x-visible" style={{ maxHeight: '600px', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
               <style jsx>{`

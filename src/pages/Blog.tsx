@@ -1,7 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileFloatingCTA from "@/components/MobileFloatingCTA";
-import DebugSupabase from "@/components/DebugSupabase";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Card } from "@/components/ui/card";
@@ -17,10 +16,7 @@ const Blog = () => {
       console.log("🔍 Fetching blog posts...");
       const { data, error } = await supabase
         .from("blog_posts")
-        .select(`
-          *,
-          author:profiles!blog_posts_author_id_fkey(full_name)
-        `)
+        .select("*")
         .eq("published", true)
         .order("published_at", { ascending: false });
 
@@ -101,13 +97,6 @@ const Blog = () => {
                         </p>
 
                         <div className="flex items-center justify-between text-sm text-gray-medium">
-                          {(post as any).author?.full_name && (
-                            <div className="flex items-center space-x-2">
-                              <User className="w-4 h-4" />
-                              <span>{(post as any).author.full_name}</span>
-                            </div>
-                          )}
-
                           {post.published_at && (
                             <div className="flex items-center space-x-2">
                               <Calendar className="w-4 h-4" />
@@ -131,7 +120,6 @@ const Blog = () => {
 
       <Footer />
       <MobileFloatingCTA />
-      <DebugSupabase />
     </div>
   );
 };
