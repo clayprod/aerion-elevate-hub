@@ -32,23 +32,20 @@ const Sobre = () => {
                 Nossa História
               </h2>
               <p className="text-lg text-gray-dark max-w-2xl mx-auto">
-                Uma equipe apaixonada por tecnologia e comprometida com a excelência
+                Excelência técnica e paixão por resultados reais
               </p>
             </div>
             
             <div className="prose prose-lg mx-auto">
               <div className="bg-white p-8 rounded-2xl shadow-lg">
                 <p className="text-xl text-gray-dark leading-relaxed mb-6">
-                  Nossa equipe é formada por especialistas apaixonados por tecnologia aérea, com anos de experiência em aplicações profissionais de drones. Cada membro da Aerion Technologies traz consigo um profundo conhecimento técnico e uma visão clara de como a tecnologia pode transformar operações e impulsionar resultados.
+                  Somos uma equipe especializada em tecnologia aérea com foco total em performance e impacto prático. Cada integrante traz experiência consolidada em operações profissionais com drones e conhecimento técnico aprofundado para transformar desafios em soluções eficientes.
                 </p>
                 <p className="text-lg text-gray-dark leading-relaxed mb-6">
-                  Nossa paixão vai além da simples distribuição de produtos. Somos entusiastas da tecnologia que acreditam no potencial transformador dos drones profissionais. Cada projeto que desenvolvemos é uma oportunidade de demonstrar nossa expertise e comprometimento com a excelência técnica.
-                </p>
-                <p className="text-lg text-gray-dark leading-relaxed mb-6">
-                  Construímos não apenas uma rede de distribuição, mas uma comunidade de especialistas que compreendem as nuances de cada setor. Nossa equipe dedica-se a entender profundamente as necessidades específicas de nossos clientes, desde os desafios únicos da construção civil até as exigências críticas da segurança pública.
+                  Nosso trabalho vai além da simples distribuição: estruturamos uma rede de parceiros sólida, com suporte técnico especializado e proximidade real com o mercado. Entendemos as necessidades específicas de cada setor — da construção civil à segurança pública — e entregamos soluções precisas que geram valor direto para nossos clientes.
                 </p>
                 <p className="text-lg text-gray-dark leading-relaxed">
-                  Esta paixão pela tecnologia e compromisso com a excelência é o que nos motiva a trazer as melhores soluções Autel para o Brasil, sempre com o suporte técnico especializado que nossos clientes merecem.
+                  Estamos comprometidos em levar ao Brasil as melhores tecnologias, com confiabilidade, suporte local e excelência operacional. Nossa missão é clara: impulsionar a adoção de drones profissionais com seriedade, precisão e resultados mensuráveis.
                 </p>
               </div>
             </div>
