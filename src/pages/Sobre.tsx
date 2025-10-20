@@ -58,7 +58,7 @@ const Sobre = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Mission */}
               <div className="bg-gray-light/50 p-8 rounded-2xl shadow-lg text-center">
-                <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-accent flex items-center justify-center shadow-glow">
+                <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-blue-medium to-blue-dark flex items-center justify-center shadow-lg">
                   <Target className="w-10 h-10 text-white" />
                 </div>
                 <h2 className="text-2xl font-heading font-bold text-navy-deep mb-4">
@@ -71,7 +71,7 @@ const Sobre = () => {
 
               {/* Vision */}
               <div className="bg-gray-light/50 p-8 rounded-2xl shadow-lg text-center">
-                <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-accent flex items-center justify-center shadow-glow">
+                <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-blue-dark to-navy-deep flex items-center justify-center shadow-lg">
                   <Eye className="w-10 h-10 text-white" />
                 </div>
                 <h2 className="text-2xl font-heading font-bold text-navy-deep mb-4">
@@ -84,7 +84,7 @@ const Sobre = () => {
 
               {/* Values */}
               <div className="bg-gray-light/50 p-8 rounded-2xl shadow-lg text-center">
-                <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-accent flex items-center justify-center shadow-glow">
+                <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-orange-energy to-orange-600 flex items-center justify-center shadow-lg">
                   <Award className="w-10 h-10 text-white" />
                 </div>
                 <h2 className="text-2xl font-heading font-bold text-navy-deep mb-4">
