@@ -3,7 +3,6 @@ import { ProductHeader } from '@/components/products/ProductHeader';
 import { ProductStickyMenu } from '@/components/products/ProductStickyMenu';
 import { ProductTechnicalData } from '@/components/products/ProductTechnicalData';
 import { ProductVideoGallery } from '@/components/products/ProductVideoGallery';
-import { ProductLocalVideo } from '@/components/products/ProductLocalVideo';
 import { ProductApplications } from '@/components/products/ProductApplications';
 import { getProductFamilyBySlug } from '@/data/products';
 import Header from '@/components/Header';
@@ -61,15 +60,6 @@ const AutelAlpha: React.FC = () => {
   // Use only product images for the header
   const productImages = productFamily.photoGallery.product;
 
-  // Local videos data
-  const localVideos = [
-    {
-      title: "Autel Alpha - Demonstração Completa",
-      description: "Conheça todas as funcionalidades e capacidades do Autel Alpha em ação",
-      videoPath: "/videos/products/autel_alpha/alpha-s5-video1_1080.mp4"
-    }
-  ];
-
   const menuItems = [
     { id: 'technical-data', label: 'Dados Técnicos' },
     { id: 'applications', label: 'Aplicações' },
@@ -118,14 +108,7 @@ const AutelAlpha: React.FC = () => {
       
       {/* Videos Section */}
       <section id="videos" className="py-12 bg-gray-light/30">
-        <div className="max-w-7xl mx-auto px-6 space-y-12">
-          {/* Local Videos */}
-          <ProductLocalVideo
-            videos={localVideos}
-            title={productFamily.name}
-          />
-          
-          {/* YouTube Videos */}
+        <div className="max-w-7xl mx-auto px-6">
           <ProductVideoGallery
             videos={productFamily.videos}
             title={productFamily.name}
