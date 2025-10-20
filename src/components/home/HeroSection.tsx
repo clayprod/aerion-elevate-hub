@@ -5,7 +5,7 @@ import { YouTubeVideoBackground } from "../YouTubeVideoBackground";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center pt-16 pb-16 sm:pt-20 sm:pb-20 md:pt-24 md:pb-24">
+    <section className="relative h-screen flex items-center justify-center pt-16 pb-16 sm:pt-20 sm:pb-20 md:pt-24 md:pb-24">
       {/* Video Background Container - constrained to viewport */}
       <div className="absolute inset-0 overflow-hidden" style={{ height: '100vh', top: 0 }}>
         <YouTubeVideoBackground
@@ -15,17 +15,11 @@ const HeroSection = () => {
         />
         
         {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-black bg-opacity-60 z-20" />
+        <div className="absolute inset-0 bg-black bg-opacity-70 z-20" />
         
-        {/* Geometric Pattern Overlay */}
-        <div className="absolute inset-0 opacity-10 z-20">
-          <div className="absolute top-20 right-20 w-96 h-96 border-2 border-blue-light rotate-45 animate-float" />
-          <div className="absolute bottom-32 left-20 w-72 h-72 border-2 border-blue-light rotate-12 animate-float" style={{ animationDelay: '1s' }} />
-          <div className="absolute top-1/2 left-1/3 w-48 h-48 border-2 border-blue-medium rotate-45 animate-float" style={{ animationDelay: '2s' }} />
-        </div>
       </div>
 
-              <div className="container-custom relative z-30 py-8 sm:py-12 md:py-16">
+              <div className="container-custom relative z-30 py-4 sm:py-6 md:py-8">
         <div className="max-w-4xl">
 
           {/* Main Headline */}
@@ -39,7 +33,7 @@ const HeroSection = () => {
           </p>
 
           {/* Value Props */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8 animate-slide-up" style={{ animationDelay: '0.4s' }}>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6 animate-slide-up" style={{ animationDelay: '0.4s' }}>
             <div className="flex items-start space-x-3">
               <div className="w-10 h-10 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
                 <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -114,7 +108,7 @@ const HeroSection = () => {
           </div>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-4 mb-8 sm:mb-12 animate-slide-up" style={{ animationDelay: '0.6s' }}>
+          <div className="flex flex-col sm:flex-row gap-4 mb-4 sm:mb-6 animate-slide-up" style={{ animationDelay: '0.6s' }}>
             <Button
               asChild
               size="lg"
