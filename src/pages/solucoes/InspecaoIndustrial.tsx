@@ -220,17 +220,6 @@ const InspecaoIndustrial = () => {
                   alt="Inspeção Industrial com Drones"
                   className="rounded-2xl shadow-2xl"
                 />
-                <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-lg">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                      <CheckCircle className="w-6 h-6 text-green-600" />
-                    </div>
-                    <div>
-                      <p className="font-semibold text-navy-deep">-60%</p>
-                      <p className="text-sm text-gray-600">Paradas Não Planejadas</p>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -427,32 +416,6 @@ const InspecaoIndustrial = () => {
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="py-20 bg-gradient-primary">
-          <div className="container-custom text-center">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-6">
-              Pronto para otimizar suas operações industriais?
-            </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-              Nossa equipe de especialistas está pronta para ajudar você a implementar 
-              a melhor solução de inspeção para sua indústria.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="bg-white text-blue-medium hover:bg-white/90">
-                <Link to="/contato">
-                  <Users className="w-5 h-5 mr-2" />
-                  Falar com Especialista
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-blue-medium">
-                <Link to="/produtos">
-                  <Award className="w-5 h-5 mr-2" />
-                  Ver Todos os Drones
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </section>
       </main>
 
       <Footer />

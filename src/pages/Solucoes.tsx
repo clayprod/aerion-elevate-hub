@@ -163,24 +163,6 @@ const Solucoes = () => {
             ))}
           </div>
 
-          {/* CTA Section */}
-          <div className="mt-16 text-center p-12 bg-gradient-primary rounded-2xl">
-            <h3 className="text-3xl font-heading font-bold text-white mb-4">
-              Sua vertical não está listada?
-            </h3>
-            <p className="text-white text-lg mb-6 max-w-2xl mx-auto">
-              Trabalhamos com diversas aplicações. Entre em contato para discutir sua necessidade específica
-            </p>
-            <Button
-              asChild
-              size="lg"
-              className="bg-white text-blue-medium hover:bg-white/90 font-heading font-semibold"
-            >
-              <Link to="/contato">
-                Falar com Especialista
-              </Link>
-            </Button>
-          </div>
         </div>
       </main>
 
