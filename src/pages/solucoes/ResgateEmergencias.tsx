@@ -217,7 +217,7 @@ const ResgateEmergencias = () => {
               </div>
               <div className="relative">
                 <img
-                  src="/images/solucoes/resgate-emergencias/busca-resgate-vitimas.jpg"
+                  src="/images/lifestyle/rescue-2.jpg"
                   alt="Resgate e Emergências com Drones"
                   className="rounded-2xl shadow-2xl"
                 />

@@ -216,7 +216,7 @@ const SegurancaPublica = () => {
               </div>
               <div className="relative">
                 <img
-                  src="/images/solucoes/seguranca-publica/patrulhamento-inteligente.jpg"
+                  src="/images/lifestyle/public-safety-1-alpha.jpg"
                   alt="Segurança Pública com Drones"
                   className="rounded-2xl shadow-2xl"
                 />

@@ -164,7 +164,7 @@ const ConstrucaoTopografia = () => {
               </div>
               <div className="relative">
                 <img
-                  src="/images/solucoes/casos-uso-construcao/levantamentos-topograficos.jpg"
+                  src="/images/lifestyle/construction-1.jpeg"
                   alt="Construção e Topografia com Drones"
                   className="rounded-2xl shadow-2xl"
                 />

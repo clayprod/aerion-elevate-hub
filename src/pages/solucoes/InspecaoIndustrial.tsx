@@ -216,7 +216,7 @@ const InspecaoIndustrial = () => {
               </div>
               <div className="relative">
                 <img
-                  src="/images/solucoes/setores-atendidos/oleo-gas.jpg"
+                  src="/images/lifestyle/oil-and-gas-1.jpg"
                   alt="Inspeção Industrial com Drones"
                   className="rounded-2xl shadow-2xl"
                 />
