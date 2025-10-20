@@ -39,8 +39,13 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
 }) => {
   const [selectedImage, setSelectedImage] = useState(0);
 
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
+  const downloadImage = (imageUrl: string) => {
+    const link = document.createElement('a');
+    link.href = imageUrl;
+    link.download = `${name.replace(/\s+/g, '_')}_image_${selectedImage + 1}.jpg`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const currentVariant = variants.find(v => v.id === selectedVariant);
@@ -62,7 +67,7 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
               {images.slice(0, 8).map((image, index) => (
                 <div
                   key={index}
-                  className={`relative w-20 h-20 bg-gray-100 rounded-lg overflow-hidden cursor-pointer transition-all duration-300 hover:scale-105 p-1 ${
+                  className={`relative w-16 h-16 bg-gray-100 rounded-lg overflow-hidden cursor-pointer transition-all duration-300 hover:scale-105 p-0.5 ${
                     selectedImage === index 
                       ? 'ring-2 ring-blue-bright ring-offset-0' 
                       : ''
@@ -72,7 +77,7 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
                   <img
                     src={image}
                     alt={`${name} - Miniatura ${index + 1}`}
-                    className="w-full h-full object-contain bg-white p-1 rounded-md"
+                    className="w-full h-full object-contain bg-white p-0.5 rounded-md"
                   />
                 </div>
               ))}
@@ -92,7 +97,7 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
                       size="sm"
                       variant="secondary"
                       className="bg-white/90 hover:bg-white"
-                      onClick={() => copyToClipboard(images[selectedImage])}
+                      onClick={() => downloadImage(images[selectedImage])}
                     >
                       <Download className="w-4 h-4" />
                     </Button>

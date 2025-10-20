@@ -72,7 +72,7 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({ imagePath, title
                   <img
                     src={image.src}
                     alt={image.label}
-                    className="w-full h-28 object-contain bg-white p-2"
+                    className="w-full h-24 object-contain bg-white p-1"
                   />
                   {selectedImage === index && (
                     <div className="absolute inset-0 bg-blue-medium bg-opacity-20" />
