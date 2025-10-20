@@ -34,7 +34,7 @@ const MobileFloatingCTA = () => {
     >
       <Button
         asChild
-        className="w-full bg-action hover:bg-action/90 text-action-foreground font-heading font-semibold shadow-lg"
+        className="w-full bg-action hover:bg-action/90 text-action-foreground font-heading font-semibold shadow-glow rounded-xl"
       >
         <Link to="/contato">
           Quero ser um Revendedor

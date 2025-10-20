@@ -6,6 +6,7 @@ import { ProductDownloads } from '@/components/products/ProductDownloads';
 import { ProductApplications } from '@/components/products/ProductApplications';
 import { getProductFamilyBySlug } from '@/data/products';
 import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 const AutelAlpha: React.FC = () => {
   const productFamily = getProductFamilyBySlug('autel-alpha');
@@ -85,6 +86,7 @@ const AutelAlpha: React.FC = () => {
         downloads={downloads}
         title={productFamily.name}
       />
+      <Footer />
     </div>
   );
 };

@@ -6,6 +6,7 @@ import { ProductDownloads } from '@/components/products/ProductDownloads';
 import { ProductApplications } from '@/components/products/ProductApplications';
 import { getProductFamilyBySlug } from '@/data/products';
 import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 const EvoMaxV2: React.FC = () => {
   const productFamily = getProductFamilyBySlug('evo-max-v2');
@@ -94,6 +95,7 @@ const EvoMaxV2: React.FC = () => {
         downloads={downloads}
         title={productFamily.name}
       />
+      <Footer />
     </div>
   );
 };
