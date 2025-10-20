@@ -28,42 +28,33 @@ export const YouTubeVideoBackground: React.FC<YouTubeVideoBackgroundProps> = ({
   };
 
   return (
-    <div className={`absolute inset-0 w-full h-full ${className}`}>
+    <div className={`video-background ${className}`} style={{ minHeight: '100vh' }}>
       {!videoError && videoLoaded ? (
-        // YouTube iframe embed
+        // YouTube iframe embed with proper full coverage
         <iframe
           src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&cc_load_policy=0&fs=0&disablekb=1&start=0&end=0`}
-          className="w-full h-full"
-          style={{
-            border: 'none',
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: '100vw',
-            height: '56.25vw', // 16:9 aspect ratio
-            minHeight: '100vh',
-            minWidth: '177.77777778vh', // 16:9 aspect ratio
-            zIndex: 1
-          }}
           allow="autoplay; encrypted-media"
           allowFullScreen
           onError={handleVideoError}
+          style={{
+            minHeight: '100vh',
+            height: '100vh'
+          }}
         />
       ) : (
-        // Fallback image
+        // Fallback image with proper full coverage
         <div
-          className="w-full h-full bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage: `url(${fallbackImage})`,
             backgroundSize: 'cover',
-            backgroundPosition: 'center'
+            backgroundPosition: 'center',
+            backgroundAttachment: 'fixed',
+            minHeight: '100vh',
+            height: '100vh'
           }}
         />
       )}
-      
-      {/* Dark overlay for text readability */}
-      <div className="absolute inset-0 bg-black bg-opacity-60 z-10" />
     </div>
   );
 };
