@@ -135,6 +135,7 @@ const AdminBlog = () => {
   };
 
   const handleEdit = (post: BlogPost) => {
+    console.log("Editing post:", post);
     setEditingPost(post);
     setFormData({
       title: post.title,
@@ -145,6 +146,14 @@ const AdminBlog = () => {
       category: post.category || "",
       tags: post.tags ? post.tags.join(", ") : "",
       published: post.published,
+    });
+    console.log("Form data set:", {
+      title: post.title,
+      slug: post.slug,
+      excerpt: post.excerpt,
+      cover_image: post.cover_image || "",
+      category: post.category || "",
+      tags: post.tags ? post.tags.join(", ") : "",
     });
   };
 
