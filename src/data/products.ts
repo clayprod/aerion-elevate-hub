@@ -272,7 +272,8 @@ export const productFamilies: ProductFamily[] = [
             "Frequência operacional": "2.4/5.8 GHz",
             "Controle remoto": "Tela integrado",
             "Rede A-Mesh": "Não",
-            "Anti-interferência": "Padrão"
+            "Anti-interferência": "Padrão",
+            "Streaming de vídeo": "RTMP / RTSP"
           },
           "BATERIA E ENERGIA": {
             "Tipo de bateria": "LiPo 3S, 5.000 mAh",
@@ -485,7 +486,8 @@ export const productFamilies: ProductFamily[] = [
             "Resolução tela": "2048×1536",
             "Brilho da tela": "2000 nits",
             "Rede A-Mesh": "Sim",
-            "Anti-interferência": "Superior"
+            "Anti-interferência": "Superior",
+            "Streaming de vídeo": "RTMP / RTSP"
           },
           "BATERIA E ENERGIA": {
             "Tipo de bateria": "ABX41-D inteligente",
@@ -574,7 +576,8 @@ export const productFamilies: ProductFamily[] = [
             "Resolução tela": "2048×1536",
             "Brilho da tela": "2000 nits",
             "Rede A-Mesh": "Sim",
-            "Anti-interferência": "Superior"
+            "Anti-interferência": "Superior",
+            "Streaming de vídeo": "RTMP / RTSP"
           },
           "BATERIA E ENERGIA": {
             "Tipo de bateria": "ABX41-D inteligente",
@@ -793,7 +796,8 @@ export const productFamilies: ProductFamily[] = [
             "Resolução tela": "2048×1536",
             "Brilho da tela": "2000 nits",
             "Rede A-Mesh": "Sim",
-            "Anti-interferência": "Superior"
+            "Anti-interferência": "Superior",
+            "Streaming de vídeo": "RTMP / RTSP"
           },
           "BATERIA E ENERGIA": {
             "Tipo de bateria": "Dual-battery 237Wh cada",
