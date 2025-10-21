@@ -141,9 +141,9 @@ const AdminBlog = () => {
       slug: post.slug,
       excerpt: post.excerpt,
       content: post.content,
-      cover_image: "",
-      category: "",
-      tags: "",
+      cover_image: post.cover_image || "",
+      category: post.category || "",
+      tags: post.tags ? post.tags.join(", ") : "",
       published: post.published,
     });
   };
@@ -227,6 +227,7 @@ const AdminBlog = () => {
                         slug: e.target.value.toLowerCase().replace(/\s+/g, "-").replace(/[^\w-]+/g, ""),
                       });
                     }}
+                    className="border-gray-300 focus:border-aerion-blue bg-white"
                     required
                   />
                 </div>
@@ -238,6 +239,7 @@ const AdminBlog = () => {
                   <Input
                     value={formData.slug}
                     onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
+                    className="border-gray-300 focus:border-aerion-blue bg-white"
                     required
                   />
                 </div>
@@ -251,6 +253,7 @@ const AdminBlog = () => {
                   value={formData.excerpt}
                   onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
                   rows={3}
+                  className="border-gray-300 focus:border-aerion-blue bg-white"
                   required
                 />
               </div>
@@ -276,6 +279,7 @@ const AdminBlog = () => {
                     value={formData.cover_image}
                     onChange={(e) => setFormData({ ...formData, cover_image: e.target.value })}
                     placeholder="https://..."
+                    className="border-gray-300 focus:border-aerion-blue bg-white"
                   />
                 </div>
 
@@ -286,6 +290,7 @@ const AdminBlog = () => {
                   <Input
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                    className="border-gray-300 focus:border-aerion-blue bg-white"
                   />
                 </div>
               </div>
@@ -298,6 +303,7 @@ const AdminBlog = () => {
                   value={formData.tags}
                   onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
                   placeholder="tecnologia, drones, industrial"
+                  className="border-gray-300 focus:border-aerion-blue bg-white"
                 />
               </div>
 

@@ -5,7 +5,7 @@ import { YouTubeVideoBackground } from "../YouTubeVideoBackground";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-start justify-center pt-24 pb-20 sm:pt-28 sm:pb-24 md:pt-32 md:pb-32">
+    <section className="relative min-h-screen flex items-start justify-center pt-20 pb-12 sm:pt-24 sm:pb-16 md:pt-28 md:pb-20">
       {/* Video Background Container - full coverage */}
       <div className="absolute inset-0 w-full h-full overflow-hidden">
         <YouTubeVideoBackground
@@ -23,17 +23,17 @@ const HeroSection = () => {
         <div className="max-w-4xl">
 
           {/* Main Headline */}
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-10 leading-tight animate-slide-up">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-8 leading-tight animate-slide-up">
             A Revolução Autel Chegou ao Brasil
           </h1>
 
           {/* Subheadline */}
-          <p className="text-base md:text-lg text-white/90 mb-12 leading-relaxed animate-slide-up" style={{ animationDelay: '0.2s' }}>
+          <p className="text-base md:text-lg text-white/90 mb-10 leading-relaxed animate-slide-up" style={{ animationDelay: '0.2s' }}>
             Tecnologia de ponta com custo-benefício superior e suporte técnico especializado local. A escolha inteligente para operações enterprise.
           </p>
 
           {/* Value Props */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10 animate-slide-up" style={{ animationDelay: '0.4s' }}>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8 animate-slide-up" style={{ animationDelay: '0.4s' }}>
             <div className="flex items-start space-x-3">
               <div className="w-10 h-10 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
                 <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">

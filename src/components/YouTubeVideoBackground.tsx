@@ -32,7 +32,7 @@ export const YouTubeVideoBackground: React.FC<YouTubeVideoBackgroundProps> = ({
       {!videoError && videoLoaded ? (
         // YouTube iframe embed with full coverage
         <iframe
-          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&cc_load_policy=0&fs=0&disablekb=1&start=0&end=0`}
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&cc_load_policy=0&fs=0&disablekb=1`}
           className="video-responsive"
           style={{
             border: 'none',
