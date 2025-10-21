@@ -146,7 +146,7 @@ const ProductsSection = () => {
                   </div>
 
                   <div className="inline-flex items-center font-heading font-semibold text-blue-medium group-hover:translate-x-2 transition-transform text-sm">
-                    Ver Datasheet
+                    Saber mais
                     <ArrowRight className="ml-1 h-4 w-4" />
                   </div>
                 </div>
