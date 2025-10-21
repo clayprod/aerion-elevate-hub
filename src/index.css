@@ -185,44 +185,13 @@ All colors MUST be HSL.
 @layer utilities {
   .video-responsive {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100vw;
-    height: 56.25vw; /* 16:9 aspect ratio */
-    min-height: 100vh;
-    min-width: 177.77777778vh; /* 16:9 aspect ratio */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
   }
 
-  /* Mobile optimizations */
-  @media (max-width: 768px) {
-    .video-responsive {
-      width: 100vw;
-      height: 56.25vw;
-      min-height: 100vh;
-      min-width: 177.77777778vh;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .video-responsive {
-      width: 100vw;
-      height: 56.25vw;
-      min-height: 100vh;
-      min-width: 177.77777778vh;
-    }
-  }
-
-  /* Landscape mobile */
-  @media (max-height: 500px) and (orientation: landscape) {
-    .video-responsive {
-      width: 100vw;
-      height: 56.25vw;
-      min-height: 100vh;
-      min-width: 177.77777778vh;
-    }
-  }
 
   /* Custom Scrollbar Styles */
   .scrollbar-thin {
