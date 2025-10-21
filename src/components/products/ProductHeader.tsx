@@ -74,9 +74,9 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Product Images */}
-          <div className="flex gap-4 px-2">
-            {/* Thumbnail Images - Vertical Scroll */}
-            <div className="flex-shrink-0 w-16 space-y-2 overflow-y-auto overflow-x-visible" style={{ maxHeight: '600px', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+          <div className="flex flex-col-reverse lg:flex-row gap-4 px-2">
+            {/* Thumbnail Images - Responsive Layout */}
+            <div className="flex lg:flex-col gap-2 overflow-x-auto lg:overflow-y-auto lg:overflow-x-visible lg:flex-shrink-0 lg:w-16 pb-2 lg:pb-0" style={{ maxHeight: '600px', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
               <style jsx>{`
                 div::-webkit-scrollbar {
                   display: none;
@@ -85,25 +85,24 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
               {images.slice(0, 8).map((image, index) => (
                 <div
                   key={index}
-                  className={`relative w-16 h-16 rounded-lg cursor-pointer transition-all duration-300 hover:scale-105 px-2 py-1 ${
+                  className={`relative w-16 h-16 rounded-lg cursor-pointer transition-all duration-300 hover:scale-105 p-1 ${
                     selectedImage === index 
-                      ? 'bg-gray-100 border-2 border-blue-bright' 
-                      : 'bg-gray-100 border-2 border-gray-300'
+                      ? 'bg-white border-2 border-blue-bright' 
+                      : 'bg-white border border-gray-200'
                   }`}
                   onClick={() => setSelectedImage(index)}
                 >
                   <img
                     src={image}
                     alt={`${name} - Miniatura ${index + 1}`}
-                    className="w-full h-full object-contain bg-white rounded-md"
-                    style={{ padding: '4px 2px' }}
+                    className="w-full h-full object-contain bg-white rounded-md p-2"
                   />
                 </div>
               ))}
             </div>
             
             {/* Main Image */}
-            <div className="flex-1">
+            <div className="flex-1 order-first lg:order-none">
               <Card className="overflow-hidden">
                 <div 
                   className="relative aspect-square bg-gray-100 overflow-hidden cursor-zoom-in"
