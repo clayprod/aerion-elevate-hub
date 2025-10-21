@@ -33,6 +33,7 @@ const AdminBlog = () => {
   const { toast } = useToast();
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
+  const [formKey, setFormKey] = useState(0); // Chave para forçar re-renderização
   const [formData, setFormData] = useState({
     title: "",
     slug: "",
@@ -156,15 +157,15 @@ const AdminBlog = () => {
     
     console.log("Setting form data:", newFormData);
     
-    // Usar setTimeout para garantir que o estado seja atualizado
-    setTimeout(() => {
-      setFormData(newFormData);
-      console.log("Form data updated:", newFormData);
-    }, 100);
+    // Atualizar o estado e forçar re-renderização
+    setFormData(newFormData);
+    setFormKey(prev => prev + 1); // Forçar re-renderização do formulário
+    console.log("Form data updated and key incremented:", newFormData);
   };
 
   const resetForm = () => {
     setEditingPost(null);
+    setFormKey(prev => prev + 1); // Forçar re-renderização
     setFormData({
       title: "",
       slug: "",
@@ -231,7 +232,7 @@ const AdminBlog = () => {
               )}
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form key={formKey} onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-heading font-semibold text-navy-deep mb-2">
