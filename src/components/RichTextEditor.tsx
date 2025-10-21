@@ -1,5 +1,4 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import 'react-quill/dist/quill.snow.css';
 
 interface RichTextEditorProps {
   value: string;
@@ -15,28 +14,34 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
   height = "300px"
 }) => {
   const [ReactQuill, setReactQuill] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    import('react-quill').then((module) => {
-      setReactQuill(() => module.default);
-    });
+    const loadQuill = async () => {
+      try {
+        // Tentar carregar o React Quill
+        const quillModule = await import('react-quill');
+        await import('react-quill/dist/quill.snow.css');
+        setReactQuill(() => quillModule.default);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Erro ao carregar React Quill:', error);
+        setIsLoading(false);
+      }
+    };
+
+    loadQuill();
   }, []);
 
   const modules = useMemo(() => ({
     toolbar: [
       [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-      [{ 'font': [] }],
-      [{ 'size': ['small', false, 'large', 'huge'] }],
       ['bold', 'italic', 'underline', 'strike'],
       [{ 'color': [] }, { 'background': [] }],
-      [{ 'script': 'sub'}, { 'script': 'super' }],
       [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-      [{ 'indent': '-1'}, { 'indent': '+1' }],
-      [{ 'direction': 'rtl' }],
       [{ 'align': [] }],
       ['blockquote', 'code-block'],
-      ['link', 'image', 'video'],
-      ['table'],
+      ['link', 'image'],
       ['clean']
     ],
     clipboard: {
@@ -45,21 +50,38 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
   }), []);
 
   const formats = [
-    'header', 'font', 'size',
+    'header',
     'bold', 'italic', 'underline', 'strike',
     'color', 'background',
-    'script',
-    'list', 'bullet', 'indent',
-    'direction', 'align',
+    'list', 'bullet',
+    'align',
     'blockquote', 'code-block',
-    'link', 'image', 'video',
-    'table'
+    'link', 'image'
   ];
 
-  if (!ReactQuill) {
+  if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64 border border-gray-300 rounded-md bg-gray-50">
         <p className="text-gray-500">Carregando editor...</p>
+      </div>
+    );
+  }
+
+  if (!ReactQuill) {
+    // Fallback para textarea simples se React Quill não carregar
+    return (
+      <div className="mb-8">
+        <textarea
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder={placeholder}
+          className="w-full border border-gray-300 rounded-md p-3 bg-white focus:border-aerion-blue focus:outline-none"
+          style={{ minHeight: height }}
+          rows={12}
+        />
+        <p className="text-sm text-gray-500 mt-2">
+          Editor simples ativo. Use HTML para formatação: &lt;b&gt;negrito&lt;/b&gt;, &lt;i&gt;itálico&lt;/i&gt;, &lt;p&gt;parágrafo&lt;/p&gt;
+        </p>
       </div>
     );
   }

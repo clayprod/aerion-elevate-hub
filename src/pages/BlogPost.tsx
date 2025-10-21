@@ -16,7 +16,6 @@ const BlogPost = () => {
   const { data: post, isLoading } = useQuery({
     queryKey: ["blog-post", slug],
     queryFn: async () => {
-      console.log("Fetching post with slug:", slug);
       const { data, error } = await supabase
         .from("blog_posts")
         .select("*")
@@ -24,11 +23,7 @@ const BlogPost = () => {
         .eq("published", true)
         .single();
 
-      if (error) {
-        console.error("Error fetching post:", error);
-        throw error;
-      }
-      console.log("Post fetched:", data);
+      if (error) throw error;
       return data;
     },
   });
