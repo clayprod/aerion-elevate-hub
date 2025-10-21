@@ -98,8 +98,10 @@ const EvoLiteEnterprise: React.FC = () => {
   const menuItems = [
     { id: 'product-description', label: 'Descrição do Produto' },
     { id: 'technical-data', label: 'Dados Técnicos' },
-    { id: 'downloads', label: 'Material de Apoio' },
-    { id: 'gallery', label: 'Galeria de Fotos e Vídeos' }
+    { id: 'accessories', label: 'Acessórios' },
+    { id: 'commercial-data', label: 'Dados Comerciais e de Apoio' },
+    { id: 'applications', label: 'Aplicações' },
+    { id: 'videos', label: 'Vídeos' }
   ];
 
   return (
@@ -138,13 +140,26 @@ const EvoLiteEnterprise: React.FC = () => {
         </div>
       </section>
       
-      {/* Downloads Section */}
-      <section id="downloads" className="py-12 bg-gray-light/30">
+      {/* Accessories Section */}
+      <section id="accessories" className="py-12 bg-gray-light/30">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-navy-deep mb-4">Material de Apoio</h2>
+            <h2 className="text-3xl font-bold text-navy-deep mb-4">Acessórios</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Documentos técnicos, manuais e materiais de apoio para o {productFamily.name}
+              Acessórios disponíveis para o {productFamily.name}
+            </p>
+          </div>
+          {/* Aqui você pode adicionar o conteúdo dos acessórios */}
+        </div>
+      </section>
+      
+      {/* Commercial Data Section */}
+      <section id="commercial-data" className="py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-navy-deep mb-4">Dados Comerciais e de Apoio</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Informações comerciais e materiais de apoio para o {productFamily.name}
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -178,31 +193,23 @@ const EvoLiteEnterprise: React.FC = () => {
         </div>
       </section>
       
-      {/* Gallery Section */}
-      <section id="gallery" className="py-12 bg-white">
+      {/* Applications Section */}
+      <section id="applications" className="py-12 bg-gray-light/30">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-navy-deep mb-4">Galeria de Fotos e Vídeos</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Explore imagens e vídeos do {productFamily.name} em ação
-            </p>
-          </div>
-          
-          {/* Applications Section */}
-          <div className="mb-12">
-            <ProductApplications
-              applications={productFamily.applications}
-              title="Aplicações"
-            />
-          </div>
-          
-          {/* Videos Section */}
-          <div>
-            <ProductVideoGallery
-              videos={productFamily.videos}
-              title="Vídeos"
-            />
-          </div>
+          <ProductApplications
+            applications={productFamily.applications}
+            title={productFamily.name}
+          />
+        </div>
+      </section>
+      
+      {/* Videos Section */}
+      <section id="videos" className="py-12 bg-gray-light/30">
+        <div className="max-w-7xl mx-auto px-6">
+          <ProductVideoGallery
+            videos={productFamily.videos}
+            title={productFamily.name}
+          />
         </div>
       </section>
       
