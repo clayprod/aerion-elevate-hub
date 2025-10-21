@@ -5,7 +5,7 @@ import { YouTubeVideoBackground } from "../YouTubeVideoBackground";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-start justify-center pt-24 pb-32 sm:pt-28 sm:pb-40 md:pt-32 md:pb-48">
+    <section className="relative min-h-screen flex items-start justify-center pt-24 pb-20 sm:pt-28 sm:pb-24 md:pt-32 md:pb-32">
       {/* Video Background Container - full coverage */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
         <YouTubeVideoBackground
@@ -19,7 +19,7 @@ const HeroSection = () => {
         
       </div>
 
-              <div className="container-custom relative z-30 py-8 sm:py-6 md:py-8 px-6 sm:px-8 md:px-8">
+              <div className="container-custom relative z-30 py-6 sm:py-6 md:py-8 px-6 sm:px-8 md:px-8">
         <div className="max-w-4xl">
 
           {/* Main Headline */}
@@ -33,7 +33,7 @@ const HeroSection = () => {
           </p>
 
           {/* Value Props */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 animate-slide-up" style={{ animationDelay: '0.4s' }}>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10 animate-slide-up" style={{ animationDelay: '0.4s' }}>
             <div className="flex items-start space-x-3">
               <div className="w-10 h-10 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
                 <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -108,7 +108,7 @@ const HeroSection = () => {
           </div>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-6 mb-8 sm:mb-12 animate-slide-up" style={{ animationDelay: '0.6s' }}>
+          <div className="flex flex-col sm:flex-row gap-6 mb-6 sm:mb-8 animate-slide-up" style={{ animationDelay: '0.6s' }}>
             <Button
               asChild
               size="lg"
