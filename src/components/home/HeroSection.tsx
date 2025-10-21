@@ -9,7 +9,7 @@ const HeroSection = () => {
       {/* Video Background Container - full coverage */}
       <div className="absolute inset-0 w-full h-full overflow-hidden">
         <VideoBackground
-          videoSrc="/videos/products/autel_alpha/alpha-s5-video1_1080.mp4"
+          videoSrc="/videos/products/evo_max/Introducing EVO Max 4T_720.mp4"
           className="object-cover"
         />
         
