@@ -22,6 +22,7 @@ export interface ProductFamily {
     title: string;
     description: string;
     image: string;
+    link?: string;
   }[];
   productCodes: {
     sku: string;
@@ -309,22 +310,26 @@ export const productFamilies: ProductFamily[] = [
       {
         title: "Segurança Pública",
         description: "Patrulhamento, busca e resgate, monitoramento de eventos",
-        image: "/images/lifestyle/public-safety-1-alpha.jpg"
+        image: "/images/lifestyle/public-safety-1-alpha.jpg",
+        link: "/solucoes/seguranca"
       },
       {
         title: "Inspeção Industrial",
         description: "Verificação de equipamentos, monitoramento de infraestrutura",
-        image: "/images/lifestyle/oil-and-gas-1.jpg"
+        image: "/images/lifestyle/oil-and-gas-1.jpg",
+        link: "/solucoes/industrial"
       },
       {
         title: "Construção Civil",
         description: "Mapeamento de obras, monitoramento de progresso",
-        image: "/images/lifestyle/construction-1.jpeg"
+        image: "/images/lifestyle/construction-1.jpeg",
+        link: "/solucoes/construcao"
       },
       {
         title: "Resgate e Emergências",
         description: "Operações de resgate, busca de pessoas, resposta a emergências",
-        image: "/images/lifestyle/rescue-2.jpg"
+        image: "/images/lifestyle/rescue-2.jpg",
+        link: "/solucoes/resgate"
       }
     ]
   },
@@ -614,22 +619,26 @@ export const productFamilies: ProductFamily[] = [
       {
         title: "Segurança Pública",
         description: "Operações táticas, busca e resgate, monitoramento de eventos",
-        image: "/images/lifestyle/public-safety-3-max.jpg"
+        image: "/images/lifestyle/public-safety-3-max.jpg",
+        link: "/solucoes/seguranca"
       },
       {
         title: "Inspeção Industrial",
         description: "Verificação de equipamentos, monitoramento de infraestrutura crítica",
-        image: "/images/lifestyle/oil-and-gas-1.jpg"
+        image: "/images/lifestyle/oil-and-gas-1.jpg",
+        link: "/solucoes/industrial"
       },
       {
         title: "Construção Civil",
         description: "Mapeamento de obras, monitoramento de progresso, topografia",
-        image: "/images/lifestyle/construction-2.jpg"
+        image: "/images/lifestyle/construction-2.jpg",
+        link: "/solucoes/construcao"
       },
       {
         title: "Resgate e Emergências",
         description: "Operações de resgate, busca de pessoas, resposta a emergências",
-        image: "/images/lifestyle/rescue-2.jpg"
+        image: "/images/lifestyle/rescue-2.jpg",
+        link: "/solucoes/resgate"
       }
     ]
   },
@@ -833,22 +842,26 @@ export const productFamilies: ProductFamily[] = [
       {
         title: "Segurança Pública",
         description: "Operações táticas avançadas, busca e resgate, monitoramento de eventos",
-        image: "/images/lifestyle/public-safety-1-alpha.jpg"
+        image: "/images/lifestyle/public-safety-1-alpha.jpg",
+        link: "/solucoes/seguranca"
       },
       {
         title: "Inspeção Industrial",
         description: "Verificação de equipamentos, monitoramento de infraestrutura crítica",
-        image: "/images/lifestyle/oil-and-gas-1.jpg"
+        image: "/images/lifestyle/oil-and-gas-1.jpg",
+        link: "/solucoes/industrial"
       },
       {
         title: "Resgate e Emergências",
         description: "Operações de resgate, busca de pessoas, resposta a emergências",
-        image: "/images/lifestyle/rescue-2.jpg"
+        image: "/images/lifestyle/rescue-2.jpg",
+        link: "/solucoes/resgate"
       },
       {
         title: "Construção Civil",
         description: "Mapeamento de obras, monitoramento de progresso, topografia",
-        image: "/images/lifestyle/construction-3.jpg"
+        image: "/images/lifestyle/construction-3.jpg",
+        link: "/solucoes/construcao"
       }
     ]
   }

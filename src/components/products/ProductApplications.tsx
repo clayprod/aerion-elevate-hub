@@ -1,10 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 
 interface Application {
   title: string;
   description: string;
   image: string;
+  link?: string;
 }
 
 interface ProductApplicationsProps {
@@ -45,9 +47,18 @@ export const ProductApplications: React.FC<ProductApplicationsProps> = ({ applic
                 <p className="text-gray-dark leading-relaxed">
                   {application.description}
                 </p>
-                <button className="mt-4 text-blue-medium hover:text-blue-dark font-semibold transition-colors">
-                  Saiba mais →
-                </button>
+                {application.link ? (
+                  <Link 
+                    to={application.link}
+                    className="mt-4 text-blue-medium hover:text-blue-dark font-semibold transition-colors inline-flex items-center"
+                  >
+                    Saiba mais →
+                  </Link>
+                ) : (
+                  <button className="mt-4 text-blue-medium hover:text-blue-dark font-semibold transition-colors">
+                    Saiba mais →
+                  </button>
+                )}
               </div>
             </Card>
           ))}

@@ -79,7 +79,7 @@ const ContactSection = () => {
   };
 
   return (
-    <section className="py-20 md:py-28 bg-gray-light/30">
+    <section className="py-20 md:py-28 bg-gray-100">
       <div className="container-custom">
         <div className="max-w-4xl mx-auto">
           {/* Section Header */}
@@ -93,7 +93,7 @@ const ContactSection = () => {
           </div>
 
           {/* Contact Form */}
-          <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
+          <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-2xl p-8 md:p-12">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
               {/* Name */}
               <div>
@@ -107,7 +107,7 @@ const ContactSection = () => {
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   placeholder="Seu nome"
                   required
-                  className="border-2 focus:border-aerion-blue"
+                  className="border-2 border-gray-300 focus:border-aerion-blue"
                 />
               </div>
 
@@ -123,7 +123,7 @@ const ContactSection = () => {
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder="seu@email.com"
                   required
-                  className="border-2 focus:border-aerion-blue"
+                  className="border-2 border-gray-300 focus:border-aerion-blue"
                 />
               </div>
 
@@ -138,7 +138,7 @@ const ContactSection = () => {
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   placeholder="(11) 99999-9999"
-                  className="border-2 focus:border-aerion-blue"
+                  className="border-2 border-gray-300 focus:border-aerion-blue"
                 />
               </div>
 
@@ -153,7 +153,7 @@ const ContactSection = () => {
                   value={formData.company}
                   onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                   placeholder="Nome da empresa"
-                  className="border-2 focus:border-aerion-blue"
+                  className="border-2 border-gray-300 focus:border-aerion-blue"
                 />
               </div>
             </div>
@@ -164,7 +164,7 @@ const ContactSection = () => {
                 Vertical de Interesse *
               </label>
               <Select value={formData.vertical} onValueChange={(value) => setFormData({ ...formData, vertical: value })}>
-                <SelectTrigger className="border-2 focus:border-aerion-blue">
+                <SelectTrigger className="border-2 border-gray-300 focus:border-aerion-blue">
                   <SelectValue placeholder="Selecione uma vertical" />
                 </SelectTrigger>
                 <SelectContent>
@@ -189,7 +189,7 @@ const ContactSection = () => {
                 placeholder="Conte-nos sobre suas necessidades..."
                 required
                 rows={5}
-                className="border-2 focus:border-aerion-blue resize-none"
+                className="border-2 border-gray-300 focus:border-aerion-blue resize-none"
               />
               <p className="text-sm text-gray-medium mt-1">Mínimo 10 caracteres</p>
             </div>
