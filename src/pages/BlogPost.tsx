@@ -39,40 +39,19 @@ const BlogPost = () => {
           </div>
         ) : post ? (
           <>
-            {/* Header */}
-            <section className="bg-gradient-primary py-8 text-white">
-              <div className="container-custom max-w-4xl">
-                <Button
-                  asChild
-                  variant="outline"
-                  className="mb-6 bg-white/10 hover:bg-white/20 border-white/30 text-white"
-                >
-                  <Link to="/blog" className="flex items-center">
-                    <ArrowLeft className="mr-2 h-4 w-4" />
-                    Voltar para o Blog
-                  </Link>
-                </Button>
-
-                {post.category && (
-                  <span className="inline-block px-3 py-1 bg-white/20 text-cyan-light rounded-full text-sm font-heading font-semibold mb-4">
-                    {post.category}
-                  </span>
-                )}
-
-                <h1 className="text-3xl md:text-4xl font-heading font-bold mb-6">
-                  {post.title}
-                </h1>
-
-                <div className="flex flex-wrap items-center gap-6 text-cyan-light">
-                  {post.published_at && (
-                    <div className="flex items-center space-x-2">
-                      <Calendar className="w-5 h-5" />
-                      <span>{format(new Date(post.published_at), "dd 'de' MMMM, yyyy", { locale: ptBR })}</span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </section>
+            {/* Botão Voltar */}
+            <div className="container-custom max-w-6xl mb-4">
+              <Button
+                asChild
+                variant="outline"
+                className="flex items-center gap-2"
+              >
+                <Link to="/blog" className="flex items-center">
+                  <ArrowLeft className="mr-2 h-4 w-4" />
+                  Voltar para o Blog
+                </Link>
+              </Button>
+            </div>
 
             {/* Post Header com Imagem */}
             <section className="container-custom max-w-6xl my-8">
@@ -119,7 +98,10 @@ const BlogPost = () => {
             {/* Content */}
             <article className="container-custom max-w-4xl py-4">
               <div className="prose prose-lg max-w-none">
-                <div dangerouslySetInnerHTML={{ __html: post.content }} className="text-gray-dark leading-relaxed whitespace-pre-wrap" />
+                <div 
+                  dangerouslySetInnerHTML={{ __html: post.content }} 
+                  className="text-lg text-gray-700 leading-relaxed whitespace-pre-wrap" 
+                />
               </div>
 
               {/* Tags */}
