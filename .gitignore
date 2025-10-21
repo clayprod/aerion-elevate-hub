@@ -34,14 +34,14 @@ Thumbs.db
 src/Autel/
 src/AutelRobotics_Logo_2CRed_CMYK.png
 
-# Large media files (videos) - use YouTube instead
-*.mov
-*.mp4
-*.avi
-*.mkv
-*.wmv
-*.flv
-public/videos/
+# Large media files (videos) - keeping essential videos for hero section
+# *.mov
+# *.mp4
+# *.avi
+# *.mkv
+# *.wmv
+# *.flv
+# public/videos/
 
 # Keep essential images (selected manually)
 # Images in public/images/ ARE tracked

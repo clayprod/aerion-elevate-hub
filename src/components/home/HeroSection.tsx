@@ -1,16 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, Play } from "lucide-react";
-import { YouTubeVideoBackground } from "../YouTubeVideoBackground";
+import { VideoBackground } from "../VideoBackground";
 
 const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-start justify-center pt-20 pb-12 sm:pt-24 sm:pb-16 md:pt-28 md:pb-20">
       {/* Video Background Container - full coverage */}
       <div className="absolute inset-0 w-full h-full overflow-hidden">
-        <YouTubeVideoBackground
-          videoId="IaKUtdAdG5w"
-          fallbackImage=""
+        <VideoBackground
+          videoSrc="/videos/products/autel_alpha/alpha-s5-video1_1080.mp4"
           className="object-cover"
         />
         
