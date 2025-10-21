@@ -141,18 +141,26 @@ const AdminBlog = () => {
   const handleEdit = (post: BlogPost) => {
     console.log("Post data:", post);
     setEditingPost(post);
+    
+    // Forçar uma atualização completa do estado
     const newFormData = {
-      title: post.title,
-      slug: post.slug,
-      excerpt: post.excerpt,
-      content: post.content,
+      title: post.title || "",
+      slug: post.slug || "",
+      excerpt: post.excerpt || "",
+      content: post.content || "",
       cover_image: post.cover_image || "",
       category: post.category || "",
       tags: post.tags ? post.tags.join(", ") : "",
-      published: post.published,
+      published: post.published || false,
     };
+    
     console.log("Setting form data:", newFormData);
-    setFormData(newFormData);
+    
+    // Usar setTimeout para garantir que o estado seja atualizado
+    setTimeout(() => {
+      setFormData(newFormData);
+      console.log("Form data updated:", newFormData);
+    }, 100);
   };
 
   const resetForm = () => {
@@ -176,6 +184,10 @@ const AdminBlog = () => {
   if (!isAdmin) {
     return null;
   }
+
+  // Debug: Log do estado atual do formData
+  console.log("Current formData:", formData);
+  console.log("Editing post:", editingPost);
 
   return (
     <div className="min-h-screen">
@@ -228,6 +240,7 @@ const AdminBlog = () => {
                   <Input
                     value={formData.title}
                     onChange={(e) => {
+                      console.log("Title input changed:", e.target.value);
                       setFormData({
                         ...formData,
                         title: e.target.value,
