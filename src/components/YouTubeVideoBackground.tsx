@@ -36,9 +36,7 @@ export const YouTubeVideoBackground: React.FC<YouTubeVideoBackgroundProps> = ({
           className="video-responsive"
           style={{
             border: 'none',
-            zIndex: 1,
-            width: '100%',
-            height: '100%'
+            zIndex: 1
           }}
           allow="autoplay; encrypted-media"
           allowFullScreen

@@ -7,7 +7,7 @@ const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-start justify-center pt-24 pb-32 sm:pt-28 sm:pb-40 md:pt-32 md:pb-48">
       {/* Video Background Container - full coverage */}
-      <div className="absolute inset-0 w-full h-full overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
         <YouTubeVideoBackground
           videoId="IaKUtdAdG5w"
           fallbackImage=""
