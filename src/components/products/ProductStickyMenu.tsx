@@ -15,13 +15,13 @@ export const ProductStickyMenu: React.FC<ProductStickyMenuProps> = ({ items }) =
 
   useEffect(() => {
     const handleScroll = () => {
-      // Check if we've scrolled past the first section (technical-data)
-      const firstSection = document.getElementById(items[0]?.id);
-      if (firstSection) {
-        const firstSectionTop = firstSection.offsetTop;
+      // Check if we've scrolled past the ProductHeader section
+      const productHeader = document.querySelector('section');
+      if (productHeader) {
+        const productHeaderBottom = productHeader.offsetTop + productHeader.offsetHeight;
         const scrollPosition = window.scrollY;
         
-        setIsVisible(scrollPosition > firstSectionTop - 200);
+        setIsVisible(scrollPosition > productHeaderBottom - 100);
       }
 
       // Update active section
@@ -48,7 +48,7 @@ export const ProductStickyMenu: React.FC<ProductStickyMenuProps> = ({ items }) =
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      const headerOffset = 140; // Ajustado para a nova posição do menu
+      const headerOffset = 160; // Ajustado para a nova posição do menu (top-24 = 96px + padding)
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -64,7 +64,7 @@ export const ProductStickyMenu: React.FC<ProductStickyMenuProps> = ({ items }) =
   }
 
   return (
-    <div className="sticky top-20 z-30 bg-gray-light/50 backdrop-blur-sm border-b border-gray-200 shadow-sm">
+    <div className="sticky top-24 z-30 bg-gray-light/50 backdrop-blur-sm border-b border-gray-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-6">
         <nav className="flex items-center justify-center py-2">
           <div className="flex items-center bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
