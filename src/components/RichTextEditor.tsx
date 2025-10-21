@@ -65,7 +65,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
   }
 
   return (
-    <div className="rich-text-editor">
+    <div className="rich-text-editor mb-8 overflow-hidden">
       <ReactQuill
         theme="snow"
         value={value}

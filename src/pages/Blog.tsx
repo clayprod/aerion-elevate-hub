@@ -48,7 +48,7 @@ const Blog = () => {
         </section>
 
         {/* Posts Grid */}
-        <section className="py-8">
+        <section className="py-4">
           <div className="container-custom">
             {isLoading ? (
               <div className="text-center py-12">
@@ -97,6 +97,10 @@ const Blog = () => {
                         </p>
 
                         <div className="flex items-center justify-between text-sm text-gray-medium">
+                          <div className="flex items-center space-x-2">
+                            <User className="w-4 h-4" />
+                            <span>Admin</span>
+                          </div>
                           {post.published_at && (
                             <div className="flex items-center space-x-2">
                               <Calendar className="w-4 h-4" />

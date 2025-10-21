@@ -202,7 +202,8 @@ export const productFamilies: ProductFamily[] = [
             "Frequência operacional": "2.4/5.8 GHz",
             "Controle remoto": "Tela integrado",
             "Rede A-Mesh": "Não",
-            "Anti-interferência": "Padrão"
+            "Anti-interferência": "Padrão",
+            "Streaming de vídeo": "RTMP / RTSP"
           },
           "BATERIA E ENERGIA": {
             "Tipo de bateria": "LiPo 3S, 5.000 mAh",

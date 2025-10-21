@@ -74,16 +74,47 @@ const BlogPost = () => {
               </div>
             </section>
 
-            {/* Cover Image */}
-            {post.cover_image && (
-              <div className="container-custom max-w-4xl my-6">
-                <img
-                  src={post.cover_image}
-                  alt={post.title}
-                  className="w-full rounded-2xl shadow-lg"
-                />
+            {/* Post Header com Imagem */}
+            <section className="container-custom max-w-6xl my-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {/* Coluna Esquerda: Título, Autor, Data, Resumo */}
+                <div className="md:col-span-2 flex flex-col justify-center">
+                  <h1 className="text-4xl md:text-5xl font-heading font-bold text-navy-deep mb-4">
+                    {post.title}
+                  </h1>
+                  
+                  <div className="flex flex-wrap items-center gap-4 text-gray-600 mb-4">
+                    <div className="flex items-center space-x-2">
+                      <User className="w-5 h-5" />
+                      <span>Por Admin</span>
+                    </div>
+                    {post.published_at && (
+                      <div className="flex items-center space-x-2">
+                        <Calendar className="w-5 h-5" />
+                        <span>{format(new Date(post.published_at), "dd 'de' MMMM, yyyy", { locale: ptBR })}</span>
+                      </div>
+                    )}
+                  </div>
+                  
+                  {post.excerpt && (
+                    <p className="text-lg text-gray-700 leading-relaxed">
+                      {post.excerpt}
+                    </p>
+                  )}
+                </div>
+                
+                {/* Coluna Direita: Imagem */}
+                <div className="md:col-span-1">
+                  {post.cover_image && (
+                    <img
+                      src={post.cover_image}
+                      alt={post.title}
+                      className="w-full h-full object-cover rounded-xl shadow-lg"
+                    />
+                  )}
+                </div>
               </div>
-            )}
+            </section>
 
             {/* Content */}
             <article className="container-custom max-w-4xl py-4">
