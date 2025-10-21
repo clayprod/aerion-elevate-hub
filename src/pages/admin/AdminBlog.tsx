@@ -19,7 +19,11 @@ interface BlogPost {
   slug: string;
   excerpt: string;
   content: string;
+  cover_image?: string;
+  category?: string;
+  tags?: string[];
   published: boolean;
+  published_at?: string;
   created_at: string;
 }
 
@@ -135,8 +139,9 @@ const AdminBlog = () => {
   };
 
   const handleEdit = (post: BlogPost) => {
+    console.log("Post data:", post);
     setEditingPost(post);
-    setFormData({
+    const newFormData = {
       title: post.title,
       slug: post.slug,
       excerpt: post.excerpt,
@@ -145,7 +150,9 @@ const AdminBlog = () => {
       category: post.category || "",
       tags: post.tags ? post.tags.join(", ") : "",
       published: post.published,
-    });
+    };
+    console.log("Setting form data:", newFormData);
+    setFormData(newFormData);
   };
 
   const resetForm = () => {
