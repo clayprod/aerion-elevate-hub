@@ -5,9 +5,9 @@ import { YouTubeVideoBackground } from "../YouTubeVideoBackground";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-start justify-center pt-24 pb-16 sm:pt-28 sm:pb-20 md:pt-32 md:pb-24">
+    <section className="relative min-h-screen flex items-start justify-center pt-24 pb-32 sm:pt-28 sm:pb-40 md:pt-32 md:pb-48">
       {/* Video Background Container - constrained to viewport */}
-      <div className="absolute inset-0 overflow-hidden" style={{ height: '100vh', top: 0 }}>
+      <div className="absolute inset-0 overflow-hidden" style={{ minHeight: '100vh', top: 0 }}>
         <YouTubeVideoBackground
           videoId="IaKUtdAdG5w"
           fallbackImage=""
@@ -108,7 +108,7 @@ const HeroSection = () => {
           </div>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-6 mb-12 sm:mb-16 animate-slide-up" style={{ animationDelay: '0.6s' }}>
+          <div className="flex flex-col sm:flex-row gap-6 mb-8 sm:mb-12 animate-slide-up" style={{ animationDelay: '0.6s' }}>
             <Button
               asChild
               size="lg"
