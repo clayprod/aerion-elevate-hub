@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
 
 interface MenuItem {
   id: string;
@@ -12,10 +11,21 @@ interface ProductStickyMenuProps {
 
 export const ProductStickyMenu: React.FC<ProductStickyMenuProps> = ({ items }) => {
   const [activeSection, setActiveSection] = useState<string>('');
+  const [isVisible, setIsVisible] = useState<boolean>(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 100;
+      // Check if we've scrolled past the product description section
+      const productDescription = document.getElementById('product-description');
+      if (productDescription) {
+        const productDescriptionBottom = productDescription.offsetTop + productDescription.offsetHeight;
+        const scrollPosition = window.scrollY;
+        
+        setIsVisible(scrollPosition > productDescriptionBottom - 100);
+      }
+
+      // Update active section
+      const scrollPosition = window.scrollY + 150;
 
       for (const item of items) {
         const element = document.getElementById(item.id);
@@ -38,7 +48,7 @@ export const ProductStickyMenu: React.FC<ProductStickyMenuProps> = ({ items }) =
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      const headerOffset = 100;
+      const headerOffset = 120;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -49,24 +59,31 @@ export const ProductStickyMenu: React.FC<ProductStickyMenuProps> = ({ items }) =
     }
   };
 
+  if (!isVisible) {
+    return null;
+  }
+
   return (
-    <div className="sticky top-0 z-40 bg-white border-b border-gray-200 shadow-sm">
+    <div className="sticky top-0 z-40 bg-gray-light/50 backdrop-blur-sm border-b border-gray-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-6">
-        <nav className="flex items-center justify-center py-4">
-          <div className="flex items-center space-x-1 bg-gray-100 rounded-lg p-1">
-            {items.map((item) => (
-              <Button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                variant="ghost"
-                className={`px-4 py-2 text-sm font-medium transition-all duration-200 ${
-                  activeSection === item.id
-                    ? 'bg-white text-navy-deep shadow-sm'
-                    : 'text-gray-600 hover:text-navy-deep hover:bg-white/50'
-                }`}
-              >
-                {item.label}
-              </Button>
+        <nav className="flex items-center justify-center py-3">
+          <div className="flex items-center bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+            {items.map((item, index) => (
+              <React.Fragment key={item.id}>
+                <button
+                  onClick={() => scrollToSection(item.id)}
+                  className={`px-6 py-3 text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+                    activeSection === item.id
+                      ? 'bg-navy-deep text-white'
+                      : 'text-gray-600 hover:text-navy-deep hover:bg-gray-50'
+                  }`}
+                >
+                  {item.label}
+                </button>
+                {index < items.length - 1 && (
+                  <div className="w-px h-6 bg-gray-200"></div>
+                )}
+              </React.Fragment>
             ))}
           </div>
         </nav>
