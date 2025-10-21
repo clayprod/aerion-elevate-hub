@@ -15,13 +15,13 @@ export const ProductStickyMenu: React.FC<ProductStickyMenuProps> = ({ items }) =
 
   useEffect(() => {
     const handleScroll = () => {
-      // Check if we've scrolled past the product description section
-      const productDescription = document.getElementById('product-description');
-      if (productDescription) {
-        const productDescriptionBottom = productDescription.offsetTop + productDescription.offsetHeight;
+      // Check if we've scrolled past the first section (technical-data)
+      const firstSection = document.getElementById(items[0]?.id);
+      if (firstSection) {
+        const firstSectionTop = firstSection.offsetTop;
         const scrollPosition = window.scrollY;
         
-        setIsVisible(scrollPosition > productDescriptionBottom - 100);
+        setIsVisible(scrollPosition > firstSectionTop - 200);
       }
 
       // Update active section
