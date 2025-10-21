@@ -48,7 +48,7 @@ export const ProductStickyMenu: React.FC<ProductStickyMenuProps> = ({ items }) =
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      const headerOffset = 120;
+      const headerOffset = 140; // Ajustado para a nova posição do menu
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -64,15 +64,15 @@ export const ProductStickyMenu: React.FC<ProductStickyMenuProps> = ({ items }) =
   }
 
   return (
-    <div className="sticky top-0 z-40 bg-gray-light/50 backdrop-blur-sm border-b border-gray-200 shadow-sm">
+    <div className="sticky top-20 z-30 bg-gray-light/50 backdrop-blur-sm border-b border-gray-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-6">
-        <nav className="flex items-center justify-center py-3">
+        <nav className="flex items-center justify-center py-2">
           <div className="flex items-center bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
             {items.map((item, index) => (
               <React.Fragment key={item.id}>
                 <button
                   onClick={() => scrollToSection(item.id)}
-                  className={`px-6 py-3 text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+                  className={`px-5 py-2 text-sm font-medium transition-all duration-200 whitespace-nowrap ${
                     activeSection === item.id
                       ? 'bg-navy-deep text-white'
                       : 'text-gray-600 hover:text-navy-deep hover:bg-gray-50'
@@ -81,7 +81,7 @@ export const ProductStickyMenu: React.FC<ProductStickyMenuProps> = ({ items }) =
                   {item.label}
                 </button>
                 {index < items.length - 1 && (
-                  <div className="w-px h-6 bg-gray-200"></div>
+                  <div className="w-px h-5 bg-gray-200"></div>
                 )}
               </React.Fragment>
             ))}
