@@ -73,7 +73,8 @@ export const ProductStickyMenu: React.FC<ProductStickyMenuProps> = ({ items }) =
     <div className="sticky top-24 z-30 bg-gray-light/50 backdrop-blur-sm border-b border-gray-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-6">
         <nav className="flex items-center justify-center py-2">
-          <div className="flex items-center bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+          {/* Desktop: Centered container */}
+          <div className="hidden md:flex items-center bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
             {items.map((item, index) => (
               <React.Fragment key={item.id}>
                 <button
@@ -91,6 +92,38 @@ export const ProductStickyMenu: React.FC<ProductStickyMenuProps> = ({ items }) =
                 )}
               </React.Fragment>
             ))}
+          </div>
+          
+          {/* Mobile: Scrollable horizontal menu */}
+          <div className="md:hidden w-full">
+            <div className="flex items-center bg-white rounded-lg shadow-sm border border-gray-200 overflow-x-auto scrollbar-hide">
+              <style jsx>{`
+                .scrollbar-hide {
+                  -ms-overflow-style: none;
+                  scrollbar-width: none;
+                }
+                .scrollbar-hide::-webkit-scrollbar {
+                  display: none;
+                }
+              `}</style>
+              {items.map((item, index) => (
+                <React.Fragment key={item.id}>
+                  <button
+                    onClick={() => scrollToSection(item.id)}
+                    className={`px-4 py-2 text-sm font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0 ${
+                      activeSection === item.id
+                        ? 'bg-navy-deep text-white'
+                        : 'text-gray-600 hover:text-navy-deep hover:bg-gray-50'
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                  {index < items.length - 1 && (
+                    <div className="w-px h-5 bg-gray-200 flex-shrink-0"></div>
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
           </div>
         </nav>
       </div>
