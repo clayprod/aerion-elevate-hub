@@ -70,7 +70,7 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
   const displayFeatures = currentVariant?.keyFeatures || keyFeatures;
 
   return (
-    <section className="py-6 bg-white">
+    <section className="pt-20 pb-6 bg-white">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Product Images */}
