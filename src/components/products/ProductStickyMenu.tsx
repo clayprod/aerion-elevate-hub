@@ -26,14 +26,15 @@ export const ProductStickyMenu: React.FC<ProductStickyMenuProps> = ({ items }) =
         setIsVisible(scrollPosition > productHeaderBottom + 50);
       }
 
-      // Update active section
-      const scrollPosition = window.scrollY + 150;
+      // Update active section - more precise detection
+      const scrollPosition = window.scrollY + 200; // Increased offset for better detection
 
       for (const item of items) {
         const element = document.getElementById(item.id);
         if (element) {
           const { offsetTop, offsetHeight } = element;
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+          // Check if the section is in view with some tolerance
+          if (scrollPosition >= offsetTop - 100 && scrollPosition < offsetTop + offsetHeight) {
             setActiveSection(item.id);
             break;
           }
@@ -53,6 +54,9 @@ export const ProductStickyMenu: React.FC<ProductStickyMenuProps> = ({ items }) =
       const headerOffset = 180; // Ajustado para a nova posição do menu (top-24 = 96px + padding)
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      // Set active section immediately when clicked
+      setActiveSection(sectionId);
 
       window.scrollTo({
         top: offsetPosition,
