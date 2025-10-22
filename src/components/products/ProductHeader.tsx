@@ -70,11 +70,11 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
   const displayFeatures = currentVariant?.keyFeatures || keyFeatures;
 
   return (
-    <section className="py-8 bg-white">
+    <section className="py-6 bg-white">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Product Images */}
-          <div className="flex flex-col-reverse lg:flex-row gap-4 px-2">
+          <div className="flex flex-col-reverse lg:flex-row gap-4 px-4">
             {/* Thumbnail Images - Responsive Layout */}
             <div className="flex lg:flex-col gap-2 overflow-x-auto lg:overflow-y-auto lg:overflow-x-visible lg:flex-shrink-0 lg:w-16 pb-2 lg:pb-0" style={{ maxHeight: '600px', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
               <style jsx>{`
@@ -85,7 +85,7 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
               {images.slice(0, 8).map((image, index) => (
                 <div
                   key={index}
-                  className={`relative w-16 h-16 rounded-lg cursor-pointer transition-all duration-300 hover:scale-105 p-1 ${
+                  className={`relative w-16 h-16 rounded-lg cursor-pointer transition-all duration-300 hover:scale-103 p-1 ${
                     selectedImage === index 
                       ? 'bg-white border-2 border-blue-bright' 
                       : 'bg-white border border-gray-200'
@@ -135,10 +135,10 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
           </div>
           
           {/* Product Information */}
-          <div className="space-y-6">
+          <div className="space-y-4">
             
             {/* Product Name */}
-            <h1 className="text-4xl font-bold text-navy-deep">
+            <h1 className="text-3xl font-bold text-navy-deep">
               {name}
             </h1>
             
@@ -162,7 +162,7 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
             </div>
             
             {/* Product Description */}
-            <p className="text-lg text-gray-dark leading-relaxed">
+            <p className="text-base text-gray-dark leading-relaxed">
               {description}
             </p>
             
@@ -199,7 +199,7 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
             
             {/* Key Features */}
             <div className="space-y-3">
-              <h3 className="text-xl font-semibold text-navy-deep">
+              <h3 className="text-lg font-semibold text-navy-deep">
                 Características Principais:
               </h3>
               <ul className="space-y-2">

@@ -96,7 +96,10 @@ const EvoLiteEnterprise: React.FC = () => {
   const currentVariantData = variants.find(v => v.id === selectedVariant) || variants[0];
 
   const menuItems = [
-    { id: 'technical-data', label: 'Dados Técnicos' },
+    { id: 'product-description', label: 'Descrição do Produto' },
+    { id: 'dados-tecnicos', label: 'Dados Técnicos' },
+    { id: 'acessorios', label: 'Acessórios' },
+    { id: 'dados-comerciais', label: 'Dados Comerciais e de Apoio' },
     { id: 'applications', label: 'Aplicações' },
     { id: 'videos', label: 'Vídeos' }
   ];
@@ -108,17 +111,19 @@ const EvoLiteEnterprise: React.FC = () => {
       <ProductStickyMenu items={menuItems} />
       
       {/* Product Header - E-commerce Layout */}
-      <ProductHeader
-        name={productFamily.name}
-        description={productFamily.description}
-        productCodes={productFamily.productCodes}
-        keyFeatures={currentVariantData.keyFeatures}
-        images={productImages}
-        category="Drone Profissional"
-        variants={variants}
-        selectedVariant={selectedVariant}
-        onVariantChange={setSelectedVariant}
-      />
+      <div id="product-description">
+        <ProductHeader
+          name={productFamily.name}
+          description={productFamily.description}
+          productCodes={productFamily.productCodes}
+          keyFeatures={currentVariantData.keyFeatures}
+          images={productImages}
+          category="Drone Profissional"
+          variants={variants}
+          selectedVariant={selectedVariant}
+          onVariantChange={setSelectedVariant}
+        />
+      </div>
       
       {/* Technical Data Section */}
       <section id="technical-data" className="py-12 bg-white">

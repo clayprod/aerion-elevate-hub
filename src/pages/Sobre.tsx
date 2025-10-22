@@ -210,10 +210,6 @@ const Sobre = () => {
         {/* Differentials */}
         <section className="py-10 bg-white">
           <div className="container-custom max-w-4xl">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-navy-deep mb-8 text-center">
-              Diferenciais Competitivos
-            </h2>
-            
             <div className="space-y-8">
               <div className="flex items-start space-x-4">
                 <div className="w-12 h-12 rounded-lg bg-blue-medium/10 flex items-center justify-center flex-shrink-0">

@@ -169,21 +169,21 @@ export const ProductTechnicalData: React.FC<TechnicalDataProps> = ({
   return (
     <div className="space-y-6">
       <h2 className="text-3xl font-bold text-navy-deep mb-6">
-        Dados Técnicos
+        Especificações
       </h2>
       
       {/* Dados Técnicos - Prioridade (área maior) */}
-      <div className="mb-6">
+      <div id="dados-tecnicos" className="mb-6">
         {renderSpecsCard()}
       </div>
       
       {/* Acessórios em 2 colunas */}
-      <div className="mb-6">
+      <div id="acessorios" className="mb-6">
         {renderAccessoriesCard()}
       </div>
       
       {/* Dados Comerciais e Material de Apoio lado a lado */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div id="dados-comerciais" className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {technicalData.commercial && renderDataCard("DADOS COMERCIAIS", technicalData.commercial, <DollarSign className="w-5 h-5" />)}
         
         {downloads && downloads.length > 0 && (
