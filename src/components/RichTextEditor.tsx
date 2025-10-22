@@ -75,7 +75,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
-          className="w-full border border-gray-300 rounded-md p-3 bg-white focus:border-aerion-blue focus:outline-none"
+          className="w-full border border-gray-300 rounded-md p-3 bg-white focus:border-blue-medium focus:outline-none"
           style={{ minHeight: height }}
           rows={12}
         />

@@ -48,7 +48,7 @@ const Blog = () => {
         </section>
 
         {/* Posts Grid */}
-        <section className="py-4">
+        <section className="pt-2 pb-4">
           <div className="container-custom">
             {isLoading ? (
               <div className="text-center py-12">
@@ -88,7 +88,7 @@ const Blog = () => {
                           </span>
                         )}
 
-                        <h3 className="text-xl font-heading font-bold text-navy-deep mb-3 group-hover:text-aerion-blue transition-colors">
+                        <h3 className="text-xl font-heading font-bold text-navy-deep mb-3 group-hover:text-blue-medium transition-colors">
                           {post.title}
                         </h3>
 
