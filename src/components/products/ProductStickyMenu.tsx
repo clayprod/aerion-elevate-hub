@@ -12,18 +12,19 @@ interface ProductStickyMenuProps {
 
 export const ProductStickyMenu: React.FC<ProductStickyMenuProps> = ({ items }) => {
   const [activeSection, setActiveSection] = useState<string>('');
-  const [isVisible, setIsVisible] = useState<boolean>(true); // Temporariamente sempre visível para debug
+  const [isVisible, setIsVisible] = useState<boolean>(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Temporariamente comentado para debug
-      // const productHeader = document.querySelector('section');
-      // if (productHeader) {
-      //   const productHeaderBottom = productHeader.offsetTop + productHeader.offsetHeight;
-      //   const scrollPosition = window.scrollY;
-      //   
-      //   setIsVisible(scrollPosition > productHeaderBottom - 100);
-      // }
+      // Check if we've scrolled past the ProductHeader section completely
+      const productHeader = document.querySelector('section');
+      if (productHeader) {
+        const productHeaderBottom = productHeader.offsetTop + productHeader.offsetHeight;
+        const scrollPosition = window.scrollY;
+        
+        // Only show menu when we've scrolled completely past the product header
+        setIsVisible(scrollPosition > productHeaderBottom + 50);
+      }
 
       // Update active section
       const scrollPosition = window.scrollY + 150;
@@ -49,7 +50,7 @@ export const ProductStickyMenu: React.FC<ProductStickyMenuProps> = ({ items }) =
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      const headerOffset = 160; // Ajustado para a nova posição do menu (top-20 = 80px + padding)
+      const headerOffset = 180; // Ajustado para a nova posição do menu (top-24 = 96px + padding)
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -65,7 +66,7 @@ export const ProductStickyMenu: React.FC<ProductStickyMenuProps> = ({ items }) =
   }
 
   return (
-    <div className="sticky top-20 z-30 bg-gray-light/50 backdrop-blur-sm border-b border-gray-200 shadow-sm">
+    <div className="sticky top-24 z-30 bg-gray-light/50 backdrop-blur-sm border-b border-gray-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-6">
         <nav className="flex items-center justify-center py-2">
           <div className="flex items-center bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
