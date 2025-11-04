@@ -1,11 +1,12 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { SEOHead } from "@/components/SEO/SEOHead";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Phone, MapPin, Clock, Instagram, MessageCircle, Loader2 } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, Instagram, MessageCircle, Loader2, Linkedin } from "lucide-react";
 import emailjs from '@emailjs/browser';
 import SuccessDialog from "@/components/ui/success-dialog";
 import {
@@ -132,6 +133,12 @@ const Contato = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead
+        title="Contato | Aerion Technologies - Distribuidor Oficial Autel"
+        description="Entre em contato com a Aerion Technologies. Especialistas em drones profissionais Autel. Suporte técnico, programa de revendas e soluções para Construção, Industrial, Segurança e Resgate."
+        keywords="contato aerion, suporte drones, programa revendas, distribuidor autel contato"
+        canonical="https://aerion.com.br/contato"
+      />
       <Header />
       
       <main className="pt-28 pb-20">
@@ -363,6 +370,21 @@ const Contato = () => {
                       <div>
                         <p className="text-sm font-heading font-semibold text-gray-dark mb-1">Instagram</p>
                         <p className="text-navy-deep">@aerion.technologies</p>
+                      </div>
+                    </a>
+
+                    <a
+                      href="https://linkedin.com/company/aerion-technologies-br"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-3 group hover:bg-gray-light/30 p-3 rounded-xl transition-all duration-200 hover:shadow-sm"
+                    >
+                      <div className="w-12 h-12 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-medium/20 transition-colors">
+                        <Linkedin className="h-6 w-6 text-blue-medium" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-heading font-semibold text-gray-dark mb-1">LinkedIn</p>
+                        <p className="text-navy-deep">@aerion-technologies-br</p>
                       </div>
                     </a>
                   </div>

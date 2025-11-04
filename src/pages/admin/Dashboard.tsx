@@ -14,6 +14,11 @@ import {
   Image,
   TrendingUp,
   Users,
+  Tag,
+  Layers,
+  FileEdit,
+  FolderOpen,
+  Globe,
 } from "lucide-react";
 
 const Dashboard = () => {
@@ -22,6 +27,12 @@ const Dashboard = () => {
     publishedPosts: 0,
     totalProducts: 0,
     totalSolutions: 0,
+    totalBrands: 0,
+    totalProductFamilies: 0,
+    totalProductVariants: 0,
+    totalVerticals: 0,
+    totalCustomPages: 0,
+    totalMediaFiles: 0,
   });
 
   useEffect(() => {
@@ -29,10 +40,16 @@ const Dashboard = () => {
   }, []);
 
   const fetchStats = async () => {
-    const [posts, products, solutions] = await Promise.all([
+    const [posts, products, solutions, brands, productFamilies, productVariants, verticals, customPages, mediaFiles] = await Promise.all([
       supabase.from("blog_posts").select("id, published", { count: "exact" }),
       supabase.from("products").select("id", { count: "exact" }),
       supabase.from("solutions").select("id", { count: "exact" }),
+      supabase.from("brands").select("id", { count: "exact" }),
+      supabase.from("product_families").select("id", { count: "exact" }),
+      supabase.from("product_variants").select("id", { count: "exact" }),
+      supabase.from("verticals").select("id", { count: "exact" }),
+      supabase.from("custom_pages").select("id", { count: "exact" }),
+      supabase.from("media_library").select("id", { count: "exact" }),
     ]);
 
     setStats({
@@ -40,6 +57,12 @@ const Dashboard = () => {
       publishedPosts: posts.data?.filter((p) => p.published).length || 0,
       totalProducts: products.count || 0,
       totalSolutions: solutions.count || 0,
+      totalBrands: brands.count || 0,
+      totalProductFamilies: productFamilies.count || 0,
+      totalProductVariants: productVariants.count || 0,
+      totalVerticals: verticals.count || 0,
+      totalCustomPages: customPages.count || 0,
+      totalMediaFiles: mediaFiles.count || 0,
     });
   };
 
@@ -62,22 +85,66 @@ const Dashboard = () => {
       bgColor: "bg-purple-50",
     },
     {
-      title: "Produtos",
-      description: "Gerenciar catálogo de produtos",
-      icon: Package,
-      link: "/admin/products",
-      color: "text-green-600",
-      bgColor: "bg-green-50",
-      stat: `${stats.totalProducts} produtos`,
+      title: "Marcas",
+      description: "Gerenciar marcas de produtos",
+      icon: Tag,
+      link: "/admin/brands",
+      color: "text-indigo-600",
+      bgColor: "bg-indigo-50",
+      stat: `${stats.totalBrands} marcas`,
     },
     {
-      title: "Soluções",
-      description: "Gerenciar soluções oferecidas",
+      title: "Famílias de Produtos",
+      description: "Gerenciar famílias de produtos",
+      icon: Package,
+      link: "/admin/product-families",
+      color: "text-green-600",
+      bgColor: "bg-green-50",
+      stat: `${stats.totalProductFamilies} famílias`,
+    },
+    {
+      title: "Variantes de Produtos",
+      description: "Gerenciar variantes de produtos",
+      icon: Layers,
+      link: "/admin/product-variants",
+      color: "text-emerald-600",
+      bgColor: "bg-emerald-50",
+      stat: `${stats.totalProductVariants} variantes`,
+    },
+    {
+      title: "Verticais/Soluções",
+      description: "Gerenciar verticais e soluções",
       icon: Lightbulb,
-      link: "/admin/solutions",
+      link: "/admin/verticals",
       color: "text-orange-600",
       bgColor: "bg-orange-50",
-      stat: `${stats.totalSolutions} soluções`,
+      stat: `${stats.totalVerticals} verticais`,
+    },
+    {
+      title: "Editor de Páginas",
+      description: "Editor visual de páginas",
+      icon: FileEdit,
+      link: "/admin/page-editor",
+      color: "text-pink-600",
+      bgColor: "bg-pink-50",
+    },
+    {
+      title: "Páginas Personalizadas",
+      description: "Criar e gerenciar páginas",
+      icon: Globe,
+      link: "/admin/custom-pages",
+      color: "text-cyan-600",
+      bgColor: "bg-cyan-50",
+      stat: `${stats.totalCustomPages} páginas`,
+    },
+    {
+      title: "Biblioteca de Mídia",
+      description: "Gerenciar arquivos e imagens",
+      icon: FolderOpen,
+      link: "/admin/media-library",
+      color: "text-amber-600",
+      bgColor: "bg-amber-50",
+      stat: `${stats.totalMediaFiles} arquivos`,
     },
     {
       title: "Configurações",

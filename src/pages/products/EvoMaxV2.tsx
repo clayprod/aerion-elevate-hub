@@ -4,6 +4,7 @@ import { ProductStickyMenu } from '@/components/products/ProductStickyMenu';
 import { ProductTechnicalData } from '@/components/products/ProductTechnicalData';
 import { ProductVideoGallery } from '@/components/products/ProductVideoGallery';
 import { ProductApplications } from '@/components/products/ProductApplications';
+import { SEOHead } from '@/components/SEO/SEOHead';
 import { getProductFamilyBySlug } from '@/data/products';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -106,6 +107,13 @@ const EvoMaxV2: React.FC = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead
+        title="EVO Max 4T | Drone Profissional RTK - Topografia e Mapeamento | Aerion"
+        description="EVO Max 4T: drone profissional com RTK, câmera 50MP, zoom 10x, 42min voo. Ideal para topografia de alta precisão, mapeamento e levantamentos aerofotogramétricos. Precisão centimétrica."
+        keywords="evo max 4t, drone RTK, topografia drone, mapeamento drone, drone profissional, autel evo max"
+        canonical="https://aerion.com.br/produtos/evo-max-v2"
+        ogType="product"
+      />
       <Header />
       
       <ProductStickyMenu items={menuItems} />

@@ -4,6 +4,8 @@ import { ProductStickyMenu } from '@/components/products/ProductStickyMenu';
 import { ProductTechnicalData } from '@/components/products/ProductTechnicalData';
 import { ProductVideoGallery } from '@/components/products/ProductVideoGallery';
 import { ProductApplications } from '@/components/products/ProductApplications';
+import { SEOHead } from '@/components/SEO/SEOHead';
+import { ProductSchema } from '@/components/SEO/StructuredData';
 import { getProductFamilyBySlug } from '@/data/products';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -71,6 +73,25 @@ const AutelAlpha: React.FC = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead
+        title="Autel Alpha | Drone BVLOS 20km - Inspeção Industrial | Aerion"
+        description="Autel Alpha: drone profissional com alcance 20km BVLOS, câmera térmica, zoom 10x. Ideal para inspeção de linhas de transmissão, torres e infraestrutura crítica. Distribuidor oficial no Brasil."
+        keywords="autel alpha, drone BVLOS, inspeção industrial, drone térmico, inspeção linhas transmissão, autel alpha brasil"
+        canonical="https://aerion.com.br/produtos/autel-alpha"
+        ogType="product"
+      />
+      <ProductSchema
+        name="Autel Alpha"
+        description="Drone profissional com alcance 20km BVLOS, câmera térmica, zoom 10x. Ideal para inspeção de linhas de transmissão, torres e infraestrutura crítica."
+        brand="Autel Robotics"
+        sku="AUTEL-ALPHA-001"
+        image="/images/products/alpha/alpha-1.png"
+        offers={{
+          availability: "https://schema.org/InStock",
+          priceCurrency: "BRL",
+          seller: "Aerion Technologies",
+        }}
+      />
       <Header />
       
       <ProductStickyMenu items={menuItems} />

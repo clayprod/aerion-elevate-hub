@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileFloatingCTA from "@/components/MobileFloatingCTA";
+import { SEOHead } from "@/components/SEO/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Target, Eye, Award, Globe, Users, Shield } from "lucide-react";
@@ -9,6 +10,12 @@ import { AutelLogo } from "@/components/AutelLogo";
 const Sobre = () => {
   return (
     <div className="min-h-screen">
+      <SEOHead
+        title="Sobre a Aerion Technologies | Distribuidor Oficial Autel no Brasil"
+        description="Conheça a Aerion Technologies, distribuidor oficial Autel Robotics no Brasil. Especialistas em drones profissionais com suporte técnico local e parcerias estratégicas."
+        keywords="aerion technologies, sobre aerion, distribuidor autel brasil, drones profissionais brasil, suporte técnico drones"
+        canonical="https://aerion.com.br/sobre"
+      />
       <Header />
       
       <main className="pt-28 pb-20">

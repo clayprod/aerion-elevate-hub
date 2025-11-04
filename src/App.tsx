@@ -14,6 +14,7 @@ import NotFound from "./pages/NotFound";
 import Auth from "./pages/Auth";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
+import ProgramaRevendas from "./pages/ProgramaRevendas";
 import AutelAlpha from "./pages/products/AutelAlpha";
 import EvoLiteEnterprise from "./pages/products/EvoLiteEnterprise";
 import EvoMaxV2 from "./pages/products/EvoMaxV2";
@@ -27,6 +28,9 @@ import AdminHero from "./pages/admin/AdminHero";
 import AdminProducts from "./pages/admin/AdminProducts";
 import AdminSolutions from "./pages/admin/AdminSolutions";
 import AdminSettings from "./pages/admin/AdminSettings";
+import AdminBrands from "./pages/admin/AdminBrands";
+import AdminProductFamilies from "./pages/admin/AdminProductFamilies";
+import DynamicPage from "./pages/DynamicPage";
 import { AuthProvider } from "./contexts/AuthContext";
 import { CookieProvider } from "./contexts/CookieContext";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -47,6 +51,7 @@ const App = () => (
             <CookieConsent />
             <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/programa-revendas" element={<ProgramaRevendas />} />
             <Route path="/produtos" element={<Produtos />} />
             <Route path="/produtos/evo-lite-enterprise" element={<EvoLiteEnterprise />} />
             <Route path="/produtos/evo-max-v2" element={<EvoMaxV2 />} />
@@ -113,6 +118,25 @@ const App = () => (
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="/admin/brands"
+              element={
+                <ProtectedRoute requireAdmin>
+                  <AdminBrands />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/product-families"
+              element={
+                <ProtectedRoute requireAdmin>
+                  <AdminProductFamilies />
+                </ProtectedRoute>
+              }
+            />
+            
+            {/* Dynamic Custom Pages Route */}
+            <Route path="/:slug" element={<DynamicPage />} />
             
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

@@ -6,12 +6,34 @@ import ProductsSection from "@/components/home/ProductsSection";
 import WhyAerionSection from "@/components/home/WhyAerionSection";
 import ContactSection from "@/components/home/ContactSection";
 import MobileFloatingCTA from "@/components/MobileFloatingCTA";
+import { SEOHead } from "@/components/SEO/SEOHead";
+import { OrganizationSchema } from "@/components/SEO/StructuredData";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 const Index = () => {
   return (
     <div className="min-h-screen">
+      <SEOHead
+        title="Aerion Technologies | Distribuidor Oficial Autel no Brasil - Drones Profissionais"
+        description="Distribuidor oficial Autel Robotics no Brasil. Drones profissionais para Construção, Industrial, Segurança e Resgate. Programa de revendas com margens de 22-28%. Suporte técnico especializado."
+        keywords="distribuidor autel brasil, drones profissionais, programa revenda drones, autel robotics brasil, drones enterprise"
+        canonical="https://aerion.com.br"
+      />
+      <OrganizationSchema
+        name="Aerion Technologies"
+        url="https://aerion.com.br"
+        logo="/images/logos/aerion-logo.png"
+        description="Distribuidor oficial Autel Robotics no Brasil"
+        address={{
+          addressLocality: "São Paulo",
+          addressCountry: "BR",
+        }}
+        contactPoint={{
+          contactType: "Sales",
+          telephone: "+55-11-XXXX-XXXX",
+        }}
+      />
       <Header />
       <main>
         <HeroSection />

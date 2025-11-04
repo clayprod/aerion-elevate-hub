@@ -4,6 +4,7 @@ import { ProductStickyMenu } from '@/components/products/ProductStickyMenu';
 import { ProductTechnicalData } from '@/components/products/ProductTechnicalData';
 import { ProductVideoGallery } from '@/components/products/ProductVideoGallery';
 import { ProductApplications } from '@/components/products/ProductApplications';
+import { SEOHead } from '@/components/SEO/SEOHead';
 import { getProductFamilyBySlug } from '@/data/products';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -106,6 +107,13 @@ const EvoLiteEnterprise: React.FC = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead
+        title="EVO Lite Enterprise | Drone Térmico Compacto - Topografia e Inspeção | Aerion"
+        description="EVO Lite Enterprise: drone compacto com câmera térmica 640×512, 40min voo, alcance 12km. Ideal para topografia, inspeção térmica e mapeamento. Portabilidade excepcional para operações ágeis."
+        keywords="evo lite enterprise, drone térmico, drone topografia, drone compacto, inspeção térmica, autel evo lite"
+        canonical="https://aerion.com.br/produtos/evo-lite-enterprise"
+        ogType="product"
+      />
       <Header />
       
       <ProductStickyMenu items={menuItems} />
