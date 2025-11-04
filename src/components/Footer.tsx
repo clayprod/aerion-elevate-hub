@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Instagram, MessageCircle, Linkedin } from "lucide-react";
+import { Mail, Phone, MapPin, Instagram, MessageCircle } from "lucide-react";
 import logo from "@/assets/logo-aerion.png";
 import CookieManager from "./CookieManager";
 
@@ -129,15 +129,6 @@ const Footer = () => {
               >
                 <Instagram className="h-4 w-4 flex-shrink-0" />
                 <span>@aerion.technologies</span>
-              </a>
-              <a
-                href="https://linkedin.com/company/aerion-technologies-br"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center space-x-3 text-gray-medium hover:text-blue-light transition-colors text-sm"
-              >
-                <Linkedin className="h-4 w-4 flex-shrink-0" />
-                <span>@aerion-technologies-br</span>
               </a>
             </div>
           </div>

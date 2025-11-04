@@ -1,125 +1,20 @@
-import React, { useState } from 'react';
-import { ProductHeader } from '@/components/products/ProductHeader';
-import { ProductStickyMenu } from '@/components/products/ProductStickyMenu';
-import { ProductTechnicalData } from '@/components/products/ProductTechnicalData';
-import { ProductVideoGallery } from '@/components/products/ProductVideoGallery';
-import { ProductApplications } from '@/components/products/ProductApplications';
-import { getProductFamilyBySlug } from '@/data/products';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import MobileFloatingCTA from '@/components/MobileFloatingCTA';
-
-const AutelAlpha: React.FC = () => {
-  const productFamily = getProductFamilyBySlug('autel-alpha');
-  const [selectedVariant, setSelectedVariant] = useState('alpha');
-
-  if (!productFamily) {
-    return <div>Produto não encontrado</div>;
-  }
-
-  const currentVariant = productFamily.variants[0]; // Autel Alpha has only one variant
-
-  const downloads = [
-    {
-      title: 'Brochure Autel Alpha',
-      description: 'Catálogo completo com especificações e aplicações',
-      url: productFamily.brochure,
-      type: 'pdf' as const,
-      size: '2.5 MB'
-    },
-    {
-      title: 'Manual do Usuário',
-      description: 'Guia completo de operação e configuração',
-      url: '/downloads/EN_Autel_Alpha_User_Manual_V1.1.pdf',
-      type: 'pdf' as const,
-      size: '15.2 MB'
-    },
-    {
-      title: 'Especificações Técnicas',
-      description: 'Planilha detalhada com todas as especificações',
-      url: '/downloads/Autel_Alpha_Specification.xlsx',
-      type: 'xlsx' as const,
-      size: '850 KB'
-    },
-    {
-      title: 'Lista de Embalagem',
-      description: 'Conteúdo da embalagem e acessórios inclusos',
-      url: '/downloads/Autel_Alpha_Packing_List.pdf',
-      type: 'pdf' as const,
-      size: '1.2 MB'
-    },
-    {
-      title: 'Certificações',
-      description: 'Documentos de certificação e conformidade',
-      url: '/downloads/Autel_Alpha_Certifications.pdf',
-      type: 'pdf' as const,
-      size: '3.1 MB'
-    }
-  ];
-
-  // Use only product images for the header
-  const productImages = productFamily.photoGallery.product;
-
-  const menuItems = [
-    { id: 'technical-data', label: 'Dados Técnicos' },
-    { id: 'applications', label: 'Aplicações' },
-    { id: 'videos', label: 'Vídeos' }
-  ];
-
-  return (
-    <div className="min-h-screen">
-      <Header />
-      
-      <ProductStickyMenu items={menuItems} />
-      
-      {/* Product Header - E-commerce Layout */}
-      <ProductHeader
-        name={productFamily.name}
-        description={productFamily.description}
-        productCodes={productFamily.productCodes}
-        keyFeatures={productFamily.keyFeatures}
-        images={productImages}
-        category="Drone Profissional"
-      />
-      
-      {/* Technical Data Section */}
-      <section id="technical-data" className="py-12 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <ProductTechnicalData
-            technicalData={productFamily.technicalData}
-            specs={currentVariant.specs}
-            components={productFamily.components}
-            accessoriesIncluded={productFamily.accessoriesIncluded}
-            title={currentVariant.name}
-            downloads={downloads}
-          />
-        </div>
-      </section>
-      
-      {/* Applications Section */}
-      <section id="applications" className="py-12 bg-gray-light/30">
-        <div className="max-w-7xl mx-auto px-6">
-          <ProductApplications
-            applications={productFamily.applications}
-            title={productFamily.name}
-          />
-        </div>
-      </section>
-      
-      {/* Videos Section */}
-      <section id="videos" className="py-12 bg-gray-light/30">
-        <div className="max-w-7xl mx-auto px-6">
-          <ProductVideoGallery
-            videos={productFamily.videos}
-            title={productFamily.name}
-          />
-        </div>
-      </section>
-      
-      <Footer />
-      <MobileFloatingCTA />
-    </div>
-  );
-};
-
-export default AutelAlpha;
+[33m0f57d35[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m fix: Substituir require() por imports ESM no FeaturesBlock - Corrige erro require is not defined
+[33mb6aa68d[m fix: Remover HelmetProvider do main.tsx - Corrige erro require is not defined
+[33m2eb1d51[m fix: Substituir react-helmet-async por solucao nativa useSEO - Corrige erro require is not defined que causava tela branca
+[33m2f3c535[m fix: Substituir react-helmet-async por solucao nativa useSEO
+[33m30a2d5d[m fix: Configurar Vite para transpilar react-helmet-async corretamente
+[33m9707d52[m fix: Adicionar react-helmet-async ao package.json
+[33mca634ad[m feat: CMS Admin Complete Phase 1 - WordPress-style admin system
+[33ma78d833[m feat: Adicionar LinkedIn @aerion-technologies-br ao site
+[33mba8c8be[m docs: Adicionar guias SEO e configurar pagina revendas oculta
+[33m28bb7e9[m feat: SEO Fase 1 - Fundacao Tecnica completa
+[33m5d41fca[m fix: corrigir botão de salvar no blog com fundo azul
+[33m16a5d8f[m feat: tornar menu sticky responsivo no mobile - adicionar scroll horizontal para mobile - manter layout centralizado no desktop - ocultar scrollbar para melhor UX - usar flex-shrink-0 para evitar compressão dos itens
+[33m30ac4da[m fix: corrigir padding da seção inicial do produto - adicionar pt-20 para dar espaço adequado abaixo do header principal - restaurar visibilidade do título do produto - evitar sobreposição com menu principal
+[33m2e8cbfd[m fix: corrigir destaque do menu sticky ao clicar - definir seção ativa imediatamente ao clicar - melhorar detecção de seção ativa com offset e tolerância - garantir feedback visual correto para o usuário
+[33mf6e93da[m fix: corrigir posicionamento do menu sticky para não sobrepor área de descrição - menu só aparece após scroll completo da seção inicial - ajustar top-24 e offset 180px para melhor posicionamento - preservar padding original da página
+[33m4b187a3[m debug: tornar menu sticky sempre visível para identificar problema
+[33m8aa8561[m feat: adicionar menu sticky navegável com 6 seções e melhorias de UX
+[33mef3d331[m fix: restaurar ProductStickyMenu ao estado original do commit cc43e8c
+[33me13e81e[m fix: corrigir sobreposição do menu sticky com conteúdo da página
+[33m5ad376b[m fix: restaurar páginas de produtos ao estado do commit cc43e8c
