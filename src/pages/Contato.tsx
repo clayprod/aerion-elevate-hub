@@ -1,11 +1,12 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { useState } from "react";
+import { SEOHead } from "@/components/SEO/SEOHead";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Phone, MapPin, Clock, Instagram, MessageCircle, Loader2 } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, Instagram, MessageCircle, Loader2, Linkedin } from "lucide-react";
 import emailjs from '@emailjs/browser';
 import SuccessDialog from "@/components/ui/success-dialog";
 import {
@@ -31,6 +32,21 @@ const Contato = () => {
     vertical: "",
     message: "",
   });
+
+  // Inicializar EmailJS quando o componente montar
+  useEffect(() => {
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+    if (publicKey) {
+      try {
+        emailjs.init(publicKey);
+        console.log('EmailJS inicializado com sucesso');
+      } catch (error) {
+        console.warn('Erro ao inicializar EmailJS:', error);
+      }
+    } else {
+      console.warn('VITE_EMAILJS_PUBLIC_KEY não encontrada nas variáveis de ambiente');
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -74,8 +90,23 @@ const Contato = () => {
       const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
       const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
+      // Verificar se as variáveis de ambiente estão configuradas
       if (!serviceId || !templateId || !publicKey) {
-        throw new Error('Configuração do EmailJS não encontrada');
+        const missingVars = [];
+        if (!serviceId) missingVars.push('VITE_EMAILJS_SERVICE_ID');
+        if (!templateId) missingVars.push('VITE_EMAILJS_TEMPLATE_ID');
+        if (!publicKey) missingVars.push('VITE_EMAILJS_PUBLIC_KEY');
+        
+        console.error('Variáveis de ambiente faltando:', missingVars);
+        throw new Error(`Configuração do EmailJS incompleta. Variáveis faltando: ${missingVars.join(', ')}`);
+      }
+
+      // Inicializar EmailJS se ainda não foi inicializado
+      try {
+        emailjs.init(publicKey);
+      } catch (initError) {
+        // Se já foi inicializado, ignora o erro
+        console.log('EmailJS já inicializado ou erro na inicialização:', initError);
       }
 
       // Mapear vertical para texto legível
@@ -98,8 +129,17 @@ const Contato = () => {
         to_name: 'Equipe Aerion Technologies'
       };
 
+      console.log('Enviando email via EmailJS...', {
+        serviceId,
+        templateId,
+        hasPublicKey: !!publicKey,
+        params: { ...templateParams, message: '[oculto]' }
+      });
+
       // Enviar email via EmailJS
-      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+      const response = await emailjs.send(serviceId, templateId, templateParams, publicKey);
+      
+      console.log('Email enviado com sucesso:', response);
 
       // Sucesso - mostrar diálogo
       setDialogType("success");
@@ -117,13 +157,32 @@ const Contato = () => {
         message: "",
       });
 
-    } catch (error) {
-      console.error('Erro ao enviar email:', error);
+    } catch (error: any) {
+      console.error('Erro detalhado ao enviar email:', error);
+      
+      // Determinar mensagem de erro mais específica
+      let errorMessage = "Ocorreu um erro ao enviar sua mensagem. Tente novamente ou entre em contato por telefone.";
+      
+      if (error?.message) {
+        if (error.message.includes('Configuração do EmailJS')) {
+          errorMessage = "Erro de configuração: As credenciais do EmailJS não estão configuradas corretamente. Por favor, entre em contato com o suporte técnico.";
+        } else if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+          errorMessage = "Erro de conexão: Não foi possível conectar ao servidor. Verifique sua conexão com a internet e tente novamente.";
+        } else if (error.message.includes('CORS') || error.message.includes('same origin')) {
+          errorMessage = "Erro de configuração: O domínio não está autorizado no EmailJS. Entre em contato com o suporte técnico.";
+        } else if (error.status === 400) {
+          errorMessage = "Erro de validação: Os dados do formulário são inválidos. Verifique os campos e tente novamente.";
+        } else if (error.status === 401 || error.status === 403) {
+          errorMessage = "Erro de autenticação: As credenciais do EmailJS são inválidas. Entre em contato com o suporte técnico.";
+        } else if (error.status === 429) {
+          errorMessage = "Limite excedido: Muitas tentativas de envio. Por favor, aguarde alguns minutos e tente novamente.";
+        }
+      }
       
       // Erro - mostrar diálogo
       setDialogType("error");
       setDialogTitle("Erro ao Enviar");
-      setDialogMessage("Ocorreu um erro ao enviar sua mensagem. Tente novamente ou entre em contato por telefone.");
+      setDialogMessage(errorMessage);
       setShowDialog(true);
     } finally {
       setIsLoading(false);
@@ -132,6 +191,12 @@ const Contato = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead
+        title="Contato | Aerion Technologies - Distribuidor Oficial Autel"
+        description="Entre em contato com a Aerion Technologies. Especialistas em drones profissionais Autel. Suporte técnico, programa de revendas e soluções para Construção, Industrial, Segurança e Resgate."
+        keywords="contato aerion, suporte drones, programa revendas, distribuidor autel contato"
+        canonical="https://aerion.com.br/contato"
+      />
       <Header />
       
       <main className="pt-28 pb-20">
@@ -363,6 +428,21 @@ const Contato = () => {
                       <div>
                         <p className="text-sm font-heading font-semibold text-gray-dark mb-1">Instagram</p>
                         <p className="text-navy-deep">@aerion.technologies</p>
+                      </div>
+                    </a>
+
+                    <a
+                      href="https://linkedin.com/company/aerion-technologies-br"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-3 group hover:bg-gray-light/30 p-3 rounded-xl transition-all duration-200 hover:shadow-sm"
+                    >
+                      <div className="w-12 h-12 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-medium/20 transition-colors">
+                        <Linkedin className="h-6 w-6 text-blue-medium" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-heading font-semibold text-gray-dark mb-1">LinkedIn</p>
+                        <p className="text-navy-deep">@aerion-technologies-br</p>
                       </div>
                     </a>
                   </div>
