@@ -109,7 +109,7 @@ const EvoLiteEnterprise: React.FC = () => {
     <div className="min-h-screen">
       <SEOHead
         title="EVO Lite Enterprise | Drone Térmico Compacto - Topografia e Inspeção | Aerion"
-        description="EVO Lite Enterprise: versões 640T (câmera térmica 640×512 + sensor visível 48 MP) e 6K (sensor 1\" 20 MP). Até 40 minutos de voo, alcance 12 km (FCC) / 6 km (CE) e detecção tridirecional para inspeções e segurança."
+        description={'EVO Lite Enterprise: versões 640T (câmera térmica 640×512 + sensor visível 48 MP) e 6K (sensor 1" 20 MP). Até 40 minutos de voo, alcance 12 km (FCC) / 6 km (CE) e detecção tridirecional para inspeções e segurança.'}
         keywords="evo lite enterprise, drone térmico, drone topografia, drone compacto, inspeção térmica, autel evo lite"
         canonical="https://aerion.com.br/produtos/evo-lite-enterprise"
         ogType="product"
