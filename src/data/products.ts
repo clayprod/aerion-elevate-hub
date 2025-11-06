@@ -63,7 +63,7 @@ export const productFamilies: ProductFamily[] = [
     description: "Plataforma compacta e portátil com cargas úteis intercambiáveis: versão 640T com câmera térmica 640×512 + sensor visível de 48 MP e versão 6K com sensor 1\" de 20 MP. Autonomia de até 40 minutos, alcance de transmissão de 12 km (FCC) ou 6 km (CE) e sistema de detecção tridirecional tornam o EVO Lite Enterprise ideal para inspeções, segurança pública e mapeamentos ágeis.",
     youtubeVideoId: "1MwBSeCUb7w",
     fallbackImage: "/images/lifestyle/construction-1.jpeg",
-    brochure: "/downloads/Brochure_Autel_Evo_Lite_Enterprise1_Aerion.pdf",
+    brochure: "/downloads/Brochure_Autel_Evo Lite Enterprise1_Aerion.pdf",
     productCodes: {
       sku: "EVO-LITE-ENT",
       ean: "Varia conforme versão",
