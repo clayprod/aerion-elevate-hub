@@ -121,20 +121,20 @@ export const ProductTechnicalData: React.FC<TechnicalDataProps> = ({
             <h4 className="text-sm font-semibold text-navy-deep border-b border-gray-300 pb-2">
               {category}
             </h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {Object.entries(categorySpecs).map(([key, value], specIndex) => (
-                <div key={specIndex} className="flex items-center justify-between py-2 px-3 bg-white rounded border border-gray-200 hover:border-gray-300 transition-colors">
-                  <span className="font-medium text-gray-dark text-sm">{key}:</span>
-                  <div className="flex items-center gap-2">
-                    <span className="text-navy-deep font-semibold text-sm">{value}</span>
+                <div key={specIndex} className="flex flex-col min-h-[80px] py-4 px-4 bg-white rounded border border-gray-200 hover:border-gray-300 transition-colors">
+                  <div className="flex items-start justify-between gap-2 mb-2">
+                    <span className="font-medium text-gray-dark text-sm leading-tight">{key}</span>
                     <button
                       onClick={() => copyToClipboard(value)}
-                      className="p-1 hover:bg-gray-200 rounded transition-colors"
+                      className="p-1 hover:bg-gray-200 rounded transition-colors flex-shrink-0 mt-0.5"
                       title="Copiar valor"
                     >
                       <Copy className="w-3 h-3 text-gray-500" />
                     </button>
                   </div>
+                  <span className="text-navy-deep font-semibold text-sm leading-relaxed break-words">{value}</span>
                 </div>
               ))}
             </div>

@@ -177,7 +177,7 @@ export const productFamilies: ProductFamily[] = [
             "Faixa de temperatura": "-20°C a 150°C / 0°C a 350°C",
             "Precisão temperatura": "±3°C ou ±3%"
           },
-          "CÂMERA RGB PRINCIPAL": {
+          "CÂMERA WIDE-ANGLE": {
             "Sensor RGB": "CMOS 1/2\", 48 MP",
             "Abertura": "f/2.8",
             "FOV": "83.4° (DFOV)",
@@ -246,7 +246,7 @@ export const productFamilies: ProductFamily[] = [
           "CÂMERA TÉRMICA": {
             "Possui câmera térmica": "Não"
           },
-          "CÂMERA RGB PRINCIPAL": {
+          "CÂMERA WIDE-ANGLE": {
             "Sensor RGB": "CMOS 1\", 20 MP",
             "Abertura": "f/2.8 a f/11",
             "FOV": "82° (DFOV)",
@@ -449,9 +449,9 @@ export const productFamilies: ProductFamily[] = [
             "Cartões microSD suportados": "Class 10, UHS-3 ou superior, até 1TB"
           },
           "DESEMPENHO DE VOO": {
-            "Velocidade máxima de subida": "Lento: 2.5 m/s, Suave: 3 m/s, Padrão: 6 m/s, Ludicrous: 8 m/s",
-            "Velocidade máxima de descida": "Lento: 2.5 m/s, Suave: 3 m/s, Padrão: 6 m/s, Ludicrous: 6 m/s",
-            "Velocidade máxima de voo*": "Lento: 3 m/s, Suave: 10 m/s, Padrão: 15 m/s (frente/trás), 10 m/s (lateral), Ludicrous: 23 m/s (frente), 18 m/s (trás), 20 m/s (lateral)",
+            "Velocidade máxima de subida": "Lento: 2.5 m/s, Suave: 3 m/s, Padrão: 6 m/s, Modo Sport: 8 m/s",
+            "Velocidade máxima de descida": "Lento: 2.5 m/s, Suave: 3 m/s, Padrão: 6 m/s, Modo Sport: 6 m/s",
+            "Velocidade máxima de voo*": "Lento: 3 m/s, Suave: 10 m/s, Padrão: 15 m/s (frente/trás), 10 m/s (lateral), Modo Sport: 23 m/s (frente), 18 m/s (trás), 20 m/s (lateral)",
             "Nota velocidade": "*Sem vento, próximo ao nível do mar",
             "Teto máximo de serviço acima do nível do mar": "4500 metros (usando bateria ABX41-D)",
             "Altitude máxima de voo*": "China/UE: Não mais que 120 metros, EUA: Não mais que 400 pés",
@@ -463,7 +463,8 @@ export const productFamilies: ProductFamily[] = [
             "Tempo máximo de pairar*": "37 minutos",
             "Nota pairar": "*Dados de teste de laboratório em ambiente sem vento durante pairar, apenas para referência",
             "Resistência máxima ao vento": "Fase de decolagem e pouso: 10.7 m/s, Fase de cruzeiro: 12 m/s",
-            "Ângulo máximo de inclinação": "Lento: 10°, Suave: 30°, Padrão: 30°, Ludicrous: 36°",
+            "Ângulo máximo de inclinação": "Lento: 10°, Suave: 30°, Padrão: 30°, Modo Sport: 36°",
+            "Nota modo Sport": "*No modo Sport, os sensores de colisão podem ser desligados",
             "Velocidade angular máxima": "Eixo de inclinação: 300°/s, Eixo de guinada: 120°/s",
             "Precisão de pairar - Verticalmente": "±0.1 m (quando posicionamento visual funciona normalmente) / ±0.5 m (quando GNSS funciona normalmente)",
             "Precisão de pairar - Horizontalmente": "±0.3 m (quando posicionamento visual funciona normalmente) / ±0.5 m (quando sistema de posicionamento de alta precisão funciona normalmente)",
@@ -494,7 +495,7 @@ export const productFamilies: ProductFamily[] = [
             "Formato de vídeo": "MP4",
             "Sistema de arquivos suportado": "exFAT/FAT32"
           },
-          "CÂMERA RGB PRINCIPAL": {
+          "CÂMERA WIDE-ANGLE": {
             "Sensor de imagem": "1/0.98\" CMOS, 50MP efetivos",
             "Lente": "DFOV: 85.01°, Distância focal equivalente: 23.52 mm, Abertura: f/1.85, Foco: 0.5 m ~ ∞",
             "Faixa ISO": "Auto/Manual: ISO100-ISO6400, Modo Noturno: ISO100-ISO320000 (auto)",
@@ -606,7 +607,7 @@ export const productFamilies: ProductFamily[] = [
           },
           "COMUNICAÇÃO E CONTROLE": {
             "Frequência operacional": "900MHz / 2.4 / 5.2 / 5.8 GHz",
-            "Controle remoto": "Autel V3 (tela 7.9\")",
+            "Controle remoto": "Autel V3 (tela 6.0\" ou 7.9\")",
             "Resolução tela": "2048×1536",
             "Brilho da tela": "2000 nits",
             "Rede A-Mesh": "Sim",
@@ -662,9 +663,9 @@ export const productFamilies: ProductFamily[] = [
             "Cartões microSD suportados": "Class 10, UHS-3 ou superior, até 1TB"
           },
           "DESEMPENHO DE VOO": {
-            "Velocidade máxima de subida": "Lento: 2.5 m/s, Suave: 3 m/s, Padrão: 6 m/s, Ludicrous: 8 m/s",
-            "Velocidade máxima de descida": "Lento: 2.5 m/s, Suave: 3 m/s, Padrão: 6 m/s, Ludicrous: 6 m/s",
-            "Velocidade máxima de voo*": "Lento: 3 m/s, Suave: 10 m/s, Padrão: 15 m/s (frente/trás), 10 m/s (lateral), Ludicrous: 23 m/s (frente), 18 m/s (trás), 20 m/s (lateral)",
+            "Velocidade máxima de subida": "Lento: 2.5 m/s, Suave: 3 m/s, Padrão: 6 m/s, Modo Sport: 8 m/s",
+            "Velocidade máxima de descida": "Lento: 2.5 m/s, Suave: 3 m/s, Padrão: 6 m/s, Modo Sport: 6 m/s",
+            "Velocidade máxima de voo*": "Lento: 3 m/s, Suave: 10 m/s, Padrão: 15 m/s (frente/trás), 10 m/s (lateral), Modo Sport: 23 m/s (frente), 18 m/s (trás), 20 m/s (lateral)",
             "Nota velocidade": "*Sem vento, próximo ao nível do mar",
             "Teto máximo de serviço acima do nível do mar": "4500 metros (usando bateria ABX41-D)",
             "Altitude máxima de voo*": "China/UE: Não mais que 120 metros, EUA: Não mais que 400 pés",
@@ -676,7 +677,8 @@ export const productFamilies: ProductFamily[] = [
             "Tempo máximo de pairar*": "37 minutos",
             "Nota pairar": "*Dados de teste de laboratório em ambiente sem vento durante pairar, apenas para referência",
             "Resistência máxima ao vento": "Fase de decolagem e pouso: 10.7 m/s, Fase de cruzeiro: 12 m/s",
-            "Ângulo máximo de inclinação": "Lento: 10°, Suave: 30°, Padrão: 30°, Ludicrous: 36°",
+            "Ângulo máximo de inclinação": "Lento: 10°, Suave: 30°, Padrão: 30°, Modo Sport: 36°",
+            "Nota modo Sport": "*No modo Sport, os sensores de colisão podem ser desligados",
             "Velocidade angular máxima": "Eixo de inclinação: 300°/s, Eixo de guinada: 120°/s",
             "Precisão de pairar - Verticalmente": "±0.1 m (quando posicionamento visual funciona normalmente) / ±0.5 m (quando GNSS funciona normalmente)",
             "Precisão de pairar - Horizontalmente": "±0.3 m (quando posicionamento visual funciona normalmente) / ±0.5 m (quando sistema de posicionamento de alta precisão funciona normalmente)",
@@ -707,7 +709,7 @@ export const productFamilies: ProductFamily[] = [
             "Formato de vídeo": "MP4",
             "Sistema de arquivos suportado": "exFAT/FAT32"
           },
-          "CÂMERA RGB PRINCIPAL": {
+          "CÂMERA WIDE-ANGLE": {
             "Sensor de imagem": "1/2\" CMOS, 48MP efetivos",
             "Lente": "DFOV: 83.4°, Distância focal equivalente: 24 mm, Abertura: f/2.8, Foco: 1.5 m ~ ∞",
             "Faixa ISO": "Auto/Manual: ISO100-ISO6400, Modo Noturno: ISO100-ISO320000 (auto)",
@@ -818,7 +820,7 @@ export const productFamilies: ProductFamily[] = [
           },
           "COMUNICAÇÃO E CONTROLE": {
             "Frequência operacional": "900MHz / 2.4 / 5.2 / 5.8 GHz",
-            "Controle remoto": "Autel V3 (tela 7.9\")",
+            "Controle remoto": "Autel V3 (tela 6.0\" ou 7.9\")",
             "Resolução tela": "2048×1536",
             "Brilho da tela": "2000 nits",
             "Rede A-Mesh": "Sim",
@@ -1010,7 +1012,7 @@ export const productFamilies: ProductFamily[] = [
             "Zoom digital térmico": "50x",
             "Distância focal térmica": "13mm (curto) / 45mm (longo)"
           },
-          "CÂMERA RGB PRINCIPAL": {
+          "CÂMERA WIDE-ANGLE": {
             "Sensor RGB": "CMOS 48 MP",
             "Abertura": "f/2.8",
             "FOV": "84°",
@@ -1048,7 +1050,7 @@ export const productFamilies: ProductFamily[] = [
           },
           "COMUNICAÇÃO E CONTROLE": {
             "Frequência operacional": "900MHz / 2.4 / 5.2 / 5.8 GHz",
-            "Controle remoto": "Autel V3 (tela 7.9\")",
+            "Controle remoto": "Autel V3 (tela 6.0\" ou 7.9\")",
             "Resolução tela": "2048×1536",
             "Brilho da tela": "2000 nits",
             "Rede A-Mesh": "Sim",
