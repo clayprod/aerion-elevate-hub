@@ -12,9 +12,9 @@ const products = [
     id: "evo-lite-enterprise",
     name: "EVO Lite Enterprise",
     tagline: "Compacto, Portátil, Eficiente",
-    description: "Plataforma compacta com payloads intercambiáveis: 640T (térmica 640×512 + sensor visível 48 MP) ou 6K (sensor 1\" de 20 MP). Garante 40 minutos de voo, transmissão até 12 km (FCC) / 6 km (CE) e detecção tridirecional até 30 m para inspeções ágeis e missões de segurança.",
+    description: "Plataforma compacta oferecida em duas configurações dedicadas: 640T (câmera térmica 640×512 + sensor visível 48 MP) ou 6K (sensor 1\" de 20 MP). Garante 40 minutos de voo, transmissão até 12 km (FCC) / 6 km (CE) e detecção tridirecional até 30 m para inspeções ágeis e missões de segurança.",
     keySpecs: [
-      "Payloads 640T (térmica + visível) ou 6K (sensor 1\" 20 MP)",
+      "Configurações 640T (térmica + visível) ou 6K (sensor 1\" 20 MP)",
       "Autonomia de 40 min e resistência a ventos de 10.7 m/s",
       "Transmissão até 12 km (FCC) / 6 km (CE)",
       "Detecção tridirecional 0.2-30 m com GNSS GPS/BDS/GLONASS",
