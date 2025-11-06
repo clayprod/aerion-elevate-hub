@@ -340,7 +340,7 @@ export const productFamilies: ProductFamily[] = [
     description: "Plataforma profissional robusta com sistema de câmeras triplas e tecnologia omnidirecional de evitação de obstáculos. Equipado com câmera térmica 640×512, zoom óptico até 35x (4N) ou 10x (4T) com zoom híbrido até 160x e visão noturna Starlight, é a escolha definitiva para operações críticas em segurança pública, energia e inspeções industriais de longo alcance até 20km.",
     youtubeVideoId: "IaKUtdAdG5w",
     fallbackImage: "/images/lifestyle/public-safety-3-max.jpg",
-    brochure: "/downloads/EVO_Max_Series_V2_Brochure_PT.pdf",
+    brochure: "/downloads/EVO Max Series.V2_Brochure_PT.pdf",
     productCodes: {
       sku: "EVO-MAX-V2",
       ean: "Pendente",
@@ -430,53 +430,123 @@ export const productFamilies: ProductFamily[] = [
         specs: {
           "CATEGORIA E PORTABILIDADE": {
             "Design": "Dobrável robusto",
-            "Peso (com bateria e gimbal)": "1700 g",
-            "Dimensões dobrado": "562×651×147 mm",
-            "Dimensões desdobrado": "562×651×147 mm",
+            "Peso (com bateria e gimbal)": "1700 g (bateria ABX41-D, gimbal Fusion 4N V2 e hélices incluídos)",
+            "Dimensões do fuselagem (desdobrado, incl. hélices)": "563×657×147 mm",
+            "Distância diagonal": "467 mm",
             "Classificação IP": "IP43"
           },
+          "HÉLICES (PROPELLERS)": {
+            "Tamanho": "11 polegadas, 1158",
+            "Passo": "5.8 polegadas",
+            "Material": "Nylon + Fibra de Carbono",
+            "Peso": "10.3 g",
+            "Velocidade máxima de rotação": "7500 RPM"
+          },
+          "TEMPERATURA E ARMAZENAMENTO": {
+            "Temperatura de operação": "-20℃ a +50℃ (sem carga) / -20℃ a +40℃ (carga completa)",
+            "Armazenamento interno": "128GB interno, 64GB disponível*",
+            "Nota armazenamento": "*O espaço disponível restante varia com diferentes versões de firmware",
+            "Cartões microSD suportados": "Class 10, UHS-3 ou superior, até 1TB"
+          },
           "DESEMPENHO DE VOO": {
-            "Autonomia máxima": "42 min",
-            "Velocidade máxima": "23 m/s",
-            "Resistência ao vento": "12 m/s",
-            "Distância de transmissão": "20 km",
-            "Peso máximo decolagem": "1999 g",
-            "Qualidade transmissão": "1080P@60fps",
-            "Latência transmissão": "<150ms"
+            "Velocidade máxima de subida": "Lento: 2.5 m/s, Suave: 3 m/s, Padrão: 6 m/s, Ludicrous: 8 m/s",
+            "Velocidade máxima de descida": "Lento: 2.5 m/s, Suave: 3 m/s, Padrão: 6 m/s, Ludicrous: 6 m/s",
+            "Velocidade máxima de voo*": "Lento: 3 m/s, Suave: 10 m/s, Padrão: 15 m/s (frente/trás), 10 m/s (lateral), Ludicrous: 23 m/s (frente), 18 m/s (trás), 20 m/s (lateral)",
+            "Nota velocidade": "*Sem vento, próximo ao nível do mar",
+            "Teto máximo de serviço acima do nível do mar": "4500 metros (usando bateria ABX41-D)",
+            "Altitude máxima de voo*": "China/UE: Não mais que 120 metros, EUA: Não mais que 400 pés",
+            "Nota altitude": "*A altitude pode ser configurada de 20 a 800 metros no app de voo. Para configurar altitude acima do exigido por lei, é necessária aprovação das autoridades",
+            "Tempo máximo de voo*": "42 minutos",
+            "Nota tempo voo": "*Dados de teste de laboratório em ambiente sem vento na velocidade de 8 m/s durante voo horizontal, apenas para referência",
+            "Distância máxima de voo*": "25 km",
+            "Nota distância": "*Dados de teste de laboratório em ambiente sem vento na velocidade de 14 m/s durante voo horizontal, apenas para referência",
+            "Tempo máximo de pairar*": "37 minutos",
+            "Nota pairar": "*Dados de teste de laboratório em ambiente sem vento durante pairar, apenas para referência",
+            "Resistência máxima ao vento": "Fase de decolagem e pouso: 10.7 m/s, Fase de cruzeiro: 12 m/s",
+            "Ângulo máximo de inclinação": "Lento: 10°, Suave: 30°, Padrão: 30°, Ludicrous: 36°",
+            "Velocidade angular máxima": "Eixo de inclinação: 300°/s, Eixo de guinada: 120°/s",
+            "Precisão de pairar - Verticalmente": "±0.1 m (quando posicionamento visual funciona normalmente) / ±0.5 m (quando GNSS funciona normalmente)",
+            "Precisão de pairar - Horizontalmente": "±0.3 m (quando posicionamento visual funciona normalmente) / ±0.5 m (quando sistema de posicionamento de alta precisão funciona normalmente)",
+            "Peso máximo de decolagem": "1999 g",
+            "Peso máximo de decolagem (certificação C2 UE)": "1890 g"
           },
           "CÂMERA TÉRMICA": {
             "Possui câmera térmica": "Sim",
+            "Termógrafo": "Microbolômetro VOX não resfriado",
+            "Lente": "FOV: 61°, Distância focal: 9.1 mm, Abertura: f/1.0, Distância de foco: 2.2 m ~ ∞",
+            "Taxa de zoom digital equivalente": "1-16x zoom digital",
+            "Diferença de temperatura equivalente ao ruído": "≤50mK@25℃, F#1.0",
+            "Pitch de pixel": "12 um",
+            "Banda espectral": "8-14 um",
+            "Método de medição de temperatura": "Medição de temperatura de ponto central/Ponto específico/Área",
+            "Faixa de medição de temperatura": "Modo High Gain: -20℃ a 150℃, Modo Low Gain: 0 a 550℃",
+            "Precisão de medição de temperatura": "±2℃ ou leitura ±2% (usar o maior valor) @ temperatura ambiente de -10℃ a 50℃",
+            "Distância de medição de temperatura": "1-100 m",
+            "Alerta de temperatura": "Suportado (limiares de alarme de alta/baixa temperatura, coordenadas e valores)",
+            "Paleta": "White Hot/Black Hot/Ironbow/Rainbow 1/Rainbow 2/Lava/Arctic/Ironbow/Medical/Tint",
             "Resolução térmica": "640×512",
-            "Termógrafo": "Microbolômetro VOX",
-            "Zoom digital térmico": "20x",
-            "Distância focal térmica": "9.1 mm",
-            "Faixa de temperatura": "-20°C a 150°C / 0°C a 550°C"
+            "Tamanho de foto": "640×512",
+            "Modo de fotografia": "Single",
+            "Formato de foto": "JPG* (*as imagens contêm informações de temperatura e são analisadas por SDK dedicado e ferramentas PC)",
+            "Resolução de vídeo": "640×512@30fps / 640×512@25fps",
+            "Nota vídeo térmico": "*Devido a diferenças nos fornecedores de sensores de imagem térmica, as duas especificações são enviadas em lotes mistos. A especificação exata está sujeita ao produto real comprado",
+            "Bitrate máximo de vídeo": "10Mbps",
+            "Formato de vídeo": "MP4",
+            "Sistema de arquivos suportado": "exFAT/FAT32"
           },
           "CÂMERA RGB PRINCIPAL": {
-            "Sensor RGB": "CMOS 1/1.28\", 50 MP",
-            "Abertura": "f/1.85",
-            "FOV": "85°",
-            "Distância focal equiv.": "20 mm",
-            "Resolução de foto": "8192×6144",
-            "Resolução de vídeo": "4K@30fps",
-            "Zoom digital": "8x"
+            "Sensor de imagem": "1/0.98\" CMOS, 50MP efetivos",
+            "Lente": "DFOV: 85.01°, Distância focal equivalente: 23.52 mm, Abertura: f/1.85, Foco: 0.5 m ~ ∞",
+            "Faixa ISO": "Auto/Manual: ISO100-ISO6400, Modo Noturno: ISO100-ISO320000 (auto)",
+            "Velocidade do obturador": "Captura: 8s-1/10000s, Gravação: 1/30s-1/10000s",
+            "Zoom": "1-8x zoom digital",
+            "Tamanho de foto": "JPG: 4096×3072, 8192×6144; DNG: 4000×3000",
+            "Modo de fotografia": "Single",
+            "Resolução de vídeo": "4000×3000@30fps",
+            "Modo noturno vídeo": "2400×1800@30fps",
+            "Bitrate máximo de vídeo": "60Mbps",
+            "Formato de vídeo": "MP4",
+            "Legendas de vídeo": "Suportado",
+            "Codificação de vídeo": "H.264/H.265",
+            "Sistema de arquivos suportado": "exFAT/FAT32"
           },
           "VISÃO NOTURNA / STARLIGHT": {
             "Possui visão noturna": "Sim",
-            "Sensor Starlight": "2.3 MP, LUX 0.0001",
-            "Resolução vídeo noturna": "1920×1200 @ 30P",
-            "Zoom digital noturno": "8x"
+            "Sensor de imagem": "1.69\" CMOS, 2.3MP efetivos",
+            "Lente": "DFOV: 52°±2°, Distância focal efetiva: 11.2 mm, Abertura: f/1.4, Foco: 10 m ~ ∞",
+            "Pitch de pixel": "12 um",
+            "Faixa ISO": "Auto/Manual: ISO100-ISO440000, Modo Noturno: ISO100-ISO440000 (auto)",
+            "Velocidade do obturador": "Captura: 8s-1/10000s, Gravação: 1/30s-1/10000s",
+            "Zoom": "1-8x zoom digital",
+            "Tamanho de foto": "JPG: 1920×1200",
+            "Modo de fotografia": "Single",
+            "Resolução de vídeo": "1920×1200@30fps",
+            "Bitrate máximo de vídeo": "20Mbps",
+            "Formato de vídeo": "MP4",
+            "Legendas de vídeo": "Suportado",
+            "Codificação de vídeo": "H.264/H.265",
+            "Sistema de arquivos suportado": "exFAT/FAT32"
           },
           "SENSORES E MEDIÇÃO": {
-            "Telêmetro laser": "Sim (5-1200m)",
-            "Precisão laser": "±(1m+D*0.15%)"
+            "Telêmetro laser": "Sim",
+            "Comprimento de onda": "905 nm",
+            "Segurança do laser": "Classe 1",
+            "Precisão de medição": "±(1 m + D×0.15%)*",
+            "Nota precisão laser": "*Onde D é a distância até um plano refletor vertical",
+            "Alcance de medição": "5-1200 m"
           },
           "GIMBAL E ESTABILIZAÇÃO": {
-            "Tipo de gimbal": "3 eixos (Fusion 4N V2)",
+            "Tipo de gimbal": "Fusion 4N V2",
+            "Peso do gimbal": "258 g",
+            "Alcance mecânico": "Inclinação: -135° a 45°, Rolagem: -50° a 50°, Panorâmica: -45° a 45°",
+            "Alcance controlável": "Inclinação: -90° a 30°",
+            "Sistema de estabilização": "Gimbal mecânico 3 eixos (inclinação, rolagem, panorâmica)",
+            "Velocidade máxima de controle": "Inclinação: 100°/s",
+            "Faixa de vibração angular": "< 0.005°",
             "Número de câmeras": "3 (Térmica + RGB + Starlight)"
           },
           "SISTEMA DE POSICIONAMENTO": {
-            "GNSS": "GPS+GLONASS+Galileo+BDS",
+            "GNSS": "GPS + Galileo + BDS + GLONASS",
             "Módulo RTK": "Opcional",
             "Precisão RTK": "Centimétrica",
             "Navegação visual": "SLAM alta precisão"
@@ -485,6 +555,55 @@ export const productFamilies: ProductFamily[] = [
             "Sistema de evitação": "720° omnidirecional",
             "Sensores": "Múltiplas direções"
           },
+          "SISTEMA DE EVITAÇÃO DE OBSTÁCULOS VISUAL": {
+            "Alcance de detecção - Frente": "0.5 ~ 30 m",
+            "Alcance de detecção - Trás": "0.5 ~ 25 m",
+            "Alcance de detecção - Lateral": "0.5 ~ 40 m",
+            "Alcance de detecção - Cima": "0.5 ~ 40 m",
+            "Alcance de detecção - Baixo": "0.5 ~ 35 m",
+            "FOV - Frente e Trás": "60°(H), 80°(V)",
+            "FOV - Cima": "180° (lateral), 120° (frente e trás)",
+            "FOV - Baixo": "180° (lateral), 120° (frente e trás)",
+            "Ambiente operacional - Frente, trás, lateral e cima": "A superfície tem texturas ricas, sob ambiente de iluminação suficiente (>15 lux, ambiente de iluminação fluorescente interno normal)",
+            "Ambiente operacional - Baixo": "A superfície tem texturas ricas, e a superfície é um material difuso com refletividade >20% (paredes, árvores, humanos, etc.), sob ambiente de iluminação suficiente (>15 lux, ambiente de iluminação fluorescente interno normal)"
+          },
+          "SISTEMA DE RADAR DE ONDAS MILIMÉTRICAS": {
+            "Frequência de transmissão": "24G: 24.0-24.25 GHz, 60G: 60-64 GHz",
+            "EIRP - 60G": "≤20dBm (CE/UKCA/FCC)",
+            "EIRP - 24G": "≤20dBm (CE/UKCA/FCC), ≤13dBm (SRRC)",
+            "Alcance de detecção - Radar 60G - Cima": "0.3 ~ 18 m @ linha de transmissão de alta tensão",
+            "Alcance de detecção - Radar 60G - Baixo": "0.15 ~ 40 m @ piso de concreto",
+            "Alcance de detecção - Radar 60G - Frente e Trás": "0.15 ~ 18 m @ linha de transmissão de alta tensão, com velocidade de voo 10 m/s",
+            "Alcance de detecção - Radar 60G - Lateral": "0.15 ~ 18 m @ linha de transmissão de alta tensão, com velocidade de voo 10 m/s",
+            "Alcance de detecção - Radar 24G - Baixo": "0.8 ~ 12 m @ piso de concreto",
+            "FOV - Horizontal (6dB)": "±30°/±15° (60G/24G)",
+            "FOV - Vertical (6dB)": "±40°/±15° (60G/24G)",
+            "Ambiente operacional - Radar 60G": "Suporta evitação de obstáculos para todas as condições climáticas para vidro, água, linha de transmissão, edifícios e árvores em 6 direções. Sua distância de evitação de obstáculos varia com a capacidade do obstáculo de refletir ondas eletromagnéticas e seu tamanho de superfície",
+            "Ambiente operacional - Radar 24G": "Suporta detecção para baixo, e seu alcance de detecção varia com o material do solo. Por exemplo, o alcance de detecção do solo de cimento é de 12 metros, e o alcance de detecção da grama com espessura de mais de 3 cm é inferior a 6 metros"
+          },
+          "WI-FI": {
+            "Protocolo": "802.11a/b/g/n/ac/ax",
+            "Frequência operacional - 2.4G": "2.400–2.476GHz*, 2.400–2.4835GHz",
+            "Frequência operacional - 5.2G": "5.15-5.25GHz**, 5.17-5.25GHz***",
+            "Frequência operacional - 5.8G": "5.725-5.829GHz*, 5.725-5.850GHz",
+            "Nota frequências": "*Aplica-se apenas a regiões SRRC, **Aplica-se apenas a regiões FCC, CE (Alemanha excluída) e UKCA, ***Aplica-se apenas à Alemanha. Nota: Algumas frequências estão disponíveis apenas em algumas regiões ou apenas para uso interno. Para detalhes, consulte as leis e regulamentos locais",
+            "EIRP - 2.4G": "≤30dBm (FCC/ISED); ≤20dBm (CE/SRRC/UKCA)",
+            "EIRP - 5.2G": "≤30dBm (FCC); ≤23dBm (CE/UKCA)",
+            "EIRP - 5.8G": "≤30dBm (FCC/ISED/SRRC); ≤14dBm (CE/UKCA)"
+          },
+          "TRANSMISSÃO DE VÍDEO": {
+            "Frequência operacional - 900M": "902-928MHz*",
+            "Frequência operacional - 2.4G": "2.400–2.476GHz**, 2.400–2.4835GHz",
+            "Frequência operacional - 5.2G": "5.15-5.25GHz***, 5.17-5.25GHz****",
+            "Frequência operacional - 5.8G": "5.725-5.829GHz**, 5.725-5.850GHz",
+            "Nota frequências transmissão": "*Aplicável apenas a regiões FCC e ISED, **Aplicável apenas a regiões SRRC, ***Aplicável apenas a regiões FCC, CE (Alemanha excluída) e UKCA, ****Aplica-se apenas à Alemanha. Nota: Algumas frequências estão disponíveis apenas em algumas regiões ou apenas para uso interno. Para detalhes, consulte as leis e regulamentos locais",
+            "EIRP - 900M": "≤30dBm (FCC/ISED)",
+            "EIRP - 2.4G": "≤30dBm (FCC/ISED); ≤20dBm (CE/SRRC/UKCA)",
+            "EIRP - 5.2G": "≤30dBm (FCC); ≤23 dBm (CE/UKCA)",
+            "EIRP - 5.8G": "≤30dBm(FCC/ISED/SRRC); ≤14dBm(CE/UKCA)",
+            "Distância máxima de transmissão*": "FCC: 15km, SRRC/CE: 8km",
+            "Nota distância transmissão": "*Sem interferência e bloqueio"
+          },
           "COMUNICAÇÃO E CONTROLE": {
             "Frequência operacional": "900MHz / 2.4 / 5.2 / 5.8 GHz",
             "Controle remoto": "Autel V3 (tela 7.9\")",
@@ -492,11 +611,17 @@ export const productFamilies: ProductFamily[] = [
             "Brilho da tela": "2000 nits",
             "Rede A-Mesh": "Sim",
             "Anti-interferência": "Superior",
-            "Streaming de vídeo": "RTMP / RTSP"
+            "Streaming de vídeo": "RTMP / RTSP",
+            "Suporte para SIM Card 4G": "Sim"
           },
           "BATERIA E ENERGIA": {
             "Tipo de bateria": "ABX41-D inteligente",
+            "Troca a quente": "Sim*",
+            "Nota troca quente": "*A função de troca a quente de bateria deve ser habilitada no app de voo com antecedência",
             "Detecção bateria local": "Sim (ABX41-D)"
+          },
+          "STROBE": {
+            "Strobe integrado": "Sim"
           },
           "RECURSOS ESPECIAIS": {
             "Voo autônomo": "Autonomy Engine",
@@ -518,55 +643,122 @@ export const productFamilies: ProductFamily[] = [
         specs: {
           "CATEGORIA E PORTABILIDADE": {
             "Design": "Dobrável robusto",
-            "Peso (com bateria e gimbal)": "1665 g",
-            "Dimensões dobrado": "576×660×149 mm",
-            "Dimensões desdobrado": "576×600×149 mm",
+            "Peso (com bateria e gimbal)": "1665 g (bateria ABX41-D, gimbal Fusion 4T V2 e hélices incluídos)",
+            "Dimensões do fuselagem (desdobrado, incl. hélices)": "563×657×147 mm",
+            "Distância diagonal": "467 mm",
             "Classificação IP": "IP43"
           },
+          "HÉLICES (PROPELLERS)": {
+            "Tamanho": "11 polegadas, 1158",
+            "Passo": "5.8 polegadas",
+            "Material": "Nylon + Fibra de Carbono",
+            "Peso": "10.3 g",
+            "Velocidade máxima de rotação": "7500 RPM"
+          },
+          "TEMPERATURA E ARMAZENAMENTO": {
+            "Temperatura de operação": "-20℃ a +50℃ (sem carga) / -20℃ a +40℃ (carga completa)",
+            "Armazenamento interno": "128GB interno, 64GB disponível*",
+            "Nota armazenamento": "*O espaço disponível restante varia com diferentes versões de firmware",
+            "Cartões microSD suportados": "Class 10, UHS-3 ou superior, até 1TB"
+          },
           "DESEMPENHO DE VOO": {
-            "Autonomia máxima": "42 min",
-            "Velocidade máxima": "23 m/s",
-            "Resistência ao vento": "12 m/s",
-            "Distância de transmissão": "20 km",
-            "Peso máximo decolagem": "1999 g",
-            "Qualidade transmissão": "1080P@60fps",
-            "Latência transmissão": "<150ms"
+            "Velocidade máxima de subida": "Lento: 2.5 m/s, Suave: 3 m/s, Padrão: 6 m/s, Ludicrous: 8 m/s",
+            "Velocidade máxima de descida": "Lento: 2.5 m/s, Suave: 3 m/s, Padrão: 6 m/s, Ludicrous: 6 m/s",
+            "Velocidade máxima de voo*": "Lento: 3 m/s, Suave: 10 m/s, Padrão: 15 m/s (frente/trás), 10 m/s (lateral), Ludicrous: 23 m/s (frente), 18 m/s (trás), 20 m/s (lateral)",
+            "Nota velocidade": "*Sem vento, próximo ao nível do mar",
+            "Teto máximo de serviço acima do nível do mar": "4500 metros (usando bateria ABX41-D)",
+            "Altitude máxima de voo*": "China/UE: Não mais que 120 metros, EUA: Não mais que 400 pés",
+            "Nota altitude": "*A altitude pode ser configurada de 20 a 800 metros no app de voo. Para configurar altitude acima do exigido por lei, é necessária aprovação das autoridades",
+            "Tempo máximo de voo*": "42 minutos",
+            "Nota tempo voo": "*Dados de teste de laboratório em ambiente sem vento na velocidade de 8 m/s durante voo horizontal, apenas para referência",
+            "Distância máxima de voo*": "25 km",
+            "Nota distância": "*Dados de teste de laboratório em ambiente sem vento na velocidade de 14 m/s durante voo horizontal, apenas para referência",
+            "Tempo máximo de pairar*": "37 minutos",
+            "Nota pairar": "*Dados de teste de laboratório em ambiente sem vento durante pairar, apenas para referência",
+            "Resistência máxima ao vento": "Fase de decolagem e pouso: 10.7 m/s, Fase de cruzeiro: 12 m/s",
+            "Ângulo máximo de inclinação": "Lento: 10°, Suave: 30°, Padrão: 30°, Ludicrous: 36°",
+            "Velocidade angular máxima": "Eixo de inclinação: 300°/s, Eixo de guinada: 120°/s",
+            "Precisão de pairar - Verticalmente": "±0.1 m (quando posicionamento visual funciona normalmente) / ±0.5 m (quando GNSS funciona normalmente)",
+            "Precisão de pairar - Horizontalmente": "±0.3 m (quando posicionamento visual funciona normalmente) / ±0.5 m (quando sistema de posicionamento de alta precisão funciona normalmente)",
+            "Peso máximo de decolagem": "1999 g",
+            "Peso máximo de decolagem (certificação C2 UE)": "1890 g"
           },
           "CÂMERA TÉRMICA": {
             "Possui câmera térmica": "Sim",
+            "Termógrafo": "Microbolômetro VOX não resfriado",
+            "Lente": "FOV: 61°, Distância focal: 9.1 mm, Abertura: f/1.0, Distância de foco: 2.2 m ~ ∞",
+            "Taxa de zoom digital equivalente": "1-16x zoom digital",
+            "Diferença de temperatura equivalente ao ruído": "≤50mK@25℃, F#1.0",
+            "Pitch de pixel": "12 um",
+            "Banda espectral": "8-14 um",
+            "Método de medição de temperatura": "Medição de temperatura de ponto central/Ponto específico/Área",
+            "Faixa de medição de temperatura": "Modo High Gain: -20℃ a 150℃, Modo Low Gain: 0 a 550℃",
+            "Precisão de medição de temperatura": "±2℃ ou leitura ±2% (usar o maior valor) @ temperatura ambiente de -10℃ a 50℃",
+            "Distância de medição de temperatura": "1-100 m",
+            "Alerta de temperatura": "Suportado (limiares de alarme de alta/baixa temperatura, coordenadas e valores)",
+            "Paleta": "White Hot/Black Hot/Ironbow/Rainbow 1/Rainbow 2/Lava/Arctic/Ironbow/Medical/Tint",
             "Resolução térmica": "640×512",
-            "Termógrafo": "Microbolômetro VOX",
-            "Zoom digital térmico": "10x",
-            "Distância focal térmica": "9.1 mm",
-            "Faixa de temperatura": "-20°C a 150°C / 0°C a 550°C"
+            "Tamanho de foto": "640×512",
+            "Modo de fotografia": "Single",
+            "Formato de foto": "JPG* (*as imagens contêm informações de temperatura e são analisadas por SDK dedicado e ferramentas PC)",
+            "Resolução de vídeo": "640×512@30fps / 640×512@25fps",
+            "Nota vídeo térmico": "*Devido a diferenças nos fornecedores de sensores de imagem térmica, as duas especificações são enviadas em lotes mistos. A especificação exata está sujeita ao produto real comprado",
+            "Bitrate máximo de vídeo": "10Mbps",
+            "Formato de vídeo": "MP4",
+            "Sistema de arquivos suportado": "exFAT/FAT32"
           },
           "CÂMERA RGB PRINCIPAL": {
-            "Sensor RGB": "CMOS 1/2\", 48 MP",
-            "Abertura": "f/2.8",
-            "FOV": "83.4°",
-            "Distância focal equiv.": "24 mm",
-            "Resolução de foto": "8000×6000",
-            "Resolução de vídeo": "4K@30fps"
+            "Sensor de imagem": "1/2\" CMOS, 48MP efetivos",
+            "Lente": "DFOV: 83.4°, Distância focal equivalente: 24 mm, Abertura: f/2.8, Foco: 1.5 m ~ ∞",
+            "Faixa ISO": "Auto/Manual: ISO100-ISO6400, Modo Noturno: ISO100-ISO320000 (auto)",
+            "Velocidade do obturador": "Captura: 8s-1/10000s, Gravação: 1/30s-1/10000s",
+            "Zoom": "1-2.6x zoom digital",
+            "Tamanho de foto": "JPG: 4000×3000, 8000×6000; DNG: 4000×3000",
+            "Modo de fotografia": "Single",
+            "Resolução de vídeo": "4000×3000@30fps",
+            "Modo noturno vídeo": "2400×1800@30fps",
+            "Bitrate máximo de vídeo": "60Mbps",
+            "Formato de vídeo": "MP4",
+            "Legendas de vídeo": "Suportado",
+            "Codificação de vídeo": "H.264/H.265",
+            "Sistema de arquivos suportado": "exFAT/FAT32"
           },
           "CÂMERA ZOOM / TELEOBJETIVA": {
             "Possui câmera zoom": "Sim",
-            "Sensor zoom": "CMOS 1/2\", 48 MP",
-            "Zoom óptico": "10x",
-            "Zoom híbrido máximo": "160x",
-            "Resolução vídeo zoom": "30P 4000×3000",
-            "ISO zoom": "100-25600",
-            "Alcance observação": "Até 2 km"
+            "Sensor de imagem": "1/2\" CMOS, 48MP efetivos",
+            "Lente": "DFOV: 40°-10.3°, Distância focal equivalente: 64-234 mm, Abertura: f/2.8-f/4.8, Foco: 2 m ~ ∞",
+            "Faixa ISO": "Auto/Manual: ISO100-ISO6400",
+            "Velocidade do obturador": "Captura: 8s-1/10000s, Gravação: 1/30s-1/10000s",
+            "Zoom": "2.7-10x zoom óptico contínuo, 20x zoom híbrido, 160x zoom digital",
+            "Tamanho de foto": "JPG: 4000×3000, 8000×6000; DNG: 4000×3000",
+            "Modo de fotografia": "Single",
+            "Resolução de vídeo": "4000×3000@30fps",
+            "Bitrate máximo de vídeo": "60Mbps",
+            "Formato de vídeo": "MP4",
+            "Legendas de vídeo": "Suportado",
+            "Codificação de vídeo": "H.264/H.265",
+            "Sistema de arquivos suportado": "exFAT/FAT32"
           },
           "SENSORES E MEDIÇÃO": {
-            "Telêmetro laser": "Sim (5-1200m)",
-            "Precisão laser": "±(1m+D*0.15%)"
+            "Telêmetro laser": "Sim",
+            "Comprimento de onda": "905 nm",
+            "Segurança do laser": "Classe 1",
+            "Precisão de medição": "±(1 m + D×0.15%)*",
+            "Nota precisão laser": "*Onde D é a distância até um plano refletor vertical",
+            "Alcance de medição": "5-1200 m"
           },
           "GIMBAL E ESTABILIZAÇÃO": {
-            "Tipo de gimbal": "3 eixos (Fusion 4T V2)",
+            "Tipo de gimbal": "Fusion 4T V2",
+            "Peso do gimbal": "214 g",
+            "Alcance mecânico": "Inclinação: -135° a 45°, Rolagem: -50° a 50°, Panorâmica: -45° a 45°",
+            "Alcance controlável": "Inclinação: -90° a 30°",
+            "Sistema de estabilização": "Gimbal mecânico 3 eixos (inclinação, rolagem, panorâmica)",
+            "Velocidade máxima de controle": "Inclinação: 100°/s",
+            "Faixa de vibração angular": "< 0.005°",
             "Número de câmeras": "3 (Térmica + RGB + Zoom)"
           },
           "SISTEMA DE POSICIONAMENTO": {
-            "GNSS": "GPS+GLONASS+Galileo+BDS",
+            "GNSS": "GPS + Galileo + BDS + GLONASS",
             "Módulo RTK": "Opcional",
             "Precisão RTK": "Centimétrica",
             "Navegação visual": "SLAM alta precisão"
@@ -575,6 +767,55 @@ export const productFamilies: ProductFamily[] = [
             "Sistema de evitação": "720° omnidirecional",
             "Sensores": "Múltiplas direções"
           },
+          "SISTEMA DE EVITAÇÃO DE OBSTÁCULOS VISUAL": {
+            "Alcance de detecção - Frente": "0.5 ~ 30 m",
+            "Alcance de detecção - Trás": "0.5 ~ 25 m",
+            "Alcance de detecção - Lateral": "0.5 ~ 40 m",
+            "Alcance de detecção - Cima": "0.5 ~ 40 m",
+            "Alcance de detecção - Baixo": "0.5 ~ 35 m",
+            "FOV - Frente e Trás": "60°(H), 80°(V)",
+            "FOV - Cima": "180° (lateral), 120° (frente e trás)",
+            "FOV - Baixo": "180° (lateral), 120° (frente e trás)",
+            "Ambiente operacional - Frente, trás, lateral e cima": "A superfície tem texturas ricas, sob ambiente de iluminação suficiente (>15 lux, ambiente de iluminação fluorescente interno normal)",
+            "Ambiente operacional - Baixo": "A superfície tem texturas ricas, e a superfície é um material difuso com refletividade >20% (paredes, árvores, humanos, etc.), sob ambiente de iluminação suficiente (>15 lux, ambiente de iluminação fluorescente interno normal)"
+          },
+          "SISTEMA DE RADAR DE ONDAS MILIMÉTRICAS": {
+            "Frequência de transmissão": "24G: 24.0-24.25 GHz, 60G: 60-64 GHz",
+            "EIRP - 60G": "≤20dBm (CE/UKCA/FCC)",
+            "EIRP - 24G": "≤20dBm (CE/UKCA/FCC), ≤13dBm (SRRC)",
+            "Alcance de detecção - Radar 60G - Cima": "0.3 ~ 18 m @ linha de transmissão de alta tensão",
+            "Alcance de detecção - Radar 60G - Baixo": "0.15 ~ 40 m @ piso de concreto",
+            "Alcance de detecção - Radar 60G - Frente e Trás": "0.15 ~ 18 m @ linha de transmissão de alta tensão, com velocidade de voo 10 m/s",
+            "Alcance de detecção - Radar 60G - Lateral": "0.15 ~ 18 m @ linha de transmissão de alta tensão, com velocidade de voo 10 m/s",
+            "Alcance de detecção - Radar 24G - Baixo": "0.8 ~ 12 m @ piso de concreto",
+            "FOV - Horizontal (6dB)": "±30°/±15° (60G/24G)",
+            "FOV - Vertical (6dB)": "±40°/±15° (60G/24G)",
+            "Ambiente operacional - Radar 60G": "Suporta evitação de obstáculos para todas as condições climáticas para vidro, água, linha de transmissão, edifícios e árvores em 6 direções. Sua distância de evitação de obstáculos varia com a capacidade do obstáculo de refletir ondas eletromagnéticas e seu tamanho de superfície",
+            "Ambiente operacional - Radar 24G": "Suporta detecção para baixo, e seu alcance de detecção varia com o material do solo. Por exemplo, o alcance de detecção do solo de cimento é de 12 metros, e o alcance de detecção da grama com espessura de mais de 3 cm é inferior a 6 metros"
+          },
+          "WI-FI": {
+            "Protocolo": "802.11a/b/g/n/ac/ax",
+            "Frequência operacional - 2.4G": "2.400–2.476GHz*, 2.400–2.4835GHz",
+            "Frequência operacional - 5.2G": "5.15-5.25GHz**, 5.17-5.25GHz***",
+            "Frequência operacional - 5.8G": "5.725-5.829GHz*, 5.725-5.850GHz",
+            "Nota frequências": "*Aplica-se apenas a regiões SRRC, **Aplica-se apenas a regiões FCC, CE (Alemanha excluída) e UKCA, ***Aplica-se apenas à Alemanha. Nota: Algumas frequências estão disponíveis apenas em algumas regiões ou apenas para uso interno. Para detalhes, consulte as leis e regulamentos locais",
+            "EIRP - 2.4G": "≤30dBm (FCC/ISED); ≤20dBm (CE/SRRC/UKCA)",
+            "EIRP - 5.2G": "≤30dBm (FCC); ≤23dBm (CE/UKCA)",
+            "EIRP - 5.8G": "≤30dBm (FCC/ISED/SRRC); ≤14dBm (CE/UKCA)"
+          },
+          "TRANSMISSÃO DE VÍDEO": {
+            "Frequência operacional - 900M": "902-928MHz*",
+            "Frequência operacional - 2.4G": "2.400–2.476GHz**, 2.400–2.4835GHz",
+            "Frequência operacional - 5.2G": "5.15-5.25GHz***, 5.17-5.25GHz****",
+            "Frequência operacional - 5.8G": "5.725-5.829GHz**, 5.725-5.850GHz",
+            "Nota frequências transmissão": "*Aplicável apenas a regiões FCC e ISED, **Aplicável apenas a regiões SRRC, ***Aplicável apenas a regiões FCC, CE (Alemanha excluída) e UKCA, ****Aplica-se apenas à Alemanha. Nota: Algumas frequências estão disponíveis apenas em algumas regiões ou apenas para uso interno. Para detalhes, consulte as leis e regulamentos locais",
+            "EIRP - 900M": "≤30dBm (FCC/ISED)",
+            "EIRP - 2.4G": "≤30dBm (FCC/ISED); ≤20dBm (CE/SRRC/UKCA)",
+            "EIRP - 5.2G": "≤30dBm (FCC); ≤23 dBm (CE/UKCA)",
+            "EIRP - 5.8G": "≤30dBm(FCC/ISED/SRRC); ≤14dBm(CE/UKCA)",
+            "Distância máxima de transmissão*": "FCC: 15km, SRRC/CE: 8km",
+            "Nota distância transmissão": "*Sem interferência e bloqueio"
+          },
           "COMUNICAÇÃO E CONTROLE": {
             "Frequência operacional": "900MHz / 2.4 / 5.2 / 5.8 GHz",
             "Controle remoto": "Autel V3 (tela 7.9\")",
@@ -582,11 +823,17 @@ export const productFamilies: ProductFamily[] = [
             "Brilho da tela": "2000 nits",
             "Rede A-Mesh": "Sim",
             "Anti-interferência": "Superior",
-            "Streaming de vídeo": "RTMP / RTSP"
+            "Streaming de vídeo": "RTMP / RTSP",
+            "Suporte para SIM Card 4G": "Sim"
           },
           "BATERIA E ENERGIA": {
             "Tipo de bateria": "ABX41-D inteligente",
+            "Troca a quente": "Sim*",
+            "Nota troca quente": "*A função de troca a quente de bateria deve ser habilitada no app de voo com antecedência",
             "Detecção bateria local": "Sim (ABX41-D)"
+          },
+          "STROBE": {
+            "Strobe integrado": "Sim"
           },
           "RECURSOS ESPECIAIS": {
             "Voo autônomo": "Autonomy Engine",
