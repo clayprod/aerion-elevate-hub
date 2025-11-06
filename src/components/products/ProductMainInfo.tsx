@@ -77,24 +77,6 @@ export const ProductMainInfo: React.FC<ProductMainInfoProps> = ({
                   </div>
                 </div>
                 
-                {productCodes.ean && (
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-gray-dark">EAN:</span>
-                    <div className="flex items-center gap-2">
-                      <span className="font-mono text-sm bg-white px-2 py-1 rounded border">
-                        {productCodes.ean}
-                      </span>
-                      <button
-                        onClick={() => copyToClipboard(productCodes.ean!)}
-                        className="p-1 hover:bg-gray-200 rounded transition-colors"
-                        title="Copiar EAN"
-                      >
-                        <Copy className="w-3 h-3 text-gray-500" />
-                      </button>
-                    </div>
-                  </div>
-                )}
-                
                 {productCodes.ncm && (
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-medium text-gray-dark">NCM:</span>

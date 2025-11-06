@@ -142,25 +142,6 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
               {name}
             </h1>
             
-            {/* Product Codes */}
-            <div className="flex flex-wrap items-center gap-4 text-sm">
-              {productCodes.ean && (
-                <div className="flex items-center gap-2">
-                  <span className="font-medium text-gray-dark">GTIN:</span>
-                  <span className="font-mono bg-gray-100 px-2 py-1 rounded">
-                    {productCodes.ean}
-                  </span>
-                  <button
-                    onClick={() => copyToClipboard(productCodes.ean!)}
-                    className="p-1 hover:bg-gray-200 rounded transition-colors"
-                    title="Copiar GTIN"
-                  >
-                    <Copy className="w-3 h-3 text-gray-500" />
-                  </button>
-                </div>
-              )}
-            </div>
-            
             {/* Product Description */}
             <p className="text-base text-gray-dark leading-relaxed">
               {description}
