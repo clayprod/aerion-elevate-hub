@@ -63,10 +63,10 @@ const InspecaoIndustrial = () => {
       variant: "Industrial",
       image: "/images/products/alpha/1.png",
       features: [
-        "Sistema dual-térmico",
-        "Zoom híbrido 560x",
-        "Telêmetro laser 2000m",
-        "RTK milimétrico"
+        "Gimbal DG-L35T (zoom óptico 35x + térmicas 13/45 mm)",
+        "Autonomy Engine com sensores 360° + radar 60G/24G",
+        "Alcance de voo até 30 km e autonomia de 40 min",
+        "RTK integrado e telêmetro laser 2000 m"
       ],
       applications: [
         "Inspeções de infraestrutura crítica",

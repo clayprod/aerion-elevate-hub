@@ -1070,7 +1070,7 @@ export const productFamilies: ProductFamily[] = [
     id: "autel-alpha",
     name: "Autel Alpha",
     slug: "autel-alpha",
-    description: "O drone industrial mais avançado da categoria com sistema de câmeras quíntuplo e tecnologia dual-térmica. Com zoom híbrido de até 560x, telêmetro laser de 2000m, RTK integrado de precisão milimétrica e sistema de troca a quente de baterias, o Autel Alpha é a solução definitiva para missões táticas complexas, inspeções de infraestrutura crítica e operações de longo alcance até 8km.",
+    description: "Plataforma industrial IP55 de alta resistência com gimbal DG-L35T quíntuplo (duas térmicas, câmera wide, zoom 35x e laser). Entrega 40 minutos de voo, alcance de até 30 km, baterias hot swap e navegação Autonomy Engine com sensores visuais 360° e radar milimétrico 60G/24G para operações críticas sem depender de georreferenciamento.",
     youtubeVideoId: undefined, // No YouTube video for Autel Alpha yet
     fallbackImage: "/images/lifestyle/public-safety-2-alpha.jpg",
     brochure: "/downloads/Brochure_Autel_Alpha_Aerion.pdf",
@@ -1080,13 +1080,12 @@ export const productFamilies: ProductFamily[] = [
       ncm: "8806.22.00"
     },
     keyFeatures: [
-      "Câmera térmica dual 640×512 com zoom óptico 35x",
-      "Alcance de transmissão de até 20km - o maior da categoria",
-      "Tempo de voo de até 40 minutos com bateria otimizada",
-      "Resistência IP55 para operações em condições extremas",
-      "Tecnologia AI avançada para reconhecimento automático",
-      "Sistema de estabilização gimbal 3-eixos profissional",
-      "Ideal para operações táticas e de segurança pública"
+      "Peso operacional 6.48 kg com MTOM de 8.4 kg e proteção IP55",
+      "Autonomia de 40 min, alcance até 30 km e baterias hot swap LiPo 6S",
+      "Gimbal DG-L35T com zoom óptico 35x, térmicas 13/45 mm e laser 2000 m",
+      "Navegação Autonomy Engine com sensores visuais 360° e radar 60G/24G",
+      "Precisão RTK integrada (antena dupla) e hovering ±0.1 m",
+      "Smart Controller V3 7.9\" 2000 nits com armazenamento interno 128 GB"
     ],
     technicalData: {
       cadastral: {
@@ -1166,85 +1165,207 @@ export const productFamilies: ProductFamily[] = [
         specs: {
           "CATEGORIA E PORTABILIDADE": {
             "Design": "Industrial dobrável",
-            "Peso (com bateria e gimbal)": "6340 g",
-            "Dimensões dobrado": "455×203×248 mm (sem hélices)",
-            "Dimensões desdobrado": "1205×580×278 mm",
+            "Peso vazio (sem gimbal)": "5535 g (bateria inteligente e hélices incluídas)",
+            "Peso operacional": "6480 g (bateria inteligente, gimbal e hélices incluídos)",
+            "MTOM (peso máximo de decolagem)": "8400 g",
+            "Dimensões desdobrado (incl. hélices)": "1205×980×278 mm",
+            "Dimensões desdobrado (sem hélices)": "780×568×278 mm",
+            "Dimensões dobrado": "455×263×248 mm (sem hélices)",
             "Distância diagonal": "814 mm",
             "Classificação IP": "IP55"
           },
           "DESEMPENHO DE VOO": {
-            "Autonomia máxima": "40 min",
-            "Velocidade máxima": "24 m/s",
-            "Resistência ao vento": "12 m/s",
-            "Distância de transmissão": "20 km",
-            "Peso máximo decolagem": "8400 g",
-            "Qualidade transmissão": "1080P@60fps",
-            "Latência transmissão": "<150ms"
-          },
-          "CÂMERA TÉRMICA": {
-            "Possui câmera térmica": "Sim (Dual)",
-            "Resolução térmica": "640×512 (dual)",
-            "Termógrafo": "Microbolômetro VOX",
-            "Zoom digital térmico": "50x",
-            "Distância focal térmica": "13mm (curto) / 45mm (longo)"
-          },
-          "CÂMERA WIDE-ANGLE": {
-            "Sensor RGB": "CMOS 48 MP",
-            "Abertura": "f/2.8",
-            "FOV": "84°",
-            "Distância focal equiv.": "24 mm",
-            "Resolução de foto": "8000×6000",
-            "Resolução de vídeo": "4K"
-          },
-          "CÂMERA ZOOM / TELEOBJETIVA": {
-            "Possui câmera zoom": "Sim",
-            "Sensor zoom": "CMOS 8 MP",
-            "Zoom óptico": "35x",
-            "Zoom híbrido máximo": "560x",
-            "Resolução vídeo zoom": "4K",
-            "ISO zoom": "Ultra-sensível até 160.000",
-            "Alcance observação": "Até 8 km"
-          },
-          "SENSORES E MEDIÇÃO": {
-            "Telêmetro laser": "Sim (10-2000m)",
-            "Precisão laser": "<400m: ±1m; >400m: D × 0.3%"
-          },
-          "GIMBAL E ESTABILIZAÇÃO": {
-            "Tipo de gimbal": "DG 135T (próxima geração)",
-            "Número de câmeras": "5 (Térmica dual + RGB + Zoom + Laser)"
+            "Velocidade máxima de subida": "Lento: 2.5 m/s, Suave: 3 m/s, Padrão: 6 m/s, Modo Sport: 15 m/s",
+            "Velocidade máxima de descida": "Lento: 2.5 m/s, Suave: 3 m/s, Padrão: 5 m/s, Modo Sport: 10 m/s",
+            "Velocidade máxima de voo*": "Lento: 3 m/s, Suave: 10 m/s, Padrão: 15 m/s (frente/trás), 10 m/s (laterais), Modo Sport: 25 m/s (todas as direções)",
+            "Nota velocidade": "*Sem vento, próximo ao nível do mar",
+            "Teto máximo de serviço": "4500 m",
+            "Altitude máxima (App)": "800 m",
+            "Tempo máximo de voo*": "40 minutos (sem vento, 10.5 m/s)",
+            "Distância máxima de voo": "30 km (hélice fibra de carbono) / 27.5 km (hélice injetada)",
+            "Tempo máximo de pairar*": "38 minutos",
+            "Resistência ao vento": "Decolagem/Pouso: 10.7 m/s, Cruzeiro: 12 m/s",
+            "Ângulo máximo de inclinação": "Lento: 10°, Suave: 30°, Padrão: 30°, Modo Sport: 36°",
+            "Velocidade angular máxima": "Pitch 300°/s, Yaw 120°/s",
+            "Temperatura de operação": "-20°C a +50°C",
+            "Baterias hot swap": "Suportado"
           },
           "SISTEMA DE POSICIONAMENTO": {
-            "GNSS": "GPS+GLONASS+Galileo+BDS",
-            "Módulo RTK": "Integrado (antena dupla)",
-            "Precisão RTK": "Milimétrica",
-            "Navegação visual": "GNSS + SLAM adaptativo"
+            "GNSS": "GPS + Galileo + BeiDou + GLONASS",
+            "Precisão de pairar - Vertical": "±0.1 m (visual) / ±0.3 m (GNSS) / ±0.1 m (RTK FIX)",
+            "Precisão de pairar - Horizontal": "±0.15 m (visual) / ±0.3 m (GNSS) / ±0.1 m (RTK FIX)"
           },
-          "EVITAÇÃO DE OBSTÁCULOS": {
-            "Sistema de evitação": "720° omnidirecional definitivo",
-            "Sensores": "Visão dual + fisheye + radar milimétrico",
-            "Alcance detecção": "6 direções + radar"
+          "TRANSMISSÃO DO AIRCRAFT": {
+            "Frequência operacional": "900M (902-928 MHz)* / 2.4G (2.400–2.4835 GHz)** / 5.2G (5.15-5.25 GHz***, 5.17-5.25 GHz****) / 5.8G (5.725-5.850 GHz**)",
+            "Notas frequência": "*FCC/ISED | **SRRC | ***FCC, CE (exceto Alemanha), UKCA | ****Alemanha",
+            "Distância máxima de transmissão*": "FCC: 15 km, CE: 8 km",
+            "EIRP - 900M": "≤30 dBm (FCC/ISED)",
+            "EIRP - 2.4G": "≤30 dBm (FCC/ISED); ≤20 dBm (CE/SRRC/UKCA)",
+            "EIRP - 5.2G": "≤30 dBm (FCC); ≤23 dBm (CE/UKCA)",
+            "EIRP - 5.8G": "≤30 dBm (FCC/ISED/SRRC); ≤14 dBm (CE/UKCA)"
           },
-          "COMUNICAÇÃO E CONTROLE": {
-            "Frequência operacional": "900MHz / 2.4 / 5.2 / 5.8 GHz",
-            "Controle remoto": "Autel V3 (tela 6.0\" ou 7.9\")",
-            "Resolução tela": "2048×1536",
-            "Brilho da tela": "2000 nits",
-            "Rede A-Mesh": "Sim",
-            "Anti-interferência": "Superior",
-            "Streaming de vídeo": "RTMP / RTSP"
+          "VISÃO E EVITAÇÃO DE OBSTÁCULOS": {
+            "Alcance de detecção - Frente": "0.2 - 31 m",
+            "Alcance de detecção - Trás": "0.2 - 26 m",
+            "Alcance de detecção - Laterais": "0.5 - 45 m",
+            "Alcance de detecção - Cima": "0.2 - 45 m",
+            "Alcance de detecção - Baixo": "0.2 - 45 m",
+            "FOV - Todos os eixos": "90° (H) × 90° (V)",
+            "Ambiente operacional": "Superfícies com textura e iluminação >15 lux (material difuso >20% no eixo inferior)"
           },
-          "BATERIA E ENERGIA": {
-            "Tipo de bateria": "Dual-battery 237Wh cada",
-            "Troca a quente": "Sim"
+          "RADAR DE ONDAS MILIMÉTRICAS": {
+            "Frequências": "60G: 60-64 GHz | 24G: 24.0-24.25 GHz",
+            "EIRP": "60G ≤20 dBm (CE/UKCA/FCC); 24G ≤20 mW (SRRC)",
+            "Alcance 60G": "Cima: 0.3-20 m | Baixo: 0.15-40 m | Frente/Trás/Laterais: 0.3-30 m",
+            "Alcance 24G": "Baixo: 0.8-20 m",
+            "FOV (6 dB)": "Horizontal ±35°/±22° (60G/24G) | Vertical ±30°/±20° (60G/24G)",
+            "Notas": "Versões 24G possuem radar superior/desligado e operam apenas com visual em baixa iluminação"
           },
-          "RECURSOS ESPECIAIS": {
-            "Voo autônomo": "Autonomy Engine avançado",
-            "Planejamento 3D": "Sim",
-            "Reconhecimento IA": "Sim",
-            "Expansão de carga útil": "Sim (flexível)"
+          "WI-FI": {
+            "Protocolo": "802.11a/b/g/n/ac/ax",
+            "Frequência operacional": "2.4G: 2.400–2.4835 GHz*, 5.2G: 5.15-5.25 GHz**, 5.8G: 5.725-5.850 GHz*",
+            "Notas": "*SRRC | **FCC/CE (exceto Alemanha)/UKCA | ***Alemanha",
+            "EIRP - 2.4G": "≤30 dBm (FCC/ISED); ≤20 dBm (CE/SRRC/UKCA)",
+            "EIRP - 5.2G": "≤30 dBm (FCC); ≤23 dBm (CE/UKCA)",
+            "EIRP - 5.8G": "≤30 dBm (FCC/ISED/SRRC); ≤14 dBm (CE/UKCA)"
           },
-          "SOFTWARE E COMPATIBILIDADE": {
-            "App de controle": "Autel Enterprise"
+          "GIMBAL E ESTABILIZAÇÃO": {
+            "Modelo": "DG-L35T destacável (design em E)",
+            "Dimensões": "144.7×133.3×158.4 mm",
+            "Peso": "920 g",
+            "Classificação IP": "IP55",
+            "Temperatura operação": "-20°C a +50°C",
+            "Temperatura armazenamento": "-30°C a +70°C",
+            "Armazenamento": "microSD até 256 GB (UHS-I U3/V30 mínimo 30 MB/s)",
+            "Alcance mecânico": "Pitch -135° a 45°, Roll -60° a 60°, Yaw -90° a 90°",
+            "Alcance controlável": "Pitch -90° a 30°",
+            "Velocidade máxima (pitch)": "100°/s",
+            "Precisão de vibração": "<0.005°"
+          },
+          "CÂMERA ZOOM / TELEOBJETIVA": {
+            "Sensor": "1/1.8\" CMOS, 8 MP",
+            "Distância focal": "7.1 - 171.95 mm (±5%)",
+            "Equivalente 35 mm": "34.7 - 838 mm",
+            "Abertura": "f/1.61 (wide) - f/5.19 (tele) ±5%",
+            "Foco": "10 m ~ ∞",
+            "ISO": "Normal ISO100-25600, Super Night ISO100-160000",
+            "Obturador": "Foto 0.5s-1/8000s | Vídeo 1/30s-1/8000s",
+            "Zoom": "Óptico contínuo 1.4-35x, digital 35-560x",
+            "Resolução foto": "3840×2160",
+            "Formato foto": "JPG",
+            "Vídeo": "3840×2160@30p (MP4)",
+            "Bitrate máx.": "30 Mbps",
+            "Sistemas de arquivos": "exFAT/FAT32"
+          },
+          "CÂMERA WIDE-ANGLE": {
+            "Sensor": "1/2\" CMOS, 48 MP",
+            "Distância focal": "4.49 mm (equiv. 24 mm)",
+            "Abertura": "f/2.8",
+            "ISO": "ISO100-3200 (auto)",
+            "Obturador": "Foto 0.5s-1/8000s | Vídeo 1/30s-1/8000s",
+            "Foto": "4000×3000 (JPG)",
+            "Vídeo": "4000×3000@25p (MP4)",
+            "Bitrate máx.": "30 Mbps",
+            "Sistemas de arquivos": "exFAT/FAT32"
+          },
+          "CÂMERA TÉRMICA 1 (ANGULAR)": {
+            "Sensor": "VOx não resfriado",
+            "FOV": "42°",
+            "Distância focal": "13 mm",
+            "Abertura": "f/1.2",
+            "Foco": "6 m ~ ∞",
+            "Sensibilidade": "≤50 mK@f/1.0 (25°C)",
+            "Pitch de pixel": "12 µm",
+            "Faixa espectral": "8-14 µm",
+            "Faixa de temperatura": "-20°C a 150°C (alto ganho); 0 a 550°C (baixo ganho)",
+            "Precisão": "±3°C ou ±3% (maior valor) @ -20°C a 60°C",
+            "Distância medição precisa": "5 m",
+            "Zoom digital": "1-3.5x",
+            "Alertas de temperatura": "Limiares alto/baixo com coordenadas",
+            "Paletas": "White Hot, Black Hot, Searing, Rainbow, Grey, Ironbow, Cold & Hot",
+            "Foto": "640×512 (JPG com dados de temperatura)",
+            "Vídeo": "640×512@25fps (MP4)"
+          },
+          "CÂMERA TÉRMICA 2 (TELE)": {
+            "Sensor": "VOx não resfriado",
+            "FOV": "12.3°",
+            "Distância focal": "45 mm",
+            "Abertura": "f/1.2",
+            "Foco": "35 m ~ ∞",
+            "Sensibilidade": "≤50 mK@f/1.0 (25°C)",
+            "Pitch de pixel": "12 µm",
+            "Faixa espectral": "8-14 µm",
+            "Faixa de temperatura": "-20°C a 150°C / 0 a 550°C",
+            "Precisão": "±5°C ou ±5% (maior valor) @ -20°C a 60°C",
+            "Distância medição precisa": "35 m",
+            "Zoom digital": "3.5-56x",
+            "Alertas de temperatura": "Limiares alto/baixo com coordenadas",
+            "Paletas": "White Hot, Black Hot, Searing, Rainbow, Grey, Ironbow, Cold & Hot",
+            "Foto": "640×512 (JPG com dados de temperatura)",
+            "Vídeo": "640×512@25fps (MP4)"
+          },
+          "TELÊMETRO LASER": {
+            "Comprimento de onda": "905 nm",
+            "Precisão": "<400 m: ±1 m | >400 m: D × 0,3%",
+            "Alcance de medição": "10 - 2000 m"
+          },
+          "CONTROLADOR SMART CONTROLLER V3": {
+            "Dimensões": "269×189×87 mm (antenas dobradas horiz.), 269×189×173 mm (antenas dobradas vert.), 269×302×87 mm (antenas abertas)",
+            "Peso": "1194 g (sem case), 1365 g (com case)",
+            "Temperatura operação": "-20°C a +40°C",
+            "Temperatura armazenamento": "+15°C a +25°C (1 ano) / 0°C a +30°C (3 meses) / -20°C a +45°C (1 mês)",
+            "Proteção": "IP43",
+            "Armazenamento interno": "128 GB (sem microSD adicional)",
+            "Sistema": "Android 11, suporta apps de terceiros",
+            "Vídeo": "Reprodução 4K@24fps H.264/H.265",
+            "HDMI": "Saída até 1080p@60fps",
+            "USB-C": "Carga PD/QC até 65 W, dados USB 3.1 Gen2",
+            "USB-A": "Carga 5V/2A, dados USB 2.0",
+            "GNSS": "GPS + Galileo + BeiDou + GLONASS",
+            "Wi-Fi": "802.11a/b/g/n/ac (2×2 MIMO)",
+            "Bluetooth": "5.0 (≤20 dBm)"
+          },
+          "TRANSMISSÃO DO CONTROLADOR": {
+            "Antenas": "Duplas, 1T2R, design destacável",
+            "Frequência": "900M 902-928 MHz*, 2.4G 2.400–2.4835 GHz**, 5.8G 5.725-5.850 GHz**",
+            "Notas": "*FCC/ISED | **SRRC (consulte legislações locais)",
+            "EIRP - 900M": "≤30 dBm (FCC/ISED)",
+            "EIRP - 2.4G": "≤30 dBm (FCC/ISED); ≤20 dBm (CE/SRRC/UKCA)",
+            "EIRP - 5.8G": "≤30 dBm (FCC/ISED/SRRC); ≤14 dBm (CE/UKCA)",
+            "Distância máxima*": "FCC: 15 km | CE/SRRC: 8 km",
+            "Nota distância": "*Sem interferência ou bloqueio"
+          },
+          "DISPLAY DO CONTROLADOR": {
+            "Tipo": "TFT LCD 7.9\"",
+            "Brilho": "2000 nits",
+            "Resolução": "2048×1536",
+            "Taxa de atualização": "60 Hz",
+            "Toque": "Suporta multitoque de 10 pontos"
+          },
+          "BATERIA DO CONTROLADOR": {
+            "Tipo": "Li-Po 3S",
+            "Capacidade": "5800 mAh",
+            "Tensão": "11.55 V",
+            "Energia": "67 Wh",
+            "Tempo de carga": "≈120 minutos",
+            "Autonomia": "2.5 h (brilho máximo) / 4 h (50%)",
+            "Substituição": "Não suportado"
+          },
+          "BATERIA INTELIGENTE": {
+            "Dimensões": "200×76.8×50 mm",
+            "Tipo": "LiPo 6S",
+            "Capacidade": "10000 mAh",
+            "Energia": "237 Wh",
+            "Tensão": "23.7 V",
+            "Tensão máx. carga": "26.7 V",
+            "Potência nominal": "180 W",
+            "Potência máxima": "260 W",
+            "Peso": "995 g",
+            "Temperatura operação": "-20°C a +50°C",
+            "Temperatura carga": "+10°C a +40°C*",
+            "Nota carga": "*Abaixo de +10°C ativa autoaquecimento; acima de +40°C interrompe carga",
+            "Armazenamento ideal": "+22°C a +28°C",
+            "Armazenamento (temp/umidade)": "-10°C a +30°C, 65±20% RH"
           }
         }
       }

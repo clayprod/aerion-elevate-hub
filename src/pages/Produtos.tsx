@@ -40,12 +40,12 @@ const products = [
     id: "autel-alpha",
     name: "Autel Alpha",
     tagline: "Resistência e Alcance para Operações Críticas",
-    description: "Drone industrial com gimbal quíntuplo (duas térmicas, zoom 35x, wide e laser), alcance 20 km e RTK integrado. Suporta baterias hot-swap, proteção IP55 e inteligência embarcada para operações críticas de longa duração.",
+    description: "Drone industrial IP55 com gimbal DG-L35T quíntuplo (duas térmicas, câmera wide, zoom óptico 35x e laser). Oferece 40 minutos de voo, alcance de até 30 km, navegação Autonomy Engine com sensores 360° + radar 60G/24G e baterias hot swap.",
     keySpecs: [
-      "Gimbal quíntuplo com zoom óptico 35x e térmicas duplas",
-      "Transmissão BVLOS até 20 km",
-      "RTK integrado e telêmetro laser 2000 m",
-      "Proteção IP55 e baterias hot-swap",
+      "Gimbal DG-L35T: zoom óptico 35x, térmicas 13/45 mm e laser 2000 m",
+      "Alcance de voo até 30 km (carbono) e 40 min de autonomia",
+      "Navegação Autonomy Engine com sensores visuais 360° + radar 60G/24G",
+      "Smart Controller V3 7.9\" 2000 nits e baterias hot swap LiPo 6S",
     ],
     applications: ["Segurança", "Resgate", "Operações Críticas"],
     image: "/images/products/alpha/1.png"
