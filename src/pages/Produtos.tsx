@@ -12,12 +12,12 @@ const products = [
     id: "evo-lite-enterprise",
     name: "EVO Lite Enterprise",
     tagline: "Compacto, Portátil, Eficiente",
-    description: "Solução compacta e portátil ideal para levantamentos topográficos rápidos, mapeamento de áreas e inspeções térmicas. Combina mobilidade excepcional com câmera térmica 640×512 ou sensor RGB de 20MP, oferecendo o equilíbrio perfeito entre performance profissional e portabilidade para operações ágeis no campo.",
+    description: "Drone enterprise portátil com cargas úteis intercambiáveis: versão 640T com câmera térmica 640×512 + sensor visível 48 MP e versão 6K com sensor 1\" de 20 MP. Autonomia de até 40 minutos, alcance de transmissão de 12 km (FCC) ou 6 km (CE) e detecção tridirecional para operações ágeis em campo.",
     keySpecs: [
-      "Autonomia de 40 minutos",
-      "Câmera térmica 640×512 com zoom digital 20x",
-      "Peso de apenas 866g",
-      "Alcance de transmissão até 12km",
+      "Carga útil 640T (térmica) ou 6K (sensor 1\" 20 MP)",
+      "Autonomia de até 40 minutos",
+      "Transmissão até 12 km (FCC) / 6 km (CE)",
+      "Detecção tridirecional com alcance até 30 m",
     ],
     applications: ["Construção", "Topografia", "Mapeamento"],
     image: "/images/products/evo_lite/640t/1.png"
@@ -26,12 +26,12 @@ const products = [
     id: "evo-max-v2",
     name: "EVO Max V2",
     tagline: "Precisão e Potência em Um Só Drone",
-    description: "Plataforma profissional robusta com sistema de câmeras triplas e tecnologia omnidirecional de evitação de obstáculos. Equipado com câmera térmica 640×512, zoom óptico até 35x (4N) ou 10x (4T) com zoom híbrido até 160x e visão noturna Starlight, é a escolha definitiva para operações críticas em segurança pública, energia e inspeções industriais de longo alcance até 20km.",
+    description: "Plataforma profissional robusta com sistema de câmeras triplas e tecnologia omnidirecional de evitação de obstáculos. O modelo 4N oferece câmera térmica 640×512, zoom digital 8x e visão noturna Starlight, enquanto o 4T possui zoom óptico contínuo 2.7-10x com zoom híbrido até 160x. Ambos os modelos são ideais para operações críticas em segurança pública, energia e inspeções industriais com alcance de transmissão de até 15km (FCC) ou 8km (SRRC/CE).",
     keySpecs: [
-      "Zoom óptico até 35x (4N) ou 10x (4T)",
+      "Zoom digital 8x (4N) ou zoom óptico 2.7-10x (4T)",
       "Câmera térmica 640×512 integrada",
       "Autonomia de 42 minutos",
-      "Transmissão de até 20km",
+      "Transmissão de até 15km (FCC) ou 8km (SRRC/CE)",
     ],
     applications: ["Industrial", "Energia", "Inspeções"],
     image: "/images/products/evo_max/4t/1.png"

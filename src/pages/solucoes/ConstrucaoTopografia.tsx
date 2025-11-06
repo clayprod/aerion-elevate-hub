@@ -26,10 +26,10 @@ const ConstrucaoTopografia = () => {
       variant: "640T",
       image: "/images/products/evo_lite/640t/1.png",
       features: [
-        "Câmera térmica 640×512 para inspeções",
-        "Autonomia de 40 minutos",
-        "Alcance de 12km",
-        "Peso compacto 866g"
+        "Carga útil 640T (térmica 640×512) ou 6K (sensor 1\" 20 MP)",
+        "Autonomia de até 40 minutos",
+        "Transmissão até 12 km (FCC) / 6 km (CE)",
+        "Detecção tridirecional 0.2-30 m"
       ],
       applications: [
         "Levantamentos topográficos rápidos",
@@ -47,7 +47,7 @@ const ConstrucaoTopografia = () => {
         "Zoom óptico 10x com alcance 2km",
         "Câmera térmica 640×512",
         "Autonomia de 42 minutos",
-        "Alcance de 20km"
+        "Alcance de até 15km (FCC) ou 8km (SRRC/CE)"
       ],
       applications: [
         "Levantamentos de grandes áreas",

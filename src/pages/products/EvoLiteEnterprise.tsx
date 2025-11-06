@@ -74,22 +74,22 @@ const EvoLiteEnterprise: React.FC = () => {
       id: '640t',
       name: '640T',
       keyFeatures: [
-        'Câmera térmica de alta resolução 640x512',
-        'Zoom digital térmico 20x',
-        'Autonomia de até 40 minutos',
-        'Resistência ao vento de 12 m/s',
-        'Transmissão de vídeo 1080P@60fps'
+        'Câmera térmica 640×512 com zoom digital 1-16x',
+        'Sensor visível 1/2" 48 MP com zoom digital 16x',
+        'Alcance de transmissão até 12 km (FCC) / 6 km (CE)',
+        'Detecção tridirecional com alcance até 30 m',
+        'Autonomia de até 40 minutos'
       ]
     },
     {
       id: '6k',
       name: '6K',
       keyFeatures: [
-        'Câmera visual 6K de alta resolução',
-        'Zoom digital 16x',
-        'Autonomia de até 40 minutos',
-        'Resistência ao vento de 12 m/s',
-        'Transmissão de vídeo 4K@30fps'
+        'Sensor 1" 20 MP com abertura f/2.8-f/11',
+        'Zoom digital 16x com modo antifog',
+        'Alcance de transmissão até 12 km (FCC) / 6 km (CE)',
+        'Detecção tridirecional com alcance até 30 m',
+        'Autonomia de até 40 minutos'
       ]
     }
   ];
@@ -109,7 +109,7 @@ const EvoLiteEnterprise: React.FC = () => {
     <div className="min-h-screen">
       <SEOHead
         title="EVO Lite Enterprise | Drone Térmico Compacto - Topografia e Inspeção | Aerion"
-        description="EVO Lite Enterprise: drone compacto com câmera térmica 640×512, 40min voo, alcance 12km. Ideal para topografia, inspeção térmica e mapeamento. Portabilidade excepcional para operações ágeis."
+        description="EVO Lite Enterprise: versões 640T (câmera térmica 640×512 + sensor visível 48 MP) e 6K (sensor 1\" 20 MP). Até 40 minutos de voo, alcance 12 km (FCC) / 6 km (CE) e detecção tridirecional para inspeções e segurança."
         keywords="evo lite enterprise, drone térmico, drone topografia, drone compacto, inspeção térmica, autel evo lite"
         canonical="https://aerion.com.br/produtos/evo-lite-enterprise"
         ogType="product"

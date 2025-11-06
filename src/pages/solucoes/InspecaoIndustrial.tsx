@@ -27,10 +27,10 @@ const InspecaoIndustrial = () => {
       variant: "640T",
       image: "/images/products/evo_lite/640t/1.png",
       features: [
-        "Câmera térmica 640×512",
-        "Zoom digital térmico 20x",
-        "Faixa -20°C a 350°C",
-        "Precisão ±3°C"
+        "Câmera térmica 640×512 com zoom digital 1-16x",
+        "Sensor visível 1/2\" 48 MP com modo antifog",
+        "Faixa radiométrica -20°C a 150°C / 0 a 550°C",
+        "Precisão ±3°C ou ±3% (maior valor)"
       ],
       applications: [
         "Inspeção de painéis solares",
@@ -47,8 +47,8 @@ const InspecaoIndustrial = () => {
       features: [
         "Visão noturna Starlight",
         "Câmera térmica 640×512",
-        "Zoom óptico 8x",
-        "Alcance 20km"
+        "Zoom digital 8x",
+        "Alcance de até 15km (FCC) ou 8km (SRRC/CE)"
       ],
       applications: [
         "Inspeções noturnas",
