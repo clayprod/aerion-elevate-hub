@@ -66,7 +66,7 @@ export const productFamilies: ProductFamily[] = [
     brochure: "/downloads/Brochure_Autel_Evo_Lite_Enterprise1_Aerion.pdf",
     productCodes: {
       sku: "EVO-LITE-ENT",
-      ean: "Pendente",
+      ean: "Varia conforme versão",
       ncm: "8806.22.00"
     },
     keyFeatures: [
@@ -90,7 +90,11 @@ export const productFamilies: ProductFamily[] = [
         "IPI": "13%",
         "Origem": "China",
         "PIS": "1,65%",
-        "COFINS": "7,60%"
+        "COFINS": "7,60%",
+        "GTIN EVO Lite 6K Enterprise (Tela 6.0\")": "6924991132738",
+        "GTIN EVO Lite 6K Enterprise (Tela 7.9\")": "889520218771",
+        "GTIN EVO Lite 640T Enterprise (Tela 6.0\")": "6924991135760",
+        "GTIN EVO Lite 640T Enterprise (Tela 7.9\")": "889520219068"
       },
       logistics: {
         dimensions: "35 x 25 x 15 cm",
@@ -149,7 +153,7 @@ export const productFamilies: ProductFamily[] = [
       {
         id: "640t",
         name: "EVO Lite Enterprise 640T",
-        description: "Câmera térmica de 640x512 com zoom digital térmico 20x",
+        description: "Carga útil dual com câmera térmica 640×512 e sensor visível 48 MP, zoom digital até 16x",
         imagePath: "/images/products/evo_lite/640t",
         specs: {
           "CATEGORIA E PORTABILIDADE": {
@@ -314,7 +318,7 @@ export const productFamilies: ProductFamily[] = [
       {
         id: "6k",
         name: "EVO Lite Enterprise 6K",
-        description: "Câmera 4K com zoom digital 16x e estabilização gimbal",
+        description: "Sensor de 1\" 20 MP com captura 6K, zoom digital 16x e modo antifog",
         imagePath: "/images/products/evo_lite/6k",
         specs: {
           "CATEGORIA E PORTABILIDADE": {
@@ -536,7 +540,9 @@ export const productFamilies: ProductFamily[] = [
         "IPI": "13%",
         "Origem": "China",
         "PIS": "1,65%",
-        "COFINS": "7,60%"
+        "COFINS": "7,60%",
+        "GTIN EVO Max 4T V2": "889520203920",
+        "GTIN EVO Max 4N V2": "889520205610"
       },
       logistics: {
         dimensions: "40 x 30 x 18 cm",
@@ -1094,7 +1100,8 @@ export const productFamilies: ProductFamily[] = [
         "IPI": "13%",
         "Origem": "China",
         "PIS": "1,65%",
-        "COFINS": "7,60%"
+        "COFINS": "7,60%",
+        "GTIN Autel Alpha": "889520206136"
       },
       logistics: {
         dimensions: "42 x 32 x 20 cm",
