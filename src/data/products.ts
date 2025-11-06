@@ -1195,7 +1195,7 @@ export const productFamilies: ProductFamily[] = [
             "Precisão de pairar - Vertical": "±0.1 m (visual) / ±0.3 m (GNSS) / ±0.1 m (RTK FIX)",
             "Precisão de pairar - Horizontal": "±0.15 m (visual) / ±0.3 m (GNSS) / ±0.1 m (RTK FIX)"
           },
-          "TRANSMISSÃO DO AIRCRAFT": {
+          "TRANSMISSÃO": {
             "Frequência operacional": "900M (902-928 MHz)* / 2.4G (2.400–2.4835 GHz)** / 5.2G (5.15-5.25 GHz***, 5.17-5.25 GHz****) / 5.8G (5.725-5.850 GHz**)",
             "Notas frequência": "*FCC/ISED | **SRRC | ***FCC, CE (exceto Alemanha), UKCA | ****Alemanha",
             "Distância máxima de transmissão*": "FCC: 15 km, CE: 8 km",
