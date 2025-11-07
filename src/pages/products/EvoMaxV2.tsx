@@ -116,11 +116,11 @@ const EvoMaxV2: React.FC = () => {
           value: '48 MP · Sensor 1/2" CMOS · Abertura f/2.8 · DFOV 83,4° · Equivalente 24 mm'
         },
         {
-          label: 'Linha EVO Max V2',
-          value: 'Câmera térmica 640×512 · Lente 9,1 mm f/1.0 · Zoom digital 16x · Faixa -20 °C a 550 °C'
+          label: 'Câmera Térmica',
+          value: '640×512 · Lente 9,1 mm f/1.0 · Zoom digital 16x · Faixa -20 °C a 550 °C'
         },
         {
-          label: 'Linha EVO Max V2',
+          label: 'Telêmetro a Laser',
           value: 'Telêmetro a laser com alcance 5–1200 m · Precisão ±(1 m + D×0,15%)'
         }
       ]
@@ -139,11 +139,11 @@ const EvoMaxV2: React.FC = () => {
           value: 'Sensor 1,69" CMOS · DFOV 52° · Abertura f/1.4 · ISO até 440000 · Vídeo 1920×1200 30p'
         },
         {
-          label: 'Linha EVO Max V2',
-          value: 'Câmera térmica 640×512 · Lente 9,1 mm f/1.0 · Zoom digital 16x · Faixa -20 °C a 550 °C'
+          label: 'Câmera Térmica',
+          value: '640×512 · Lente 9,1 mm f/1.0 · Zoom digital 16x · Faixa -20 °C a 550 °C'
         },
         {
-          label: 'Linha EVO Max V2',
+          label: 'Telêmetro a Laser',
           value: 'Telêmetro a laser com alcance 5–1200 m · Precisão ±(1 m + D×0,15%)'
         }
       ]
@@ -256,7 +256,7 @@ const EvoMaxV2: React.FC = () => {
                 <img
                   src={activePayload.image}
                   alt={`Câmera ${activePayload.title}`}
-                  className="w-full max-w-sm object-contain drop-shadow-2xl"
+                  className="w-full max-w-md object-contain"
                 />
               </div>
               <div className="md:w-1/2 space-y-5">
@@ -266,8 +266,13 @@ const EvoMaxV2: React.FC = () => {
                 </div>
                 <div className="space-y-4 text-sm sm:text-base">
                   {activePayload.features.map((feature, index) => (
-                    <div key={`${activePayload.title}-${index}`}>
-                      <h5 className="font-semibold text-gray-900">{feature.label}</h5>
+                    <div
+                      key={`${activePayload.title}-${index}`}
+                      className="border-b border-gray-200 pb-4 last:border-none last:pb-0"
+                    >
+                      <h5 className="font-semibold text-gray-900 uppercase tracking-wide text-xs sm:text-sm mb-1">
+                        {feature.label}
+                      </h5>
                       <p className="text-gray-700">{feature.value}</p>
                     </div>
                   ))}
