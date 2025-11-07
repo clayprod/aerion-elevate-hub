@@ -12,7 +12,7 @@ import MobileFloatingCTA from '@/components/MobileFloatingCTA';
 
 const EvoMaxV2: React.FC = () => {
   const productFamily = getProductFamilyBySlug('evo-max-v2');
-  const [selectedVariant, setSelectedVariant] = useState('4n');
+  const [selectedVariant, setSelectedVariant] = useState('4t');
 
   if (!productFamily) {
     return <div>Produto não encontrado</div>;
@@ -71,17 +71,6 @@ const EvoMaxV2: React.FC = () => {
   // Define variants for EVO Max V2
   const variants = [
     {
-      id: '4n',
-      name: '4N',
-      keyFeatures: [
-        'Câmera noturna Starlight de alta sensibilidade',
-        'Zoom digital 8x com estabilização avançada',
-        'Autonomia de até 42 minutos',
-        'Resistência ao vento de 12 m/s',
-        'Alcance de observação até 8 km'
-      ]
-    },
-    {
       id: '4t',
       name: '4T',
       keyFeatures: [
@@ -91,10 +80,77 @@ const EvoMaxV2: React.FC = () => {
         'Resistência ao vento de 12 m/s',
         'Faixa de temperatura -20°C a 550°C'
       ]
+    },
+    {
+      id: '4n',
+      name: '4N',
+      keyFeatures: [
+        'Câmera noturna Starlight de alta sensibilidade',
+        'Zoom digital 8x com estabilização avançada',
+        'Autonomia de até 42 minutos',
+        'Resistência ao vento de 12 m/s',
+        'Alcance de observação até 8 km'
+      ]
     }
   ];
 
   const currentVariantData = variants.find(v => v.id === selectedVariant) || variants[0];
+
+  const payloadContent: Record<string, {
+    title: string;
+    tagline: string;
+    image: string;
+    features: { label: string; value: string }[];
+  }> = {
+    '4t': {
+      title: 'Fusion 4T V2',
+      tagline: 'Desafie o Calor',
+      image: '/images/camera-evo-max-4t.jpeg',
+      features: [
+        {
+          label: 'Câmera de Zoom',
+          value: '48 MP · Zoom óptico 10x · Zoom híbrido até 160x · Abertura f/2.8–f/4.8 · Vídeo 4000×3000 30p'
+        },
+        {
+          label: 'Câmera Grande Angular Super-sensível',
+          value: '48 MP · Sensor 1/2" CMOS · Abertura f/2.8 · DFOV 83,4° · Equivalente 24 mm'
+        },
+        {
+          label: 'Linha EVO Max V2',
+          value: 'Câmera térmica 640×512 · Lente 9,1 mm f/1.0 · Zoom digital 16x · Faixa -20 °C a 550 °C'
+        },
+        {
+          label: 'Linha EVO Max V2',
+          value: 'Telêmetro a laser com alcance 5–1200 m · Precisão ±(1 m + D×0,15%)'
+        }
+      ]
+    },
+    '4n': {
+      title: 'Fusion 4N V2',
+      tagline: 'Domine a Noite',
+      image: '/images/camera-evo-max-4n.jpeg',
+      features: [
+        {
+          label: 'Câmera Grande Angular 4K',
+          value: 'Sensor 1/0,98" CMOS · 50 MP efetivos · DFOV 85° · Abertura f/1.85 · Vídeo 4000×3000 30p'
+        },
+        {
+          label: 'Câmera Starlight',
+          value: 'Sensor 1,69" CMOS · DFOV 52° · Abertura f/1.4 · ISO até 440000 · Vídeo 1920×1200 30p'
+        },
+        {
+          label: 'Linha EVO Max V2',
+          value: 'Câmera térmica 640×512 · Lente 9,1 mm f/1.0 · Zoom digital 16x · Faixa -20 °C a 550 °C'
+        },
+        {
+          label: 'Linha EVO Max V2',
+          value: 'Telêmetro a laser com alcance 5–1200 m · Precisão ±(1 m + D×0,15%)'
+        }
+      ]
+    }
+  };
+
+  const activePayload = payloadContent[selectedVariant] ?? payloadContent['4t'];
 
   const menuItems = [
     { id: 'product-description', label: 'Descrição do Produto' },
@@ -136,12 +192,15 @@ const EvoMaxV2: React.FC = () => {
       
       <section id="destaques" className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-6 space-y-12">
-          <div className="relative overflow-hidden rounded-3xl min-h-[420px] flex flex-col justify-end md:justify-center text-white shadow-xl">
+          <div className="relative overflow-hidden rounded-3xl min-h-[520px] md:min-h-[560px] flex flex-col justify-end md:justify-center text-white shadow-xl">
             <div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: "url('/images/a81679_2cf42ff5e36f447696d7689264c35a9a~mv2.avif')" }}
+              className="absolute inset-0 bg-cover"
+              style={{
+                backgroundImage: "url('/images/a81679_2cf42ff5e36f447696d7689264c35a9a~mv2.avif')",
+                backgroundPosition: 'center'
+              }}
             />
-            <div className="absolute inset-0 bg-black/40 md:bg-gradient-to-r md:from-black/70 md:via-black/30 md:to-transparent" />
+            <div className="absolute inset-0 bg-black/35 md:bg-gradient-to-r md:from-black/80 md:via-black/20 md:to-transparent" />
             <div className="relative z-10 max-w-xl w-full px-6 py-16 sm:px-10">
               <h3 className="text-3xl sm:text-4xl font-semibold leading-tight">
                 Sem Pontos Cegos
@@ -189,64 +248,29 @@ const EvoMaxV2: React.FC = () => {
                 Cargas Úteis Preparadas para a Missão
               </h3>
               <p className="mt-4 text-base sm:text-lg text-gray-600">
-                Conheça as cargas úteis Fusion 4T V2 e Fusion 4N V2, que combinam sensores visuais, térmicos e
-                telêmetro laser para entregar precisão em qualquer operação crítica.
+                Explore os sensores dedicados da carga útil {activePayload.title}, otimizados para o cenário selecionado do EVO Max V2.
               </p>
             </div>
-            <div className="mt-10 space-y-8">
-              <div className="flex flex-col gap-6 md:flex-row md:items-center rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 shadow-lg">
+            <div className="mt-10 flex flex-col gap-10 md:flex-row md:items-center">
+              <div className="md:w-1/2 flex justify-center">
                 <img
-                  src="/images/camera-evo-max-4t.jpeg"
-                  alt="Câmera Fusion 4T V2"
-                  className="h-32 w-auto object-contain drop-shadow"
+                  src={activePayload.image}
+                  alt={`Câmera ${activePayload.title}`}
+                  className="w-full max-w-sm object-contain drop-shadow-2xl"
                 />
-                <div className="flex-1 space-y-3 text-sm sm:text-base">
-                  <div>
-                    <h4 className="text-2xl font-semibold leading-tight text-gray-900">Fusion 4T V2</h4>
-                    <p className="text-sm uppercase tracking-wide text-orange-500">Desafie o Calor</p>
-                  </div>
-                  <div>
-                    <h5 className="font-semibold text-gray-900">Câmera de Zoom</h5>
-                    <p className="text-gray-700">48 MP · Zoom óptico 10x · Zoom híbrido até 160x · Abertura f/2.8–f/4.8 · Vídeo 4000×3000 30p</p>
-                  </div>
-                  <div>
-                    <h5 className="font-semibold text-gray-900">Câmera Grande Angular Super-sensível</h5>
-                    <p className="text-gray-700">48 MP · Sensor 1/2" CMOS · Abertura f/2.8 · DFOV 83,4° · Equivalente 24 mm</p>
-                  </div>
-                </div>
               </div>
-
-              <div className="flex flex-col gap-6 md:flex-row md:items-center rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 shadow-lg">
-                <img
-                  src="/images/camera-evo-max-4n.jpeg"
-                  alt="Câmera Fusion 4N V2"
-                  className="h-32 w-auto object-contain drop-shadow"
-                />
-                <div className="flex-1 space-y-3 text-sm sm:text-base">
-                  <div>
-                    <h4 className="text-2xl font-semibold leading-tight text-gray-900">Fusion 4N V2</h4>
-                    <p className="text-sm uppercase tracking-wide text-blue-500">Domine a Noite</p>
-                  </div>
-                  <div>
-                    <h5 className="font-semibold text-gray-900">Câmera Grande Angular 4K</h5>
-                    <p className="text-gray-700">Sensor 1/0,98" CMOS · 50 MP efetivos · DFOV 85° · Abertura f/1.85 · Vídeo 4000×3000 30p</p>
-                  </div>
-                  <div>
-                    <h5 className="font-semibold text-gray-900">Câmera Starlight</h5>
-                    <p className="text-gray-700">Sensor 1,69" CMOS · DFOV 52° · Abertura f/1.4 · ISO até 440000 · Vídeo 1920×1200 30p</p>
-                  </div>
+              <div className="md:w-1/2 space-y-5">
+                <div>
+                  <h4 className="text-3xl font-semibold leading-tight text-gray-900">{activePayload.title}</h4>
+                  <p className="text-sm uppercase tracking-wide text-gray-500">{activePayload.tagline}</p>
                 </div>
-              </div>
-
-              <div className="rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 shadow-md">
-                <div className="space-y-3 text-sm sm:text-base text-gray-700">
-                  <div>
-                    <h5 className="text-2xl font-semibold text-gray-900">Linha EVO Max V2</h5>
-                    <p>Telêmetro a laser: alcance 5–1200 m · Precisão ±(1 m + D×0,15%).</p>
-                  </div>
-                  <div>
-                    <p>Câmera térmica 640×512 · Lente 9,1 mm f/1.0 · Zoom digital 16x · Faixa -20 °C a 550 °C.</p>
-                  </div>
+                <div className="space-y-4 text-sm sm:text-base">
+                  {activePayload.features.map((feature, index) => (
+                    <div key={`${activePayload.title}-${index}`}>
+                      <h5 className="font-semibold text-gray-900">{feature.label}</h5>
+                      <p className="text-gray-700">{feature.value}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -275,16 +299,17 @@ const EvoMaxV2: React.FC = () => {
             ].map(card => (
               <div
                 key={card.title}
-                className="relative overflow-hidden rounded-3xl min-h-[360px] flex items-end text-white shadow-xl"
+                className="relative overflow-hidden rounded-3xl flex flex-col justify-start text-white shadow-xl"
+                style={{
+                  backgroundImage: `url(${card.image})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  minHeight: '380px'
+                }}
               >
-                <div
-                  className="absolute inset-0 bg-center bg-cover"
-                  style={{ backgroundImage: `url(${card.image})` }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/10" />
-                <div className="relative z-10 p-6 sm:p-8 space-y-3">
-                  <h4 className="text-2xl font-semibold leading-snug">{card.title}</h4>
-                  <p className="text-sm sm:text-base text-gray-100">{card.description}</p>
+                <div className="w-full p-8 space-y-3">
+                  <h4 className="text-2xl font-semibold leading-snug drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">{card.title}</h4>
+                  <p className="text-sm sm:text-base text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] max-w-xs">{card.description}</p>
                 </div>
               </div>
             ))}
