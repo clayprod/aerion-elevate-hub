@@ -141,12 +141,12 @@ const EvoMaxV2: React.FC = () => {
               className="absolute inset-0 bg-cover bg-center"
               style={{ backgroundImage: "url('/images/a81679_2cf42ff5e36f447696d7689264c35a9a~mv2.avif')" }}
             />
-            <div className="absolute inset-0 bg-black/75 md:bg-gradient-to-r md:from-black md:via-black/70 md:to-transparent" />
+            <div className="absolute inset-0 bg-black/40 md:bg-gradient-to-r md:from-black/70 md:via-black/30 md:to-transparent" />
             <div className="relative z-10 max-w-xl w-full px-6 py-16 sm:px-10">
               <h3 className="text-3xl sm:text-4xl font-semibold leading-tight">
-                No Blind Spots
+                Sem Pontos Cegos
                 <br />
-                Ultimate Obstacle Avoidance
+                Evitação de Obstáculos de Última Geração
               </h3>
               <p className="mt-4 text-base sm:text-lg text-gray-100">
                 O EVO Max 4T combina sistemas tradicionais de visão binocular com tecnologia de radar de ondas
@@ -156,10 +156,10 @@ const EvoMaxV2: React.FC = () => {
             </div>
           </div>
 
-          <div className="grid gap-8 lg:grid-cols-[1fr]">
-            <div className="space-y-4">
+          <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+            <div className="order-2 lg:order-1 space-y-4">
               <h3 className="text-3xl sm:text-4xl font-semibold text-gray-900 leading-tight">
-                Superior Anti-interference
+                Anti-interferência Superior
               </h3>
               <p className="text-base sm:text-lg text-gray-700">
                 O EVO Max 4T utiliza módulos avançados de controle de voo e algoritmos capazes de identificar
@@ -168,13 +168,14 @@ const EvoMaxV2: React.FC = () => {
                 estabilidade da missão.
               </p>
             </div>
-            <div className="relative overflow-hidden rounded-3xl bg-black">
+            <div className="order-1 lg:order-2">
               <video
-                className="w-full h-full object-cover"
-                controls
+                className="w-full rounded-3xl shadow-xl aspect-video object-cover"
+                autoPlay
+                muted
+                loop
                 playsInline
                 preload="metadata"
-                poster="/images/products/evo_max/4t/1.jpg"
               >
                 <source src="https://app.autelrobotics.com/statics/cdn/20241107/v.f100840.mp4" type="video/mp4" />
                 Seu navegador não suporta a reprodução de vídeos.
@@ -182,77 +183,69 @@ const EvoMaxV2: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-gray-900 text-white rounded-3xl px-6 py-12 sm:px-10 sm:py-14 shadow-xl">
+          <div className="bg-white text-gray-900 rounded-3xl px-6 py-12 sm:px-10 sm:py-14 shadow-xl">
             <div className="max-w-3xl">
               <h3 className="text-3xl sm:text-4xl font-semibold leading-tight">
                 Cargas Úteis Preparadas para a Missão
               </h3>
-              <p className="mt-4 text-base sm:text-lg text-gray-200">
+              <p className="mt-4 text-base sm:text-lg text-gray-600">
                 Conheça as cargas úteis Fusion 4T V2 e Fusion 4N V2, que combinam sensores visuais, térmicos e
                 telêmetro laser para entregar precisão em qualquer operação crítica.
               </p>
             </div>
-            <div className="mt-10 grid gap-8 lg:grid-cols-2">
-              <div className="rounded-2xl bg-black/60 border border-white/10 p-6 sm:p-8 flex flex-col gap-4">
-                <div className="flex items-center gap-4">
-                  <img
-                    src="/images/camera-evo-max-4t.jpeg"
-                    alt="Câmera Fusion 4T V2"
-                    className="h-20 w-auto"
-                  />
+            <div className="mt-10 space-y-8">
+              <div className="flex flex-col gap-6 md:flex-row md:items-center rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 shadow-lg">
+                <img
+                  src="/images/camera-evo-max-4t.jpeg"
+                  alt="Câmera Fusion 4T V2"
+                  className="h-32 w-auto object-contain drop-shadow"
+                />
+                <div className="flex-1 space-y-3 text-sm sm:text-base">
                   <div>
-                    <h4 className="text-2xl font-semibold leading-tight">Fusion 4T V2</h4>
-                    <p className="text-sm uppercase tracking-wide text-orange-400">Chase the Heat</p>
-                  </div>
-                </div>
-                <div className="space-y-3 text-sm sm:text-base text-gray-100">
-                  <div>
-                    <h5 className="font-semibold">Câmera de Zoom</h5>
-                    <p>48 MP · Zoom óptico 10x · Zoom híbrido até 160x · Abertura f/2.8–f/4.8 · Vídeo 4000×3000 30p</p>
+                    <h4 className="text-2xl font-semibold leading-tight text-gray-900">Fusion 4T V2</h4>
+                    <p className="text-sm uppercase tracking-wide text-orange-500">Desafie o Calor</p>
                   </div>
                   <div>
-                    <h5 className="font-semibold">Câmera Grande Angular Super-sensível</h5>
-                    <p>48 MP · Sensor 1/2" CMOS · Abertura f/2.8 · DFOV 83,4° · Equivalente 24 mm</p>
+                    <h5 className="font-semibold text-gray-900">Câmera de Zoom</h5>
+                    <p className="text-gray-700">48 MP · Zoom óptico 10x · Zoom híbrido até 160x · Abertura f/2.8–f/4.8 · Vídeo 4000×3000 30p</p>
                   </div>
                   <div>
-                    <h5 className="font-semibold">Câmera Térmica</h5>
-                    <p>640×512 · Distância focal 9,1 mm · Zoom digital 16x · Faixa -20 °C a 550 °C</p>
-                  </div>
-                  <div>
-                    <h5 className="font-semibold">Telêmetro a Laser</h5>
-                    <p>Alcance 5–1200 m · Precisão ±(1 m + D×0,15%)</p>
+                    <h5 className="font-semibold text-gray-900">Câmera Grande Angular Super-sensível</h5>
+                    <p className="text-gray-700">48 MP · Sensor 1/2" CMOS · Abertura f/2.8 · DFOV 83,4° · Equivalente 24 mm</p>
                   </div>
                 </div>
               </div>
 
-              <div className="rounded-2xl bg-black/60 border border-white/10 p-6 sm:p-8 flex flex-col gap-4">
-                <div className="flex items-center gap-4">
-                  <img
-                    src="/images/camera-evo-max-4n.jpeg"
-                    alt="Câmera Fusion 4N V2"
-                    className="h-20 w-auto"
-                  />
+              <div className="flex flex-col gap-6 md:flex-row md:items-center rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 shadow-lg">
+                <img
+                  src="/images/camera-evo-max-4n.jpeg"
+                  alt="Câmera Fusion 4N V2"
+                  className="h-32 w-auto object-contain drop-shadow"
+                />
+                <div className="flex-1 space-y-3 text-sm sm:text-base">
                   <div>
-                    <h4 className="text-2xl font-semibold leading-tight">Fusion 4N V2</h4>
-                    <p className="text-sm uppercase tracking-wide text-blue-400">Domine a Noite</p>
+                    <h4 className="text-2xl font-semibold leading-tight text-gray-900">Fusion 4N V2</h4>
+                    <p className="text-sm uppercase tracking-wide text-blue-500">Domine a Noite</p>
+                  </div>
+                  <div>
+                    <h5 className="font-semibold text-gray-900">Câmera Grande Angular 4K</h5>
+                    <p className="text-gray-700">Sensor 1/0,98" CMOS · 50 MP efetivos · DFOV 85° · Abertura f/1.85 · Vídeo 4000×3000 30p</p>
+                  </div>
+                  <div>
+                    <h5 className="font-semibold text-gray-900">Câmera Starlight</h5>
+                    <p className="text-gray-700">Sensor 1,69" CMOS · DFOV 52° · Abertura f/1.4 · ISO até 440000 · Vídeo 1920×1200 30p</p>
                   </div>
                 </div>
-                <div className="space-y-3 text-sm sm:text-base text-gray-100">
+              </div>
+
+              <div className="rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 shadow-md">
+                <div className="space-y-3 text-sm sm:text-base text-gray-700">
                   <div>
-                    <h5 className="font-semibold">Câmera Grande Angular 4K</h5>
-                    <p>Sensor 1/0,98" CMOS · 50 MP efetivos · DFOV 85° · Abertura f/1.85 · Vídeo 4000×3000 30p</p>
+                    <h5 className="text-2xl font-semibold text-gray-900">Linha EVO Max V2</h5>
+                    <p>Telêmetro a laser: alcance 5–1200 m · Precisão ±(1 m + D×0,15%).</p>
                   </div>
                   <div>
-                    <h5 className="font-semibold">Câmera Starlight</h5>
-                    <p>Sensor 1,69" CMOS · DFOV 52° · Abertura f/1.4 · ISO até 440000 · Vídeo 1920×1200 30p</p>
-                  </div>
-                  <div>
-                    <h5 className="font-semibold">Câmera Térmica</h5>
-                    <p>640×512 · Lente 9,1 mm f/1.0 · Zoom digital 16x · Faixa -20 °C a 550 °C</p>
-                  </div>
-                  <div>
-                    <h5 className="font-semibold">Telêmetro a Laser</h5>
-                    <p>Alcance 5–1200 m · Precisão ±(1 m + D×0,15%)</p>
+                    <p>Câmera térmica 640×512 · Lente 9,1 mm f/1.0 · Zoom digital 16x · Faixa -20 °C a 550 °C.</p>
                   </div>
                 </div>
               </div>
