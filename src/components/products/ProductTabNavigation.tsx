@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Copy } from 'lucide-react';
 
@@ -25,7 +25,7 @@ export const ProductTabNavigation: React.FC<ProductTabNavigationProps> = ({
   const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const activeButton = tabRefs.current[activeTab];
     const container = containerRef.current;
 
@@ -46,7 +46,7 @@ export const ProductTabNavigation: React.FC<ProductTabNavigationProps> = ({
         behavior: 'smooth'
       });
     }
-  }, [activeTab]);
+  }, [activeTab, tabs.length]);
 
   return (
     <div className="w-full">
