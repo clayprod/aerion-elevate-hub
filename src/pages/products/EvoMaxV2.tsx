@@ -313,7 +313,7 @@ const EvoMaxV2: React.FC = () => {
             <img
               src="/images/destaques/evo-max/evo-max-txt.svg"
               alt="Logo Evo Max Series"
-              className="h-10 sm:h-12 md:h-14 object-contain"
+              className="h-6 sm:h-8 md:h-10 object-contain"
             />
           </div>
           <div className="relative overflow-hidden rounded-3xl min-h-[520px] md:min-h-[560px] flex flex-col justify-end md:justify-center text-white shadow-xl">
