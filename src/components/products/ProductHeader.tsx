@@ -212,7 +212,7 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
                 onClick={() => copyToClipboard(`${name}\n\n${description}\n\nCaracterísticas:\n${displayFeatures.join('\n')}`)}
                 size="lg"
                 variant="outline"
-                className="bg-transparent border-2 border-gray-300 text-navy-deep hover:bg-gray-50 font-heading font-semibold text-base px-8 py-3 rounded-xl transition-all duration-300"
+                className="bg-transparent border-2 border-blue-medium text-blue-medium hover:bg-blue-50 hover:text-blue-dark font-heading font-semibold text-base px-8 py-3 rounded-xl transition-all duration-300"
               >
                 <Copy className="w-5 h-5 mr-2" />
                 Copiar informações

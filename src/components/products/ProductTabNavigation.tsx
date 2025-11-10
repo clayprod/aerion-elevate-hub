@@ -51,7 +51,7 @@ export const ProductTabNavigation: React.FC<ProductTabNavigationProps> = ({
                 onClick={onCopyInfo}
                 variant="outline"
                 size="sm"
-                className="bg-green-success text-white border-green-success hover:bg-green-600"
+                className="border-blue-medium text-blue-medium hover:bg-blue-50 hover:text-blue-dark"
               >
                 <Copy className="w-4 h-4 mr-2" />
                 Copiar informações

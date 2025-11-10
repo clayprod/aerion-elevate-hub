@@ -73,7 +73,7 @@ export const ProductKeyFeatures: React.FC<ProductKeyFeaturesProps> = ({
           <Button
             onClick={copyAllFeatures}
             variant="outline"
-            className="border-blue-medium text-blue-medium hover:bg-blue-medium hover:text-white transition-colors"
+            className="border-blue-medium text-blue-medium hover:bg-blue-50 hover:text-blue-dark transition-colors"
           >
             <Copy className="w-4 h-4 mr-2" />
             Copiar informações

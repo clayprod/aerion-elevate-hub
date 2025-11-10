@@ -345,7 +345,7 @@ const EvoMaxV2: React.FC = () => {
                 Anti-interferência Superior
               </h3>
               <p className="text-base sm:text-lg text-gray-700">
-                O EVO Max 4T utiliza módulos avançados de controle de voo e algoritmos capazes de identificar
+                O EVO Max Series utiliza módulos avançados de controle de voo e algoritmos capazes de identificar
                 interferências nos sinais de controle e no posicionamento por satélite. Assim, o drone opera com
                 confiança perto de linhas de energia, estruturas críticas e em áreas complexas, mantendo a
                 estabilidade da missão.
@@ -553,7 +553,7 @@ const EvoMaxV2: React.FC = () => {
                 <div>
                   <h4 className="font-semibold text-gray-900">Reprodução de Missão*</h4>
                   <p>
-                    Ao ativar o recurso, voe uma missão manual ou semiautônoma — ou encadeie várias missões. O EVO Max 4T grava automaticamente os ângulos de câmera e replica o voo executado.
+                    Ao ativar o recurso, voe uma missão manual ou semiautônoma — ou encadeie várias missões. O EVO Max Series grava automaticamente os ângulos de câmera e replica o voo executado.
                   </p>
                 </div>
                 <p className="text-sm text-gray-500">*Acessório previsto para lançamento futuro.</p>
