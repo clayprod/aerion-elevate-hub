@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { ProductHeader } from '@/components/products/ProductHeader';
 import { ProductStickyMenu } from '@/components/products/ProductStickyMenu';
 import { ProductTechnicalData } from '@/components/products/ProductTechnicalData';
@@ -163,7 +163,6 @@ const EvoMaxV2: React.FC = () => {
   };
 
   const activePayload = payloadContent[selectedVariant] ?? payloadContent['4t'];
-  const orderedOptionalModules = useMemo(() => optionalModules[selectedVariant], [optionalModules, selectedVariant]);
 
   const featureHighlights = [
     {
@@ -607,7 +606,7 @@ const EvoMaxV2: React.FC = () => {
               Opcionais para expandir sua operação
             </h3>
             <div className="grid gap-8 lg:grid-cols-3">
-              {orderedOptionalModules.map(optional => (
+              {optionalModules.map(optional => (
                 <div key={optional.title} className="flex flex-col gap-4 rounded-3xl border border-gray-100 bg-white p-6 shadow-sm">
                   <img src={optional.image} alt={optional.title} className="w-full h-40 object-contain rounded-2xl bg-gray-50 p-4" />
                   <div className="space-y-3">
