@@ -309,6 +309,13 @@ const EvoMaxV2: React.FC = () => {
       
       <section id="destaques" className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-6 space-y-12">
+          <div className="flex justify-center">
+            <img
+              src="/images/destaques/evo-max/evo-max-txt.svg"
+              alt="Logo Evo Max Series"
+              className="h-10 sm:h-12 md:h-14 object-contain"
+            />
+          </div>
           <div className="relative overflow-hidden rounded-3xl min-h-[520px] md:min-h-[560px] flex flex-col justify-end md:justify-center text-white shadow-xl">
             <div
               className="absolute inset-0 bg-cover"
