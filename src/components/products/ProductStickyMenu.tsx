@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 
 interface MenuItem {
@@ -13,6 +13,8 @@ interface ProductStickyMenuProps {
 export const ProductStickyMenu: React.FC<ProductStickyMenuProps> = ({ items }) => {
   const [activeSection, setActiveSection] = useState<string>('');
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const mobileContainerRef = useRef<HTMLDivElement | null>(null);
+  const buttonRefs = useRef<Record<string, HTMLButtonElement | null>>({});
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,6 +49,32 @@ export const ProductStickyMenu: React.FC<ProductStickyMenuProps> = ({ items }) =
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, [items]);
+
+  useEffect(() => {
+    if (!activeSection) return;
+    const container = mobileContainerRef.current;
+    const activeButton = buttonRefs.current[activeSection];
+
+    if (container && activeButton) {
+      requestAnimationFrame(() => {
+        const containerRect = container.getBoundingClientRect();
+        const buttonRect = activeButton.getBoundingClientRect();
+        const offset =
+          buttonRect.left -
+          containerRect.left +
+          container.scrollLeft -
+          container.clientWidth / 2 +
+          buttonRect.width / 2;
+        const maxScroll = container.scrollWidth - container.clientWidth;
+        const target = Math.min(Math.max(0, offset), Math.max(0, maxScroll));
+
+        container.scrollTo({
+          left: target,
+          behavior: 'smooth'
+        });
+      });
+    }
+  }, [activeSection, items.length]);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -96,7 +124,10 @@ export const ProductStickyMenu: React.FC<ProductStickyMenuProps> = ({ items }) =
           
           {/* Mobile: Scrollable horizontal menu */}
           <div className="md:hidden w-full">
-            <div className="flex items-center bg-white rounded-lg shadow-sm border border-gray-200 overflow-x-auto scrollbar-hide">
+            <div
+              ref={mobileContainerRef}
+              className="flex items-center bg-white rounded-lg shadow-sm border border-gray-200 overflow-x-auto scrollbar-hide"
+            >
               <style jsx>{`
                 .scrollbar-hide {
                   -ms-overflow-style: none;
@@ -109,6 +140,9 @@ export const ProductStickyMenu: React.FC<ProductStickyMenuProps> = ({ items }) =
               {items.map((item, index) => (
                 <React.Fragment key={item.id}>
                   <button
+                    ref={element => {
+                      buttonRefs.current[item.id] = element;
+                    }}
                     onClick={() => scrollToSection(item.id)}
                     className={`px-4 py-2 text-sm font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0 ${
                       activeSection === item.id
