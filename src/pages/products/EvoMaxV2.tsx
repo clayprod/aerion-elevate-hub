@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { ProductHeader } from '@/components/products/ProductHeader';
 import { ProductStickyMenu } from '@/components/products/ProductStickyMenu';
 import { ProductTechnicalData } from '@/components/products/ProductTechnicalData';
@@ -163,6 +163,7 @@ const EvoMaxV2: React.FC = () => {
   };
 
   const activePayload = payloadContent[selectedVariant] ?? payloadContent['4t'];
+  const orderedOptionalModules = useMemo(() => optionalModules[selectedVariant], [optionalModules, selectedVariant]);
 
   const featureHighlights = [
     {
@@ -361,7 +362,7 @@ const EvoMaxV2: React.FC = () => {
 
           {selectedVariant === '4n' ? (
             <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
-              <div className="relative overflow-hidden rounded-3xl shadow-xl order-1 lg:order-1">
+              <div className="relative overflow-hidden rounded-3xl shadow-xl order-2 lg:order-1">
                 <div className="absolute top-0 left-0 right-0 flex justify-between px-6 py-4 text-xs sm:text-sm font-semibold uppercase tracking-wide text-white">
                   <span className="bg-black/60 px-3 py-1 rounded-full">Câmera normal</span>
                   <span className="bg-black/60 px-3 py-1 rounded-full">Câmera Noturna 4N</span>
@@ -378,7 +379,7 @@ const EvoMaxV2: React.FC = () => {
                   Seu navegador não suporta a reprodução de vídeos.
                 </video>
               </div>
-              <div className="order-2 lg:order-2 space-y-4">
+              <div className="order-1 lg:order-2 space-y-4">
                 <h3 className="text-3xl sm:text-4xl font-semibold text-gray-900 leading-tight">
                   Visão clara e limpa, mesmo no escuro
                 </h3>
@@ -389,7 +390,7 @@ const EvoMaxV2: React.FC = () => {
             </div>
           ) : (
             <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
-              <div className="order-2 lg:order-1 space-y-4">
+              <div className="order-1 lg:order-2 space-y-4">
                 <h3 className="text-3xl sm:text-4xl font-semibold text-gray-900 leading-tight">
                   Zoom híbrido até 160x
                 </h3>
@@ -400,7 +401,7 @@ const EvoMaxV2: React.FC = () => {
                   Essa capacidade potencializa aplicações em inspeções de energia, operações de resgate e missões de segurança pública.
                 </p>
               </div>
-              <div className="order-1 lg:order-2 overflow-hidden rounded-3xl shadow-xl">
+              <div className="order-2 lg:order-1 overflow-hidden rounded-3xl shadow-xl">
                 <video
                   className="w-full aspect-video object-cover"
                   autoPlay
@@ -480,7 +481,7 @@ const EvoMaxV2: React.FC = () => {
               style={{ backgroundImage: "url('/images/destaques/evo-max/skylink-bg.jpg')" }}
             />
             <div className="absolute inset-0 bg-black/60" />
-            <div className="relative z-10 px-6 py-16 sm:px-10 lg:px-16 flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+            <div className="relative z-10 px-6 pt-10 pb-16 sm:px-10 lg:px-16 flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
               <div className="max-w-xl space-y-4">
                 <h3 className="text-3xl sm:text-4xl font-semibold leading-tight">Autel SkyLink 3.0</h3>
                 <p className="text-base sm:text-lg text-gray-100">
@@ -504,7 +505,7 @@ const EvoMaxV2: React.FC = () => {
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-5">
               {featureHighlights.map(({ icon: Icon, title, description }) => (
                 <div key={title} className="rounded-3xl border border-gray-100 bg-gray-50 px-6 py-8 shadow-sm">
-                  <Icon className="h-8 w-8 text-orange-500" />
+                  <Icon className="h-8 w-8 text-blue-600" />
                   <h4 className="mt-4 text-lg font-semibold text-gray-900">{title}</h4>
                   <p className="mt-2 text-sm text-gray-700">{description}</p>
                 </div>
@@ -571,10 +572,10 @@ const EvoMaxV2: React.FC = () => {
             </div>
             <div className="order-2 space-y-4">
               <h3 className="text-3xl sm:text-4xl font-semibold text-gray-900 leading-tight">
-                Complete Remote Operations System
+                Sistema de Operação Completamente Remoto
               </h3>
               <p className="text-base sm:text-lg text-gray-700">
-                Utilizado com o EVO Nest, o EVO Max 4T oferece operação autônoma em qualquer clima para aplicações em subestações, parques industriais e telhados.
+                Utilizado com o EVO Nest, o EVO Max Series oferece operação autônoma em qualquer clima para aplicações em subestações, parques industriais e telhados.
               </p>
               <p className="text-base sm:text-lg text-gray-700">
                 Automatize decolagem, pouso e carregamento, garantindo disponibilidade constante da aeronave para inspeções recorrentes.
@@ -606,7 +607,7 @@ const EvoMaxV2: React.FC = () => {
               Opcionais para expandir sua operação
             </h3>
             <div className="grid gap-8 lg:grid-cols-3">
-              {optionalModules.map(optional => (
+              {orderedOptionalModules.map(optional => (
                 <div key={optional.title} className="flex flex-col gap-4 rounded-3xl border border-gray-100 bg-white p-6 shadow-sm">
                   <img src={optional.image} alt={optional.title} className="w-full h-40 object-contain rounded-2xl bg-gray-50 p-4" />
                   <div className="space-y-3">
