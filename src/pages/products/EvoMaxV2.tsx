@@ -117,7 +117,7 @@ const EvoMaxV2: React.FC = () => {
     '4t': {
       title: 'Fusion 4T V2',
       tagline: 'Desafie o Calor',
-      image: '/images/destaques/evo-max/camera-4t.jpeg',
+      image: '/images/destaques/evo-max/camera-evo-max-4t.jpeg',
       features: [
         {
           label: 'Câmera de Zoom',
@@ -140,7 +140,7 @@ const EvoMaxV2: React.FC = () => {
     '4n': {
       title: 'Fusion 4N V2',
       tagline: 'Domine a Noite',
-      image: '/images/destaques/evo-max/camera-4n.jpeg',
+      image: '/images/destaques/evo-max/camera-evo-max-4n.jpeg',
       features: [
         {
           label: 'Câmera Grande Angular 4K',
