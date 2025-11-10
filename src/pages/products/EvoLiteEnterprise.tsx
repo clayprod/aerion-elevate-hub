@@ -9,6 +9,7 @@ import { getProductFamilyBySlug } from '@/data/products';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import MobileFloatingCTA from '@/components/MobileFloatingCTA';
+import type { LucideIcon } from 'lucide-react';
 import {
   Feather,
   Pointer,
@@ -112,7 +113,7 @@ const EvoLiteEnterprise: React.FC = () => {
 
   const currentVariantData = variants.find(v => v.id === selectedVariant) || variants[0];
 
-  const featureHighlights = [
+  const baseHighlights: { icon: LucideIcon; title: string; description: string }[] = [
     {
       icon: Feather,
       title: 'Leve e Portátil',
@@ -127,16 +128,6 @@ const EvoLiteEnterprise: React.FC = () => {
       icon: Scan,
       title: 'Reconhecimento IA',
       description: 'Algoritmos de inteligência artificial identificam automaticamente pessoas, veículos e embarcações, projetando posições no mapa.'
-    },
-    {
-      icon: Camera,
-      title: 'Resolução 6K',
-      description: 'Sensor 1" de 20 MP entrega imagens 6K com ampla faixa dinâmica e fidelidade de cores.'
-    },
-    {
-      icon: Thermometer,
-      title: 'Imagem Térmica 640×512',
-      description: 'A versão 640T oferece câmera térmica de alta resolução com zoom digital 16x e medições precisas.'
     },
     {
       icon: RadioTower,
@@ -154,6 +145,25 @@ const EvoLiteEnterprise: React.FC = () => {
       description: 'Até 40 minutos de voo em condições ideais, reduzindo trocas de bateria durante a missão.'
     }
   ];
+
+  const variantHighlights: Record<string, { icon: LucideIcon; title: string; description: string }[]> = {
+    '640t': [
+      {
+        icon: Thermometer,
+        title: 'Imagem Térmica 640×512',
+        description: 'Câmera térmica de alta resolução com zoom digital 16x e medições radiométricas precisas.'
+      }
+    ],
+    '6k': [
+      {
+        icon: Camera,
+        title: 'Resolução 6K',
+        description: 'Sensor 1" de 20 MP captura imagens 6K com ampla faixa dinâmica e alta fidelidade de cores.'
+      }
+    ]
+  };
+
+  const featureHighlights = [...baseHighlights, ...(variantHighlights[selectedVariant] ?? [])];
 
   const skyLinkStats = [
     { value: '12 km (FCC)', label: 'Distância de transmissão de vídeo' },
@@ -310,11 +320,7 @@ const EvoLiteEnterprise: React.FC = () => {
     <section id="destaques" className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-6 space-y-12">
         <div className="flex justify-center">
-          <img
-            src="/images/destaques/evo-lite/po11.webp"
-            alt="Logo Evo Lite Enterprise"
-            className="h-6 sm:h-8 md:h-10 object-contain"
-          />
+          <img src="/images/destaques/evo-lite/logo.png" alt="Logo Evo Lite Enterprise" className="h-6 sm:h-8 md:h-10 object-contain" />
         </div>
 
         <div className="relative overflow-hidden rounded-3xl min-h-[420px] text-white shadow-xl">
@@ -343,7 +349,7 @@ const EvoLiteEnterprise: React.FC = () => {
           </div>
           <div className="order-1 lg:order-2 space-y-4">
             <h3 className="text-3xl sm:text-4xl font-semibold text-gray-900 leading-tight">
-              AI Target Recognition and Positioning
+              Reconhecimento e Posicionamento por IA
             </h3>
             <p className="text-base sm:text-lg text-gray-700">
               Utilizando lentes grande-angulares ou infravermelhas combinadas com algoritmos inteligentes e sistema de
@@ -367,16 +373,18 @@ const EvoLiteEnterprise: React.FC = () => {
                 combinando antenas otimizadas, múltiplas bandas e robustos mecanismos de segurança.
               </p>
             </div>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-              {skyLinkStats.map(stat => (
-                <div
-                  key={stat.value}
-                  className="rounded-2xl border border-white/20 bg-white/10 backdrop-blur px-6 py-4"
-                >
-                  <div className="text-2xl font-semibold">{stat.value}</div>
-                  <div className="text-sm text-white/80">{stat.label}</div>
-                </div>
-              ))}
+            <div className="flex flex-col gap-4 lg:pt-4">
+              <div className="flex flex-wrap gap-4">
+                {skyLinkStats.map(stat => (
+                  <div
+                    key={stat.value}
+                    className="flex-1 min-w-[180px] rounded-2xl border border-white/20 bg-white/10 backdrop-blur px-6 py-4"
+                  >
+                    <div className="text-xl font-semibold">{stat.value}</div>
+                    <div className="text-sm text-white/80">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -447,7 +455,6 @@ const EvoLiteEnterprise: React.FC = () => {
               </div>
             ))}
           </div>
-          <p className="text-xs text-gray-500 text-center">*Função disponível mediante recursos adicionais.</p>
         </div>
 
         <div className="space-y-6">
@@ -476,7 +483,7 @@ const EvoLiteEnterprise: React.FC = () => {
 
         <div className="space-y-6">
           <h3 className="text-3xl sm:text-4xl font-semibold text-gray-900 leading-tight">
-            Data Security with Multiple Protections
+            Segurança de dados múltipla
           </h3>
           <div className="grid gap-6 md:grid-cols-3">
             {dataSecurityCards.map(({ icon: Icon, title, description }) => (
