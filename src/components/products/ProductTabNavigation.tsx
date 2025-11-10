@@ -23,15 +23,27 @@ export const ProductTabNavigation: React.FC<ProductTabNavigationProps> = ({
 }) => {
   const activeTabContent = tabs.find(tab => tab.id === activeTab)?.content;
   const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const activeButton = tabRefs.current[activeTab];
+    const container = containerRef.current;
 
-    if (activeButton) {
-      activeButton.scrollIntoView({
-        behavior: 'smooth',
-        inline: 'center',
-        block: 'nearest'
+    if (activeButton && container) {
+      const containerRect = container.getBoundingClientRect();
+      const buttonRect = activeButton.getBoundingClientRect();
+      const offset =
+        buttonRect.left -
+        containerRect.left +
+        container.scrollLeft -
+        container.clientWidth / 2 +
+        buttonRect.width / 2;
+      const maxScroll = container.scrollWidth - container.clientWidth;
+      const target = Math.min(Math.max(0, offset), Math.max(0, maxScroll));
+
+      container.scrollTo({
+        left: target,
+        behavior: 'smooth'
       });
     }
   }, [activeTab]);
@@ -42,7 +54,7 @@ export const ProductTabNavigation: React.FC<ProductTabNavigationProps> = ({
       <div className="bg-gray-100 border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex-1 overflow-x-auto">
+            <div ref={containerRef} className="flex-1 overflow-x-auto">
               <nav className="flex space-x-1 py-4 min-w-max">
                 {tabs.map(tab => (
                   <Button
