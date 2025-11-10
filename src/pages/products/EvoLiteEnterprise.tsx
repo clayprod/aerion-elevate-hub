@@ -359,13 +359,13 @@ const EvoLiteEnterprise: React.FC = () => {
           </div>
         </div>
 
-        <div className="relative overflow-hidden rounded-3xl min-h-[380px] text-white shadow-xl">
+        <div className="relative overflow-hidden rounded-3xl min-h-[320px] text-white shadow-xl">
           <div
-            className="absolute inset-0 bg-cover bg-center"
+            className="absolute inset-0 bg-cover bg-top"
             style={{ backgroundImage: "url('/images/destaques/evo-lite/skylink.jpg')" }}
           />
           <div className="absolute inset-0 bg-black/60" />
-          <div className="relative z-10 px-6 pt-10 pb-16 sm:px-10 lg:px-16 flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
+          <div className="relative z-10 px-6 pt-10 pb-12 sm:px-10 lg:px-16 flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
             <div className="max-w-xl space-y-4">
               <h3 className="text-3xl sm:text-4xl font-semibold leading-tight">Autel SkyLink</h3>
               <p className="text-base sm:text-lg text-gray-100">
