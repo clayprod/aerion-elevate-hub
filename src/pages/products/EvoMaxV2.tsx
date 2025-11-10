@@ -282,9 +282,9 @@ const EvoMaxV2: React.FC = () => {
   return (
     <div className="min-h-screen">
       <SEOHead
-        title="EVO Max 4T | Drone Profissional RTK - Topografia e Mapeamento | Aerion"
-        description="EVO Max 4T: drone profissional com RTK, câmera 50MP, zoom 10x, 42min voo. Ideal para topografia de alta precisão, mapeamento e levantamentos aerofotogramétricos. Precisão centimétrica."
-        keywords="evo max 4t, drone RTK, topografia drone, mapeamento drone, drone profissional, autel evo max"
+        title="EVO Max V2 | Drone Profissional RTK - Topografia e Mapeamento | Aerion"
+        description="EVO Max V2: plataforma profissional com RTK, múltiplas câmeras, zoom avançado e 42 minutos de voo. Ideal para topografia de alta precisão, inspeções e operações críticas."
+        keywords="evo max v2, evo max 4t, evo max 4n, drone RTK, topografia drone, mapeamento drone, drone profissional, autel evo max"
         canonical="https://aerion.com.br/produtos/evo-max-v2"
         ogType="product"
       />
