@@ -11,7 +11,7 @@ import Footer from '@/components/Footer';
 import MobileFloatingCTA from '@/components/MobileFloatingCTA';
 import {
   Feather,
-  MousePointerSquare,
+  Pointer,
   Scan,
   Camera,
   Thermometer,
@@ -119,7 +119,7 @@ const EvoLiteEnterprise: React.FC = () => {
       description: 'A série EVO Lite Enterprise pesa apenas 866 g e, dobrada, mede 210 × 123 × 95 mm — cabe facilmente em uma mochila.'
     },
     {
-      icon: MousePointerSquare,
+      icon: Pointer,
       title: 'Controle Simples',
       description: 'Fluxos intuitivos permitem que um único operador configure e execute missões complexas com agilidade.'
     },
@@ -437,12 +437,12 @@ const EvoLiteEnterprise: React.FC = () => {
             </p>
           </div>
           <div className="grid gap-8 md:grid-cols-3">
-            {missionCards.map(card => (
-              <div key={card.title} className="rounded-3xl overflow-hidden border border-gray-100 shadow-sm bg-white">
-                <img src={card.image} alt={card.title} className="w-full h-48 object-cover" />
+            {missionCards.map(({ title, description, image }) => (
+              <div key={title} className="rounded-3xl overflow-hidden border border-gray-100 shadow-sm bg-white">
+                <img src={image} alt={title} className="w-full h-48 object-cover" />
                 <div className="p-6 space-y-2">
-                  <h4 className="text-xl font-semibold text-gray-900">{card.title}</h4>
-                  <p className="text-sm text-gray-700">{card.description}</p>
+                  <h4 className="text-xl font-semibold text-gray-900">{title}</h4>
+                  <p className="text-sm text-gray-700">{description}</p>
                 </div>
               </div>
             ))}
