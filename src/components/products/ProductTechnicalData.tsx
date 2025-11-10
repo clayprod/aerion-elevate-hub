@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Card } from '@/components/ui/card';
-import { 
-  FileText, 
-  DollarSign, 
-  Settings, 
-  Package, 
-  Wrench, 
+import {
+  FileText,
+  DollarSign,
+  Settings,
+  Package,
+  Wrench,
   Gift,
-  Copy
+  Copy,
+  ChevronDown
 } from 'lucide-react';
 import { ProductDownloadSection } from './ProductDownloadSection';
 
@@ -109,6 +110,28 @@ export const ProductTechnicalData: React.FC<TechnicalDataProps> = ({
     </Card>
   );
 
+  const createInitialSectionsState = useMemo(
+    () =>
+      Object.keys(specs).reduce<Record<string, boolean>>((acc, key) => {
+        acc[key] = false;
+        return acc;
+      }, {}),
+    [specs]
+  );
+
+  const [expandedSections, setExpandedSections] = useState(createInitialSectionsState);
+
+  useEffect(() => {
+    setExpandedSections(createInitialSectionsState);
+  }, [createInitialSectionsState]);
+
+  const toggleSection = (category: string) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [category]: !prev[category]
+    }));
+  };
+
   const renderSpecsCard = () => (
     <Card className="p-6 bg-gray-50">
       <h3 className="text-lg font-bold text-navy-deep mb-6 flex items-center gap-2">
@@ -116,30 +139,51 @@ export const ProductTechnicalData: React.FC<TechnicalDataProps> = ({
         DADOS TÉCNICOS
       </h3>
       <div className="space-y-6">
-        {Object.entries(specs).map(([category, categorySpecs], categoryIndex) => (
-          <div key={categoryIndex} className="space-y-3">
-            <h4 className="text-sm font-semibold text-navy-deep border-b border-gray-300 pb-2">
-              {category}
-            </h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {Object.entries(categorySpecs).map(([key, value], specIndex) => (
-                <div key={specIndex} className="flex flex-col min-h-[80px] py-4 px-4 bg-white rounded border border-gray-200 hover:border-gray-300 transition-colors">
-                  <div className="flex items-start justify-between gap-2 mb-2">
-                    <span className="font-medium text-gray-dark text-sm leading-tight">{key}</span>
-                    <button
-                      onClick={() => copyToClipboard(value)}
-                      className="p-1 hover:bg-gray-200 rounded transition-colors flex-shrink-0 mt-0.5"
-                      title="Copiar valor"
+        {Object.entries(specs).map(([category, categorySpecs], categoryIndex) => {
+          const isExpanded = expandedSections[category];
+
+          return (
+            <div key={categoryIndex} className="space-y-3">
+              <button
+                type="button"
+                onClick={() => toggleSection(category)}
+                className="w-full flex items-center justify-between text-sm font-semibold text-navy-deep border-b border-gray-300 pb-2 transition-colors hover:text-blue-medium"
+                aria-expanded={isExpanded}
+                aria-controls={`specs-${categoryIndex}`}
+              >
+                <span className="truncate text-left">{category}</span>
+                <ChevronDown
+                  className={`h-4 w-4 flex-shrink-0 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}
+                />
+              </button>
+              {isExpanded && (
+                <div
+                  id={`specs-${categoryIndex}`}
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+                >
+                  {Object.entries(categorySpecs).map(([key, value], specIndex) => (
+                    <div
+                      key={specIndex}
+                      className="flex flex-col min-h-[80px] py-4 px-4 bg-white rounded border border-gray-200 hover:border-gray-300 transition-colors"
                     >
-                      <Copy className="w-3 h-3 text-gray-500" />
-                    </button>
-                  </div>
-                  <span className="text-navy-deep font-semibold text-sm leading-relaxed break-words">{value}</span>
+                      <div className="flex items-start justify-between gap-2 mb-2">
+                        <span className="font-medium text-gray-dark text-sm leading-tight">{key}</span>
+                        <button
+                          onClick={() => copyToClipboard(value)}
+                          className="p-1 hover:bg-gray-200 rounded transition-colors flex-shrink-0 mt-0.5"
+                          title="Copiar valor"
+                        >
+                          <Copy className="w-3 h-3 text-gray-500" />
+                        </button>
+                      </div>
+                      <span className="text-navy-deep font-semibold text-sm leading-relaxed break-words">{value}</span>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              )}
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </Card>
   );
