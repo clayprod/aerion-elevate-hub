@@ -484,7 +484,7 @@ const EvoMaxV2: React.FC = () => {
               <div className="max-w-xl space-y-4">
                 <h3 className="text-3xl sm:text-4xl font-semibold leading-tight">Autel SkyLink 3.0</h3>
                 <p className="text-base sm:text-lg text-gray-100">
-                  O sistema SkyLink 3.0 do EVO Max 4T reúne seis antenas, quatro bandas de frequência, criptografia AES-256 e integração 4G opcional para oferecer a conectividade de voo mais avançada da linha EVO.
+                  O sistema SkyLink 3.0 do EVO Max Series reúne seis antenas, quatro bandas de frequência, criptografia AES-256 e integração 4G opcional para oferecer a conectividade de voo mais avançada da linha EVO.
                 </p>
               </div>
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
