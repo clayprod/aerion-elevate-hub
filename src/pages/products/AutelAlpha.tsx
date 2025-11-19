@@ -282,7 +282,7 @@ const AutelAlpha: React.FC = () => {
           </div>
 
           {/* Hero Banner */}
-          <div className="relative overflow-hidden rounded-3xl min-h-[520px] md:min-h-[560px] flex flex-col justify-end md:justify-center text-white shadow-xl">
+          <div className="relative overflow-hidden rounded-3xl min-h-[380px] md:min-h-[420px] flex flex-col justify-end md:justify-center text-white shadow-xl">
             <div
               className="absolute inset-0 bg-cover bg-center"
               style={{
@@ -290,11 +290,11 @@ const AutelAlpha: React.FC = () => {
               }}
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
-            <div className="relative z-10 max-w-xl w-full px-6 py-16 sm:px-10">
+            <div className="relative z-10 max-w-3xl w-full px-6 py-12 sm:px-10">
               <h3 className="text-3xl sm:text-4xl font-semibold leading-tight mb-4">
                 Autel Alpha
               </h3>
-              <p className="text-base sm:text-lg text-gray-100 leading-relaxed">
+              <p className="text-sm sm:text-base text-gray-100 leading-relaxed">
                 O Autel Alpha é um drone industrial inteligente para múltiplos propósitos. Com melhorias significativas nas capacidades de voo autônomo, capacidades anti-interferência, capacidades de evitação de obstáculos, tecnologia de transmissão de vídeo e sistemas de bateria, injeta desempenho robusto na plataforma de voo. Com design dobrável e classificação IP55, enfrenta ambientes desafiadores. O sistema RTK de antena dupla integrado garante controle preciso dentro de milímetros ao executar missões. Combinado com o gimbal DG-L35T de próxima geração, integra uma câmera de zoom híbrido 560x, duas câmeras de imagem térmica, uma câmera grande angular de luz visível e um telêmetro a laser. As duas câmeras de imagem térmica atendem às necessidades de visão geral de curto alcance e observação de detalhes de longo alcance, alcançando cenários de operação distante com reconhecimento de pessoal sem obstruções dentro de um alcance de 8 quilômetros, fornecendo soluções mais profissionais e abrangentes para aplicações como segurança pública, inspeção de energia e gerenciamento de emergências.
               </p>
             </div>
