@@ -446,7 +446,7 @@ const AutelAlpha: React.FC = () => {
             <div
               className="absolute inset-0 bg-cover bg-center"
               style={{
-                backgroundImage: "url('https://www.autelrobotics.com/wp-content/uploads/2025/02/alpha-s3-product.png')"
+                backgroundImage: "url('https://www.autelrobotics.com/wp-content/uploads/2025/02/alpha-s6-img-pc.png')"
               }}
             />
             <div className="absolute inset-0 bg-black/40" />
@@ -468,13 +468,46 @@ const AutelAlpha: React.FC = () => {
                 Conheça o sistema de câmeras do Autel Alpha com múltiplos sensores integrados.
               </p>
             </div>
-            <div className="relative">
-              <img
-                src="https://www.autelrobotics.com/wp-content/uploads/2025/02/alpha-s3-product.png"
-                alt="Gimbal DG-L35T"
-                className="w-full max-w-4xl mx-auto object-contain"
-              />
-              {/* Annotations would be positioned absolutely over the image */}
+            <div className="mt-10 flex flex-col gap-10 md:flex-row md:items-center">
+              <div className="md:w-1/2 flex justify-center">
+                <img
+                  src="/images/destaques/alpha/l35t.webp"
+                  alt="Gimbal DG-L35T"
+                  className="w-full max-w-md object-contain drop-shadow-2xl"
+                />
+              </div>
+              <div className="md:w-1/2 space-y-5">
+                <div>
+                  <h4 className="text-3xl font-semibold leading-tight text-gray-900">Gimbal DG-L35T</h4>
+                  <p className="text-sm uppercase tracking-wide text-gray-500">Sistema de Câmeras Quíntuplo</p>
+                </div>
+                <div className="space-y-4 text-sm sm:text-base">
+                  <div className="border-b border-gray-200 pb-4">
+                    <h5 className="font-semibold text-gray-900 uppercase tracking-wide text-xs sm:text-sm mb-1">
+                      Câmera Zoom
+                    </h5>
+                    <p className="text-gray-700">8 MP, Zoom Óptico 4K 35x, Zoom Híbrido 560x, ISO até 160.000</p>
+                  </div>
+                  <div className="border-b border-gray-200 pb-4">
+                    <h5 className="font-semibold text-gray-900 uppercase tracking-wide text-xs sm:text-sm mb-1">
+                      Telêmetro Laser
+                    </h5>
+                    <p className="text-gray-700">Alcance 10-2000 m, Precisão &lt;400m: ±1m, &gt;400m: D×0,3%</p>
+                  </div>
+                  <div className="border-b border-gray-200 pb-4">
+                    <h5 className="font-semibold text-gray-900 uppercase tracking-wide text-xs sm:text-sm mb-1">
+                      Câmera Grande Angular
+                    </h5>
+                    <p className="text-gray-700">48 MP, Abertura F/2.8, DFOV 84°, Equivalente 24mm</p>
+                  </div>
+                  <div className="pb-4">
+                    <h5 className="font-semibold text-gray-900 uppercase tracking-wide text-xs sm:text-sm mb-1">
+                      Câmera Térmica Dupla
+                    </h5>
+                    <p className="text-gray-700">640×512, Zoom Híbrido 56x, Térmica Grande Angular 13mm, Térmica Longo Alcance 45mm</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
