@@ -220,17 +220,17 @@ const AutelAlpha: React.FC = () => {
   const optionalModules = [
     {
       title: 'Autel Smart Controller V3',
-      description: 'Tela legível à luz do dia: 7,9 polegadas, brilho máximo de 2000 nits, resolução 2048×1536. SuperDownload: Download de filmagens do drone para dispositivo móvel a uma taxa máxima de 20MB/s. Interface funcional: Portas HDMI permitem conexão a monitores de terceiros. A interface USB permite expansão de módulo 4G. Bateria de longa duração: Até 4,5 horas de operação contínua. Carregamento rápido de 2 horas. Armazenamento local: Espaço de armazenamento interno de 128GB permite apps de terceiros e armazenamento de mídia de missão.',
+      description: 'Eleve sua operação com o controle inteligente mais avançado da Autel. Tela premium de 7,9 polegadas com brilho extraordinário de 2000 nits garante visibilidade perfeita mesmo sob sol intenso. Desfrute de downloads ultrarrápidos de até 20MB/s direto para seu dispositivo móvel. Conecte monitores externos via HDMI e expanda suas capacidades com módulo 4G opcional. Bateria de longa duração mantém você em campo por até 4,5 horas contínuas, com recarga rápida em apenas 2 horas. 128GB de armazenamento interno oferece espaço abundante para apps e mídias de missão. Transforme sua produtividade em campo.',
       image: 'https://www.autelrobotics.com/wp-content/uploads/2025/03/img_alpha_remote_controller.png'
     },
     {
       title: 'Combo Alto-falante e Holofote (opcional)',
-      description: 'Dimensões: 196×129×78mm. Peso: 250g. Interface Elétrica: Interface PSDK. Método de Instalação: Montagem de liberação rápida padrão. Temperatura de Trabalho: -10°C a 50°C. Alto-falante: Potência 10W; Pressão sonora 114db@1 metro; Distância de transmissão ≥300 m. Holofote: Segue inclinação do gimbal; Ajuste de nível de brilho; 30° a -90° controlável.',
+      description: 'Potencialize suas operações de segurança pública e emergências com comunicação e iluminação integradas. Alto-falante de 10W com pressão sonora de 114db transmite mensagens claras a mais de 300 metros de distância. Holofote inteligente acompanha automaticamente a inclinação do gimbal, oferecendo iluminação precisa e ajustável de 30° a -90°. Instalação rápida e simples via interface PSDK padrão. Compacto e leve (250g), resistente a temperaturas extremas de -10°C a 50°C. A solução completa para missões noturnas e comunicação de campo.',
       image: 'https://www.autelrobotics.com/wp-content/uploads/2025/01/alpha-s13-img2-1.png'
     },
     {
       title: 'Dispositivo de Detecção de Rádio Tracer Air (opcional)',
-      description: 'Tamanho: 130×120×68 mm. Peso: 745g (suporte excluído); 808 g (suporte incluído). Bandas de detecção: 2.4G / 5.2G / 5.8G. Número de detecção: Até 6 fontes de alvo simultaneamente. Alcance de detecção: 3km. Função básica: Posicionamento de piloto / posicionamento de fonte de interferência. Introdução: Ao montar equipamento de direcionamento de rádio de alta precisão em UAVs, triangula horizontal e verticalmente a fonte de sinal alvo (controlador UAV) no ar, determinando áreas alvo potenciais e exibindo-as em um mapa. Busca visual de áreas alvo combinada com reconhecimento por IA auxilia na descoberta de pilotos de UAV.',
+      description: 'Tecnologia de ponta para identificação e localização de fontes de interferência. Detecte até 6 fontes de rádio simultaneamente em bandas 2.4G, 5.2G e 5.8G, com alcance impressionante de 3km. Triangulação horizontal e vertical de alta precisão identifica posições de controladores UAV e fontes de interferência em tempo real, exibindo áreas-alvo potenciais no mapa. Combine com reconhecimento por IA para descoberta visual automática de pilotos. Essencial para operações de segurança pública, proteção de infraestrutura crítica e detecção de voos não autorizados. Compacto e leve para fácil integração.',
       image: 'https://www.autelrobotics.com/wp-content/uploads/2025/01/alpha-s13-img3.png'
     }
   ];
@@ -463,7 +463,7 @@ const AutelAlpha: React.FC = () => {
           {/* Gimbal e Câmeras */}
           <div className="bg-white text-gray-900 rounded-3xl px-6 py-12 sm:px-10 sm:py-14 shadow-xl border border-gray-100">
             <div className="max-w-3xl mb-10">
-              <h3 className="text-3xl sm:text-4xl font-semibold leading-tight">Gimbal e Câmeras</h3>
+              <h3 className="text-3xl sm:text-4xl font-semibold leading-tight">Câmeras e Gimbal</h3>
               <p className="mt-4 text-base sm:text-lg text-gray-600">
                 Conheça o sistema de câmeras do Autel Alpha com múltiplos sensores integrados.
               </p>
@@ -589,7 +589,16 @@ const AutelAlpha: React.FC = () => {
             <div className="grid gap-8 md:grid-cols-3">
               {appFeatureCards.map(({ title, description, image }) => (
                 <div key={title} className="flex flex-col gap-4 rounded-3xl border border-gray-100 bg-white p-6 shadow-sm">
-                  <img src={image} alt={title} className="w-full rounded-2xl object-cover aspect-video" />
+                  <img 
+                    src={image} 
+                    alt={title} 
+                    className="w-full rounded-2xl object-cover aspect-video"
+                    loading="lazy"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                    }}
+                  />
                   <div className="space-y-2">
                     <h4 className="text-lg font-semibold text-gray-900">{title}</h4>
                     <p className="text-sm text-gray-700">{description}</p>
