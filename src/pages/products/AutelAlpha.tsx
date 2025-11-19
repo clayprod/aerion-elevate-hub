@@ -541,6 +541,7 @@ const AutelAlpha: React.FC = () => {
                 </div>
                 <div className="rounded-2xl overflow-hidden shadow-lg">
                   <video
+                    key={selectedCameraFeature}
                     className="w-full aspect-video object-cover"
                     autoPlay
                     muted
@@ -594,8 +595,10 @@ const AutelAlpha: React.FC = () => {
                     alt={title} 
                     className="w-full rounded-2xl object-cover aspect-video"
                     loading="lazy"
+                    crossOrigin="anonymous"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
+                      console.error(`Erro ao carregar imagem: ${image}`);
                       target.style.display = 'none';
                     }}
                   />
