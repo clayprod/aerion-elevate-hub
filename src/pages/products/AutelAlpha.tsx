@@ -86,15 +86,25 @@ const AutelAlpha: React.FC = () => {
   ];
 
   const [selectedCameraFeature, setSelectedCameraFeature] = useState('super-zoom');
+  const [videoKey, setVideoKey] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
   
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.load();
-      videoRef.current.play().catch(() => {
-        // Ignora erros de autoplay
-      });
-    }
+    // Força recriação completa do elemento video ao mudar de aba
+    setVideoKey(prev => prev + 1);
+    
+    // Timeout para garantir que o novo elemento video seja montado
+    const timer = setTimeout(() => {
+      if (videoRef.current) {
+        videoRef.current.currentTime = 0;
+        videoRef.current.load();
+        videoRef.current.play().catch(() => {
+          // Ignora erros de autoplay
+        });
+      }
+    }, 10);
+
+    return () => clearTimeout(timer);
   }, [selectedCameraFeature]);
 
   const cameraFeatures = {
@@ -551,7 +561,7 @@ const AutelAlpha: React.FC = () => {
                 </div>
                 <div className="rounded-2xl overflow-hidden shadow-lg">
                   <video
-                    key={`${selectedCameraFeature}-${cameraFeatures[selectedCameraFeature as keyof typeof cameraFeatures].video}`}
+                    key={`video-${selectedCameraFeature}-${videoKey}`}
                     ref={videoRef}
                     className="w-full aspect-video object-cover"
                     autoPlay
@@ -560,7 +570,7 @@ const AutelAlpha: React.FC = () => {
                     playsInline
                     preload="auto"
                   >
-                    <source src={cameraFeatures[selectedCameraFeature as keyof typeof cameraFeatures].video} type="video/mp4" />
+                    <source src={`${cameraFeatures[selectedCameraFeature as keyof typeof cameraFeatures].video}?t=${videoKey}`} type="video/mp4" />
                     Seu navegador não suporta a reprodução de vídeos.
                   </video>
                 </div>
@@ -601,18 +611,25 @@ const AutelAlpha: React.FC = () => {
             <div className="grid gap-8 md:grid-cols-3">
               {appFeatureCards.map(({ title, description, image }) => (
                 <div key={title} className="flex flex-col gap-4 rounded-3xl border border-gray-100 bg-white p-6 shadow-sm">
-                  <img 
-                    src={image} 
-                    alt={title} 
-                    className="w-full rounded-2xl object-cover aspect-video"
-                    loading="lazy"
-                    crossOrigin="anonymous"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      console.error(`Erro ao carregar imagem: ${image}`);
-                      target.style.display = 'none';
-                    }}
-                  />
+                  <div className="w-full rounded-2xl overflow-hidden aspect-video bg-gray-100 flex items-center justify-center">
+                    <img 
+                      src={image} 
+                      alt={title} 
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                      referrerPolicy="no-referrer"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        const parent = target.parentElement;
+                        if (parent) {
+                          parent.innerHTML = `<div class="w-full h-full flex items-center justify-center text-gray-400"><span>Imagem não disponível</span></div>`;
+                        }
+                      }}
+                      onLoad={() => {
+                        // Imagem carregou com sucesso
+                      }}
+                    />
+                  </div>
                   <div className="space-y-2">
                     <h4 className="text-lg font-semibold text-gray-900">{title}</h4>
                     <p className="text-sm text-gray-700">{description}</p>
