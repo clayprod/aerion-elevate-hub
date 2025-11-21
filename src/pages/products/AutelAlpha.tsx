@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ProductHeader } from '@/components/products/ProductHeader';
 import { ProductStickyMenu } from '@/components/products/ProductStickyMenu';
 import { ProductTechnicalData } from '@/components/products/ProductTechnicalData';
@@ -86,6 +86,16 @@ const AutelAlpha: React.FC = () => {
   ];
 
   const [selectedCameraFeature, setSelectedCameraFeature] = useState('super-zoom');
+  const videoRef = useRef<HTMLVideoElement>(null);
+  
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.load();
+      videoRef.current.play().catch(() => {
+        // Ignora erros de autoplay
+      });
+    }
+  }, [selectedCameraFeature]);
 
   const cameraFeatures = {
     'super-zoom': {
@@ -541,13 +551,14 @@ const AutelAlpha: React.FC = () => {
                 </div>
                 <div className="rounded-2xl overflow-hidden shadow-lg">
                   <video
-                    key={selectedCameraFeature}
+                    key={`${selectedCameraFeature}-${cameraFeatures[selectedCameraFeature as keyof typeof cameraFeatures].video}`}
+                    ref={videoRef}
                     className="w-full aspect-video object-cover"
                     autoPlay
                     muted
                     loop
                     playsInline
-                    preload="metadata"
+                    preload="auto"
                   >
                     <source src={cameraFeatures[selectedCameraFeature as keyof typeof cameraFeatures].video} type="video/mp4" />
                     Seu navegador não suporta a reprodução de vídeos.
