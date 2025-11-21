@@ -86,42 +86,32 @@ const AutelAlpha: React.FC = () => {
   ];
 
   const [selectedCameraFeature, setSelectedCameraFeature] = useState('super-zoom');
-  const [videoKey, setVideoKey] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
   
   useEffect(() => {
-    // Força recriação completa do elemento video ao mudar de aba
-    setVideoKey(prev => prev + 1);
-    
-    // Timeout para garantir que o novo elemento video seja montado
-    const timer = setTimeout(() => {
-      if (videoRef.current) {
-        videoRef.current.currentTime = 0;
-        videoRef.current.load();
-        videoRef.current.play().catch(() => {
-          // Ignora erros de autoplay
-        });
-      }
-    }, 10);
-
-    return () => clearTimeout(timer);
+    if (videoRef.current) {
+      videoRef.current.load();
+      videoRef.current.play().catch(() => {
+        // Ignora erros de autoplay
+      });
+    }
   }, [selectedCameraFeature]);
 
   const cameraFeatures = {
     'super-zoom': {
       title: 'Super Zoom',
       description: 'A câmera de zoom suporta zoom óptico 4K 35x e zoom híbrido máximo de 560x com observação clara de até 8 quilômetros de distância. Potencializa eficientemente aplicações como inspeção de longa distância.',
-      video: 'https://www.autelrobotics.com/wp-content/uploads/2025/01/alpha-s3-video4.mp4'
+      video: 'https://www.autelrobotics.com/wp-content/uploads/2025/01/alpha-s3-video1.mp4'
     },
     'thermal': {
       title: 'Percepção Térmica Forte',
       description: 'A câmera térmica suporta zoom híbrido 56x, lentes de imagem térmica dupla, com resolução de 640×512. Possui lente grande angular de 13mm e lente teleobjetiva de 45mm, atendendo visão geral com distâncias focais curtas e visualização orientada a detalhes com distâncias focais longas.',
-      video: 'https://www.autelrobotics.com/wp-content/uploads/2025/01/alpha-s3-video4.mp4'
+      video: 'https://www.autelrobotics.com/wp-content/uploads/2025/01/alpha-s3-video2.mp4'
     },
     'sensitive': {
       title: 'Imagem Super-sensível',
       description: 'Suporta redução de ruído multi-quadro inteligente por hardware e tecnologia de fusão HDR, mesmo em condições de luz da lua, pode capturar detalhes do alvo, atendendo às necessidades de vários cenários de captura.',
-      video: 'https://www.autelrobotics.com/wp-content/uploads/2025/01/alpha-s3-video4.mp4'
+      video: 'https://www.autelrobotics.com/wp-content/uploads/2025/01/alpha-s3-video3.mp4'
     },
     'ranging': {
       title: 'Medição Precisa',
@@ -561,16 +551,16 @@ const AutelAlpha: React.FC = () => {
                 </div>
                 <div className="rounded-2xl overflow-hidden shadow-lg">
                   <video
-                    key={`video-${selectedCameraFeature}-${videoKey}`}
+                    key={selectedCameraFeature}
                     ref={videoRef}
                     className="w-full aspect-video object-cover"
                     autoPlay
                     muted
                     loop
                     playsInline
-                    preload="auto"
+                    preload="metadata"
                   >
-                    <source src={`${cameraFeatures[selectedCameraFeature as keyof typeof cameraFeatures].video}?t=${videoKey}`} type="video/mp4" />
+                    <source src={cameraFeatures[selectedCameraFeature as keyof typeof cameraFeatures].video} type="video/mp4" />
                     Seu navegador não suporta a reprodução de vídeos.
                   </video>
                 </div>
