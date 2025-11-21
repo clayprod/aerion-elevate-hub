@@ -382,7 +382,7 @@ const AutelAlpha: React.FC = () => {
                 backgroundImage: "url('https://www.autelrobotics.cn/wp-content/uploads/2025/02/alpha-s7-img.png')"
               }}
             />
-            <div className="absolute inset-0 bg-black/40" />
+            <div className="absolute inset-0 bg-black/70" />
             <div className="relative z-10 px-6 pt-16 pb-16 sm:px-10 text-center">
               <h3 className="text-3xl sm:text-4xl font-semibold leading-tight mb-4">
                 Baterias Hot-Swappable
@@ -449,7 +449,7 @@ const AutelAlpha: React.FC = () => {
                 backgroundImage: "url('https://www.autelrobotics.com/wp-content/uploads/2025/02/alpha-s6-img-pc.png')"
               }}
             />
-            <div className="absolute inset-0 bg-black/40" />
+            <div className="absolute inset-0 bg-black/70" />
             <div className="relative z-10 px-6 pt-16 pb-16 sm:px-10 text-center">
               <h3 className="text-3xl sm:text-4xl font-semibold leading-tight mb-4">
                 Múltiplas Capacidades de Carga Útil
