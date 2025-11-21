@@ -289,7 +289,7 @@ const AutelAlpha: React.FC = () => {
                 backgroundImage: "url('https://www.autelrobotics.com/wp-content/uploads/2025/02/alpha-new-banner.png')"
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/20" />
             <div className="relative z-10 max-w-3xl w-full px-6 py-12 sm:px-10">
               <h3 className="text-3xl sm:text-4xl font-semibold leading-tight mb-4">
                 Autel Alpha
