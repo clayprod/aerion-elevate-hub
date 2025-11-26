@@ -36,12 +36,12 @@ const Blog = () => {
 
       <main className="pt-28 pb-20">
         {/* Hero Section */}
-        <section className="bg-gradient-primary py-8">
+        <section className="bg-white py-8">
           <div className="container-custom text-center">
             <h1 className="text-3xl md:text-4xl font-heading font-bold mb-4 text-navy-deep">
               Blog Aerion
             </h1>
-            <p className="text-xl text-navy-deep max-w-3xl mx-auto">
+            <p className="text-xl text-gray-900 max-w-3xl mx-auto font-semibold">
               Insights, novidades e cases de sucesso sobre tecnologia aérea profissional
             </p>
           </div>
