@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileFloatingCTA from "@/components/MobileFloatingCTA";
+import { SEOHead } from "@/components/SEO/SEOHead";
 import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -55,6 +56,13 @@ const products = [
 const Produtos = () => {
   return (
     <div className="min-h-screen">
+      <SEOHead
+        title="Produtos Autel | Drones Profissionais para Operações Enterprise"
+        description="Conheça a linha completa de drones Autel profissionais: EVO Lite Enterprise, EVO Max V2 e Autel Alpha. Tecnologia de ponta para construção, inspeção industrial, segurança pública e resgate."
+        keywords="drones Autel, EVO Lite Enterprise, EVO Max V2, Autel Alpha, drones profissionais, drones enterprise, tecnologia aérea, drones Brasil"
+        canonical="https://aerion.com.br/produtos"
+        ogType="website"
+      />
       <Header />
       
       <main className="pt-28 pb-20">
@@ -86,7 +94,11 @@ const Produtos = () => {
                     <img
                       src={product.image}
                       alt={product.name}
+                      width={400}
+                      height={192}
+                      loading="lazy"
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      style={{ aspectRatio: '400 / 192' }}
                       onError={(e) => {
                         // Fallback to gradient background if image fails to load
                         e.currentTarget.style.display = 'none';

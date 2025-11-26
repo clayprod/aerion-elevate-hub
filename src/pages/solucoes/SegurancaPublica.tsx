@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import MobileFloatingCTA from '@/components/MobileFloatingCTA';
+import { SEOHead } from '@/components/SEO/SEOHead';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { 
@@ -181,6 +182,13 @@ const SegurancaPublica = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead
+        title="Drones para Segurança Pública e Defesa Civil | Vigilância e Patrulhamento"
+        description="Amplie capacidades operacionais com drones Autel para vigilância 360°, patrulha inteligente, gestão de tráfego urbano e resposta rápida a emergências. Tecnologia de visão noturna de última geração para segurança pública."
+        keywords="drones segurança pública, drones defesa civil, vigilância drones, patrulhamento drones, drones trânsito, drones fiscalização, monitoramento eventos, drones polícia"
+        canonical="https://aerion.com.br/solucoes/seguranca"
+        ogType="website"
+      />
       <Header />
       
       <main className="pt-28 pb-20">

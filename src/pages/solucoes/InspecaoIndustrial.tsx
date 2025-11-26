@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import MobileFloatingCTA from '@/components/MobileFloatingCTA';
+import { SEOHead } from '@/components/SEO/SEOHead';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { 
@@ -181,6 +182,13 @@ const InspecaoIndustrial = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead
+        title="Drones para Inspeção Industrial e Energia | Inspeções Térmicas Avançadas"
+        description="Maximize eficiência e segurança com drones Autel para inspeções térmicas em energia, óleo & gás, mineração. Detecção precoce de hotspots, operações BVLOS e redução de paradas não planejadas em até 60%."
+        keywords="drones inspeção industrial, inspeção térmica drones, drones energia, drones óleo e gás, drones mineração, inspeção painéis solares, detecção hotspots, drones BVLOS"
+        canonical="https://aerion.com.br/solucoes/industrial"
+        ogType="website"
+      />
       <Header />
       
       <main className="pt-28 pb-20">

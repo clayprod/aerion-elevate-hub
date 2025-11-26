@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import MobileFloatingCTA from '@/components/MobileFloatingCTA';
+import { SEOHead } from '@/components/SEO/SEOHead';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { 
@@ -182,6 +183,13 @@ const ResgateEmergencias = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead
+        title="Drones para Resgate e Emergências | Busca e Salvamento com Tecnologia Aérea"
+        description="Salve vidas com drones Autel para busca e resgate eficaz, combate a incêndios florestais, localização de vítimas em minutos e avaliação de danos em tempo real. Operações em áreas remotas e desastres."
+        keywords="drones resgate, drones emergências, busca resgate drones, drones incêndios, drones salvamento, localização vítimas drones, drones desastres, drones bombeiros"
+        canonical="https://aerion.com.br/solucoes/resgate"
+        ogType="website"
+      />
       <Header />
       
       <main className="pt-28 pb-20">

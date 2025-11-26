@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileFloatingCTA from "@/components/MobileFloatingCTA";
+import { SEOHead } from "@/components/SEO/SEOHead";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Card } from "@/components/ui/card";
@@ -32,6 +33,13 @@ const Blog = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead
+        title="Blog Aerion | Insights sobre Drones Profissionais e Tecnologia Aérea"
+        description="Acesse insights, novidades e cases de sucesso sobre tecnologia aérea profissional, drones Autel, aplicações industriais e muito mais no blog da Aerion Technologies."
+        keywords="blog drones, tecnologia aérea, drones profissionais, Autel, inspeção industrial, topografia, segurança pública, resgate, blog aerion"
+        canonical="https://aerion.com.br/blog"
+        ogType="website"
+      />
       <Header />
 
       <main className="pt-28 pb-20">
@@ -78,7 +86,11 @@ const Blog = () => {
                           <img
                             src={post.cover_image}
                             alt={post.title}
+                            width={600}
+                            height={338}
+                            loading="lazy"
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            style={{ aspectRatio: '16 / 9' }}
                           />
                         </div>
                       )}

@@ -353,19 +353,6 @@ const Contato = () => {
                   
                   <div className="space-y-3">
                     <a
-                      href="tel:+551151024229"
-                      className="flex items-center space-x-3 group hover:bg-gray-light/30 p-3 rounded-xl transition-all duration-200 hover:shadow-sm"
-                    >
-                      <div className="w-12 h-12 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-medium/20 transition-colors">
-                        <Phone className="h-6 w-6 text-blue-medium" />
-                      </div>
-                      <div>
-                        <p className="text-sm font-heading font-semibold text-gray-dark mb-1">Telefone</p>
-                        <p className="text-navy-deep">+55 11 5102-4229</p>
-                      </div>
-                    </a>
-
-                    <a
                       href="https://wa.me/5511934668839"
                       target="_blank"
                       rel="noopener noreferrer"

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Instagram, MessageCircle } from "lucide-react";
+import { Mail, MapPin, Instagram, MessageCircle } from "lucide-react";
 import logo from "@/assets/logo-aerion.png";
 import CookieManager from "./CookieManager";
 
@@ -94,13 +94,6 @@ const Footer = () => {
           <div>
             <h4 className="font-heading font-bold text-lg mb-4">Contato</h4>
             <div className="flex flex-col space-y-3">
-              <a
-                href="tel:+551151024229"
-                className="flex items-center space-x-3 text-gray-medium hover:text-blue-light transition-colors text-sm"
-              >
-                <Phone className="h-4 w-4 flex-shrink-0" />
-                <span>+55 11 5102-4229</span>
-              </a>
               <a
                 href="https://wa.me/5511934668839"
                 target="_blank"

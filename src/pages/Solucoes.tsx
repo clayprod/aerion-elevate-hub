@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileFloatingCTA from "@/components/MobileFloatingCTA";
+import { SEOHead } from "@/components/SEO/SEOHead";
 import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -76,6 +77,13 @@ const solutions = [
 const Solucoes = () => {
   return (
     <div className="min-h-screen">
+      <SEOHead
+        title="Soluções em Drones | Aplicações Enterprise por Vertical"
+        description="Soluções especializadas em drones para Construção e Topografia, Inspeção Industrial, Segurança Pública e Resgate. Tecnologia aérea de ponta para transformar suas operações."
+        keywords="soluções drones, drones construção, drones topografia, inspeção industrial drones, segurança pública drones, resgate drones, aplicações drones enterprise"
+        canonical="https://aerion.com.br/solucoes"
+        ogType="website"
+      />
       <Header />
       
       <main className="pt-28 pb-20">
@@ -104,7 +112,11 @@ const Solucoes = () => {
                     <img
                       src={solution.image}
                       alt={solution.title}
+                      width={600}
+                      height={256}
+                      loading="lazy"
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      style={{ aspectRatio: '600 / 256' }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                     

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import MobileFloatingCTA from '@/components/MobileFloatingCTA';
+import { SEOHead } from '@/components/SEO/SEOHead';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { 
@@ -133,6 +134,13 @@ const ConstrucaoTopografia = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead
+        title="Drones para Construção e Topografia | Soluções Aéreas Profissionais"
+        description="Transforme suas obras com drones Autel para levantamentos topográficos precisos, modelagem BIM, mapeamento urbano e medição de volumes. Tecnologia aérea de ponta para construção e topografia."
+        keywords="drones construção, drones topografia, levantamento topográfico drones, modelagem BIM, mapeamento urbano, medição volumes, drones obras, topografia aérea"
+        canonical="https://aerion.com.br/solucoes/construcao"
+        ogType="website"
+      />
       <Header />
       
       <main className="pt-28 pb-20">

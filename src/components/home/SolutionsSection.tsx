@@ -56,7 +56,11 @@ const SolutionsSection = () => {
                   <img
                     src={solution.image}
                     alt={solution.title}
+                    width={600}
+                    height={256}
+                    loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    style={{ aspectRatio: '600 / 256' }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                   <div className="absolute bottom-4 left-4 right-4">

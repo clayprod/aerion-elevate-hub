@@ -1,37 +1,59 @@
+import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import Produtos from "./pages/Produtos";
-import Solucoes from "./pages/Solucoes";
-import Sobre from "./pages/Sobre";
-import Contato from "./pages/Contato";
-import PoliticaPrivacidade from "./pages/PoliticaPrivacidade";
-import TermosUso from "./pages/TermosUso";
-import NotFound from "./pages/NotFound";
-import Auth from "./pages/Auth";
-import Blog from "./pages/Blog";
-import BlogPost from "./pages/BlogPost";
-import AutelAlpha from "./pages/products/AutelAlpha";
-import EvoLiteEnterprise from "./pages/products/EvoLiteEnterprise";
-import EvoMaxV2 from "./pages/products/EvoMaxV2";
-import ConstrucaoTopografia from "./pages/solucoes/ConstrucaoTopografia";
-import InspecaoIndustrial from "./pages/solucoes/InspecaoIndustrial";
-import SegurancaPublica from "./pages/solucoes/SegurancaPublica";
-import ResgateEmergencias from "./pages/solucoes/ResgateEmergencias";
-import AdminBlog from "./pages/admin/AdminBlog";
-import Dashboard from "./pages/admin/Dashboard";
-import AdminHero from "./pages/admin/AdminHero";
-import AdminProducts from "./pages/admin/AdminProducts";
-import AdminSolutions from "./pages/admin/AdminSolutions";
-import AdminSettings from "./pages/admin/AdminSettings";
 import { AuthProvider } from "./contexts/AuthContext";
 import { CookieProvider } from "./contexts/CookieContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ScrollToTop from "./components/ScrollToTop";
 import CookieConsent from "./components/CookieConsent";
+
+// Rotas principais - carregadas imediatamente (above the fold)
+import Index from "./pages/Index";
+import NotFound from "./pages/NotFound";
+import Sitemap from "./pages/Sitemap";
+
+// Rotas públicas - lazy loaded
+const Produtos = lazy(() => import("./pages/Produtos"));
+const Solucoes = lazy(() => import("./pages/Solucoes"));
+const Sobre = lazy(() => import("./pages/Sobre"));
+const Contato = lazy(() => import("./pages/Contato"));
+const PoliticaPrivacidade = lazy(() => import("./pages/PoliticaPrivacidade"));
+const TermosUso = lazy(() => import("./pages/TermosUso"));
+const Auth = lazy(() => import("./pages/Auth"));
+const Blog = lazy(() => import("./pages/Blog"));
+const BlogPost = lazy(() => import("./pages/BlogPost"));
+
+// Rotas de produtos - lazy loaded
+const AutelAlpha = lazy(() => import("./pages/products/AutelAlpha"));
+const EvoLiteEnterprise = lazy(() => import("./pages/products/EvoLiteEnterprise"));
+const EvoMaxV2 = lazy(() => import("./pages/products/EvoMaxV2"));
+
+// Rotas de soluções - lazy loaded
+const ConstrucaoTopografia = lazy(() => import("./pages/solucoes/ConstrucaoTopografia"));
+const InspecaoIndustrial = lazy(() => import("./pages/solucoes/InspecaoIndustrial"));
+const SegurancaPublica = lazy(() => import("./pages/solucoes/SegurancaPublica"));
+const ResgateEmergencias = lazy(() => import("./pages/solucoes/ResgateEmergencias"));
+
+// Rotas admin - lazy loaded (menos acessadas)
+const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
+const AdminBlog = lazy(() => import("./pages/admin/AdminBlog"));
+const AdminHero = lazy(() => import("./pages/admin/AdminHero"));
+const AdminProducts = lazy(() => import("./pages/admin/AdminProducts"));
+const AdminSolutions = lazy(() => import("./pages/admin/AdminSolutions"));
+const AdminSettings = lazy(() => import("./pages/admin/AdminSettings"));
+
+// Componente de loading para Suspense
+const PageLoader = () => (
+  <div className="flex min-h-screen items-center justify-center">
+    <div className="text-center">
+      <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-blue-medium border-r-transparent"></div>
+      <p className="mt-4 text-gray-dark">Carregando...</p>
+    </div>
+  </div>
+);
 
 const queryClient = new QueryClient();
 
@@ -45,80 +67,95 @@ const App = () => (
           <BrowserRouter>
             <ScrollToTop />
             <CookieConsent />
-            <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/produtos" element={<Produtos />} />
-            <Route path="/produtos/evo-lite-enterprise" element={<EvoLiteEnterprise />} />
-            <Route path="/produtos/evo-max-v2" element={<EvoMaxV2 />} />
-            <Route path="/produtos/autel-alpha" element={<AutelAlpha />} />
-            <Route path="/solucoes" element={<Solucoes />} />
-            <Route path="/solucoes/construcao" element={<ConstrucaoTopografia />} />
-            <Route path="/solucoes/industrial" element={<InspecaoIndustrial />} />
-            <Route path="/solucoes/seguranca" element={<SegurancaPublica />} />
-            <Route path="/solucoes/resgate" element={<ResgateEmergencias />} />
-            <Route path="/sobre" element={<Sobre />} />
-            <Route path="/contato" element={<Contato />} />
-            <Route path="/politica-privacidade" element={<PoliticaPrivacidade />} />
-            <Route path="/termos-uso" element={<TermosUso />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:slug" element={<BlogPost />} />
-            <Route path="/auth" element={<Auth />} />
-            
-            {/* Protected Admin Routes */}
-            <Route
-              path="/admin"
-              element={
-                <ProtectedRoute requireAdmin>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/admin/blog"
-              element={
-                <ProtectedRoute requireAdmin>
-                  <AdminBlog />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/admin/hero"
-              element={
-                <ProtectedRoute requireAdmin>
-                  <AdminHero />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/admin/products"
-              element={
-                <ProtectedRoute requireAdmin>
-                  <AdminProducts />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/admin/solutions"
-              element={
-                <ProtectedRoute requireAdmin>
-                  <AdminSolutions />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/admin/settings"
-              element={
-                <ProtectedRoute requireAdmin>
-                  <AdminSettings />
-                </ProtectedRoute>
-              }
-            />
-            
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
+            <Suspense fallback={<PageLoader />}>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/produtos" element={<Produtos />} />
+                <Route path="/produtos/evo-lite-enterprise" element={<EvoLiteEnterprise />} />
+                <Route path="/produtos/evo-max-v2" element={<EvoMaxV2 />} />
+                <Route path="/produtos/autel-alpha" element={<AutelAlpha />} />
+                <Route path="/solucoes" element={<Solucoes />} />
+                <Route path="/solucoes/construcao" element={<ConstrucaoTopografia />} />
+                <Route path="/solucoes/industrial" element={<InspecaoIndustrial />} />
+                <Route path="/solucoes/seguranca" element={<SegurancaPublica />} />
+                <Route path="/solucoes/resgate" element={<ResgateEmergencias />} />
+                <Route path="/sobre" element={<Sobre />} />
+                <Route path="/contato" element={<Contato />} />
+                <Route path="/politica-privacidade" element={<PoliticaPrivacidade />} />
+                <Route path="/termos-uso" element={<TermosUso />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/blog/:slug" element={<BlogPost />} />
+                <Route path="/sitemap.xml" element={<Sitemap />} />
+                <Route path="/auth" element={<Auth />} />
+                
+                {/* Protected Admin Routes */}
+                <Route
+                  path="/admin"
+                  element={
+                    <ProtectedRoute requireAdmin>
+                      <Suspense fallback={<PageLoader />}>
+                        <Dashboard />
+                      </Suspense>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/blog"
+                  element={
+                    <ProtectedRoute requireAdmin>
+                      <Suspense fallback={<PageLoader />}>
+                        <AdminBlog />
+                      </Suspense>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/hero"
+                  element={
+                    <ProtectedRoute requireAdmin>
+                      <Suspense fallback={<PageLoader />}>
+                        <AdminHero />
+                      </Suspense>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/products"
+                  element={
+                    <ProtectedRoute requireAdmin>
+                      <Suspense fallback={<PageLoader />}>
+                        <AdminProducts />
+                      </Suspense>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/solutions"
+                  element={
+                    <ProtectedRoute requireAdmin>
+                      <Suspense fallback={<PageLoader />}>
+                        <AdminSolutions />
+                      </Suspense>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/settings"
+                  element={
+                    <ProtectedRoute requireAdmin>
+                      <Suspense fallback={<PageLoader />}>
+                        <AdminSettings />
+                      </Suspense>
+                    </ProtectedRoute>
+                  }
+                />
+                
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
+          </BrowserRouter>
+        </TooltipProvider>
       </CookieProvider>
     </AuthProvider>
   </QueryClientProvider>

@@ -1,6 +1,8 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileFloatingCTA from "@/components/MobileFloatingCTA";
+import { SEOHead } from "@/components/SEO/SEOHead";
+import { BlogPostSchema } from "@/components/SEO/BlogPostSchema";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -28,8 +30,48 @@ const BlogPost = () => {
     },
   });
 
+  // Construir meta tags dinâmicas baseadas no post
+  const getSEOProps = () => {
+    if (!post) {
+      return {
+        title: "Post não encontrado | Blog Aerion",
+        description: "O post solicitado não foi encontrado.",
+        canonical: "https://aerion.com.br/blog",
+      };
+    }
+
+    const title = `${post.title} | Blog Aerion`;
+    const description = post.excerpt || `Leia mais sobre ${post.title} no blog da Aerion Technologies.`;
+    const canonical = `https://aerion.com.br/blog/${post.slug}`;
+    const ogImage = post.cover_image || "https://aerion.com.br/images/logos/autel-logo.png";
+    const keywords = post.tags?.join(", ") || post.category || "drones, tecnologia aérea, Autel";
+
+    return {
+      title,
+      description,
+      keywords,
+      canonical,
+      ogType: "article" as const,
+      ogImage,
+    };
+  };
+
+  const seoProps = getSEOProps();
+
   return (
     <div className="min-h-screen">
+      {!isLoading && <SEOHead {...seoProps} />}
+      {!isLoading && post && (
+        <BlogPostSchema
+          title={post.title}
+          description={post.excerpt || post.title}
+          author="Admin"
+          publishedDate={post.published_at || post.created_at || new Date().toISOString()}
+          modifiedDate={post.updated_at || post.published_at || post.created_at}
+          image={post.cover_image || undefined}
+          url={`https://aerion.com.br/blog/${post.slug}`}
+        />
+      )}
       <Header />
 
       <main className="pt-28 pb-20">
@@ -88,7 +130,11 @@ const BlogPost = () => {
                     <img
                       src={post.cover_image}
                       alt={post.title}
+                      width={400}
+                      height={500}
+                      loading="eager"
                       className="w-full h-full object-cover rounded-xl shadow-lg"
+                      style={{ aspectRatio: '4 / 5' }}
                     />
                   )}
                 </div>

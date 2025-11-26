@@ -1,9 +1,17 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { SEOHead } from "@/components/SEO/SEOHead";
 
 const PoliticaPrivacidade = () => {
   return (
     <div className="min-h-screen">
+      <SEOHead
+        title="Política de Privacidade | Aerion Technologies"
+        description="Conheça como a Aerion Technologies coleta, utiliza e protege suas informações pessoais. Política de privacidade transparente e em conformidade com a LGPD."
+        keywords="política privacidade, LGPD, proteção dados, privacidade aerion, termos uso"
+        canonical="https://aerion.com.br/politica-privacidade"
+        ogType="website"
+      />
       <Header />
       
       <main className="pt-28 pb-20">
@@ -164,9 +172,6 @@ const PoliticaPrivacidade = () => {
                       <div className="bg-gray-50 p-6 rounded-xl">
                         <p className="text-gray-700 mb-2">
                           <strong>Email:</strong> contato@aerion.com.br
-                        </p>
-                        <p className="text-gray-700 mb-2">
-                          <strong>Telefone:</strong> +55 11 5102-4229
                         </p>
                         <p className="text-gray-700">
                           <strong>Endereço:</strong> Edifício Itamaracá, R. Quintana 887, Cj. 111, 11º Andar, Brooklin Novo - SP, 04569-011
