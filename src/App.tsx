@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import React, { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -10,32 +10,28 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import ScrollToTop from "./components/ScrollToTop";
 import CookieConsent from "./components/CookieConsent";
 
-// Rotas principais - carregadas imediatamente (above the fold)
+// Rotas principais - carregadas imediatamente
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Sitemap from "./pages/Sitemap";
+import Produtos from "./pages/Produtos";
+import Solucoes from "./pages/Solucoes";
+import Sobre from "./pages/Sobre";
+import Contato from "./pages/Contato";
+import PoliticaPrivacidade from "./pages/PoliticaPrivacidade";
+import TermosUso from "./pages/TermosUso";
+import Auth from "./pages/Auth";
+import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
+import AutelAlpha from "./pages/products/AutelAlpha";
+import EvoLiteEnterprise from "./pages/products/EvoLiteEnterprise";
+import EvoMaxV2 from "./pages/products/EvoMaxV2";
+import ConstrucaoTopografia from "./pages/solucoes/ConstrucaoTopografia";
+import InspecaoIndustrial from "./pages/solucoes/InspecaoIndustrial";
+import SegurancaPublica from "./pages/solucoes/SegurancaPublica";
+import ResgateEmergencias from "./pages/solucoes/ResgateEmergencias";
 
-// Rotas públicas - lazy loaded
-const Produtos = lazy(() => import("./pages/Produtos"));
-const Solucoes = lazy(() => import("./pages/Solucoes"));
-const Sobre = lazy(() => import("./pages/Sobre"));
-const Contato = lazy(() => import("./pages/Contato"));
-const PoliticaPrivacidade = lazy(() => import("./pages/PoliticaPrivacidade"));
-const TermosUso = lazy(() => import("./pages/TermosUso"));
-const Auth = lazy(() => import("./pages/Auth"));
-const Blog = lazy(() => import("./pages/Blog"));
-const BlogPost = lazy(() => import("./pages/BlogPost"));
-
-// Rotas de produtos - lazy loaded
-const AutelAlpha = lazy(() => import("./pages/products/AutelAlpha"));
-const EvoLiteEnterprise = lazy(() => import("./pages/products/EvoLiteEnterprise"));
-const EvoMaxV2 = lazy(() => import("./pages/products/EvoMaxV2"));
-
-// Rotas de soluções - lazy loaded
-const ConstrucaoTopografia = lazy(() => import("./pages/solucoes/ConstrucaoTopografia"));
-const InspecaoIndustrial = lazy(() => import("./pages/solucoes/InspecaoIndustrial"));
-const SegurancaPublica = lazy(() => import("./pages/solucoes/SegurancaPublica"));
-const ResgateEmergencias = lazy(() => import("./pages/solucoes/ResgateEmergencias"));
+// Rotas admin - lazy loaded (menos acessadas)
 
 // Rotas admin - lazy loaded (menos acessadas)
 const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
@@ -67,26 +63,25 @@ const App = () => (
           <BrowserRouter>
             <ScrollToTop />
             <CookieConsent />
-            <Suspense fallback={<PageLoader />}>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/produtos" element={<Produtos />} />
-                <Route path="/produtos/evo-lite-enterprise" element={<EvoLiteEnterprise />} />
-                <Route path="/produtos/evo-max-v2" element={<EvoMaxV2 />} />
-                <Route path="/produtos/autel-alpha" element={<AutelAlpha />} />
-                <Route path="/solucoes" element={<Solucoes />} />
-                <Route path="/solucoes/construcao" element={<ConstrucaoTopografia />} />
-                <Route path="/solucoes/industrial" element={<InspecaoIndustrial />} />
-                <Route path="/solucoes/seguranca" element={<SegurancaPublica />} />
-                <Route path="/solucoes/resgate" element={<ResgateEmergencias />} />
-                <Route path="/sobre" element={<Sobre />} />
-                <Route path="/contato" element={<Contato />} />
-                <Route path="/politica-privacidade" element={<PoliticaPrivacidade />} />
-                <Route path="/termos-uso" element={<TermosUso />} />
-                <Route path="/blog" element={<Blog />} />
-                <Route path="/blog/:slug" element={<BlogPost />} />
-                <Route path="/sitemap.xml" element={<Sitemap />} />
-                <Route path="/auth" element={<Auth />} />
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/produtos" element={<Produtos />} />
+              <Route path="/produtos/evo-lite-enterprise" element={<EvoLiteEnterprise />} />
+              <Route path="/produtos/evo-max-v2" element={<EvoMaxV2 />} />
+              <Route path="/produtos/autel-alpha" element={<AutelAlpha />} />
+              <Route path="/solucoes" element={<Solucoes />} />
+              <Route path="/solucoes/construcao" element={<ConstrucaoTopografia />} />
+              <Route path="/solucoes/industrial" element={<InspecaoIndustrial />} />
+              <Route path="/solucoes/seguranca" element={<SegurancaPublica />} />
+              <Route path="/solucoes/resgate" element={<ResgateEmergencias />} />
+              <Route path="/sobre" element={<Sobre />} />
+              <Route path="/contato" element={<Contato />} />
+              <Route path="/politica-privacidade" element={<PoliticaPrivacidade />} />
+              <Route path="/termos-uso" element={<TermosUso />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
+              <Route path="/sitemap.xml" element={<Sitemap />} />
+              <Route path="/auth" element={<Auth />} />
                 
                 {/* Protected Admin Routes */}
                 <Route
@@ -150,10 +145,9 @@ const App = () => (
                   }
                 />
                 
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Suspense>
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
           </BrowserRouter>
         </TooltipProvider>
       </CookieProvider>

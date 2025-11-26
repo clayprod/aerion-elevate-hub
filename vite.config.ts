@@ -28,8 +28,8 @@ export default defineConfig(({ mode }) => ({
         manualChunks: (id) => {
           // Vendor chunks para bibliotecas grandes
           if (id.includes('node_modules')) {
-            // React e React DOM juntos
-            if (id.includes('react') || id.includes('react-dom')) {
+            // React e React DOM devem ficar juntos e sempre disponíveis
+            if (id.includes('react') || id.includes('react-dom') || id.includes('scheduler')) {
               return 'vendor-react';
             }
             // Radix UI components
