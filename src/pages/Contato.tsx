@@ -352,6 +352,16 @@ const Contato = () => {
                   </h3>
                   
                   <div className="space-y-3">
+                    <div className="flex items-center space-x-3 group p-3 rounded-xl">
+                      <div className="w-12 h-12 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0">
+                        <Phone className="h-6 w-6 text-blue-medium" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-heading font-semibold text-gray-dark mb-1">Telefone</p>
+                        <p className="text-navy-deep">+55 11 5102-4229</p>
+                      </div>
+                    </div>
+
                     <a
                       href="https://wa.me/5511934668839"
                       target="_blank"
