@@ -24,13 +24,13 @@ export default defineConfig(({ mode }) => ({
     // Code splitting e chunk optimization
     rollupOptions: {
       output: {
-        // Separar vendor chunks
+        // Separar vendor chunks (React não deve ser separado)
         manualChunks: (id) => {
           // Vendor chunks para bibliotecas grandes
           if (id.includes('node_modules')) {
-            // React e React DOM devem ficar juntos e sempre disponíveis
+            // NÃO separar React - deve ficar no bundle principal
             if (id.includes('react') || id.includes('react-dom') || id.includes('scheduler')) {
-              return 'vendor-react';
+              return undefined; // React fica no bundle principal
             }
             // Radix UI components
             if (id.includes('@radix-ui')) {
