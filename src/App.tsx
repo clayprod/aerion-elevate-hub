@@ -32,8 +32,6 @@ import SegurancaPublica from "./pages/solucoes/SegurancaPublica";
 import ResgateEmergencias from "./pages/solucoes/ResgateEmergencias";
 
 // Rotas admin - lazy loaded (menos acessadas)
-
-// Rotas admin - lazy loaded (menos acessadas)
 const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
 const AdminBlog = lazy(() => import("./pages/admin/AdminBlog"));
 const AdminHero = lazy(() => import("./pages/admin/AdminHero"));
