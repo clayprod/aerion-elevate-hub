@@ -41,7 +41,7 @@ const Blog = () => {
             <h1 className="text-3xl md:text-4xl font-heading font-bold mb-4">
               Blog Aerion
             </h1>
-            <p className="text-xl text-white max-w-3xl mx-auto">
+            <p className="text-xl text-white max-w-3xl mx-auto opacity-90">
               Insights, novidades e cases de sucesso sobre tecnologia aérea profissional
             </p>
           </div>

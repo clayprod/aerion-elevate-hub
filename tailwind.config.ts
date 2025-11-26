@@ -132,6 +132,11 @@ export default {
         "slide-up": "slide-up 0.6s ease-out",
         "float": "float 3s ease-in-out infinite",
       },
+      backgroundImage: {
+        "gradient-primary": "var(--gradient-primary)",
+        "gradient-accent": "var(--gradient-accent)",
+        "gradient-hero": "var(--gradient-hero)",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
