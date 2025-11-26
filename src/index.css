@@ -179,6 +179,14 @@ All colors MUST be HSL.
   .container-custom {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
+
+  .hero-section-white {
+    background-color: #ffffff !important;
+  }
+
+  .hero-text-dark {
+    color: #111827 !important;
+  }
 }
 
 /* Responsive Video Background */
