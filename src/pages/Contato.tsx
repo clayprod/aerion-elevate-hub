@@ -201,12 +201,12 @@ const Contato = () => {
       
       <main className="pt-28 pb-20">
         {/* Hero Section */}
-        <section className="py-2" style={{ backgroundColor: '#ffffff' }}>
+        <section id="contato-hero-section" className="py-2" style={{ backgroundColor: '#ffffff' }}>
           <div className="container-custom text-center">
             <h1 className="text-3xl md:text-4xl font-heading font-bold mb-4 text-navy-deep">
               Entre em Contato
             </h1>
-            <p className="text-xl max-w-3xl mx-auto font-semibold" style={{ color: '#111827', backgroundColor: 'transparent' }}>
+            <p id="contato-hero-text" className="text-xl max-w-3xl mx-auto font-semibold" style={{ color: '#111827', backgroundColor: 'transparent' }}>
               Pronto para revolucionar suas operações? Nossa equipe de especialistas está pronta para ajudar você a escolher a solução ideal para seu negócio
             </p>
           </div>

@@ -187,6 +187,25 @@ All colors MUST be HSL.
   .hero-text-dark {
     color: #111827 !important;
   }
+
+  /* Fix específico para textos do blog e contato */
+  #blog-hero-section {
+    background-color: #ffffff !important;
+  }
+
+  #blog-hero-text {
+    color: #111827 !important;
+    background-color: transparent !important;
+  }
+
+  #contato-hero-section {
+    background-color: #ffffff !important;
+  }
+
+  #contato-hero-text {
+    color: #111827 !important;
+    background-color: transparent !important;
+  }
 }
 
 /* Responsive Video Background */
