@@ -30,7 +30,7 @@ export const BlogPostSchema: React.FC<BlogPostSchemaProps> = ({
       '@type': 'Article',
       headline: title,
       description: description,
-      image: image || `${organizationUrl}/images/logos/autel-logo.png`,
+      image: image || `${organizationUrl}/images/logos/logo-aerion.png`,
       datePublished: publishedDate,
       dateModified: modifiedDate || publishedDate,
       author: {
@@ -43,7 +43,7 @@ export const BlogPostSchema: React.FC<BlogPostSchemaProps> = ({
         url: organizationUrl,
         logo: {
           '@type': 'ImageObject',
-          url: `${organizationUrl}/images/logos/autel-logo.png`,
+          url: `${organizationUrl}/images/logos/logo-aerion.png`,
         },
       },
       mainEntityOfPage: {

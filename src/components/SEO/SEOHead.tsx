@@ -15,7 +15,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
   keywords,
   canonical,
   ogType = 'website',
-  ogImage = '/images/logos/autel-logo.png',
+  ogImage = 'https://aerion.com.br/images/logos/logo-aerion.png',
 }) => {
   useEffect(() => {
     // Atualizar título da página

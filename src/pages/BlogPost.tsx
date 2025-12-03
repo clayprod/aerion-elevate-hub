@@ -44,7 +44,7 @@ const BlogPost = () => {
     const title = `${post.title} | Blog Aerion`;
     const description = post.excerpt || `Leia mais sobre ${post.title} no blog da Aerion Technologies.`;
     const canonical = `https://aerion.com.br/blog/${post.slug}`;
-    const ogImage = post.cover_image || "https://aerion.com.br/images/logos/autel-logo.png";
+    const ogImage = post.cover_image || "https://aerion.com.br/images/logos/logo-aerion.png";
     const keywords = post.tags?.join(", ") || post.category || "drones, tecnologia aérea, Autel";
 
     return {
