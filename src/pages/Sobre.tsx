@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileFloatingCTA from "@/components/MobileFloatingCTA";
 import { SEOHead } from "@/components/SEO/SEOHead";
+import { Breadcrumbs } from "@/components/SEO/Breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Target, Eye, Award, Globe, Users, Shield } from "lucide-react";
@@ -19,6 +20,7 @@ const Sobre = () => {
       <Header />
       
       <main className="pt-28 pb-20">
+        <Breadcrumbs />
         {/* Story Section */}
         <section className="py-10 bg-gray-light/30">
           <div className="container-custom max-w-4xl">

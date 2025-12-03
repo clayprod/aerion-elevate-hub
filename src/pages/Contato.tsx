@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { SEOHead } from "@/components/SEO/SEOHead";
+import { Breadcrumbs } from "@/components/SEO/Breadcrumbs";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -200,6 +201,7 @@ const Contato = () => {
       <Header />
       
       <main className="pt-28 pb-20">
+        <Breadcrumbs />
         {/* Hero Section */}
         <section className="py-10 bg-gray-light/30">
           <div className="container-custom max-w-4xl">

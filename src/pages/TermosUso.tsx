@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { SEOHead } from "@/components/SEO/SEOHead";
+import { Breadcrumbs } from "@/components/SEO/Breadcrumbs";
 
 const TermosUso = () => {
   return (
@@ -15,6 +16,7 @@ const TermosUso = () => {
       <Header />
       
       <main className="pt-28 pb-20">
+        <Breadcrumbs />
         {/* Hero Section */}
         <section className="bg-gradient-primary py-16 text-white">
           <div className="container-custom text-center">
