@@ -4,6 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import MobileFloatingCTA from '@/components/MobileFloatingCTA';
 import { SEOHead } from '@/components/SEO/SEOHead';
+import { Breadcrumbs } from '@/components/SEO/Breadcrumbs';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { 
@@ -193,6 +194,11 @@ const ResgateEmergencias = () => {
       <Header />
       
       <main className="pt-28 pb-20">
+        <Breadcrumbs items={[
+          { label: 'Home', path: '/' },
+          { label: 'Soluções', path: '/solucoes' },
+          { label: 'Resgate e Emergências', path: '/solucoes/resgate' }
+        ]} />
         {/* Hero Section */}
         <section className="relative py-20 bg-gradient-to-br from-red-50 to-white">
           <div className="container-custom">

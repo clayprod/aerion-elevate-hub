@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -24,9 +24,7 @@ const staticRoutes = [
 ];
 
 const Sitemap = () => {
-  const [sitemapXml, setSitemapXml] = useState<string>('');
-
-  const { data: blogPosts } = useQuery({
+  const { data: blogPosts, isLoading } = useQuery({
     queryKey: ['sitemap-blog-posts'],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -41,49 +39,60 @@ const Sitemap = () => {
   });
 
   useEffect(() => {
-    if (blogPosts === undefined) return;
+    // Gerar XML dinamicamente
+    const generateSitemap = () => {
+      const currentDate = new Date().toISOString().split('T')[0];
 
-    const currentDate = new Date().toISOString().split('T')[0];
+      let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+      xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
 
-    let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
-    xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
-
-    // Adicionar rotas estáticas
-    staticRoutes.forEach((route) => {
-      xml += '  <url>\n';
-      xml += `    <loc>${BASE_URL}${route.path}</loc>\n`;
-      xml += `    <lastmod>${currentDate}</lastmod>\n`;
-      xml += `    <changefreq>${route.changefreq}</changefreq>\n`;
-      xml += `    <priority>${route.priority}</priority>\n`;
-      xml += '  </url>\n';
-    });
-
-    // Adicionar posts de blog
-    if (blogPosts && blogPosts.length > 0) {
-      blogPosts.forEach((post) => {
-        const lastmod = post.updated_at || post.published_at || currentDate;
-        const lastmodDate = new Date(lastmod).toISOString().split('T')[0];
-        
+      // Adicionar rotas estáticas
+      staticRoutes.forEach((route) => {
         xml += '  <url>\n';
-        xml += `    <loc>${BASE_URL}/blog/${encodeURIComponent(post.slug)}</loc>\n`;
-        xml += `    <lastmod>${lastmodDate}</lastmod>\n`;
-        xml += '    <changefreq>monthly</changefreq>\n';
-        xml += '    <priority>0.7</priority>\n';
+        xml += `    <loc>${BASE_URL}${route.path}</loc>\n`;
+        xml += `    <lastmod>${currentDate}</lastmod>\n`;
+        xml += `    <changefreq>${route.changefreq}</changefreq>\n`;
+        xml += `    <priority>${route.priority}</priority>\n`;
         xml += '  </url>\n';
       });
+
+      // Adicionar posts de blog
+      if (blogPosts && blogPosts.length > 0) {
+        blogPosts.forEach((post) => {
+          const lastmod = post.updated_at || post.published_at || currentDate;
+          const lastmodDate = new Date(lastmod).toISOString().split('T')[0];
+          
+          xml += '  <url>\n';
+          xml += `    <loc>${BASE_URL}/blog/${encodeURIComponent(post.slug)}</loc>\n`;
+          xml += `    <lastmod>${lastmodDate}</lastmod>\n`;
+          xml += '    <changefreq>monthly</changefreq>\n';
+          xml += '    <priority>0.7</priority>\n';
+          xml += '  </url>\n';
+        });
+      }
+
+      xml += '</urlset>';
+
+      return xml;
+    };
+
+    // Se ainda está carregando, não fazer nada
+    if (isLoading) {
+      return;
     }
 
-    xml += '</urlset>';
+    // Gerar XML
+    const xml = generateSitemap();
+    
+    // Substituir todo o conteúdo do documento com XML puro
+    // Isso é necessário para que o sitemap seja servido como XML, não HTML
+    document.open('text/xml');
+    document.write(xml);
+    document.close();
+  }, [blogPosts, isLoading]);
 
-    setSitemapXml(xml);
-  }, [blogPosts]);
-
-  // Retornar XML como texto plano
-  return (
-    <pre style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
-      {sitemapXml || 'Carregando sitemap...'}
-    </pre>
-  );
+  // Retornar null pois vamos substituir o documento
+  return null;
 };
 
 export default Sitemap;

@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileFloatingCTA from "@/components/MobileFloatingCTA";
 import { SEOHead } from "@/components/SEO/SEOHead";
+import { Breadcrumbs } from "@/components/SEO/Breadcrumbs";
 import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -87,6 +88,7 @@ const Solucoes = () => {
       <Header />
       
       <main className="pt-28 pb-20">
+        <Breadcrumbs />
         <div className="container-custom">
           {/* Page Header */}
           <div className="text-center mb-12">

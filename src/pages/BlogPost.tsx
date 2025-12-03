@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import MobileFloatingCTA from "@/components/MobileFloatingCTA";
 import { SEOHead } from "@/components/SEO/SEOHead";
 import { BlogPostSchema } from "@/components/SEO/BlogPostSchema";
+import { Breadcrumbs } from "@/components/SEO/Breadcrumbs";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -75,6 +76,13 @@ const BlogPost = () => {
       <Header />
 
       <main className="pt-28 pb-20">
+        {!isLoading && post && (
+          <Breadcrumbs items={[
+            { label: 'Home', path: '/' },
+            { label: 'Blog', path: '/blog' },
+            { label: post.title, path: `/blog/${post.slug}` }
+          ]} />
+        )}
         {isLoading ? (
           <div className="container-custom py-12 text-center">
             <p className="text-gray-dark">Carregando post...</p>

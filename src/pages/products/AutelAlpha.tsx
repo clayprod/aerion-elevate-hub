@@ -6,6 +6,7 @@ import { ProductVideoGallery } from '@/components/products/ProductVideoGallery';
 import { ProductApplications } from '@/components/products/ProductApplications';
 import { SEOHead } from '@/components/SEO/SEOHead';
 import { ProductSchema } from '@/components/SEO/StructuredData';
+import { Breadcrumbs } from '@/components/SEO/Breadcrumbs';
 import { getProductFamilyBySlug } from '@/data/products';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -267,6 +268,12 @@ const AutelAlpha: React.FC = () => {
         }}
       />
       <Header />
+      
+      <Breadcrumbs items={[
+        { label: 'Home', path: '/' },
+        { label: 'Produtos', path: '/produtos' },
+        { label: 'Autel Alpha', path: '/produtos/autel-alpha' }
+      ]} />
       
       <ProductStickyMenu items={menuItems} />
       

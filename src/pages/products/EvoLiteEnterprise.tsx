@@ -5,6 +5,7 @@ import { ProductTechnicalData } from '@/components/products/ProductTechnicalData
 import { ProductVideoGallery } from '@/components/products/ProductVideoGallery';
 import { ProductApplications } from '@/components/products/ProductApplications';
 import { SEOHead } from '@/components/SEO/SEOHead';
+import { Breadcrumbs } from '@/components/SEO/Breadcrumbs';
 import { getProductFamilyBySlug } from '@/data/products';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -299,6 +300,12 @@ const EvoLiteEnterprise: React.FC = () => {
         ogType="product"
       />
       <Header />
+      
+      <Breadcrumbs items={[
+        { label: 'Home', path: '/' },
+        { label: 'Produtos', path: '/produtos' },
+        { label: 'EVO Lite Enterprise', path: '/produtos/evo-lite-enterprise' }
+      ]} />
       
       <ProductStickyMenu items={menuItems} />
       

@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileFloatingCTA from "@/components/MobileFloatingCTA";
 import { SEOHead } from "@/components/SEO/SEOHead";
+import { Breadcrumbs } from "@/components/SEO/Breadcrumbs";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Card } from "@/components/ui/card";
@@ -43,6 +44,7 @@ const Blog = () => {
       <Header />
 
       <main className="pt-28 pb-20">
+        <Breadcrumbs />
         {/* Hero Section */}
         <section className="py-10 bg-gray-light/30">
           <div className="container-custom max-w-4xl">
