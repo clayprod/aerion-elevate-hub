@@ -95,7 +95,11 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
                   <img
                     src={image}
                     alt={`${name} - Miniatura ${index + 1}`}
+                    width={64}
+                    height={64}
                     className="w-full h-full object-contain bg-white rounded-md p-2"
+                    loading="lazy"
+                    style={{ aspectRatio: '1 / 1' }}
                   />
                 </div>
               ))}
@@ -113,10 +117,14 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
                   <img
                     src={images[selectedImage]}
                     alt={`${name} - Vista ${selectedImage + 1}`}
+                    width={800}
+                    height={800}
                     className="w-full h-full object-contain p-8 transition-transform duration-300"
+                    loading={selectedImage === 0 ? "eager" : "lazy"}
                     style={{
                       transform: isZooming ? 'scale(2)' : 'scale(1)',
-                      transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%`
+                      transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%`,
+                      aspectRatio: '1 / 1'
                     }}
                   />
                   <div className="absolute top-4 right-4">

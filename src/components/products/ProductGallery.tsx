@@ -39,7 +39,11 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({ imagePath, title
               <img
                 src={images[selectedImage].src}
                 alt={`${title} - ${images[selectedImage].label}`}
+                width={800}
+                height={384}
                 className="w-full h-96 object-contain bg-white p-8 hover:scale-105 transition-transform duration-300"
+                loading={selectedImage === 0 ? "eager" : "lazy"}
+                style={{ aspectRatio: '800 / 384' }}
               />
               <div className="p-4 bg-gray-100 text-center border-t">
                 <p className="font-semibold text-navy-deep">
@@ -72,7 +76,11 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({ imagePath, title
                   <img
                     src={image.src}
                     alt={image.label}
+                    width={150}
+                    height={96}
                     className="w-full h-24 object-contain bg-white p-2"
+                    loading="lazy"
+                    style={{ aspectRatio: '150 / 96' }}
                   />
                   {selectedImage === index && (
                     <div className="absolute inset-0 bg-blue-medium bg-opacity-20" />

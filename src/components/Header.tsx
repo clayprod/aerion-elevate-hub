@@ -64,7 +64,11 @@ const Header = () => {
             <img
               src={logo}
               alt="Aerion Technologies"
+              width={200}
+              height={56}
               className="h-12 md:h-14 w-auto"
+              fetchPriority="high"
+              loading="eager"
             />
           </Link>
 

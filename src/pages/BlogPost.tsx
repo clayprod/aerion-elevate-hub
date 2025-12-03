@@ -84,8 +84,26 @@ const BlogPost = () => {
           ]} />
         )}
         {isLoading ? (
-          <div className="container-custom py-12 text-center">
-            <p className="text-gray-dark">Carregando post...</p>
+          <div className="container-custom max-w-6xl py-12">
+            <div className="space-y-8">
+              {/* Skeleton Header */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="md:col-span-2 space-y-4">
+                  <div className="h-12 bg-gray-200 rounded animate-pulse w-3/4" />
+                  <div className="h-6 bg-gray-200 rounded animate-pulse w-1/2" />
+                  <div className="h-4 bg-gray-200 rounded animate-pulse" />
+                </div>
+                <div className="md:col-span-1">
+                  <div className="aspect-[4/5] bg-gray-200 rounded-xl animate-pulse" />
+                </div>
+              </div>
+              {/* Skeleton Content */}
+              <div className="space-y-4">
+                <div className="h-4 bg-gray-200 rounded animate-pulse" />
+                <div className="h-4 bg-gray-200 rounded animate-pulse" />
+                <div className="h-4 bg-gray-200 rounded animate-pulse w-5/6" />
+              </div>
+            </div>
           </div>
         ) : post ? (
           <>

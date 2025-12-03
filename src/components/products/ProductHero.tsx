@@ -86,7 +86,12 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
               <img
                 src={productImage}
                 alt={title}
+                width={400}
+                height={320}
                 className="max-h-64 md:max-h-80 w-auto mx-auto drop-shadow-2xl"
+                fetchPriority="high"
+                loading="eager"
+                style={{ aspectRatio: '400 / 320' }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-lg"></div>
             </div>

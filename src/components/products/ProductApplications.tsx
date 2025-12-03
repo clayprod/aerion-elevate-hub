@@ -34,7 +34,11 @@ export const ProductApplications: React.FC<ProductApplicationsProps> = ({ applic
                 <img
                   src={application.image}
                   alt={application.title}
+                  width={400}
+                  height={192}
                   className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+                  loading="lazy"
+                  style={{ aspectRatio: '400 / 192' }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <div className="absolute bottom-4 left-4 right-4">

@@ -63,8 +63,18 @@ const Blog = () => {
         <section className="pt-2 pb-4">
           <div className="container-custom">
             {isLoading ? (
-              <div className="text-center py-12">
-                <p className="text-gray-dark">Carregando posts...</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div className="aspect-video bg-gray-200 animate-pulse" style={{ aspectRatio: '16 / 9' }} />
+                    <div className="p-6 space-y-4">
+                      <div className="h-4 bg-gray-200 rounded animate-pulse w-1/4" />
+                      <div className="h-6 bg-gray-200 rounded animate-pulse w-3/4" />
+                      <div className="h-4 bg-gray-200 rounded animate-pulse" />
+                      <div className="h-4 bg-gray-200 rounded animate-pulse w-5/6" />
+                    </div>
+                  </div>
+                ))}
               </div>
             ) : error ? (
               <div className="text-center py-12">
