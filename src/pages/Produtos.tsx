@@ -52,6 +52,20 @@ const products = [
     applications: ["Segurança", "Resgate", "Operações Críticas"],
     image: "/images/products/alpha/1.png"
   },
+  {
+    id: "autel-mapper",
+    name: "Autel Mapper",
+    tagline: "Mapeamento Profissional com Deep Learning",
+    description: "Software profissional de reconstrução 2D e 3D com processamento em nuvem ou local, utilizando deep learning para resultados altamente precisos. Processamento rápido e preciso para mapeamento, topografia e inspeções.",
+    keySpecs: [
+      "Reconstrução 2D e 3D com precisão centimétrica (1:500)",
+      "Processamento rápido com algoritmos de deep learning",
+      "Suporte para processamento local ou em nuvem",
+      "Compatível com drones Autel e múltiplos formatos de saída",
+    ],
+    applications: ["Mapeamento", "Topografia", "Inspeções"],
+    image: "/images/products/mapper/1.png"
+  },
 ];
 
 const Produtos = () => {
@@ -59,7 +73,7 @@ const Produtos = () => {
     <div className="min-h-screen">
       <SEOHead
         title="Produtos Autel | Drones Profissionais para Operações Enterprise"
-        description="Conheça a linha completa de drones Autel profissionais: EVO Lite Enterprise, EVO Max V2 e Autel Alpha. Tecnologia de ponta para construção, inspeção industrial, segurança pública e resgate."
+        description="Conheça a linha completa de drones Autel profissionais: EVO Lite Enterprise, EVO Max V2, Autel Alpha e Autel Mapper. Tecnologia de ponta para construção, inspeção industrial, segurança pública e resgate."
         keywords="drones Autel, EVO Lite Enterprise, EVO Max V2, Autel Alpha, drones profissionais, drones enterprise, tecnologia aérea, drones Brasil"
         canonical="https://aerion.com.br/produtos"
         ogType="website"

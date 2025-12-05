@@ -26,6 +26,7 @@ import BlogPost from "./pages/BlogPost";
 import AutelAlpha from "./pages/products/AutelAlpha";
 import EvoLiteEnterprise from "./pages/products/EvoLiteEnterprise";
 import EvoMaxV2 from "./pages/products/EvoMaxV2";
+import AutelMapper from "./pages/products/AutelMapper";
 import ConstrucaoTopografia from "./pages/solucoes/ConstrucaoTopografia";
 import InspecaoIndustrial from "./pages/solucoes/InspecaoIndustrial";
 import SegurancaPublica from "./pages/solucoes/SegurancaPublica";
@@ -67,6 +68,7 @@ const App = () => (
               <Route path="/produtos/evo-lite-enterprise" element={<EvoLiteEnterprise />} />
               <Route path="/produtos/evo-max-v2" element={<EvoMaxV2 />} />
               <Route path="/produtos/autel-alpha" element={<AutelAlpha />} />
+              <Route path="/produtos/autel-mapper" element={<AutelMapper />} />
               <Route path="/solucoes" element={<Solucoes />} />
               <Route path="/solucoes/construcao" element={<ConstrucaoTopografia />} />
               <Route path="/solucoes/industrial" element={<InspecaoIndustrial />} />

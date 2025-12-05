@@ -30,6 +30,7 @@ const Header = () => {
         { name: "EVO Lite Enterprise", path: "/produtos/evo-lite-enterprise" },
         { name: "EVO Max V2", path: "/produtos/evo-max-v2" },
         { name: "Autel Alpha", path: "/produtos/autel-alpha" },
+        { name: "Autel Mapper", path: "/produtos/autel-mapper" },
       ]
     },
     { 
