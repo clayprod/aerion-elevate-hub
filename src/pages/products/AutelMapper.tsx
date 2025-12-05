@@ -32,7 +32,7 @@ const AutelMapper: React.FC = () => {
   const highlights = [
     {
       id: 'swift-and-accurate',
-      title: 'Swift and Accurate',
+      title: 'Rápido e Preciso',
       description: 'Os algoritmos de deep learning da Autel tornam o Autel Mapper um dos softwares de processamento de mapas mais rápidos da indústria, fornecendo reconstrução 2D e 3D altamente precisa, mesmo para objetos pequenos - para modelos e mapas imbatíveis.',
       icon: Zap,
       image: 'https://www.autelrobotics.com/wp-content/themes/autel/userfiles/images/2023/05/26/2023052616308138.png',
@@ -40,7 +40,7 @@ const AutelMapper: React.FC = () => {
     },
     {
       id: '3d-reconstruction',
-      title: '3D Reconstruction',
+      title: 'Reconstrução 3D',
       description: 'O Autel Mapper combina algoritmos tradicionais e de deep learning para melhorar significativamente a completude dos modelos 3D. A qualidade da reconstrução pode ser selecionada entre três opções: alta, média e baixa. Pode reconstruir objetos pequenos completamente e atender às necessidades de várias indústrias.',
       icon: Box,
       image: 'https://www.autelrobotics.com/wp-content/themes/autel/userfiles/images/2023/05/25/2023052519558418.png',
@@ -48,7 +48,7 @@ const AutelMapper: React.FC = () => {
     },
     {
       id: '2d-reconstruction',
-      title: '2D Reconstruction',
+      title: 'Reconstrução 2D',
       description: 'A tecnologia de deep learning da Autel permite adaptação autônoma de algoritmos de IA em diferentes cenários, atendendo ao requisito de precisão 1:500 na indústria de levantamento e mapeamento sem GCPs.',
       icon: Map,
       image: 'https://www.autelrobotics.com/wp-content/themes/autel/userfiles/images/2023/05/26/2023052616261646.png',
@@ -56,7 +56,7 @@ const AutelMapper: React.FC = () => {
     },
     {
       id: 'aerial-triangulation',
-      title: 'Aerial Triangulation',
+      title: 'Triangulação Aérea',
       description: 'O Autel Mapper suporta câmeras roll shutter e global shutter, e seu processamento inteligente de blocos de triangulação aérea pode lidar com grandes volumes de dados. O algoritmo de correspondência avançado pode resolver efetivamente o processamento de dados de diferentes alturas e resoluções.',
       icon: Triangle,
       image: 'https://app.autelrobotics.cn/statics/cdn/guanwang/images/mapper_en/videos/sanjiaoceliang.gif',
@@ -64,7 +64,7 @@ const AutelMapper: React.FC = () => {
     },
     {
       id: 'real-time-2d',
-      title: 'Real-time 2D',
+      title: '2D em Tempo Real',
       description: 'Durante o voo, o controle remoto transmite imagens em tempo real para o Autel Mapper para costura 2D em tempo real. Algoritmos avançados de processamento de imagem são usados para gerar imagens ortofoto 2D de alta precisão em tempo real, fornecendo aos operadores no local uma base para ajustar o fluxo de trabalho de forma oportuna.',
       icon: Clock,
       image: 'https://www.autelrobotics.com/wp-content/themes/autel/userfiles/images/2023/05/26/2023052616344830.gif',
@@ -72,7 +72,7 @@ const AutelMapper: React.FC = () => {
     },
     {
       id: 'quick-stitching',
-      title: 'Quick Stitching',
+      title: 'Costura Rápida',
       description: 'Importe em lote imagens capturadas por drones Autel, gere rapidamente mapas 2D e renderizações usando algoritmos avançados de ortoretificação de imagem e algoritmos de costura rápida.',
       icon: Layers,
       image: 'https://www.autelrobotics.com/wp-content/themes/autel/userfiles/images/2023/05/25/2023052519587267.gif',
@@ -80,7 +80,7 @@ const AutelMapper: React.FC = () => {
     },
     {
       id: 'flexible-scalable',
-      title: 'Flexible, Scalable',
+      title: 'Flexível e Escalável',
       description: 'Importe e exporte com facilidade e utilize recursos de rede ou nuvem para lidar rapidamente com qualquer projeto.',
       icon: Network,
       image: 'https://www.autelrobotics.com/wp-content/themes/autel/userfiles/images/2023/05/25/2023052519564340.png',
@@ -88,7 +88,7 @@ const AutelMapper: React.FC = () => {
     },
     {
       id: 'complete-control',
-      title: 'Complete Control',
+      title: 'Controle Completo',
       description: 'O workflow único e intuitivo do Autel Mapper significa que os usuários podem se envolver rapidamente em um projeto sem o medo de ficarem sobrecarregados.',
       icon: Settings,
       image: 'https://www.autelrobotics.com/wp-content/themes/autel/userfiles/images/2023/05/25/2023052519568264.png',
@@ -96,7 +96,7 @@ const AutelMapper: React.FC = () => {
     },
     {
       id: 'cloud-ready',
-      title: 'Cloud Ready',
+      title: 'Pronto para Nuvem',
       description: 'Utilize a nuvem para saídas e renderizações mais rápidas do que nunca.',
       icon: Cloud,
       image: 'https://www.autelrobotics.com/wp-content/themes/autel/userfiles/images/2023/05/25/2023052519565999.png',
@@ -106,24 +106,9 @@ const AutelMapper: React.FC = () => {
 
   const applications = [
     {
-      title: 'Segurança Pública',
-      description: 'Aplicações para segurança pública e monitoramento.',
-      image: '/images/applications/public-safety.jpg'
-    },
-    {
-      title: 'Busca e Resgate',
-      description: 'Ferramentas essenciais para operações de busca e resgate.',
-      image: '/images/applications/search-rescue.jpg'
-    },
-    {
       title: 'Levantamento e Mapeamento',
       description: 'Soluções profissionais para levantamento e mapeamento.',
-      image: '/images/applications/surveying-mapping.jpg'
-    },
-    {
-      title: 'Inspeção de Linhas de Transmissão',
-      description: 'Inspeção eficiente de linhas de transmissão e infraestrutura elétrica.',
-      image: '/images/applications/powerline-inspection.jpg'
+      image: '/images/solucoes/casos-uso-construcao/levantamentos-topograficos.jpg'
     }
   ];
 
@@ -193,7 +178,7 @@ const AutelMapper: React.FC = () => {
       <section id="destaques" className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-6 space-y-12">
           {/* Video Hero */}
-          <div className="relative overflow-hidden rounded-3xl min-h-[500px] flex items-center justify-center text-white shadow-xl">
+          <div className="relative overflow-hidden rounded-3xl min-h-[500px] flex items-center justify-center text-white shadow-xl bg-black">
             <video
               className="absolute inset-0 w-full h-full object-cover"
               autoPlay
@@ -202,16 +187,25 @@ const AutelMapper: React.FC = () => {
               playsInline
               preload="auto"
               crossOrigin="anonymous"
+              onError={(e) => {
+                const video = e.currentTarget;
+                video.style.display = 'none';
+                const fallback = video.parentElement?.querySelector('.video-fallback');
+                if (fallback) {
+                  (fallback as HTMLElement).style.display = 'block';
+                }
+              }}
             >
               <source src="https://app.autelrobotics.cn/statics/cdn/guanwang/images/mapper_en/videos/banner_video_en.mp4" type="video/mp4" />
               Seu navegador não suporta a reprodução de vídeos.
             </video>
-            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/20" />
+            <div className="video-fallback absolute inset-0 w-full h-full object-cover bg-gradient-to-br from-navy-deep to-blue-medium hidden" style={{ display: 'none' }} />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/80 to-black/60" />
             <div className="relative z-10 max-w-4xl w-full px-6 py-12 sm:px-10 text-center">
-              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-4">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-4" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
                 Autel Mapper
               </h2>
-              <p className="text-lg sm:text-xl text-gray-100 leading-relaxed max-w-3xl mx-auto">
+              <p className="text-lg sm:text-xl text-white leading-relaxed max-w-3xl mx-auto" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.8)' }}>
                 Mapeamento profissional, eficiente e acessível. O Autel Mapper é um software de reconstrução 2D e 3D com processamento em nuvem ou local, utilizando deep learning para resultados altamente precisos.
               </p>
             </div>
@@ -231,6 +225,11 @@ const AutelMapper: React.FC = () => {
                         className="w-full h-full object-cover"
                         loading="lazy"
                         crossOrigin="anonymous"
+                        onError={(e) => {
+                          const img = e.currentTarget;
+                          img.src = '/images/products/mapper/autel-mapper.png';
+                          img.onerror = null;
+                        }}
                       />
                     ) : (
                       <img
@@ -238,6 +237,11 @@ const AutelMapper: React.FC = () => {
                         alt={highlight.title}
                         className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
                         loading="lazy"
+                        onError={(e) => {
+                          const img = e.currentTarget;
+                          img.src = '/images/products/mapper/autel-mapper.png';
+                          img.onerror = null;
+                        }}
                       />
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />

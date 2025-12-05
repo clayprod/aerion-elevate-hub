@@ -191,6 +191,10 @@ export const ProductTechnicalData: React.FC<TechnicalDataProps> = ({
   const renderAccessoriesCard = () => {
     const allAccessories = [...(accessoriesIncluded || []), ...(components || [])];
     
+    if (allAccessories.length === 0) {
+      return null;
+    }
+    
     return (
       <Card className="p-6 bg-gray-50">
         <h3 className="text-lg font-bold text-navy-deep mb-4 flex items-center gap-2">
@@ -222,9 +226,14 @@ export const ProductTechnicalData: React.FC<TechnicalDataProps> = ({
       </div>
       
       {/* Acessórios em 2 colunas */}
-      <div id="acessorios" className="mb-6">
-        {renderAccessoriesCard()}
-      </div>
+      {(() => {
+        const accessoriesCard = renderAccessoriesCard();
+        return accessoriesCard ? (
+          <div id="acessorios" className="mb-6">
+            {accessoriesCard}
+          </div>
+        ) : null;
+      })()}
       
       {/* Dados Comerciais e Material de Apoio lado a lado */}
       <div id="dados-comerciais" className="grid grid-cols-1 md:grid-cols-2 gap-6">
