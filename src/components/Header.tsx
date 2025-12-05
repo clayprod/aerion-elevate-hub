@@ -27,10 +27,10 @@ const Header = () => {
       name: "Produtos", 
       path: "/produtos",
       dropdown: [
-        { name: "EVO Lite Enterprise", path: "/produtos/evo-lite-enterprise" },
-        { name: "EVO Max V2", path: "/produtos/evo-max-v2" },
-        { name: "Autel Alpha", path: "/produtos/autel-alpha" },
-        { name: "Autel Mapper", path: "/produtos/autel-mapper" },
+        { name: "EVO Lite Enterprise", path: "/produtos/evo-lite-enterprise", category: "Drones" },
+        { name: "EVO Max V2", path: "/produtos/evo-max-v2", category: "Drones" },
+        { name: "Autel Alpha", path: "/produtos/autel-alpha", category: "Drones" },
+        { name: "Autel Mapper", path: "/produtos/autel-mapper", category: "Softwares" },
       ]
     },
     { 
@@ -99,15 +99,48 @@ const Header = () => {
                 {link.dropdown && (
                   <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                     <div className="py-2">
-                      {link.dropdown.map((dropdownLink) => (
-                        <Link
-                          key={dropdownLink.path}
-                          to={dropdownLink.path}
-                          className="block px-4 py-2 text-sm text-gray-dark hover:text-blue-medium hover:bg-blue-medium/5 transition-colors"
-                        >
-                          {dropdownLink.name}
-                        </Link>
-                      ))}
+                      {(() => {
+                        const drones = link.dropdown.filter(item => item.category === "Drones");
+                        const softwares = link.dropdown.filter(item => item.category === "Softwares");
+                        
+                        return (
+                          <>
+                            {drones.length > 0 && (
+                              <>
+                                <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                                  Drones
+                                </div>
+                                {drones.map((dropdownLink) => (
+                                  <Link
+                                    key={dropdownLink.path}
+                                    to={dropdownLink.path}
+                                    className="block px-4 py-2 text-sm text-gray-dark hover:text-blue-medium hover:bg-blue-medium/5 transition-colors"
+                                  >
+                                    {dropdownLink.name}
+                                  </Link>
+                                ))}
+                              </>
+                            )}
+                            {softwares.length > 0 && (
+                              <>
+                                {drones.length > 0 && <div className="border-t border-gray-200 my-1" />}
+                                <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                                  Softwares
+                                </div>
+                                {softwares.map((dropdownLink) => (
+                                  <Link
+                                    key={dropdownLink.path}
+                                    to={dropdownLink.path}
+                                    className="block px-4 py-2 text-sm text-gray-dark hover:text-blue-medium hover:bg-blue-medium/5 transition-colors"
+                                  >
+                                    {dropdownLink.name}
+                                  </Link>
+                                ))}
+                              </>
+                            )}
+                          </>
+                        );
+                      })()}
                     </div>
                   </div>
                 )}
@@ -189,23 +222,56 @@ const Header = () => {
                       </button>
                       {openMobileDropdown === link.path && (
                         <div className="pl-4 space-y-1 mt-2">
-                          {link.dropdown.map((dropdownLink) => (
-                            <Link
-                              key={dropdownLink.path}
-                              to={dropdownLink.path}
-                              onClick={() => {
-                                setIsMobileMenuOpen(false);
-                                setOpenMobileDropdown(null);
-                              }}
-                              className={`block py-1 text-sm ${
-                                location.pathname === dropdownLink.path
-                                  ? "text-blue-medium"
-                                  : "text-gray-dark"
-                              }`}
-                            >
-                              {dropdownLink.name}
-                            </Link>
-                          ))}
+                          {(() => {
+                            const drones = link.dropdown.filter(item => item.category === "Drones");
+                            const softwares = link.dropdown.filter(item => item.category === "Softwares");
+                            
+                            return (
+                              <>
+                                {drones.length > 0 && (
+                                  <>
+                                    <div className="px-2 py-1 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                                      Drones
+                                    </div>
+                                    {drones.map((dropdownLink) => (
+                                      <Link
+                                        key={dropdownLink.path}
+                                        to={dropdownLink.path}
+                                        onClick={() => {
+                                          setIsMobileMenuOpen(false);
+                                          setOpenMobileDropdown(null);
+                                        }}
+                                        className="block py-2 text-sm text-gray-dark hover:text-blue-medium"
+                                      >
+                                        {dropdownLink.name}
+                                      </Link>
+                                    ))}
+                                  </>
+                                )}
+                                {softwares.length > 0 && (
+                                  <>
+                                    {drones.length > 0 && <div className="border-t border-gray-200 my-1" />}
+                                    <div className="px-2 py-1 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                                      Softwares
+                                    </div>
+                                    {softwares.map((dropdownLink) => (
+                                      <Link
+                                        key={dropdownLink.path}
+                                        to={dropdownLink.path}
+                                        onClick={() => {
+                                          setIsMobileMenuOpen(false);
+                                          setOpenMobileDropdown(null);
+                                        }}
+                                        className="block py-2 text-sm text-gray-dark hover:text-blue-medium"
+                                      >
+                                        {dropdownLink.name}
+                                      </Link>
+                                    ))}
+                                  </>
+                                )}
+                              </>
+                            );
+                          })()}
                         </div>
                       )}
                     </div>

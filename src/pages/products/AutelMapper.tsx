@@ -2,6 +2,7 @@ import React from 'react';
 import { ProductStickyMenu } from '@/components/products/ProductStickyMenu';
 import { ProductApplications } from '@/components/products/ProductApplications';
 import { ProductVideoGallery } from '@/components/products/ProductVideoGallery';
+import { ProductTechnicalData } from '@/components/products/ProductTechnicalData';
 import { SEOHead } from '@/components/SEO/SEOHead';
 import { Breadcrumbs } from '@/components/SEO/Breadcrumbs';
 import Header from '@/components/Header';
@@ -58,7 +59,7 @@ const AutelMapper: React.FC = () => {
       title: 'Aerial Triangulation',
       description: 'O Autel Mapper suporta câmeras roll shutter e global shutter, e seu processamento inteligente de blocos de triangulação aérea pode lidar com grandes volumes de dados. O algoritmo de correspondência avançado pode resolver efetivamente o processamento de dados de diferentes alturas e resoluções.',
       icon: Triangle,
-      image: 'https://app.autelrobotics.cn/statics/cdn/guanwang/images/mapper_en/videos/sanjiaoceliang.gif?v=1.5',
+      image: 'https://app.autelrobotics.cn/statics/cdn/guanwang/images/mapper_en/videos/sanjiaoceliang.gif',
       imageType: 'gif'
     },
     {
@@ -105,33 +106,33 @@ const AutelMapper: React.FC = () => {
 
   const applications = [
     {
-      title: 'Public Safety',
+      title: 'Segurança Pública',
       description: 'Aplicações para segurança pública e monitoramento.',
       image: '/images/applications/public-safety.jpg'
     },
     {
-      title: 'Search And Rescue',
+      title: 'Busca e Resgate',
       description: 'Ferramentas essenciais para operações de busca e resgate.',
       image: '/images/applications/search-rescue.jpg'
     },
     {
-      title: 'Surveying And Mapping',
+      title: 'Levantamento e Mapeamento',
       description: 'Soluções profissionais para levantamento e mapeamento.',
       image: '/images/applications/surveying-mapping.jpg'
     },
     {
-      title: 'Powerline Inspection',
+      title: 'Inspeção de Linhas de Transmissão',
       description: 'Inspeção eficiente de linhas de transmissão e infraestrutura elétrica.',
       image: '/images/applications/powerline-inspection.jpg'
     }
   ];
 
-  const technicalSpecs = {
-    system: {
+  const specs = {
+    'REQUISITOS DO SISTEMA': {
       'Sistema Operacional': 'Windows 10 ou posterior (64-bit)',
       'Tipo': 'Reconstrução 2D/3D'
     },
-    computer: {
+    'ESPECIFICAÇÕES DO COMPUTADOR': {
       'CPU Mínimo': 'Intel Core i5 8 series ou AMD Ryzen 5 3000 series',
       'CPU Recomendado': 'Intel Core i7 11 series ou mais recente ou AMD Ryzen 7 5000 series ou mais recente',
       'GPU Mínimo': 'NVIDIA GeForce GTX1070',
@@ -145,7 +146,7 @@ const AutelMapper: React.FC = () => {
       'Display Mínimo': '1280x1024',
       'Display Recomendado': '1920x1080 ou superior'
     },
-    performance: {
+    'FUNÇÃO E PERFORMANCE': {
       'Máximo de Imagens Processáveis (Um Nó)': '30.000',
       'Reconstrução 3D - Tarefa Standalone': '500 imagens/1GB de memória livre',
       'Reconstrução 3D - Tempo Necessário': '10.000 imagens em 18 horas',
@@ -199,7 +200,8 @@ const AutelMapper: React.FC = () => {
               muted
               loop
               playsInline
-              preload="metadata"
+              preload="auto"
+              crossOrigin="anonymous"
             >
               <source src="https://app.autelrobotics.cn/statics/cdn/guanwang/images/mapper_en/videos/banner_video_en.mp4" type="video/mp4" />
               Seu navegador não suporta a reprodução de vídeos.
@@ -210,7 +212,7 @@ const AutelMapper: React.FC = () => {
                 Autel Mapper
               </h2>
               <p className="text-lg sm:text-xl text-gray-100 leading-relaxed max-w-3xl mx-auto">
-                Professional, efficient, and accessible mapping. Autel Mapper is a 2D and 3D reconstruction software with cloud or local processing, utilizing deep learning for highly accurate results.
+                Mapeamento profissional, eficiente e acessível. O Autel Mapper é um software de reconstrução 2D e 3D com processamento em nuvem ou local, utilizando deep learning para resultados altamente precisos.
               </p>
             </div>
           </div>
@@ -228,6 +230,7 @@ const AutelMapper: React.FC = () => {
                         alt={highlight.title}
                         className="w-full h-full object-cover"
                         loading="lazy"
+                        crossOrigin="anonymous"
                       />
                     ) : (
                       <img
@@ -258,62 +261,27 @@ const AutelMapper: React.FC = () => {
       </section>
 
       {/* Especificações Técnicas Section */}
-      <section id="especificacoes-tecnicas" className="py-12 bg-gray-light/30">
+      <section id="especificacoes-tecnicas" className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-navy-deep mb-4">
-              Especificações Técnicas
-            </h2>
-            <p className="text-xl text-gray-dark max-w-3xl mx-auto">
-              Requisitos do sistema e especificações de performance do Autel Mapper
-            </p>
-          </div>
-
-          <div className="space-y-8">
-            {/* Requisitos do Sistema */}
-            <Card className="p-6 bg-white">
-              <h3 className="text-2xl font-bold text-navy-deep mb-6">Requisitos do Sistema</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {Object.entries(technicalSpecs.system).map(([key, value]) => (
-                  <div key={key} className="flex flex-col min-h-[80px] py-4 px-4 bg-gray-50 rounded border border-gray-200">
-                    <span className="font-medium text-gray-dark text-sm leading-tight mb-2">{key}</span>
-                    <span className="text-navy-deep font-semibold text-sm leading-relaxed break-words">{value}</span>
-                  </div>
-                ))}
-              </div>
-            </Card>
-
-            {/* Especificações do Computador */}
-            <Card className="p-6 bg-white">
-              <h3 className="text-2xl font-bold text-navy-deep mb-6">Especificações do Computador</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {Object.entries(technicalSpecs.computer).map(([key, value]) => (
-                  <div key={key} className="flex flex-col min-h-[80px] py-4 px-4 bg-gray-50 rounded border border-gray-200">
-                    <span className="font-medium text-gray-dark text-sm leading-tight mb-2">{key}</span>
-                    <span className="text-navy-deep font-semibold text-sm leading-relaxed break-words">{value}</span>
-                  </div>
-                ))}
-              </div>
-            </Card>
-
-            {/* Especificações de Função e Performance */}
-            <Card className="p-6 bg-white">
-              <h3 className="text-2xl font-bold text-navy-deep mb-6">Especificações de Função e Performance</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {Object.entries(technicalSpecs.performance).map(([key, value]) => (
-                  <div key={key} className="flex flex-col min-h-[80px] py-4 px-4 bg-gray-50 rounded border border-gray-200">
-                    <span className="font-medium text-gray-dark text-sm leading-tight mb-2">{key}</span>
-                    <span className="text-navy-deep font-semibold text-sm leading-relaxed break-words">{value}</span>
-                  </div>
-                ))}
-              </div>
-            </Card>
-          </div>
+          <ProductTechnicalData
+            technicalData={{
+              cadastral: {
+                'Produto': 'Software de Mapeamento',
+                'Código': 'AUTEL-MAPPER',
+                'Categoria': 'Software Profissional',
+                'Fabricante': 'Autel Robotics'
+              }
+            }}
+            specs={specs}
+            components={[]}
+            accessoriesIncluded={[]}
+            title="Autel Mapper"
+          />
         </div>
       </section>
       
       {/* Applications Section */}
-      <section id="applications" className="py-12 bg-white">
+      <section id="applications" className="py-12 bg-gray-light/30">
         <div className="max-w-7xl mx-auto px-6">
           <ProductApplications
             applications={applications}

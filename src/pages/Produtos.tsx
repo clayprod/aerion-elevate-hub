@@ -64,7 +64,7 @@ const products = [
       "Compatível com drones Autel e múltiplos formatos de saída",
     ],
     applications: ["Mapeamento", "Topografia", "Inspeções"],
-    image: "/images/products/mapper/1.png"
+    image: "/images/products/mapper/autel-mapper.png"
   },
 ];
 
@@ -189,7 +189,7 @@ const Produtos = () => {
           {/* Autel Mapper - Linha separada */}
           {products.slice(3).map((product, index) => (
             <div key={product.id} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="lg:col-start-2">
+              <div>
                 <Card
                   className="group hover:shadow-xl transition-all duration-300 overflow-hidden animate-fade-in bg-white border-2"
                   style={{ animationDelay: `${(index + 3) * 0.1}s` }}
@@ -203,7 +203,7 @@ const Produtos = () => {
                         width={400}
                         height={192}
                         loading="lazy"
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
                         style={{ aspectRatio: '400 / 192' }}
                         onError={(e) => {
                           // Fallback to gradient background if image fails to load
