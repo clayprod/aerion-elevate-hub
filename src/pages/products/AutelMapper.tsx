@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { ProductStickyMenu } from '@/components/products/ProductStickyMenu';
 import { ProductApplications } from '@/components/products/ProductApplications';
 import { ProductVideoGallery } from '@/components/products/ProductVideoGallery';
@@ -22,6 +22,33 @@ import {
 } from 'lucide-react';
 
 const AutelMapper: React.FC = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      // Force play when video is loaded
+      const handleCanPlay = () => {
+        video.play().catch((error) => {
+          console.error('Error playing video:', error);
+        });
+      };
+      
+      video.addEventListener('canplay', handleCanPlay);
+      
+      // Try to play immediately if already loaded
+      if (video.readyState >= 3) {
+        video.play().catch((error) => {
+          console.error('Error playing video:', error);
+        });
+      }
+
+      return () => {
+        video.removeEventListener('canplay', handleCanPlay);
+      };
+    }
+  }, []);
+
   const menuItems = [
     { id: 'destaques', label: 'Destaques' },
     { id: 'especificacoes-tecnicas', label: 'Especificações Técnicas' },
@@ -181,12 +208,14 @@ const AutelMapper: React.FC = () => {
           {/* Video Hero */}
           <div className="relative overflow-hidden rounded-3xl min-h-[500px] flex items-center justify-center text-white shadow-xl bg-black">
             <video
+              ref={videoRef}
               className="absolute inset-0 w-full h-full object-cover"
               autoPlay
               muted
               loop
               playsInline
               preload="auto"
+              crossOrigin="anonymous"
             >
               <source src="https://app.autelrobotics.cn/statics/cdn/guanwang/images/mapper_en/videos/banner_video_en.mp4" type="video/mp4" />
               Seu navegador não suporta a reprodução de vídeos.
@@ -216,6 +245,7 @@ const AutelMapper: React.FC = () => {
                         alt={highlight.title}
                         className="w-full h-full object-cover"
                         loading="lazy"
+                        crossOrigin={highlight.image.includes('app.autelrobotics.cn') ? 'anonymous' : undefined}
                       />
                     ) : (
                       <img
