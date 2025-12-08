@@ -187,13 +187,18 @@ const AutelMapper: React.FC = () => {
               loop
               playsInline
               preload="auto"
+              referrerPolicy="no-referrer"
               onError={(e) => {
+                console.error('Video failed to load:', e);
                 const video = e.currentTarget;
-                video.style.display = 'none';
-                const fallback = video.parentElement?.querySelector('.video-fallback');
-                if (fallback) {
-                  (fallback as HTMLElement).style.display = 'block';
-                }
+                // Only hide video after a delay to avoid premature fallback
+                setTimeout(() => {
+                  video.style.display = 'none';
+                  const fallback = video.parentElement?.querySelector('.video-fallback');
+                  if (fallback) {
+                    (fallback as HTMLElement).style.display = 'block';
+                  }
+                }, 2000);
               }}
             >
               <source src="https://app.autelrobotics.cn/statics/cdn/guanwang/images/mapper_en/videos/banner_video_en.mp4" type="video/mp4" />
@@ -224,10 +229,15 @@ const AutelMapper: React.FC = () => {
                         alt={highlight.title}
                         className="w-full h-full object-cover"
                         loading="lazy"
+                        referrerPolicy="no-referrer"
                         onError={(e) => {
+                          console.error('Image failed to load:', highlight.image);
                           const img = e.currentTarget;
-                          img.src = '/images/products/mapper/autel-mapper.png';
-                          img.onerror = null;
+                          // Only use fallback if image really failed after retry
+                          if (img.src === highlight.image) {
+                            img.src = '/images/products/mapper/autel-mapper.png';
+                            img.onerror = null;
+                          }
                         }}
                       />
                     ) : (
