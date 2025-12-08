@@ -67,7 +67,7 @@ const AutelMapper: React.FC = () => {
       title: '2D em Tempo Real',
       description: 'Durante o voo, o controle remoto transmite imagens em tempo real para o Autel Mapper para costura 2D em tempo real. Algoritmos avançados de processamento de imagem são usados para gerar imagens ortofoto 2D de alta precisão em tempo real, fornecendo aos operadores no local uma base para ajustar o fluxo de trabalho de forma oportuna.',
       icon: Clock,
-      image: 'https://www.autelrobotics.com/wp-content/themes/autel/userfiles/images/2023/05/26/2023052616344830.gif',
+      image: 'https://www.autelrobotics.com/wp-content/themes/autel/userfiles/images/2023/05/25/2023052519587267.gif',
       imageType: 'gif'
     },
     {
@@ -75,7 +75,7 @@ const AutelMapper: React.FC = () => {
       title: 'Costura Rápida',
       description: 'Importe em lote imagens capturadas por drones Autel, gere rapidamente mapas 2D e renderizações usando algoritmos avançados de ortoretificação de imagem e algoritmos de costura rápida.',
       icon: Layers,
-      image: 'https://www.autelrobotics.com/wp-content/themes/autel/userfiles/images/2023/05/25/2023052519587267.gif',
+      image: 'https://www.autelrobotics.com/wp-content/themes/autel/userfiles/images/2023/05/26/2023052616344830.gif',
       imageType: 'gif'
     },
     {
@@ -202,7 +202,7 @@ const AutelMapper: React.FC = () => {
             <div className="video-fallback absolute inset-0 w-full h-full object-cover bg-gradient-to-br from-navy-deep to-blue-medium hidden" style={{ display: 'none' }} />
             <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/80 to-black/60" />
             <div className="relative z-10 max-w-4xl w-full px-6 py-12 sm:px-10 text-center">
-              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-4" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-4 text-white" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
                 Autel Mapper
               </h2>
               <p className="text-lg sm:text-xl text-white leading-relaxed max-w-3xl mx-auto" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.8)' }}>
@@ -298,7 +298,14 @@ const AutelMapper: React.FC = () => {
       <section id="videos" className="py-12 bg-gray-light/30">
         <div className="max-w-7xl mx-auto px-6">
           <ProductVideoGallery
-            videos={[]}
+            videos={[
+              {
+                youtubeId: 'ldQWruVNa1U',
+                title: 'Autel Mapper',
+                description: 'Conheça o Autel Mapper, software profissional de mapeamento 2D e 3D',
+                thumbnail: undefined
+              }
+            ]}
             title="Autel Mapper"
           />
         </div>
