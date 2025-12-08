@@ -94,7 +94,7 @@ const AutelMapper: React.FC = () => {
       title: 'Triangulação Aérea',
       description: 'O Autel Mapper suporta câmeras roll shutter e global shutter, e seu processamento inteligente de blocos de triangulação aérea pode lidar com grandes volumes de dados. O algoritmo de correspondência avançado pode resolver efetivamente o processamento de dados de diferentes alturas e resoluções.',
       icon: Triangle,
-      image: 'https://app.autelrobotics.cn/statics/cdn/guanwang/images/mapper_en/videos/sanjiaoceliang.gif',
+      image: '/images/products/mapper/triangulacao.gif',
       imageType: 'gif'
     },
     {
@@ -224,7 +224,7 @@ const AutelMapper: React.FC = () => {
               playsInline
               preload="auto"
             >
-              <source src="https://app.autelrobotics.cn/statics/cdn/guanwang/images/mapper_en/videos/banner_video_en.mp4" type="video/mp4" />
+              <source src="/videos/products/mapper/mapper.mp4" type="video/mp4" />
               Seu navegador não suporta a reprodução de vídeos.
             </video>
             <div className="video-fallback absolute inset-0 w-full h-full object-cover bg-gradient-to-br from-navy-deep to-blue-medium hidden" style={{ display: 'none' }} />
