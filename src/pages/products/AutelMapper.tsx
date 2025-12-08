@@ -34,17 +34,25 @@ const AutelMapper: React.FC = () => {
         });
       };
       
+      const handleLoadedData = () => {
+        video.play().catch((error) => {
+          console.error('Error playing video on loadedData:', error);
+        });
+      };
+      
       video.addEventListener('canplay', handleCanPlay);
+      video.addEventListener('loadeddata', handleLoadedData);
       
       // Try to play immediately if already loaded
       if (video.readyState >= 3) {
         video.play().catch((error) => {
-          console.error('Error playing video:', error);
+          console.error('Error playing video immediately:', error);
         });
       }
 
       return () => {
         video.removeEventListener('canplay', handleCanPlay);
+        video.removeEventListener('loadeddata', handleLoadedData);
       };
     }
   }, []);
@@ -215,7 +223,6 @@ const AutelMapper: React.FC = () => {
               loop
               playsInline
               preload="auto"
-              crossOrigin="anonymous"
             >
               <source src="https://app.autelrobotics.cn/statics/cdn/guanwang/images/mapper_en/videos/banner_video_en.mp4" type="video/mp4" />
               Seu navegador não suporta a reprodução de vídeos.
@@ -245,7 +252,6 @@ const AutelMapper: React.FC = () => {
                         alt={highlight.title}
                         className="w-full h-full object-cover"
                         loading="lazy"
-                        crossOrigin={highlight.image.includes('app.autelrobotics.cn') ? 'anonymous' : undefined}
                       />
                     ) : (
                       <img
