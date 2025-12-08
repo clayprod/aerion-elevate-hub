@@ -108,7 +108,8 @@ const AutelMapper: React.FC = () => {
     {
       title: 'Levantamento e Mapeamento',
       description: 'Soluções profissionais para levantamento e mapeamento.',
-      image: '/images/solucoes/casos-uso-construcao/levantamentos-topograficos.jpg'
+      image: '/images/solucoes/casos-uso-construcao/levantamentos-topograficos.jpg',
+      link: '/solucoes/construcao'
     }
   ];
 
@@ -186,7 +187,6 @@ const AutelMapper: React.FC = () => {
               loop
               playsInline
               preload="auto"
-              crossOrigin="anonymous"
               onError={(e) => {
                 const video = e.currentTarget;
                 video.style.display = 'none';
@@ -224,7 +224,6 @@ const AutelMapper: React.FC = () => {
                         alt={highlight.title}
                         className="w-full h-full object-cover"
                         loading="lazy"
-                        crossOrigin="anonymous"
                         onError={(e) => {
                           const img = e.currentTarget;
                           img.src = '/images/products/mapper/autel-mapper.png';
