@@ -102,6 +102,7 @@ const Header = () => {
                       {(() => {
                         const drones = link.dropdown.filter(item => item.category === "Drones");
                         const softwares = link.dropdown.filter(item => item.category === "Softwares");
+                        const uncategorized = link.dropdown.filter(item => !item.category);
                         
                         return (
                           <>
@@ -128,6 +129,20 @@ const Header = () => {
                                   Softwares
                                 </div>
                                 {softwares.map((dropdownLink) => (
+                                  <Link
+                                    key={dropdownLink.path}
+                                    to={dropdownLink.path}
+                                    className="block px-4 py-2 text-sm text-gray-dark hover:text-blue-medium hover:bg-blue-medium/5 transition-colors"
+                                  >
+                                    {dropdownLink.name}
+                                  </Link>
+                                ))}
+                              </>
+                            )}
+                            {uncategorized.length > 0 && (
+                              <>
+                                {(drones.length > 0 || softwares.length > 0) && <div className="border-t border-gray-200 my-1" />}
+                                {uncategorized.map((dropdownLink) => (
                                   <Link
                                     key={dropdownLink.path}
                                     to={dropdownLink.path}
@@ -225,6 +240,7 @@ const Header = () => {
                           {(() => {
                             const drones = link.dropdown.filter(item => item.category === "Drones");
                             const softwares = link.dropdown.filter(item => item.category === "Softwares");
+                            const uncategorized = link.dropdown.filter(item => !item.category);
                             
                             return (
                               <>
@@ -255,6 +271,24 @@ const Header = () => {
                                       Softwares
                                     </div>
                                     {softwares.map((dropdownLink) => (
+                                      <Link
+                                        key={dropdownLink.path}
+                                        to={dropdownLink.path}
+                                        onClick={() => {
+                                          setIsMobileMenuOpen(false);
+                                          setOpenMobileDropdown(null);
+                                        }}
+                                        className="block py-2 text-sm text-gray-dark hover:text-blue-medium"
+                                      >
+                                        {dropdownLink.name}
+                                      </Link>
+                                    ))}
+                                  </>
+                                )}
+                                {uncategorized.length > 0 && (
+                                  <>
+                                    {(drones.length > 0 || softwares.length > 0) && <div className="border-t border-gray-200 my-1" />}
+                                    {uncategorized.map((dropdownLink) => (
                                       <Link
                                         key={dropdownLink.path}
                                         to={dropdownLink.path}
