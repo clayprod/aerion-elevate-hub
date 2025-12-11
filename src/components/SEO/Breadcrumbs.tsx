@@ -106,9 +106,13 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
               itemType="https://schema.org/ListItem"
             >
               {isLast ? (
-                <span className="text-gray-dark font-medium" itemProp="name">
-                  {item.label}
-                </span>
+                <>
+                  <span className="text-gray-dark font-medium" itemProp="name">
+                    {item.label}
+                  </span>
+                  <meta itemProp="item" content={`https://aerion.com.br${item.path}`} />
+                  <meta itemProp="position" content={String(index + 1)} />
+                </>
               ) : (
                 <>
                   <Link
