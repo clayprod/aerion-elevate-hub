@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Card } from "@/components/ui/card";
-import { Trash2, Edit, Plus, Save, Eye, ArrowLeft } from "lucide-react";
+import { Trash2, Edit, Plus, Save, Eye, ArrowLeft, Upload, X, Loader2 } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -34,6 +34,8 @@ const AdminBlog = () => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
   const [formKey, setFormKey] = useState(0); // Chave para forçar re-renderização
+  const [uploading, setUploading] = useState(false);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     title: "",
     slug: "",
@@ -157,15 +159,120 @@ const AdminBlog = () => {
     
     console.log("Setting form data:", newFormData);
     
+    // Atualizar preview da imagem se existir
+    setImagePreview(newFormData.cover_image || null);
+    
     // Atualizar o estado e forçar re-renderização
     setFormData(newFormData);
     setFormKey(prev => prev + 1); // Forçar re-renderização do formulário
     console.log("Form data updated and key incremented:", newFormData);
   };
 
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    // Validação de tipo de arquivo
+    const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+    if (!validTypes.includes(file.type)) {
+      toast({
+        title: "Erro",
+        description: "Tipo de arquivo inválido. Use JPG, PNG, GIF ou WebP.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Validação de tamanho (20MB máximo)
+    const maxSize = 20 * 1024 * 1024; // 20MB
+    if (file.size > maxSize) {
+      toast({
+        title: "Erro",
+        description: "Arquivo muito grande. Tamanho máximo: 20MB.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setUploading(true);
+
+    try {
+      // Gerar nome único para o arquivo
+      const fileExt = file.name.split('.').pop();
+      const fileName = `blog/cover-images/${Date.now()}-${Math.random().toString(36).substring(2, 15)}.${fileExt}`;
+
+      // Upload para Supabase Storage
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from('public-images')
+        .upload(fileName, file, {
+          cacheControl: '3600',
+          upsert: false
+        });
+
+      if (uploadError) {
+        throw uploadError;
+      }
+
+      // Obter URL pública da imagem
+      const { data: { publicUrl } } = supabase.storage
+        .from('public-images')
+        .getPublicUrl(fileName);
+
+      // Atualizar campo cover_image com a URL
+      setFormData({ ...formData, cover_image: publicUrl });
+      setImagePreview(publicUrl);
+
+      toast({
+        title: "Sucesso!",
+        description: "Imagem enviada com sucesso.",
+      });
+    } catch (error: any) {
+      console.error('Error uploading image:', error);
+      toast({
+        title: "Erro",
+        description: error.message || "Não foi possível fazer upload da imagem.",
+        variant: "destructive",
+      });
+    } finally {
+      setUploading(false);
+      // Limpar input de arquivo
+      event.target.value = '';
+    }
+  };
+
+  const handleImageRemove = async () => {
+    if (!formData.cover_image) return;
+
+    // Se a imagem está no Supabase Storage, tentar remover
+    const url = formData.cover_image;
+    if (url.includes('supabase.co/storage')) {
+      try {
+        // Extrair o caminho do arquivo da URL
+        const urlParts = url.split('/public-images/');
+        if (urlParts.length > 1) {
+          const filePath = urlParts[1];
+          const { error } = await supabase.storage
+            .from('public-images')
+            .remove([filePath]);
+
+          if (error) {
+            console.error('Error removing image:', error);
+          }
+        }
+      } catch (error) {
+        console.error('Error removing image:', error);
+      }
+    }
+
+    // Limpar campos
+    setFormData({ ...formData, cover_image: '' });
+    setImagePreview(null);
+  };
+
   const resetForm = () => {
     setEditingPost(null);
     setFormKey(prev => prev + 1); // Forçar re-renderização
+    setImagePreview(null);
     setFormData({
       title: "",
       slug: "",
@@ -294,14 +401,73 @@ const AdminBlog = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-heading font-semibold text-navy-deep mb-2">
-                    URL da Imagem de Capa
+                    Imagem de Capa
                   </label>
-                  <Input
-                    value={formData.cover_image}
-                    onChange={(e) => setFormData({ ...formData, cover_image: e.target.value })}
-                    placeholder="https://..."
-                    className="border-gray-300 focus:border-blue-medium bg-white"
-                  />
+                  
+                  {/* Preview da imagem */}
+                  {(imagePreview || formData.cover_image) && (
+                    <div className="relative mb-4">
+                      <img
+                        src={imagePreview || formData.cover_image}
+                        alt="Preview"
+                        className="w-full h-48 object-cover rounded-lg border border-gray-300"
+                      />
+                      <Button
+                        type="button"
+                        variant="destructive"
+                        size="sm"
+                        onClick={handleImageRemove}
+                        className="absolute top-2 right-2"
+                      >
+                        <X className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  )}
+
+                  {/* Upload de arquivo */}
+                  <div className="mb-4">
+                    <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors">
+                      <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                        {uploading ? (
+                          <>
+                            <Loader2 className="w-8 h-8 mb-2 text-blue-medium animate-spin" />
+                            <p className="text-sm text-gray-600">Enviando...</p>
+                          </>
+                        ) : (
+                          <>
+                            <Upload className="w-8 h-8 mb-2 text-gray-500" />
+                            <p className="mb-2 text-sm text-gray-600">
+                              <span className="font-semibold">Clique para fazer upload</span> ou arraste e solte
+                            </p>
+                            <p className="text-xs text-gray-500">PNG, JPG, GIF ou WebP (máx. 20MB)</p>
+                          </>
+                        )}
+                      </div>
+                      <input
+                        type="file"
+                        className="hidden"
+                        accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
+                        onChange={handleImageUpload}
+                        disabled={uploading}
+                      />
+                    </label>
+                  </div>
+
+                  {/* Campo de URL como alternativa */}
+                  <div>
+                    <label className="block text-xs font-heading font-semibold text-gray-600 mb-2">
+                      Ou cole uma URL de imagem:
+                    </label>
+                    <Input
+                      value={formData.cover_image}
+                      onChange={(e) => {
+                        setFormData({ ...formData, cover_image: e.target.value });
+                        setImagePreview(e.target.value || null);
+                      }}
+                      placeholder="https://..."
+                      className="border-gray-300 focus:border-blue-medium bg-white"
+                    />
+                  </div>
                 </div>
 
                 <div>
