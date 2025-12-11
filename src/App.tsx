@@ -13,7 +13,6 @@ import CookieConsent from "./components/CookieConsent";
 // Rotas principais - carregadas imediatamente
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import Sitemap from "./pages/Sitemap";
 import Produtos from "./pages/Produtos";
 import Solucoes from "./pages/Solucoes";
 import Sobre from "./pages/Sobre";
@@ -80,7 +79,6 @@ const App = () => (
               <Route path="/termos-uso" element={<TermosUso />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
-              <Route path="/sitemap.xml" element={<Sitemap />} />
               <Route path="/auth" element={<Auth />} />
                 
                 {/* Protected Admin Routes */}
