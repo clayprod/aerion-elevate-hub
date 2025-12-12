@@ -94,19 +94,31 @@ const AdminPages = () => {
   }, [isAdmin]);
 
   const fetchPages = async () => {
-    const { data, error } = await supabase
-      .from("custom_pages")
-      .select("*")
-      .order("created_at", { ascending: false });
+    try {
+      const { data, error } = await supabase
+        .from("custom_pages")
+        .select("*")
+        .order("created_at", { ascending: false });
 
-    if (error) {
+      if (error) {
+        console.error("Error fetching pages:", error);
+        toast({
+          title: "Erro ao carregar páginas",
+          description: error.message || "Não foi possível carregar as páginas. Verifique as políticas RLS no Supabase.",
+          variant: "destructive",
+        });
+        setPages([]);
+      } else {
+        setPages(data || []);
+      }
+    } catch (err) {
+      console.error("Unexpected error fetching pages:", err);
       toast({
-        title: "Erro",
-        description: "Não foi possível carregar as páginas.",
+        title: "Erro inesperado",
+        description: "Ocorreu um erro ao carregar as páginas.",
         variant: "destructive",
       });
-    } else {
-      setPages(data || []);
+      setPages([]);
     }
   };
 
