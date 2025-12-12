@@ -19,6 +19,10 @@ ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 # Copy package files
 COPY package*.json ./
 
+# Build arg to invalidate cache when dependencies change
+# Update this value when adding/removing dependencies to force npm install
+ARG CACHE_BUST=1
+
 # Install dependencies
 RUN npm install
 

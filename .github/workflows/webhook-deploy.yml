@@ -45,6 +45,17 @@ jobs:
             type=raw,value=latest
             type=sha,prefix={{branch}}-
 
+      - name: Calculate package.json hash for cache busting
+        id: package-hash
+        run: |
+          if [ -f package.json ]; then
+            PACKAGE_HASH=$(sha256sum package.json | cut -d' ' -f1 | cut -c1-12)
+            echo "hash=$PACKAGE_HASH" >> $GITHUB_OUTPUT
+            echo "📦 Package.json hash: $PACKAGE_HASH"
+          else
+            echo "hash=default" >> $GITHUB_OUTPUT
+          fi
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
@@ -58,6 +69,7 @@ jobs:
             VITE_EMAILJS_SERVICE_ID=${{ secrets.VITE_EMAILJS_SERVICE_ID }}
             VITE_EMAILJS_TEMPLATE_ID=${{ secrets.VITE_EMAILJS_TEMPLATE_ID }}
             VITE_EMAILJS_PUBLIC_KEY=${{ secrets.VITE_EMAILJS_PUBLIC_KEY }}
+            CACHE_BUST=${{ steps.package-hash.outputs.hash }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
