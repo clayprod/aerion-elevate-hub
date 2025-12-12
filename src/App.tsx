@@ -9,6 +9,7 @@ import { CookieProvider } from "./contexts/CookieContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ScrollToTop from "./components/ScrollToTop";
 import CookieConsent from "./components/CookieConsent";
+import StaticPageWrapper from "./components/StaticPageWrapper";
 
 // Rotas principais - carregadas imediatamente
 import Index from "./pages/Index";
@@ -38,6 +39,10 @@ const AdminHero = lazy(() => import("./pages/admin/AdminHero"));
 const AdminProducts = lazy(() => import("./pages/admin/AdminProducts"));
 const AdminSolutions = lazy(() => import("./pages/admin/AdminSolutions"));
 const AdminSettings = lazy(() => import("./pages/admin/AdminSettings"));
+const AdminPages = lazy(() => import("./pages/admin/AdminPages"));
+
+// Rota dinâmica handler - lazy loaded
+const DynamicRouteHandler = lazy(() => import("./components/DynamicRouteHandler"));
 
 // Componente de loading para Suspense
 const PageLoader = () => (
@@ -62,23 +67,28 @@ const App = () => (
             <ScrollToTop />
             <CookieConsent />
             <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/produtos" element={<Produtos />} />
-              <Route path="/produtos/evo-lite-enterprise" element={<EvoLiteEnterprise />} />
-              <Route path="/produtos/evo-max-v2" element={<EvoMaxV2 />} />
-              <Route path="/produtos/autel-alpha" element={<AutelAlpha />} />
-              <Route path="/produtos/autel-mapper" element={<AutelMapper />} />
-              <Route path="/solucoes" element={<Solucoes />} />
-              <Route path="/solucoes/construcao" element={<ConstrucaoTopografia />} />
-              <Route path="/solucoes/industrial" element={<InspecaoIndustrial />} />
-              <Route path="/solucoes/seguranca" element={<SegurancaPublica />} />
-              <Route path="/solucoes/resgate" element={<ResgateEmergencias />} />
-              <Route path="/sobre" element={<Sobre />} />
-              <Route path="/contato" element={<Contato />} />
-              <Route path="/politica-privacidade" element={<PoliticaPrivacidade />} />
-              <Route path="/termos-uso" element={<TermosUso />} />
+              {/* Rotas estáticas com suporte a override via CMS */}
+              <Route path="/" element={<StaticPageWrapper><Index /></StaticPageWrapper>} />
+              <Route path="/produtos" element={<StaticPageWrapper><Produtos /></StaticPageWrapper>} />
+              <Route path="/produtos/evo-lite-enterprise" element={<StaticPageWrapper><EvoLiteEnterprise /></StaticPageWrapper>} />
+              <Route path="/produtos/evo-max-v2" element={<StaticPageWrapper><EvoMaxV2 /></StaticPageWrapper>} />
+              <Route path="/produtos/autel-alpha" element={<StaticPageWrapper><AutelAlpha /></StaticPageWrapper>} />
+              <Route path="/produtos/autel-mapper" element={<StaticPageWrapper><AutelMapper /></StaticPageWrapper>} />
+              <Route path="/solucoes" element={<StaticPageWrapper><Solucoes /></StaticPageWrapper>} />
+              <Route path="/solucoes/construcao" element={<StaticPageWrapper><ConstrucaoTopografia /></StaticPageWrapper>} />
+              <Route path="/solucoes/industrial" element={<StaticPageWrapper><InspecaoIndustrial /></StaticPageWrapper>} />
+              <Route path="/solucoes/seguranca" element={<StaticPageWrapper><SegurancaPublica /></StaticPageWrapper>} />
+              <Route path="/solucoes/resgate" element={<StaticPageWrapper><ResgateEmergencias /></StaticPageWrapper>} />
+              <Route path="/sobre" element={<StaticPageWrapper><Sobre /></StaticPageWrapper>} />
+              <Route path="/contato" element={<StaticPageWrapper><Contato /></StaticPageWrapper>} />
+              <Route path="/politica-privacidade" element={<StaticPageWrapper><PoliticaPrivacidade /></StaticPageWrapper>} />
+              <Route path="/termos-uso" element={<StaticPageWrapper><TermosUso /></StaticPageWrapper>} />
+              
+              {/* Blog - não usa wrapper pois tem sistema próprio */}
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
+              
+              {/* Auth - não precisa de override */}
               <Route path="/auth" element={<Auth />} />
                 
                 {/* Protected Admin Routes */}
@@ -142,9 +152,26 @@ const App = () => (
                     </ProtectedRoute>
                   }
                 />
+                <Route
+                  path="/admin/pages"
+                  element={
+                    <ProtectedRoute requireAdmin>
+                      <Suspense fallback={<PageLoader />}>
+                        <AdminPages />
+                      </Suspense>
+                    </ProtectedRoute>
+                  }
+                />
                 
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
+              {/* Dynamic route handler - must come after all static routes but before NotFound */}
+              <Route
+                path="/*"
+                element={
+                  <Suspense fallback={<PageLoader />}>
+                    <DynamicRouteHandler />
+                  </Suspense>
+                }
+              />
             </Routes>
           </BrowserRouter>
         </TooltipProvider>

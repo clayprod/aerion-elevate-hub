@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Trash2, Edit } from "lucide-react";
+import { generateSlug } from "@/lib/pageUtils";
 
 interface Solution {
   id: string;
@@ -202,10 +203,7 @@ const AdminSolutions = () => {
                       setFormData({
                         ...formData,
                         name: e.target.value,
-                        slug: e.target.value
-                          .toLowerCase()
-                          .replace(/\s+/g, "-")
-                          .replace(/[^\w-]+/g, ""),
+                        slug: generateSlug(e.target.value),
                       });
                     }}
                     required

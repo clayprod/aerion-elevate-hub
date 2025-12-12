@@ -44,13 +44,15 @@ const Dashboard = () => {
       supabase.from("blog_posts").select("id, published", { count: "exact" }),
       supabase.from("products").select("id", { count: "exact" }),
       supabase.from("solutions").select("id", { count: "exact" }),
-      supabase.from("brands").select("id", { count: "exact" }),
-      supabase.from("product_families").select("id", { count: "exact" }),
-      supabase.from("product_variants").select("id", { count: "exact" }),
-      supabase.from("verticals").select("id", { count: "exact" }),
-      supabase.from("custom_pages").select("id", { count: "exact" }),
-      supabase.from("media_library").select("id", { count: "exact" }),
+      supabase.from("brands").select("id, published", { count: "exact" }).catch(() => ({ data: [], count: 0 })),
+      supabase.from("product_families").select("id", { count: "exact" }).catch(() => ({ data: [], count: 0 })),
+      supabase.from("product_variants").select("id", { count: "exact" }).catch(() => ({ data: [], count: 0 })),
+      supabase.from("verticals").select("id", { count: "exact" }).catch(() => ({ data: [], count: 0 })),
+      supabase.from("custom_pages").select("id, published", { count: "exact" }),
+      supabase.from("media_library").select("id", { count: "exact" }).catch(() => ({ data: [], count: 0 })),
     ]);
+
+    const publishedPages = customPages.data?.filter((p) => p.published).length || 0;
 
     setStats({
       totalPosts: posts.count || 0,
@@ -130,9 +132,9 @@ const Dashboard = () => {
     },
     {
       title: "Páginas Personalizadas",
-      description: "Criar e gerenciar páginas",
+      description: "Criar e gerenciar páginas dinâmicas",
       icon: Globe,
-      link: "/admin/custom-pages",
+      link: "/admin/pages",
       color: "text-cyan-600",
       bgColor: "bg-cyan-50",
       stat: `${stats.totalCustomPages} páginas`,

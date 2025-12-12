@@ -44,26 +44,28 @@ async function generateSitemap() {
     xml += '  </url>\n';
   });
 
-  // Buscar posts de blog do Supabase
+  // Buscar posts de blog e páginas customizadas do Supabase
   const supabaseUrl = process.env.VITE_SUPABASE_URL;
   const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY;
   let blogPosts = [];
+  let customPages = [];
 
   if (supabaseUrl && supabaseKey) {
     try {
       const supabase = createClient(supabaseUrl, supabaseKey);
       
-      const { data, error } = await supabase
+      // Buscar posts do blog
+      const { data: blogData, error: blogError } = await supabase
         .from('blog_posts')
         .select('slug, updated_at, published_at')
         .eq('published', true)
         .order('published_at', { ascending: false });
 
-      if (error) {
-        console.warn('⚠️  Erro ao buscar posts do blog:', error.message);
+      if (blogError) {
+        console.warn('⚠️  Erro ao buscar posts do blog:', blogError.message);
         console.warn('   Continuando sem posts de blog...');
-      } else if (data && data.length > 0) {
-        blogPosts = data;
+      } else if (blogData && blogData.length > 0) {
+        blogPosts = blogData;
         console.log(`✅ Encontrados ${blogPosts.length} posts de blog`);
         
         // Adicionar posts de blog
@@ -81,9 +83,39 @@ async function generateSitemap() {
       } else {
         console.log('ℹ️  Nenhum post de blog publicado encontrado');
       }
+
+      // Buscar páginas customizadas
+      const { data: pagesData, error: pagesError } = await supabase
+        .from('custom_pages')
+        .select('path, updated_at, published_at')
+        .eq('published', true)
+        .order('published_at', { ascending: false });
+
+      if (pagesError) {
+        console.warn('⚠️  Erro ao buscar páginas customizadas:', pagesError.message);
+        console.warn('   Continuando sem páginas customizadas...');
+      } else if (pagesData && pagesData.length > 0) {
+        customPages = pagesData;
+        console.log(`✅ Encontradas ${customPages.length} páginas customizadas`);
+        
+        // Adicionar páginas customizadas
+        customPages.forEach((page) => {
+          const lastmod = page.updated_at || page.published_at || currentDate;
+          const lastmodDate = new Date(lastmod).toISOString().split('T')[0];
+          
+          xml += '  <url>\n';
+          xml += `    <loc>${BASE_URL}${encodeURIComponent(page.path)}</loc>\n`;
+          xml += `    <lastmod>${lastmodDate}</lastmod>\n`;
+          xml += '    <changefreq>monthly</changefreq>\n';
+          xml += '    <priority>0.7</priority>\n';
+          xml += '  </url>\n';
+        });
+      } else {
+        console.log('ℹ️  Nenhuma página customizada publicada encontrada');
+      }
     } catch (error) {
       console.warn('⚠️  Erro ao conectar ao Supabase:', error.message);
-      console.warn('   Continuando sem posts de blog...');
+      console.warn('   Continuando sem conteúdo dinâmico...');
     }
   } else {
     console.warn('⚠️  Variáveis de ambiente do Supabase não encontradas');
@@ -97,7 +129,7 @@ async function generateSitemap() {
   writeFileSync(outputPath, xml, 'utf-8');
   
   console.log(`✅ Sitemap gerado com sucesso: ${outputPath}`);
-  console.log(`   Total de URLs: ${staticRoutes.length + blogPosts.length}`);
+  console.log(`   Total de URLs: ${staticRoutes.length + blogPosts.length + customPages.length}`);
 }
 
 // Executar

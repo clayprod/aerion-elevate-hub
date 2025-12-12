@@ -8,11 +8,14 @@ const EASYPANEL_WEBHOOK_URL = Deno.env.get('EASYPANEL_WEBHOOK_URL') ||
 
 serve(async (req) => {
   try {
-    const { record } = await req.json()
+    const { record, table } = await req.json()
     
-    // Verificar se o post está publicado
+    // Verificar se o conteúdo está publicado (blog post ou custom page)
     if (record.published === true) {
-      console.log(`📝 Post publicado: ${record.slug}`)
+      const contentType = table === 'custom_pages' ? 'Página' : 'Post'
+      const identifier = table === 'custom_pages' ? record.path : record.slug
+      
+      console.log(`📝 ${contentType} publicado: ${identifier}`)
       
       // Chamar webhook do Easypanel
       const response = await fetch(EASYPANEL_WEBHOOK_URL, {
@@ -39,7 +42,7 @@ serve(async (req) => {
     }
     
     return new Response(
-      JSON.stringify({ success: false, message: 'Post not published' }),
+      JSON.stringify({ success: false, message: 'Content not published' }),
       { headers: { 'Content-Type': 'application/json' }, status: 200 }
     )
   } catch (error) {

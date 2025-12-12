@@ -13,6 +13,7 @@ const DIST_DIR = join(__dirname, '..', 'dist');
 const PORT = 4173;
 
 // Rotas estáticas do site
+// Nota: Essas rotas podem ser sobrescritas por páginas customizadas no CMS
 const staticRoutes = [
   '',
   '/produtos',
@@ -131,6 +132,46 @@ async function getBlogPosts() {
   }
 }
 
+// Função para buscar páginas customizadas do Supabase
+async function getCustomPages() {
+  const supabaseUrl = process.env.VITE_SUPABASE_URL;
+  const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY;
+
+  if (!supabaseUrl || !supabaseKey) {
+    console.warn('⚠️  Variáveis de ambiente do Supabase não encontradas');
+    console.warn('   Continuando sem páginas customizadas...');
+    return [];
+  }
+
+  try {
+    const supabase = createClient(supabaseUrl, supabaseKey);
+    
+    const { data, error } = await supabase
+      .from('custom_pages')
+      .select('path')
+      .eq('published', true)
+      .order('published_at', { ascending: false });
+
+    if (error) {
+      console.warn('⚠️  Erro ao buscar páginas customizadas:', error.message);
+      console.warn('   Continuando sem páginas customizadas...');
+      return [];
+    }
+
+    if (data && data.length > 0) {
+      console.log(`✅ Encontradas ${data.length} páginas customizadas`);
+      return data.map(page => page.path);
+    } else {
+      console.log('ℹ️  Nenhuma página customizada publicada encontrada');
+      return [];
+    }
+  } catch (error) {
+    console.warn('⚠️  Erro ao conectar ao Supabase:', error.message);
+    console.warn('   Continuando sem páginas customizadas...');
+    return [];
+  }
+}
+
 // Função para verificar se o servidor está pronto
 async function waitForServer(browser, maxRetries = 10) {
   for (let i = 0; i < maxRetries; i++) {
@@ -219,13 +260,22 @@ async function prerender() {
     process.exit(1);
   }
 
-  // Buscar posts do blog
+  // Buscar posts do blog e páginas customizadas
   const blogRoutes = await getBlogPosts();
-  const allRoutes = [...staticRoutes, ...blogRoutes];
+  const customPageRoutes = await getCustomPages();
+  
+  // Filtrar rotas estáticas que têm override customizado
+  // Se uma rota estática tem override, não precisa prerenderizar a versão estática
+  const staticRoutesWithoutOverrides = staticRoutes.filter(
+    route => !customPageRoutes.includes(route)
+  );
+  
+  const allRoutes = [...staticRoutesWithoutOverrides, ...blogRoutes, ...customPageRoutes];
 
   console.log(`\n📋 Total de rotas para renderizar: ${allRoutes.length}`);
-  console.log(`   - Rotas estáticas: ${staticRoutes.length}`);
-  console.log(`   - Posts do blog: ${blogRoutes.length}\n`);
+  console.log(`   - Rotas estáticas (sem override): ${staticRoutesWithoutOverrides.length}`);
+  console.log(`   - Posts do blog: ${blogRoutes.length}`);
+  console.log(`   - Páginas customizadas (incluindo overrides): ${customPageRoutes.length}\n`);
 
   // Iniciar servidor local
   const server = await startLocalServer();

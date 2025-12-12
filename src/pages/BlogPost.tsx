@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import SanitizedHTML from "@/components/SanitizedHTML";
 
 const BlogPost = () => {
   const { slug } = useParams();
@@ -170,8 +171,8 @@ const BlogPost = () => {
             {/* Content */}
             <article className="container-custom max-w-4xl py-4">
               <div className="prose prose-lg max-w-none">
-                <div 
-                  dangerouslySetInnerHTML={{ __html: post.content }} 
+                <SanitizedHTML 
+                  html={post.content}
                   className="text-lg text-gray-700 leading-relaxed whitespace-pre-wrap" 
                 />
               </div>

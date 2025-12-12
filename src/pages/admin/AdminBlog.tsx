@@ -12,6 +12,7 @@ import { Switch } from "@/components/ui/switch";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import RichTextEditor from "@/components/RichTextEditor";
+import { generateSlug } from "@/lib/pageUtils";
 
 interface BlogPost {
   id: string;
@@ -352,7 +353,7 @@ const AdminBlog = () => {
                       setFormData({
                         ...formData,
                         title: e.target.value,
-                        slug: e.target.value.toLowerCase().replace(/\s+/g, "-").replace(/[^\w-]+/g, ""),
+                        slug: generateSlug(e.target.value),
                       });
                     }}
                     className="border-gray-300 focus:border-blue-medium bg-white"

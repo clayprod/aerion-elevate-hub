@@ -65,9 +65,11 @@ serve(async (req) => {
 
 4. Adicione a variável de ambiente `EASYPANEL_WEBHOOK_URL` nas configurações da função
 
-### 2. Configurar Database Webhook
+### 2. Configurar Database Webhooks
 
 No Supabase Dashboard:
+
+#### Webhook para Blog Posts:
 
 1. Vá para **Database** > **Webhooks**
 2. Clique em **Create a new webhook**
@@ -91,7 +93,37 @@ No Supabase Dashboard:
          "slug": "{{ $1.slug }}",
          "title": "{{ $1.title }}",
          "published": {{ $1.published }}
-       }
+       },
+       "table": "blog_posts"
+     }
+     ```
+
+#### Webhook para Páginas Customizadas:
+
+1. Vá para **Database** > **Webhooks**
+2. Clique em **Create a new webhook**
+3. Configure:
+   - **Name**: `custom-page-deploy-trigger`
+   - **Table**: `custom_pages`
+   - **Events**: `INSERT`, `UPDATE`
+   - **Type**: `HTTP Request`
+   - **Method**: `POST`
+   - **URL**: `https://[seu-projeto].supabase.co/functions/v1/trigger-deploy`
+   - **HTTP Headers**: 
+     ```
+     Authorization: Bearer [seu-anon-key]
+     Content-Type: application/json
+     ```
+   - **HTTP Request Body**: 
+     ```json
+     {
+       "record": {
+         "id": "{{ $1.id }}",
+         "path": "{{ $1.path }}",
+         "title": "{{ $1.title }}",
+         "published": {{ $1.published }}
+       },
+       "table": "custom_pages"
      }
      ```
 
@@ -158,9 +190,10 @@ O Supabase tem suporte nativo para webhooks HTTP:
 
 ## Testando o Webhook
 
-1. Publique um novo post no blog via admin
+1. Publique um novo post no blog via admin OU crie/atualize uma página customizada
 2. Verifique os logs no Supabase Dashboard > Edge Functions > Logs
 3. Verifique se o deploy foi disparado no GitHub Actions ou Easypanel
+4. Após o deploy, verifique se a nova página/post aparece no site e no sitemap.xml
 
 ## Troubleshooting
 
