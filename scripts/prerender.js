@@ -168,7 +168,8 @@ async function renderRoute(browser, route) {
     });
 
     // Aguardar um pouco para garantir que React terminou de renderizar
-    await page.waitForTimeout(2000);
+    // Usar Promise com setTimeout ao invés de waitForTimeout (removido no Puppeteer recente)
+    await new Promise(resolve => setTimeout(resolve, 2000));
 
     // Obter HTML renderizado
     const html = await page.content();
