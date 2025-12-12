@@ -25,23 +25,32 @@ const StaticPageWrapper: React.FC<StaticPageWrapperProps> = ({
   const { data: customPage, isLoading } = useQuery({
     queryKey: ["static-page-override", pathToCheck],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from("custom_pages")
-        .select("*")
-        .eq("path", pathToCheck)
-        .eq("published", true)
-        .single();
+      try {
+        const { data, error } = await supabase
+          .from("custom_pages")
+          .select("*")
+          .eq("path", pathToCheck)
+          .eq("published", true)
+          .single();
 
-      if (error) {
-        // Se não encontrado, não é erro - apenas não há override
-        if (error.code === "PGRST116") {
+        if (error) {
+          // Se não encontrado, não é erro - apenas não há override
+          if (error.code === "PGRST116") {
+            return null;
+          }
+          // Log outros erros mas não quebrar a página estática
+          if (error.code !== "406") {
+            console.warn("Error fetching custom page override:", error);
+          }
           return null;
         }
-        // Outros erros também retornam null para não quebrar a página estática
+
+        return data;
+      } catch (err) {
+        // Em caso de erro inesperado, não quebrar a página estática
+        console.warn("Unexpected error fetching custom page:", err);
         return null;
       }
-
-      return data;
     },
     staleTime: 5 * 60 * 1000, // 5 minutos
     retry: false, // Não retry para não atrasar renderização de páginas estáticas

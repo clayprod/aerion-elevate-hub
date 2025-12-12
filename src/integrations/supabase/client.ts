@@ -6,38 +6,34 @@ import type { Database } from './types';
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-// Use real values or create a mock client
-let supabaseClient;
-
-if (SUPABASE_URL && SUPABASE_ANON_KEY) {
-  console.log('✅ Using real Supabase credentials');
-  supabaseClient = createClient<Database>(SUPABASE_URL, SUPABASE_ANON_KEY, {
-    auth: {
-      storage: localStorage,
-      persistSession: true,
-      autoRefreshToken: true,
-    }
-  });
-} else {
-  console.log('⚠️ Using mock Supabase client');
-  // Create a mock client that won't crash the app
-  supabaseClient = {
-    auth: {
-      signIn: () => Promise.resolve({ data: null, error: null }),
-      signOut: () => Promise.resolve({ error: null }),
-      getSession: () => Promise.resolve({ data: { session: null }, error: null }),
-      onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } })
-    },
-    from: () => ({
-      select: () => Promise.resolve({ data: [], error: null }),
-      insert: () => Promise.resolve({ data: null, error: null }),
-      update: () => Promise.resolve({ data: null, error: null }),
-      delete: () => Promise.resolve({ data: null, error: null })
-    })
-  };
+// Validate environment variables
+if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+  console.error('❌ Supabase credentials missing!');
+  console.error('VITE_SUPABASE_URL:', SUPABASE_URL ? '✅ Set' : '❌ Missing');
+  console.error('VITE_SUPABASE_ANON_KEY:', SUPABASE_ANON_KEY ? '✅ Set' : '❌ Missing');
+  throw new Error(
+    'Supabase credentials are missing. Please check your environment variables:\n' +
+    '- VITE_SUPABASE_URL\n' +
+    '- VITE_SUPABASE_ANON_KEY'
+  );
 }
 
-console.log('🚀 Supabase client initialized:', !!supabaseClient);
+// Create Supabase client with proper configuration
+const supabaseClient = createClient<Database>(SUPABASE_URL, SUPABASE_ANON_KEY, {
+  auth: {
+    storage: localStorage,
+    persistSession: true,
+    autoRefreshToken: true,
+  },
+  global: {
+    headers: {
+      'apikey': SUPABASE_ANON_KEY,
+    },
+  },
+});
+
+console.log('✅ Supabase client initialized with URL:', SUPABASE_URL);
+console.log('🚀 Supabase client ready:', !!supabaseClient);
 
 // Import the supabase client like this:
 // import { supabase } from "@/integrations/supabase/client";
