@@ -7,6 +7,7 @@ interface SEOHeadProps {
   canonical?: string;
   ogType?: string;
   ogImage?: string;
+  noindex?: boolean;
 }
 
 export const SEOHead: React.FC<SEOHeadProps> = ({
@@ -16,6 +17,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
   canonical,
   ogType = 'website',
   ogImage = 'https://aerion.com.br/images/logos/logo-aerion.png',
+  noindex = false,
 }) => {
   useEffect(() => {
     // Atualizar título da página
@@ -86,7 +88,16 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
     updateTwitterTag('twitter:title', title);
     updateTwitterTag('twitter:description', description);
     updateTwitterTag('twitter:image', ogImage);
-  }, [title, description, keywords, canonical, ogType, ogImage]);
+
+    // Adicionar/atualizar meta tag robots
+    let metaRobots = document.querySelector('meta[name="robots"]');
+    if (!metaRobots) {
+      metaRobots = document.createElement('meta');
+      metaRobots.setAttribute('name', 'robots');
+      document.head.appendChild(metaRobots);
+    }
+    metaRobots.setAttribute('content', noindex ? 'noindex, nofollow' : 'index, follow');
+  }, [title, description, keywords, canonical, ogType, ogImage, noindex]);
 
   return null;
 };

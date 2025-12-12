@@ -18,6 +18,7 @@
     <meta name="twitter:description" content="Tecnologia aérea de ponta para operações enterprise no Brasil" />
     <meta name="twitter:image" content="https://aerion.com.br/images/logos/logo-aerion.png" />
     
+    <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://aerion.com.br" />
     
     <!-- Resource Hints - Otimização Core Web Vitals -->
@@ -26,27 +27,47 @@
     <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- Preconnect para Supabase será adicionado dinamicamente via env var se necessário -->
     
-    <!-- Preload de fontes críticas -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600;700&display=swap" as="style" />
-    <link rel="preload" href="/images/logos/logo-aerion.png" as="image" />
+    <!-- Preload de recursos críticos -->
+    <link rel="preload" href="/images/logos/logo-aerion.png" as="image" fetchpriority="high" />
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400&display=swap" as="style" />
     
-    <!-- Google tag (gtag.js) - Carregado com defer para não bloquear renderização -->
-    <script defer src="https://www.googletagmanager.com/gtag/js?id=G-TRB0NJD7H1"></script>
+    <!-- CSS Crítico Inline - Above the fold (Hero Section + Header) -->
+    <style>
+      /* Critical CSS - Header and Hero Section */
+      body{margin:0;font-family:'Open Sans',sans-serif;background:#fff;color:#0A0E27}
+      header{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);transition:all .3s}
+      .container-custom{max-width:1280px;margin:0 auto;padding:0 1rem}
+      @media(min-width:640px){.container-custom{padding:0 1.5rem}}
+      @media(min-width:1024px){.container-custom{padding:0 2rem}}
+      h1{font-family:'Montserrat',sans-serif;font-weight:700;color:#fff;margin:0}
+      .video-responsive{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
+    </style>
+    
+    <!-- Google tag (gtag.js) - Carregado após idle para não bloquear renderização -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      // Carregar configuração apenas após DOM estar pronto
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function() {
+      // Defer GTM loading usando requestIdleCallback
+      (function() {
+        function loadGTM() {
+          var script = document.createElement('script');
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=G-TRB0NJD7H1';
+          script.async = true;
+          document.head.appendChild(script);
+          
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          window.gtag = gtag;
           gtag('js', new Date());
           gtag('config', 'G-TRB0NJD7H1');
-        });
-      } else {
-        gtag('js', new Date());
-        gtag('config', 'G-TRB0NJD7H1');
-      }
+        }
+        
+        // Load GTM after page is interactive or after 2s delay
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(loadGTM, { timeout: 2000 });
+        } else {
+          setTimeout(loadGTM, 2000);
+        }
+      })();
     </script>
     
     <!-- Favicon -->

@@ -53,7 +53,10 @@ export const ProductVideoGallery: React.FC<ProductVideoGalleryProps> = ({
               <img
                 src={video.thumbnail || getThumbnailUrl(video.youtubeId)}
                 alt={video.title}
+                width={640}
+                height={360}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                loading="lazy"
               />
               <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
                 <div className="bg-white bg-opacity-90 rounded-full p-3 group-hover:bg-opacity-100 transition-all duration-300">
@@ -89,7 +92,7 @@ export const ProductVideoGallery: React.FC<ProductVideoGalleryProps> = ({
           <div className="relative max-w-4xl w-full">
             <div className="aspect-video bg-black rounded-lg overflow-hidden">
               <iframe
-                src={`https://www.youtube.com/embed/${selectedVideo}?autoplay=1`}
+                src={`https://www.youtube.com/embed/${selectedVideo}?autoplay=1&cc_lang_pref=pt-BR&cc_load_policy=1`}
                 title={title}
                 className="w-full h-full"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -100,6 +103,7 @@ export const ProductVideoGallery: React.FC<ProductVideoGalleryProps> = ({
             <Button
               onClick={closeVideo}
               className="absolute top-4 right-4 bg-black bg-opacity-50 text-white hover:bg-opacity-70"
+              aria-label="Fechar vídeo"
             >
               ✕
             </Button>

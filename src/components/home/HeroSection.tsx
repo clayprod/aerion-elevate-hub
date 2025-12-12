@@ -10,7 +10,9 @@ const HeroSection = () => {
       <div className="absolute inset-0 w-full h-full overflow-hidden">
         <VideoBackground
           videoSrc="/videos/products/evo_max/Introducing EVO Max 4T_720.mp4"
+          poster="/images/products/evo_max/hero-poster.jpg"
           className="object-cover"
+          lazyLoad={false}
         />
         
         {/* Dark Overlay */}
@@ -40,7 +42,7 @@ const HeroSection = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="text-white font-heading font-semibold mb-1 text-sm">Inteligência Artificial</h3>
+                <h2 className="text-white font-heading font-semibold mb-1 text-sm">Inteligência Artificial</h2>
                 <p className="text-white/80 text-xs">Reconhecimento automático e navegação inteligente</p>
               </div>
             </div>
@@ -52,7 +54,7 @@ const HeroSection = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="text-white font-heading font-semibold mb-1 text-sm">Câmeras térmicas e 6K</h3>
+                <h2 className="text-white font-heading font-semibold mb-1 text-sm">Câmeras térmicas e 6K</h2>
                 <p className="text-white/80 text-xs">Não perca nenhum detalhe com alta resolução</p>
               </div>
             </div>
@@ -64,7 +66,7 @@ const HeroSection = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="text-white font-heading font-semibold mb-1 text-sm">Zoom até 560x</h3>
+                <h2 className="text-white font-heading font-semibold mb-1 text-sm">Zoom até 560x</h2>
                 <p className="text-white/80 text-xs">Detecção e identificação a longa distância</p>
               </div>
             </div>
@@ -76,7 +78,7 @@ const HeroSection = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="text-white font-heading font-semibold mb-1 text-sm">Proteção IP55</h3>
+                <h2 className="text-white font-heading font-semibold mb-1 text-sm">Proteção IP55</h2>
                 <p className="text-white/80 text-xs">Resistente a intempéries e condições extremas</p>
               </div>
             </div>
@@ -88,7 +90,7 @@ const HeroSection = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="text-white font-heading font-semibold mb-1 text-sm">Software em Português</h3>
+                <h2 className="text-white font-heading font-semibold mb-1 text-sm">Software em Português</h2>
                 <p className="text-white/80 text-xs">Interface e suporte técnico localizados</p>
               </div>
             </div>
@@ -100,7 +102,7 @@ const HeroSection = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="text-white font-heading font-semibold mb-1 text-sm">Sensoriamento Inteligente</h3>
+                <h2 className="text-white font-heading font-semibold mb-1 text-sm">Sensoriamento Inteligente</h2>
                 <p className="text-white/80 text-xs">Sensores de colisão, antijamming e RTH</p>
               </div>
             </div>

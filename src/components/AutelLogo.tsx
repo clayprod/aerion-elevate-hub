@@ -32,6 +32,8 @@ export const AutelLogo: React.FC<AutelLogoProps> = ({
       <img
         src="/images/logos/autel-logo.png"
         alt="Autel Robotics"
+        width={200}
+        height={80}
         className="h-full w-auto object-contain"
         onError={handleImageError}
       />

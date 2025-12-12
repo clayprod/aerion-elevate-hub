@@ -15,6 +15,8 @@ const Footer = () => {
             <img
               src={logo}
               alt="Aerion Technologies"
+              width={200}
+              height={56}
               className="h-12 md:h-14 w-auto mb-4 brightness-0 invert"
             />
             <p className="text-gray-medium text-sm leading-relaxed">
@@ -24,7 +26,7 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-heading font-bold text-lg mb-4">Links Rápidos</h4>
+            <h2 className="font-heading font-bold text-lg mb-4">Links Rápidos</h2>
             <nav className="flex flex-col space-y-2">
               <Link
                 to="/produtos"
@@ -61,7 +63,7 @@ const Footer = () => {
 
           {/* Solutions */}
           <div>
-            <h4 className="font-heading font-bold text-lg mb-4">Soluções</h4>
+            <h2 className="font-heading font-bold text-lg mb-4">Soluções</h2>
             <nav className="flex flex-col space-y-2">
               <Link
                 to="/solucoes/construcao"
@@ -92,7 +94,7 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div>
-            <h4 className="font-heading font-bold text-lg mb-4">Contato</h4>
+            <h2 className="font-heading font-bold text-lg mb-4">Contato</h2>
             <div className="flex flex-col space-y-3">
               <div className="flex items-center space-x-3 text-gray-medium text-sm">
                 <Phone className="h-4 w-4 flex-shrink-0" />

@@ -11,6 +11,7 @@ const staticRoutes = [
   { path: '/produtos/evo-lite-enterprise', priority: '0.8', changefreq: 'monthly' },
   { path: '/produtos/evo-max-v2', priority: '0.8', changefreq: 'monthly' },
   { path: '/produtos/autel-alpha', priority: '0.8', changefreq: 'monthly' },
+  { path: '/produtos/autel-mapper', priority: '0.8', changefreq: 'monthly' },
   { path: '/solucoes', priority: '0.9', changefreq: 'monthly' },
   { path: '/solucoes/construcao', priority: '0.8', changefreq: 'monthly' },
   { path: '/solucoes/industrial', priority: '0.8', changefreq: 'monthly' },
