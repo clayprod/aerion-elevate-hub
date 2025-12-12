@@ -14,6 +14,9 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  optimizeDeps: {
+    exclude: ["dompurify"],
+  },
   build: {
     // Otimizações de build
     target: "esnext",
@@ -23,6 +26,10 @@ export default defineConfig(({ mode }) => ({
     
     // Code splitting e chunk optimization
     rollupOptions: {
+      external: (id) => {
+        // Não externalizar dompurify - deve ser incluído no bundle
+        return false;
+      },
       output: {
         // Separar vendor chunks (React não deve ser separado)
         manualChunks: (id) => {
