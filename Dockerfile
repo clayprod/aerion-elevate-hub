@@ -39,6 +39,9 @@ ENV VITE_EMAILJS_SERVICE_ID=$VITE_EMAILJS_SERVICE_ID
 ENV VITE_EMAILJS_TEMPLATE_ID=$VITE_EMAILJS_TEMPLATE_ID
 ENV VITE_EMAILJS_PUBLIC_KEY=$VITE_EMAILJS_PUBLIC_KEY
 
+# Invalidate cache by creating a timestamp file (forces rebuild when code changes)
+RUN echo "Build timestamp: $(date -Iseconds)" > /tmp/build-timestamp.txt
+
 # Build the application
 RUN npm run build
 
