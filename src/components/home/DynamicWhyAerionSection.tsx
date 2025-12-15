@@ -52,10 +52,15 @@ const defaultDifferentials = [
 ];
 
 const DynamicWhyAerionSection = ({ data }: DynamicWhyAerionSectionProps) => {
+  // Garantir que sempre há diferenciais para renderizar
+  const differentials = (data.differentials && Array.isArray(data.differentials) && data.differentials.length > 0)
+    ? data.differentials
+    : defaultDifferentials;
+  
   const sectionData = {
     title: data.title || "Por Que Escolher Aerion?",
     subtitle: data.subtitle || "Muito mais que distribuidora: seu parceiro estratégico em tecnologia aérea",
-    differentials: data.differentials || defaultDifferentials,
+    differentials: differentials,
   };
 
   return (
@@ -80,7 +85,8 @@ const DynamicWhyAerionSection = ({ data }: DynamicWhyAerionSectionProps) => {
         {/* Differentials Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {sectionData.differentials.map((item, index) => {
-            const IconComponent = defaultDifferentials[index]?.icon || Rocket;
+            // Se o item tem ícone definido, usar; senão usar do defaultDifferentials correspondente
+            const IconComponent = (item as any).icon || defaultDifferentials[index]?.icon || Rocket;
             return (
               <Card
                 key={item.title}
