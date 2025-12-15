@@ -9,8 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Card } from "@/components/ui/card";
 import { Trash2, Edit, Plus, Save, Eye, ArrowLeft, Upload, X, Loader2, Copy } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import AdminLayout from "@/components/admin/AdminLayout";
 import RichTextEditor from "@/components/RichTextEditor";
 import SanitizedHTML from "@/components/SanitizedHTML";
 import { generateSlug, isValidDynamicPath } from "@/lib/pageUtils";
@@ -413,11 +412,8 @@ const AdminPages = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
-
-      <main className="pt-28 pb-20">
-        <div className="container-custom max-w-7xl">
+    <AdminLayout>
+      <div className="max-w-7xl mx-auto">
           <div className="mb-8">
             <div className="flex items-center justify-between mb-4">
               <div>
@@ -761,9 +757,8 @@ const AdminPages = () => {
             </div>
           </Card>
         </div>
-      </main>
-
-      <Footer />
+      </div>
+    </AdminLayout>
 
       {/* Delete Confirmation Dialog */}
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>

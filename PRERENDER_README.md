@@ -125,3 +125,4 @@ npx vite preview
 2. Teste publicando um novo post e verificando se o rebuild acontece automaticamente
 3. Verifique no Google Search Console se o conteúdo está sendo indexado corretamente
 
+

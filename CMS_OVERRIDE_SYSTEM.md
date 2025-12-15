@@ -97,3 +97,4 @@ Para migrar conteúdo de páginas estáticas para o CMS:
 - Se houver erro na busca, fallback para componente estático
 - Paths devem seguir validação (não podem ser rotas protegidas)
 
+

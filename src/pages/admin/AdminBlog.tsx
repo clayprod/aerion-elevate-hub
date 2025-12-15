@@ -9,8 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Card } from "@/components/ui/card";
 import { Trash2, Edit, Plus, Save, Eye, ArrowLeft, Upload, X, Loader2 } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import AdminLayout from "@/components/admin/AdminLayout";
 import RichTextEditor from "@/components/RichTextEditor";
 import { generateSlug } from "@/lib/pageUtils";
 
@@ -299,11 +298,8 @@ const AdminBlog = () => {
   console.log("Editing post:", editingPost);
 
   return (
-    <div className="min-h-screen">
-      <Header />
-
-      <main className="pt-28 pb-20 bg-gray-50 min-h-screen">
-        <div className="container-custom max-w-7xl">
+    <AdminLayout>
+      <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-8">
             <div>
               <h1 className="text-4xl font-heading font-bold text-navy-deep mb-2">
@@ -574,10 +570,8 @@ const AdminBlog = () => {
             </div>
           </Card>
         </div>
-      </main>
-
-      <Footer />
-    </div>
+      </div>
+    </AdminLayout>
   );
 };
 

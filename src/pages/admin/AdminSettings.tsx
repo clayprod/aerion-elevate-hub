@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import AdminLayout from "@/components/admin/AdminLayout";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -115,11 +114,8 @@ const AdminSettings = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
-
-      <main className="pt-28 pb-20">
-        <div className="container-custom max-w-6xl">
+    <AdminLayout>
+      <div className="max-w-6xl mx-auto">
           <h1 className="text-4xl font-heading font-bold text-navy-deep mb-8">
             Configurações do Site
           </h1>
@@ -161,10 +157,8 @@ const AdminSettings = () => {
             </TabsContent>
           </Tabs>
         </div>
-      </main>
-
-      <Footer />
-    </div>
+      </div>
+    </AdminLayout>
   );
 };
 

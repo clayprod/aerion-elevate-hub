@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import AdminLayout from "@/components/admin/AdminLayout";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -50,32 +49,38 @@ const Dashboard = () => {
   }, []);
 
   const fetchStats = async () => {
-    const [posts, products, solutions, brands, productFamilies, productVariants, verticals, customPages, mediaFiles] = await Promise.all([
-      supabase.from("blog_posts").select("id, published", { count: "exact" }),
-      supabase.from("products").select("id", { count: "exact" }),
-      supabase.from("solutions").select("id", { count: "exact" }),
-      supabase.from("brands").select("id, published", { count: "exact" }).catch(() => ({ data: [], count: 0 })),
-      supabase.from("product_families").select("id", { count: "exact" }).catch(() => ({ data: [], count: 0 })),
-      supabase.from("product_variants").select("id", { count: "exact" }).catch(() => ({ data: [], count: 0 })),
-      supabase.from("verticals").select("id", { count: "exact" }).catch(() => ({ data: [], count: 0 })),
-      supabase.from("custom_pages").select("id, published", { count: "exact" }),
-      supabase.from("media_library").select("id", { count: "exact" }).catch(() => ({ data: [], count: 0 })),
-    ]);
+    try {
+      const [posts, products, solutions, brands, productFamilies, productVariants, verticals, customPages, mediaFiles, pageBlocks, productPageContent] = await Promise.all([
+        supabase.from("blog_posts").select("id, published", { count: "exact" }),
+        supabase.from("products").select("id", { count: "exact" }),
+        supabase.from("solutions").select("id", { count: "exact" }),
+        supabase.from("brands").select("id", { count: "exact" }).catch(() => ({ data: [], count: 0 })),
+        supabase.from("product_families").select("id", { count: "exact" }).catch(() => ({ data: [], count: 0 })),
+        supabase.from("product_variants").select("id", { count: "exact" }).catch(() => ({ data: [], count: 0 })),
+        supabase.from("verticals").select("id", { count: "exact" }).catch(() => ({ data: [], count: 0 })),
+        supabase.from("custom_pages").select("id, published", { count: "exact" }),
+        supabase.from("media_library").select("id", { count: "exact" }).catch(() => ({ data: [], count: 0 })),
+        supabase.from("page_blocks").select("id", { count: "exact" }).catch(() => ({ data: [], count: 0 })),
+        supabase.from("product_page_content").select("id", { count: "exact" }).catch(() => ({ data: [], count: 0 })),
+      ]);
 
-    const publishedPages = customPages.data?.filter((p) => p.published).length || 0;
+      const publishedPages = customPages.data?.filter((p) => p.published).length || 0;
 
-    setStats({
-      totalPosts: posts.count || 0,
-      publishedPosts: posts.data?.filter((p) => p.published).length || 0,
-      totalProducts: products.count || 0,
-      totalSolutions: solutions.count || 0,
-      totalBrands: brands.count || 0,
-      totalProductFamilies: productFamilies.count || 0,
-      totalProductVariants: productVariants.count || 0,
-      totalVerticals: verticals.count || 0,
-      totalCustomPages: customPages.count || 0,
-      totalMediaFiles: mediaFiles.count || 0,
-    });
+      setStats({
+        totalPosts: posts.count || 0,
+        publishedPosts: posts.data?.filter((p) => p.published).length || 0,
+        totalProducts: products.count || 0,
+        totalSolutions: solutions.count || 0,
+        totalBrands: brands.count || 0,
+        totalProductFamilies: productFamilies.count || 0,
+        totalProductVariants: productVariants.count || 0,
+        totalVerticals: verticals.count || 0,
+        totalCustomPages: customPages.count || 0,
+        totalMediaFiles: mediaFiles.count || 0,
+      });
+    } catch (error) {
+      console.error("Error fetching stats:", error);
+    }
   };
 
   const adminSections = [
@@ -169,11 +174,8 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
-
-      <main className="pt-28 pb-20">
-        <div className="container-custom max-w-7xl">
+    <AdminLayout>
+      <div className="max-w-7xl mx-auto">
           <div className="mb-8">
             <h1 className="text-4xl font-heading font-bold text-navy-deep mb-2">
               <LayoutDashboard className="inline-block mr-3 mb-1" size={36} />
@@ -250,10 +252,8 @@ const Dashboard = () => {
             ))}
           </div>
         </div>
-      </main>
-
-      <Footer />
-    </div>
+      </div>
+    </AdminLayout>
   );
 };
 

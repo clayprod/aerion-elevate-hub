@@ -56,3 +56,4 @@ Configure webhook via Supabase Dashboard > Database > Webhooks ou use Edge Funct
 COMMENT ON TRIGGER blog_post_deploy_webhook ON public.blog_posts IS 
 'Trigger que dispara quando um post é publicado ou atualizado para chamar webhook de deploy.';
 
+

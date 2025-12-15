@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import AdminLayout from "@/components/admin/AdminLayout";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Trash2, Edit, Plus, ArrowUp, ArrowDown } from "lucide-react";
+import MediaUploader from "@/components/admin/MediaUploader";
 
 interface HeroMedia {
   id: string;
@@ -196,11 +196,8 @@ const AdminHero = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
-
-      <main className="pt-28 pb-20">
-        <div className="container-custom max-w-6xl">
+    <AdminLayout>
+      <div className="max-w-6xl mx-auto">
           <h1 className="text-4xl font-heading font-bold text-navy-deep mb-8">
             Gerenciar Hero Section
           </h1>
@@ -288,14 +285,13 @@ const AdminHero = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-heading font-semibold text-navy-deep mb-2">
-                  URL da Mídia *
-                </label>
-                <Input
-                  value={mediaForm.media_url}
-                  onChange={(e) => setMediaForm({ ...mediaForm, media_url: e.target.value })}
-                  placeholder="https://..."
-                  required
+                <MediaUploader
+                  onUploadComplete={(url) => setMediaForm({ ...mediaForm, media_url: url })}
+                  currentUrl={mediaForm.media_url}
+                  onRemove={() => setMediaForm({ ...mediaForm, media_url: "" })}
+                  folder="hero"
+                  label="Mídia (Upload ou URL)"
+                  accept={mediaForm.media_type === "video" ? "video/*" : "image/*"}
                 />
               </div>
 
@@ -397,10 +393,8 @@ const AdminHero = () => {
             </div>
           </div>
         </div>
-      </main>
-
-      <Footer />
-    </div>
+      </div>
+    </AdminLayout>
   );
 };
 

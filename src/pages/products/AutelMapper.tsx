@@ -1,4 +1,6 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
 import { ProductStickyMenu } from '@/components/products/ProductStickyMenu';
 import { ProductApplications } from '@/components/products/ProductApplications';
 import { ProductVideoGallery } from '@/components/products/ProductVideoGallery';
@@ -20,9 +22,29 @@ import {
   Settings,
   Cloud
 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
 const AutelMapper: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  
+  // Fetch product page content from database
+  const { data: pageContent, isLoading } = useQuery({
+    queryKey: ['product-page-content', 'autel-mapper'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('product_page_content')
+        .select('*')
+        .eq('product_slug', 'autel-mapper')
+        .single();
+      
+      if (error && error.code !== 'PGRST116') {
+        throw error;
+      }
+      
+      return data;
+    },
+    staleTime: 5 * 60 * 1000, // 5 minutes
+  });
 
   useEffect(() => {
     const video = videoRef.current;
@@ -64,7 +86,13 @@ const AutelMapper: React.FC = () => {
     { id: 'videos', label: 'Vídeos' }
   ];
 
-  const highlights = [
+  // Icon mapping
+  const iconMap: Record<string, LucideIcon> = {
+    Zap, Box, Map, Triangle, Clock, Layers, Network, Settings, Cloud
+  };
+
+  // Use data from database or fallback to hardcoded
+  const highlights = (pageContent?.highlights || [
     {
       id: 'swift-and-accurate',
       title: 'Rápido e Preciso',
@@ -137,18 +165,18 @@ const AutelMapper: React.FC = () => {
       image: 'https://www.autelrobotics.com/wp-content/themes/autel/userfiles/images/2023/05/25/2023052519565999.png',
       imageType: 'png'
     }
-  ];
+  ]) as any[];
 
-  const applications = [
+  const applications = (pageContent?.applications || [
     {
       title: 'Levantamento e Mapeamento',
       description: 'Soluções profissionais para levantamento e mapeamento.',
       image: '/images/solucoes/casos-uso-construcao/levantamentos-topograficos.jpg',
       link: '/solucoes/construcao'
     }
-  ];
+  ]) as any[];
 
-  const specs = {
+  const specs = (pageContent?.specifications || {
     'REQUISITOS DO SISTEMA': {
       'Sistema Operacional': 'Windows 10 ou posterior (64-bit)',
       'Tipo': 'Reconstrução 2D/3D'
@@ -189,7 +217,7 @@ const AutelMapper: React.FC = () => {
       'Rebuild Optimization - Image POS Data Management': 'Suportado',
       'Rebuild Optimization - Ground Control Point (GCP) Management': 'Suportado'
     }
-  };
+  }) as Record<string, Record<string, string>>;
 
   return (
     <div className="min-h-screen">
@@ -223,8 +251,9 @@ const AutelMapper: React.FC = () => {
               loop
               playsInline
               preload="auto"
+              poster={pageContent?.hero_poster_url || undefined}
             >
-              <source src="/videos/products/mapper/mapper.mp4" type="video/mp4" />
+              <source src={pageContent?.hero_video_url || "/videos/products/mapper/mapper.mp4"} type="video/mp4" />
               Seu navegador não suporta a reprodução de vídeos.
             </video>
             <div className="video-fallback absolute inset-0 w-full h-full object-cover bg-gradient-to-br from-navy-deep to-blue-medium hidden" style={{ display: 'none' }} />
@@ -241,8 +270,8 @@ const AutelMapper: React.FC = () => {
 
           {/* Highlights Grid */}
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {highlights.map((highlight) => {
-              const Icon = highlight.icon;
+            {highlights.map((highlight: any) => {
+              const Icon = typeof highlight.icon === 'string' ? iconMap[highlight.icon] : highlight.icon;
               return (
                 <Card key={highlight.id} className="overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-200">
                   <div className="relative h-48 overflow-hidden bg-gray-100">
@@ -320,7 +349,7 @@ const AutelMapper: React.FC = () => {
       <section id="videos" className="py-12 bg-gray-light/30">
         <div className="max-w-7xl mx-auto px-6">
           <ProductVideoGallery
-            videos={[
+            videos={pageContent?.videos || [
               {
                 youtubeId: 'ldQWruVNa1U',
                 title: 'Autel Mapper',

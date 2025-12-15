@@ -40,6 +40,11 @@ const AdminProducts = lazy(() => import("./pages/admin/AdminProducts"));
 const AdminSolutions = lazy(() => import("./pages/admin/AdminSolutions"));
 const AdminSettings = lazy(() => import("./pages/admin/AdminSettings"));
 const AdminPages = lazy(() => import("./pages/admin/AdminPages"));
+const MediaLibrary = lazy(() => import("./pages/admin/MediaLibrary"));
+const ProductPageEditor = lazy(() => import("./pages/admin/ProductPageEditor"));
+const AdminBrands = lazy(() => import("./pages/admin/AdminBrands"));
+const AdminProductFamilies = lazy(() => import("./pages/admin/AdminProductFamilies"));
+const AdminVerticals = lazy(() => import("./pages/admin/AdminSolutions"));
 
 // Rota dinâmica handler - lazy loaded
 const DynamicRouteHandler = lazy(() => import("./components/DynamicRouteHandler"));
@@ -164,6 +169,56 @@ const App = () => {
                     <ProtectedRoute requireAdmin>
                       <Suspense fallback={<PageLoader />}>
                         <AdminPages />
+                      </Suspense>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/media-library"
+                  element={
+                    <ProtectedRoute requireAdmin>
+                      <Suspense fallback={<PageLoader />}>
+                        <MediaLibrary />
+                      </Suspense>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/page-editor"
+                  element={
+                    <ProtectedRoute requireAdmin>
+                      <Suspense fallback={<PageLoader />}>
+                        <ProductPageEditor />
+                      </Suspense>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/brands"
+                  element={
+                    <ProtectedRoute requireAdmin>
+                      <Suspense fallback={<PageLoader />}>
+                        <AdminBrands />
+                      </Suspense>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/product-families"
+                  element={
+                    <ProtectedRoute requireAdmin>
+                      <Suspense fallback={<PageLoader />}>
+                        <AdminProductFamilies />
+                      </Suspense>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/verticals"
+                  element={
+                    <ProtectedRoute requireAdmin>
+                      <Suspense fallback={<PageLoader />}>
+                        <AdminVerticals />
                       </Suspense>
                     </ProtectedRoute>
                   }

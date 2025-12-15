@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import AdminLayout from "@/components/admin/AdminLayout";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Trash2, Edit } from "lucide-react";
 import { generateSlug } from "@/lib/pageUtils";
+import MediaUploader from "@/components/admin/MediaUploader";
 
 interface Product {
   id: string;
@@ -162,11 +162,9 @@ const AdminProducts = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
+    <AdminLayout>
 
-      <main className="pt-28 pb-20">
-        <div className="container-custom max-w-6xl">
+      <div className="max-w-6xl mx-auto">
           <h1 className="text-4xl font-heading font-bold text-navy-deep mb-8">
             Gerenciar Produtos
           </h1>
@@ -245,13 +243,13 @@ const AdminProducts = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div>
-                  <label className="block text-sm font-heading font-semibold text-navy-deep mb-2">
-                    URL da Imagem
-                  </label>
-                  <Input
-                    value={formData.image_url}
-                    onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
-                    placeholder="https://..."
+                  <MediaUploader
+                    onUploadComplete={(url) => setFormData({ ...formData, image_url: url })}
+                    currentUrl={formData.image_url}
+                    onRemove={() => setFormData({ ...formData, image_url: "" })}
+                    folder="products"
+                    label="Imagem do Produto"
+                    accept="image/*"
                   />
                 </div>
 
@@ -345,10 +343,8 @@ const AdminProducts = () => {
             </div>
           </div>
         </div>
-      </main>
-
-      <Footer />
-    </div>
+      </div>
+    </AdminLayout>
   );
 };
 
