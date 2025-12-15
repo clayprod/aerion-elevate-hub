@@ -19,7 +19,7 @@ const Sobre = () => {
       />
       <Header />
       
-      <main className="pt-28 pb-20">
+      <main className="pt-20 pb-20">
         <Breadcrumbs />
         {/* Story Section */}
         <section className="py-10 bg-gray-light/30">
