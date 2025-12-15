@@ -58,6 +58,9 @@ const Dashboard = () => {
     setError(null);
     
     try {
+      console.log("[Dashboard] Iniciando fetchStats...");
+      console.log("[Dashboard] Supabase client:", supabase ? "disponível" : "não disponível");
+      
       const queries = [
         { name: "blog_posts", query: supabase.from("blog_posts").select("id, published", { count: "exact" }) },
         { name: "products", query: supabase.from("products").select("id", { count: "exact" }) },
@@ -72,9 +75,14 @@ const Dashboard = () => {
         { name: "product_page_content", query: supabase.from("product_page_content").select("id", { count: "exact" }) },
       ];
 
+      console.log("[Dashboard] Executando queries...");
       const results = await Promise.allSettled(
-        queries.map((q) => q.query)
+        queries.map((q) => {
+          console.log(`[Dashboard] Preparando query para ${q.name}`);
+          return q.query;
+        })
       );
+      console.log("[Dashboard] Queries executadas, processando resultados...");
 
       const errors: string[] = [];
       const data: any[] = [];
