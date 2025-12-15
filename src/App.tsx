@@ -56,7 +56,13 @@ const PageLoader = () => (
 
 const queryClient = new QueryClient();
 
-const App = () => (
+const App = () => {
+  // #region agent log
+  const logDataApp = {location:'App.tsx:59',message:'App component rendered',data:{pathname:window.location.pathname},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'};
+  console.log('🚀 [DEBUG]', JSON.stringify(logDataApp));
+  fetch('http://127.0.0.1:7242/ingest/533de3d1-c5fa-427f-88e4-6ca8b9bbc865',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(logDataApp)}).catch(()=>{});
+  // #endregion
+  return (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
       <CookieProvider>
@@ -178,6 +184,7 @@ const App = () => (
       </CookieProvider>
     </AuthProvider>
   </QueryClientProvider>
-);
+  );
+};
 
 export default App;
