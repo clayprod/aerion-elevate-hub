@@ -155,7 +155,18 @@ const MediaLibrary = () => {
       }
 
       // Buscar novamente após sincronização
-      const { data: finalData, error: finalError } = await query;
+      const { data: finalData, error: finalError } = await supabase
+        .from("media_library")
+        .select("*")
+        .order("created_at", { ascending: false });
+      
+      if (selectedFolder !== "all") {
+        const filteredData = finalData?.filter((item) => item.folder === selectedFolder) || [];
+        setMediaItems(filteredData);
+      } else {
+        setMediaItems(finalData || []);
+      }
+      
       if (finalError) throw finalError;
 
       setMediaItems(finalData || []);

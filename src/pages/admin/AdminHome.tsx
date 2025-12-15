@@ -796,18 +796,37 @@ const AdminHome = () => {
 
   // Criar blocos mockados para preview
   const getPreviewBlocks = (): PageBlock[] => {
+    const activeBlocks = blocks.filter((b) => b.active).sort((a, b) => a.order_index - b.order_index);
+    
     if (showForm && formData.block_type) {
+      // Se está editando um bloco existente, substituir na lista
+      if (editingBlock) {
+        const updatedBlocks = activeBlocks.map((block) =>
+          block.id === editingBlock.id
+            ? {
+                ...block,
+                block_type: formData.block_type,
+                block_data: formData.block_data,
+                active: formData.active,
+              }
+            : block
+        );
+        return updatedBlocks;
+      }
+      
+      // Se está criando novo bloco, adicionar ao final
       const previewBlock: PageBlock = {
         id: "preview",
         page_slug: "home",
         block_type: formData.block_type,
         block_data: formData.block_data,
-        order_index: 0,
+        order_index: activeBlocks.length,
         active: formData.active,
       };
-      return [previewBlock];
+      return [...activeBlocks, previewBlock];
     }
-    return blocks.filter((b) => b.active);
+    
+    return activeBlocks;
   };
 
   return (
