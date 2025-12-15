@@ -69,11 +69,6 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
           icon: Globe,
           link: "/admin/pages",
         },
-        {
-          title: "Hero Section",
-          icon: Image,
-          link: "/admin/hero",
-        },
       ],
     },
     {

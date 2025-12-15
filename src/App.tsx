@@ -35,7 +35,6 @@ import ResgateEmergencias from "./pages/solucoes/ResgateEmergencias";
 // Rotas admin - lazy loaded (menos acessadas)
 const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
 const AdminBlog = lazy(() => import("./pages/admin/AdminBlog"));
-const AdminHero = lazy(() => import("./pages/admin/AdminHero"));
 const AdminHome = lazy(() => import("./pages/admin/AdminHome"));
 const AdminProducts = lazy(() => import("./pages/admin/AdminProducts"));
 const AdminSolutions = lazy(() => import("./pages/admin/AdminSolutions"));
@@ -45,6 +44,7 @@ const MediaLibrary = lazy(() => import("./pages/admin/MediaLibrary"));
 const ProductPageEditor = lazy(() => import("./pages/admin/ProductPageEditor"));
 const AdminBrands = lazy(() => import("./pages/admin/AdminBrands"));
 const AdminProductFamilies = lazy(() => import("./pages/admin/AdminProductFamilies"));
+const AdminProductVariants = lazy(() => import("./pages/admin/AdminProductVariants"));
 const AdminVerticals = lazy(() => import("./pages/admin/AdminSolutions"));
 
 // Rota dinâmica handler - lazy loaded
@@ -115,16 +115,6 @@ const App = () => {
                     <ProtectedRoute requireAdmin>
                       <Suspense fallback={<PageLoader />}>
                         <AdminBlog />
-                      </Suspense>
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/admin/hero"
-                  element={
-                    <ProtectedRoute requireAdmin>
-                      <Suspense fallback={<PageLoader />}>
-                        <AdminHero />
                       </Suspense>
                     </ProtectedRoute>
                   }
@@ -215,6 +205,16 @@ const App = () => {
                     <ProtectedRoute requireAdmin>
                       <Suspense fallback={<PageLoader />}>
                         <AdminProductFamilies />
+                      </Suspense>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/product-variants"
+                  element={
+                    <ProtectedRoute requireAdmin>
+                      <Suspense fallback={<PageLoader />}>
+                        <AdminProductVariants />
                       </Suspense>
                     </ProtectedRoute>
                   }

@@ -20,9 +20,10 @@ interface PageBlock {
 
 interface BlockRendererProps {
   pageSlug?: string;
+  previewBlocks?: PageBlock[];
 }
 
-const BlockRenderer = ({ pageSlug = "home" }: BlockRendererProps) => {
+const BlockRenderer = ({ pageSlug = "home", previewBlocks }: BlockRendererProps) => {
   const { data: blocks, isLoading } = useQuery({
     queryKey: ["page-blocks", pageSlug],
     queryFn: async () => {
@@ -37,9 +38,13 @@ const BlockRenderer = ({ pageSlug = "home" }: BlockRendererProps) => {
       return data as PageBlock[];
     },
     staleTime: 5 * 60 * 1000, // 5 minutos
+    enabled: !previewBlocks, // Não fazer query se previewBlocks for fornecido
   });
 
-  if (isLoading) {
+  // Usar previewBlocks se fornecido, senão usar blocks do banco
+  const displayBlocks = previewBlocks || blocks;
+
+  if (!previewBlocks && isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -51,7 +56,7 @@ const BlockRenderer = ({ pageSlug = "home" }: BlockRendererProps) => {
   }
 
   // Se não houver blocos no banco, usar componentes padrão
-  if (!blocks || blocks.length === 0) {
+  if (!displayBlocks || displayBlocks.length === 0) {
     return (
       <>
         <HeroSection />
@@ -65,7 +70,7 @@ const BlockRenderer = ({ pageSlug = "home" }: BlockRendererProps) => {
 
   return (
     <>
-      {blocks.map((block) => {
+      {displayBlocks.map((block) => {
         switch (block.block_type) {
           case "hero":
             return (

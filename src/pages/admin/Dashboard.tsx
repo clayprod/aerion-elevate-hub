@@ -191,14 +191,6 @@ const Dashboard = () => {
       stat: `${stats.publishedPosts}/${stats.totalPosts} publicados`,
     },
     {
-      title: "Hero Section",
-      description: "Gerenciar banner principal e mídia",
-      icon: Image,
-      link: "/admin/hero",
-      color: "text-purple-600",
-      bgColor: "bg-purple-50",
-    },
-    {
       title: "Marcas",
       description: "Gerenciar marcas de produtos",
       icon: Tag,

@@ -1,10 +1,24 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, Play } from "lucide-react";
-import { VideoBackground } from "../VideoBackground";
+import HeroCarousel from "./HeroCarousel";
+
+interface HeroSlide {
+  title: string;
+  subtitle: string;
+  video_url?: string;
+  poster_url?: string;
+  cta1_text?: string;
+  cta1_link?: string;
+  cta2_text?: string;
+  cta2_link?: string;
+  order_index: number;
+}
 
 interface DynamicHeroSectionProps {
   data: {
+    slides?: HeroSlide[];
     title?: string;
     subtitle?: string;
     video_url?: string;
@@ -13,11 +27,13 @@ interface DynamicHeroSectionProps {
     cta1_link?: string;
     cta2_text?: string;
     cta2_link?: string;
+    autoplay?: boolean;
+    autoplay_interval?: number;
   };
 }
 
 const DynamicHeroSection = ({ data }: DynamicHeroSectionProps) => {
-  const defaultData = {
+  const defaultSlide: HeroSlide = {
     title: "A Revolução Autel Chegou ao Brasil",
     subtitle: "Tecnologia de ponta com custo-benefício superior e suporte técnico especializado local. A escolha inteligente para operações enterprise.",
     video_url: "/videos/products/evo_max/Introducing EVO Max 4T_720.mp4",
@@ -26,22 +42,43 @@ const DynamicHeroSection = ({ data }: DynamicHeroSectionProps) => {
     cta1_link: "/produtos",
     cta2_text: "Fale Conosco",
     cta2_link: "/contato",
+    order_index: 0,
   };
 
-  const heroData = { ...defaultData, ...data };
+  // Se há slides no data, usar carrossel; senão, usar formato antigo (compatibilidade)
+  const hasSlides = data.slides && data.slides.length > 0;
+  const slides = hasSlides ? data.slides : [defaultSlide];
+  
+  // Se não há slides mas há dados individuais, criar slide único
+  if (!hasSlides && (data.title || data.subtitle)) {
+    slides[0] = {
+      ...defaultSlide,
+      ...data,
+      order_index: 0,
+    };
+  }
+
+  // Ordenar slides por order_index
+  const sortedSlides = [...slides].sort((a, b) => a.order_index - b.order_index);
+  
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const currentSlide = sortedSlides[currentSlideIndex] || sortedSlides[0];
+
+  const handleSlideChange = (index: number) => {
+    setCurrentSlideIndex(index);
+  };
 
   return (
     <section className="relative min-h-screen flex items-start justify-center pt-20 pb-12 sm:pt-24 sm:pb-16 md:pt-28 md:pb-20">
       {/* Video Background Container */}
       <div className="absolute inset-0 w-full h-full overflow-hidden">
-        {heroData.video_url && (
-          <VideoBackground
-            videoSrc={heroData.video_url}
-            poster={heroData.poster_url || ""}
-            className="object-cover"
-            lazyLoad={false}
-          />
-        )}
+        <HeroCarousel
+          slides={sortedSlides}
+          autoplay={sortedSlides.length > 1 && data.autoplay !== false}
+          autoplayInterval={data.autoplay_interval || 5000}
+          onSlideChange={handleSlideChange}
+          initialIndex={currentSlideIndex}
+        />
         <div className="absolute inset-0 bg-black bg-opacity-80 z-20" />
       </div>
 
@@ -49,12 +86,12 @@ const DynamicHeroSection = ({ data }: DynamicHeroSectionProps) => {
         <div className="max-w-4xl">
           {/* Main Headline */}
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-8 leading-tight animate-slide-up">
-            {heroData.title}
+            {currentSlide.title}
           </h1>
 
           {/* Subheadline */}
           <p className="text-base md:text-lg text-white/90 mb-10 leading-relaxed animate-slide-up" style={{ animationDelay: '0.2s' }}>
-            {heroData.subtitle}
+            {currentSlide.subtitle}
           </p>
 
           {/* Value Props */}
@@ -134,33 +171,51 @@ const DynamicHeroSection = ({ data }: DynamicHeroSectionProps) => {
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row gap-6 mb-6 sm:mb-8 animate-slide-up" style={{ animationDelay: '0.6s' }}>
-            {heroData.cta1_text && heroData.cta1_link && (
+            {currentSlide.cta1_text && currentSlide.cta1_link && (
               <Button
                 asChild
                 size="lg"
                 className="bg-action hover:bg-action/90 text-action-foreground font-heading font-semibold text-base px-8 py-3 shadow-glow group rounded-xl transition-all duration-300 hover:shadow-xl"
               >
-                <Link to={heroData.cta1_link} className="flex items-center">
-                  {heroData.cta1_text}
+                <Link to={currentSlide.cta1_link} className="flex items-center">
+                  {currentSlide.cta1_text}
                   <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
             )}
 
-            {heroData.cta2_text && heroData.cta2_link && (
+            {currentSlide.cta2_text && currentSlide.cta2_link && (
               <Button
                 asChild
                 size="lg"
                 variant="outline"
                 className="bg-white/10 hover:bg-white/20 border-white/30 text-white font-heading font-semibold text-base px-8 backdrop-blur-sm group"
               >
-                <Link to={heroData.cta2_link} className="flex items-center">
-                  {heroData.cta2_text}
+                <Link to={currentSlide.cta2_link} className="flex items-center">
+                  {currentSlide.cta2_text}
                   <Play className="ml-2 h-5 w-5 group-hover:scale-110 transition-transform" />
                 </Link>
               </Button>
             )}
           </div>
+
+          {/* Slide Navigation Dots (se múltiplos slides) */}
+          {sortedSlides.length > 1 && (
+            <div className="flex gap-2 mt-8 justify-center">
+              {sortedSlides.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleSlideChange(index)}
+                  className={`h-2 rounded-full transition-all ${
+                    index === currentSlideIndex
+                      ? "w-8 bg-white"
+                      : "w-2 bg-white/50 hover:bg-white/75"
+                  }`}
+                  aria-label={`Ir para slide ${index + 1}`}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>

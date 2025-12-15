@@ -7,9 +7,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { Trash2, Edit, Plus, ArrowUp, ArrowDown, Eye } from "lucide-react";
+import { Trash2, Edit, Plus, ArrowUp, ArrowDown, Eye, X } from "lucide-react";
 import MediaUploader from "@/components/admin/MediaUploader";
 import { Link } from "react-router-dom";
+import BlockRenderer from "@/components/home/BlockRenderer";
 
 interface PageBlock {
   id: string;
@@ -33,6 +34,7 @@ const AdminHome = () => {
   const [blocks, setBlocks] = useState<PageBlock[]>([]);
   const [editingBlock, setEditingBlock] = useState<PageBlock | null>(null);
   const [showForm, setShowForm] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
   const [formData, setFormData] = useState({
     block_type: "hero",
     block_data: {} as any,
@@ -201,145 +203,467 @@ const AdminHome = () => {
           {/* Hero Block Form */}
           {blockType === "hero" && (
             <>
-              <div>
-                <label className="block text-sm font-heading font-semibold text-navy-deep mb-2">
-                  Título Principal *
-                </label>
-                <Input
-                  value={formData.block_data.title || ""}
-                  onChange={(e) =>
+              <div className="mb-4 flex items-center justify-between">
+                <h3 className="text-lg font-heading font-semibold text-navy-deep">
+                  Slides do Hero (Carrossel)
+                </h3>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    const slides = formData.block_data.slides || [];
+                    const newSlide = {
+                      title: "",
+                      subtitle: "",
+                      video_url: "",
+                      poster_url: "",
+                      cta1_text: "",
+                      cta1_link: "",
+                      cta2_text: "",
+                      cta2_link: "",
+                      order_index: slides.length,
+                    };
                     setFormData({
                       ...formData,
-                      block_data: { ...formData.block_data, title: e.target.value },
-                    })
-                  }
-                  required
-                />
+                      block_data: {
+                        ...formData.block_data,
+                        slides: [...slides, newSlide],
+                      },
+                    });
+                  }}
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Adicionar Slide
+                </Button>
               </div>
-              <div>
-                <label className="block text-sm font-heading font-semibold text-navy-deep mb-2">
-                  Subtítulo *
-                </label>
-                <Textarea
-                  value={formData.block_data.subtitle || ""}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      block_data: { ...formData.block_data, subtitle: e.target.value },
-                    })
-                  }
-                  rows={3}
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-heading font-semibold text-navy-deep mb-2">
-                  Vídeo de Fundo (URL)
-                </label>
-                <MediaUploader
-                  onUploadComplete={(url) =>
-                    setFormData({
-                      ...formData,
-                      block_data: { ...formData.block_data, video_url: url },
-                    })
-                  }
-                  currentUrl={formData.block_data.video_url}
-                  onRemove={() =>
-                    setFormData({
-                      ...formData,
-                      block_data: { ...formData.block_data, video_url: "" },
-                    })
-                  }
-                  folder="hero"
-                  accept="video/*"
-                  label="Vídeo de Fundo"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-heading font-semibold text-navy-deep mb-2">
-                  Poster do Vídeo
-                </label>
-                <MediaUploader
-                  onUploadComplete={(url) =>
-                    setFormData({
-                      ...formData,
-                      block_data: { ...formData.block_data, poster_url: url },
-                    })
-                  }
-                  currentUrl={formData.block_data.poster_url}
-                  onRemove={() =>
-                    setFormData({
-                      ...formData,
-                      block_data: { ...formData.block_data, poster_url: "" },
-                    })
-                  }
-                  folder="hero"
-                  accept="image/*"
-                  label="Poster do Vídeo"
-                />
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-heading font-semibold text-navy-deep mb-2">
-                    Texto CTA Principal *
-                  </label>
-                  <Input
-                    value={formData.block_data.cta1_text || ""}
-                    onChange={(e) =>
+
+              {/* Se não há slides, criar um padrão */}
+              {(!formData.block_data.slides || formData.block_data.slides.length === 0) && (
+                <div className="mb-4 p-4 bg-yellow-50 border border-yellow-200 rounded-md">
+                  <p className="text-sm text-yellow-800 mb-2">
+                    Nenhum slide configurado. Adicione pelo menos um slide ou use o formato antigo abaixo.
+                  </p>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
                       setFormData({
                         ...formData,
-                        block_data: { ...formData.block_data, cta1_text: e.target.value },
-                      })
-                    }
-                    required
-                  />
+                        block_data: {
+                          ...formData.block_data,
+                          slides: [
+                            {
+                              title: formData.block_data.title || "",
+                              subtitle: formData.block_data.subtitle || "",
+                              video_url: formData.block_data.video_url || "",
+                              poster_url: formData.block_data.poster_url || "",
+                              cta1_text: formData.block_data.cta1_text || "",
+                              cta1_link: formData.block_data.cta1_link || "",
+                              cta2_text: formData.block_data.cta2_text || "",
+                              cta2_link: formData.block_data.cta2_link || "",
+                              order_index: 0,
+                            },
+                          ],
+                        },
+                      });
+                    }}
+                  >
+                    Converter para Slide
+                  </Button>
                 </div>
-                <div>
-                  <label className="block text-sm font-heading font-semibold text-navy-deep mb-2">
-                    Link CTA Principal *
-                  </label>
-                  <Input
-                    value={formData.block_data.cta1_link || ""}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        block_data: { ...formData.block_data, cta1_link: e.target.value },
-                      })
-                    }
-                    required
-                  />
+              )}
+
+              {/* Lista de Slides */}
+              {formData.block_data.slides && formData.block_data.slides.length > 0 && (
+                <div className="space-y-4 mb-6">
+                  {formData.block_data.slides
+                    .sort((a: any, b: any) => a.order_index - b.order_index)
+                    .map((slide: any, index: number) => (
+                      <Card key={index} className="p-4">
+                        <div className="flex justify-between items-center mb-4">
+                          <h4 className="font-semibold">Slide {index + 1}</h4>
+                          <div className="flex gap-2">
+                            {index > 0 && (
+                              <Button
+                                type="button"
+                                variant="outline"
+                                size="sm"
+                                onClick={() => {
+                                  const slides = [...formData.block_data.slides];
+                                  slides[index].order_index = index - 1;
+                                  slides[index - 1].order_index = index;
+                                  setFormData({
+                                    ...formData,
+                                    block_data: { ...formData.block_data, slides },
+                                  });
+                                }}
+                              >
+                                <ArrowUp className="w-4 h-4" />
+                              </Button>
+                            )}
+                            {index < formData.block_data.slides.length - 1 && (
+                              <Button
+                                type="button"
+                                variant="outline"
+                                size="sm"
+                                onClick={() => {
+                                  const slides = [...formData.block_data.slides];
+                                  slides[index].order_index = index + 1;
+                                  slides[index + 1].order_index = index;
+                                  setFormData({
+                                    ...formData,
+                                    block_data: { ...formData.block_data, slides },
+                                  });
+                                }}
+                              >
+                                <ArrowDown className="w-4 h-4" />
+                              </Button>
+                            )}
+                            <Button
+                              type="button"
+                              variant="outline"
+                              size="sm"
+                              onClick={() => {
+                                const slides = formData.block_data.slides.filter(
+                                  (_: any, i: number) => i !== index
+                                );
+                                setFormData({
+                                  ...formData,
+                                  block_data: { ...formData.block_data, slides },
+                                });
+                              }}
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <label className="block text-sm font-medium mb-1">Título *</label>
+                            <Input
+                              value={slide.title || ""}
+                              onChange={(e) => {
+                                const slides = [...formData.block_data.slides];
+                                slides[index].title = e.target.value;
+                                setFormData({
+                                  ...formData,
+                                  block_data: { ...formData.block_data, slides },
+                                });
+                              }}
+                              required
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium mb-1">Subtítulo *</label>
+                            <Textarea
+                              value={slide.subtitle || ""}
+                              onChange={(e) => {
+                                const slides = [...formData.block_data.slides];
+                                slides[index].subtitle = e.target.value;
+                                setFormData({
+                                  ...formData,
+                                  block_data: { ...formData.block_data, slides },
+                                });
+                              }}
+                              rows={2}
+                              required
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium mb-1">Vídeo de Fundo</label>
+                            <MediaUploader
+                              onUploadComplete={(url) => {
+                                const slides = [...formData.block_data.slides];
+                                slides[index].video_url = url;
+                                setFormData({
+                                  ...formData,
+                                  block_data: { ...formData.block_data, slides },
+                                });
+                              }}
+                              currentUrl={slide.video_url}
+                              onRemove={() => {
+                                const slides = [...formData.block_data.slides];
+                                slides[index].video_url = "";
+                                setFormData({
+                                  ...formData,
+                                  block_data: { ...formData.block_data, slides },
+                                });
+                              }}
+                              folder="hero"
+                              accept="video/*"
+                              label="Vídeo"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium mb-1">Poster</label>
+                            <MediaUploader
+                              onUploadComplete={(url) => {
+                                const slides = [...formData.block_data.slides];
+                                slides[index].poster_url = url;
+                                setFormData({
+                                  ...formData,
+                                  block_data: { ...formData.block_data, slides },
+                                });
+                              }}
+                              currentUrl={slide.poster_url}
+                              onRemove={() => {
+                                const slides = [...formData.block_data.slides];
+                                slides[index].poster_url = "";
+                                setFormData({
+                                  ...formData,
+                                  block_data: { ...formData.block_data, slides },
+                                });
+                              }}
+                              folder="hero"
+                              accept="image/*"
+                              label="Poster"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium mb-1">CTA 1 Texto</label>
+                            <Input
+                              value={slide.cta1_text || ""}
+                              onChange={(e) => {
+                                const slides = [...formData.block_data.slides];
+                                slides[index].cta1_text = e.target.value;
+                                setFormData({
+                                  ...formData,
+                                  block_data: { ...formData.block_data, slides },
+                                });
+                              }}
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium mb-1">CTA 1 Link</label>
+                            <Input
+                              value={slide.cta1_link || ""}
+                              onChange={(e) => {
+                                const slides = [...formData.block_data.slides];
+                                slides[index].cta1_link = e.target.value;
+                                setFormData({
+                                  ...formData,
+                                  block_data: { ...formData.block_data, slides },
+                                });
+                              }}
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium mb-1">CTA 2 Texto</label>
+                            <Input
+                              value={slide.cta2_text || ""}
+                              onChange={(e) => {
+                                const slides = [...formData.block_data.slides];
+                                slides[index].cta2_text = e.target.value;
+                                setFormData({
+                                  ...formData,
+                                  block_data: { ...formData.block_data, slides },
+                                });
+                              }}
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium mb-1">CTA 2 Link</label>
+                            <Input
+                              value={slide.cta2_link || ""}
+                              onChange={(e) => {
+                                const slides = [...formData.block_data.slides];
+                                slides[index].cta2_link = e.target.value;
+                                setFormData({
+                                  ...formData,
+                                  block_data: { ...formData.block_data, slides },
+                                });
+                              }}
+                            />
+                          </div>
+                        </div>
+                      </Card>
+                    ))}
                 </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-heading font-semibold text-navy-deep mb-2">
-                    Texto CTA Secundário
-                  </label>
-                  <Input
-                    value={formData.block_data.cta2_text || ""}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        block_data: { ...formData.block_data, cta2_text: e.target.value },
-                      })
-                    }
-                  />
+              )}
+
+              {/* Configurações do Carrossel */}
+              {formData.block_data.slides && formData.block_data.slides.length > 1 && (
+                <div className="grid grid-cols-2 gap-4 mb-4">
+                  <div className="flex items-center space-x-2">
+                    <Switch
+                      checked={formData.block_data.autoplay !== false}
+                      onCheckedChange={(checked) =>
+                        setFormData({
+                          ...formData,
+                          block_data: { ...formData.block_data, autoplay: checked },
+                        })
+                      }
+                    />
+                    <label className="text-sm font-medium">Reprodução Automática</label>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-1">
+                      Intervalo (ms)
+                    </label>
+                    <Input
+                      type="number"
+                      value={formData.block_data.autoplay_interval || 5000}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          block_data: {
+                            ...formData.block_data,
+                            autoplay_interval: parseInt(e.target.value) || 5000,
+                          },
+                        })
+                      }
+                    />
+                  </div>
                 </div>
-                <div>
-                  <label className="block text-sm font-heading font-semibold text-navy-deep mb-2">
-                    Link CTA Secundário
-                  </label>
-                  <Input
-                    value={formData.block_data.cta2_link || ""}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        block_data: { ...formData.block_data, cta2_link: e.target.value },
-                      })
-                    }
-                  />
-                </div>
-              </div>
+              )}
+
+              {/* Formato antigo (compatibilidade) - só mostra se não há slides */}
+              {(!formData.block_data.slides || formData.block_data.slides.length === 0) && (
+                <>
+                  <div>
+                    <label className="block text-sm font-heading font-semibold text-navy-deep mb-2">
+                      Título Principal *
+                    </label>
+                    <Input
+                      value={formData.block_data.title || ""}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          block_data: { ...formData.block_data, title: e.target.value },
+                        })
+                      }
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-heading font-semibold text-navy-deep mb-2">
+                      Subtítulo *
+                    </label>
+                    <Textarea
+                      value={formData.block_data.subtitle || ""}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          block_data: { ...formData.block_data, subtitle: e.target.value },
+                        })
+                      }
+                      rows={3}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-heading font-semibold text-navy-deep mb-2">
+                      Vídeo de Fundo (URL)
+                    </label>
+                    <MediaUploader
+                      onUploadComplete={(url) =>
+                        setFormData({
+                          ...formData,
+                          block_data: { ...formData.block_data, video_url: url },
+                        })
+                      }
+                      currentUrl={formData.block_data.video_url}
+                      onRemove={() =>
+                        setFormData({
+                          ...formData,
+                          block_data: { ...formData.block_data, video_url: "" },
+                        })
+                      }
+                      folder="hero"
+                      accept="video/*"
+                      label="Vídeo de Fundo"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-heading font-semibold text-navy-deep mb-2">
+                      Poster do Vídeo
+                    </label>
+                    <MediaUploader
+                      onUploadComplete={(url) =>
+                        setFormData({
+                          ...formData,
+                          block_data: { ...formData.block_data, poster_url: url },
+                        })
+                      }
+                      currentUrl={formData.block_data.poster_url}
+                      onRemove={() =>
+                        setFormData({
+                          ...formData,
+                          block_data: { ...formData.block_data, poster_url: "" },
+                        })
+                      }
+                      folder="hero"
+                      accept="image/*"
+                      label="Poster do Vídeo"
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-heading font-semibold text-navy-deep mb-2">
+                        Texto CTA Principal *
+                      </label>
+                      <Input
+                        value={formData.block_data.cta1_text || ""}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            block_data: { ...formData.block_data, cta1_text: e.target.value },
+                          })
+                        }
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-heading font-semibold text-navy-deep mb-2">
+                        Link CTA Principal *
+                      </label>
+                      <Input
+                        value={formData.block_data.cta1_link || ""}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            block_data: { ...formData.block_data, cta1_link: e.target.value },
+                          })
+                        }
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-heading font-semibold text-navy-deep mb-2">
+                        Texto CTA Secundário
+                      </label>
+                      <Input
+                        value={formData.block_data.cta2_text || ""}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            block_data: { ...formData.block_data, cta2_text: e.target.value },
+                          })
+                        }
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-heading font-semibold text-navy-deep mb-2">
+                        Link CTA Secundário
+                      </label>
+                      <Input
+                        value={formData.block_data.cta2_link || ""}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            block_data: { ...formData.block_data, cta2_link: e.target.value },
+                          })
+                        }
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
             </>
           )}
 
@@ -470,9 +794,25 @@ const AdminHome = () => {
     );
   };
 
+  // Criar blocos mockados para preview
+  const getPreviewBlocks = (): PageBlock[] => {
+    if (showForm && formData.block_type) {
+      const previewBlock: PageBlock = {
+        id: "preview",
+        page_slug: "home",
+        block_type: formData.block_type,
+        block_data: formData.block_data,
+        order_index: 0,
+        active: formData.active,
+      };
+      return [previewBlock];
+    }
+    return blocks.filter((b) => b.active);
+  };
+
   return (
     <AdminLayout>
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-[1920px] mx-auto">
         <div className="mb-8 flex justify-between items-center">
           <div>
             <h1 className="text-4xl font-heading font-bold text-navy-deep mb-2">
@@ -483,6 +823,13 @@ const AdminHome = () => {
             </p>
           </div>
           <div className="flex gap-2">
+            <Button
+              variant="outline"
+              onClick={() => setShowPreview(!showPreview)}
+            >
+              <Eye className="w-4 h-4 mr-2" />
+              {showPreview ? "Ocultar Preview" : "Mostrar Preview"}
+            </Button>
             <Button asChild variant="outline">
               <Link to="/" target="_blank">
                 <Eye className="w-4 h-4 mr-2" />
@@ -498,7 +845,130 @@ const AdminHome = () => {
           </div>
         </div>
 
-        {showForm && renderBlockForm()}
+        <div className={`grid gap-6 ${showPreview && showForm ? "grid-cols-1 lg:grid-cols-2" : "grid-cols-1"}`}>
+          {/* Form Section */}
+          <div>
+            {showForm && (
+              <div className="mb-6">
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-xl font-heading font-semibold text-navy-deep">
+                    {editingBlock ? "Editar Bloco" : "Adicionar Novo Bloco"}
+                  </h2>
+                  <Button variant="ghost" size="sm" onClick={resetForm}>
+                    <X className="w-4 h-4" />
+                  </Button>
+                </div>
+                {renderBlockForm()}
+              </div>
+            )}
+
+            {/* Blocks List */}
+            <div>
+              <h2 className="text-2xl font-heading font-bold text-navy-deep mb-6">
+                Blocos da Home ({blocks.length})
+              </h2>
+              {blocks.length === 0 ? (
+                <Card className="p-12 text-center">
+                  <p className="text-gray-500 mb-4">Nenhum bloco configurado ainda.</p>
+                  <Button onClick={() => setShowForm(true)} className="bg-action hover:bg-action/90 text-action-foreground">
+                    <Plus className="w-4 h-4 mr-2" />
+                    Adicionar Primeiro Bloco
+                  </Button>
+                </Card>
+              ) : (
+                <div className="space-y-4">
+                  {blocks.map((block, index) => (
+                    <Card key={block.id} className="p-6">
+                      <div className="flex justify-between items-start">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-3 mb-2">
+                            <span className="bg-blue-medium text-white px-3 py-1 rounded text-sm font-semibold">
+                              {BLOCK_TYPES.find((t) => t.value === block.block_type)?.label || block.block_type}
+                            </span>
+                            {block.active ? (
+                              <span className="text-green-600 text-sm font-semibold">✓ Ativo</span>
+                            ) : (
+                              <span className="text-gray-400 text-sm">✗ Inativo</span>
+                            )}
+                            <span className="text-gray-500 text-sm">Ordem: {block.order_index + 1}</span>
+                          </div>
+                          {block.block_data.title && (
+                            <h3 className="text-lg font-heading font-bold text-navy-deep mb-1">
+                              {block.block_data.title}
+                            </h3>
+                          )}
+                          {block.block_data.subtitle && (
+                            <p className="text-gray-dark text-sm">{block.block_data.subtitle}</p>
+                          )}
+                          {block.block_data.slides && block.block_data.slides.length > 0 && (
+                            <p className="text-gray-500 text-xs mt-1">
+                              {block.block_data.slides.length} slide{block.block_data.slides.length > 1 ? "s" : ""} no carrossel
+                            </p>
+                          )}
+                        </div>
+                        <div className="flex gap-2">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleReorderBlock(block.id, "up")}
+                            disabled={index === 0}
+                          >
+                            <ArrowUp className="w-4 h-4" />
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleReorderBlock(block.id, "down")}
+                            disabled={index === blocks.length - 1}
+                          >
+                            <ArrowDown className="w-4 h-4" />
+                          </Button>
+                          <Button variant="outline" size="sm" onClick={() => handleEditBlock(block)}>
+                            <Edit className="w-4 h-4" />
+                          </Button>
+                          <Button variant="outline" size="sm" onClick={() => handleDeleteBlock(block.id)}>
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Preview Section */}
+          {showPreview && (
+            <div className="lg:sticky lg:top-4 lg:h-[calc(100vh-2rem)]">
+              <Card className="p-6 h-full overflow-hidden flex flex-col">
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-xl font-heading font-semibold text-navy-deep">
+                    Preview em Tempo Real
+                  </h2>
+                  <Button variant="ghost" size="sm" onClick={() => setShowPreview(false)}>
+                    <X className="w-4 h-4" />
+                  </Button>
+                </div>
+                <div className="border rounded-lg overflow-auto bg-white flex-1">
+                  <div className="min-h-screen">
+                    {showForm ? (
+                      <BlockRenderer
+                        pageSlug="home"
+                        previewBlocks={getPreviewBlocks()}
+                      />
+                    ) : (
+                      <BlockRenderer pageSlug="home" />
+                    )}
+                  </div>
+                </div>
+              </Card>
+            </div>
+          )}
+        </div>
+      </div>
+    </AdminLayout>
+  );
 
         {/* Blocks List */}
         <div>

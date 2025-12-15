@@ -58,7 +58,6 @@ export const OVERRIDABLE_STATIC_ROUTES = [
 export const PROTECTED_ROUTES = [
   '/admin',
   '/admin/blog',
-  '/admin/hero',
   '/admin/products',
   '/admin/solutions',
   '/admin/settings',
