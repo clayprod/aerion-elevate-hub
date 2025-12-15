@@ -99,7 +99,8 @@ const Dashboard = () => {
             hasError: !!queryResult?.error,
             error: queryResult?.error,
             count: queryResult?.count,
-            dataLength: queryResult?.data?.length
+            dataLength: queryResult?.data?.length,
+            fullResult: queryResult
           });
           
           if (queryResult && queryResult.error) {
@@ -141,6 +142,18 @@ const Dashboard = () => {
           variant: "destructive",
         });
       }
+
+      console.log("[Dashboard] Estatísticas processadas:", {
+        posts: { count: posts.count, dataLength: posts.data?.length },
+        products: { count: products.count, dataLength: products.data?.length },
+        solutions: { count: solutions.count, dataLength: solutions.data?.length },
+        brands: { count: brands.count, dataLength: brands.data?.length },
+        productFamilies: { count: productFamilies.count, dataLength: productFamilies.data?.length },
+        productVariants: { count: productVariants.count, dataLength: productVariants.data?.length },
+        verticals: { count: verticals.count, dataLength: verticals.data?.length },
+        customPages: { count: customPages.count, dataLength: customPages.data?.length },
+        mediaFiles: { count: mediaFiles.count, dataLength: mediaFiles.data?.length },
+      });
 
       setStats({
         totalPosts: posts.count || 0,
