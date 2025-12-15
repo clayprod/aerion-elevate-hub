@@ -16,6 +16,12 @@ interface HeroSlide {
   order_index: number;
 }
 
+interface ValueProp {
+  icon?: string;
+  title: string;
+  description: string;
+}
+
 interface DynamicHeroSectionProps {
   data: {
     slides?: HeroSlide[];
@@ -29,6 +35,7 @@ interface DynamicHeroSectionProps {
     cta2_link?: string;
     autoplay?: boolean;
     autoplay_interval?: number;
+    value_props?: ValueProp[];
   };
 }
 
@@ -95,9 +102,24 @@ const DynamicHeroSection = ({ data }: DynamicHeroSectionProps) => {
           </p>
 
           {/* Value Props */}
-          {data.value_props && data.value_props.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8 animate-slide-up" style={{ animationDelay: '0.4s' }}>
-              {data.value_props.map((prop: any, index: number) => {
+          {(() => {
+            // Usar value_props do banco se existir, senão usar fallback hardcoded
+            const defaultValueProps: ValueProp[] = [
+              { icon: "ai", title: "Inteligência Artificial", description: "Reconhecimento automático e navegação inteligente" },
+              { icon: "camera", title: "Câmeras térmicas e 6K", description: "Não perca nenhum detalhe com alta resolução" },
+              { icon: "zoom", title: "Zoom até 560x", description: "Detecção e identificação a longa distância" },
+              { icon: "shield", title: "Proteção IP55", description: "Resistente a intempéries e condições extremas" },
+              { icon: "language", title: "Software em Português", description: "Interface e suporte técnico localizados" },
+              { icon: "sensor", title: "Sensoriamento Inteligente", description: "Sensores de colisão, antijamming e RTH" },
+            ];
+            
+            const valueProps = data.value_props && data.value_props.length > 0 
+              ? data.value_props 
+              : defaultValueProps;
+              
+            return valueProps.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8 animate-slide-up" style={{ animationDelay: '0.4s' }}>
+                {valueProps.map((prop: ValueProp, index: number) => {
                 // Mapear ícones por nome ou usar SVG padrão
                 const getIconSVG = (iconName?: string) => {
                   const iconMap: Record<string, string> = {
@@ -125,8 +147,9 @@ const DynamicHeroSection = ({ data }: DynamicHeroSectionProps) => {
                   </div>
                 );
               })}
-            </div>
-          )}
+              </div>
+            ) : null;
+          })()}
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row gap-6 mb-6 sm:mb-8 animate-slide-up" style={{ animationDelay: '0.6s' }}>

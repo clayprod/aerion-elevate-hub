@@ -15,7 +15,7 @@ const Index = () => {
       />
       <Header />
       
-      <main className="pt-20">
+      <main>
         <BlockRenderer pageSlug="home" />
       </main>
 
