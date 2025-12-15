@@ -86,13 +86,19 @@ const Dashboard = () => {
           console.error(`[Dashboard] Erro ao buscar ${queries[index].name}:`, result.reason);
           data.push({ data: [], count: 0, error: true });
         } else {
-          if (result.value.error) {
-            const errorMsg = `${queries[index].name}: ${result.value.error.message}`;
+          const queryResult = result.value;
+          if (queryResult && queryResult.error) {
+            const errorMsg = `${queries[index].name}: ${queryResult.error.message || queryResult.error.code || "Erro desconhecido"}`;
             errors.push(errorMsg);
-            console.error(`[Dashboard] Erro na query ${queries[index].name}:`, result.value.error);
+            console.error(`[Dashboard] Erro na query ${queries[index].name}:`, queryResult.error);
             data.push({ data: [], count: 0, error: true });
+          } else if (queryResult) {
+            // Query bem-sucedida
+            data.push(queryResult);
           } else {
-            data.push(result.value);
+            // Resultado vazio ou inválido
+            console.warn(`[Dashboard] Resultado inválido para ${queries[index].name}:`, queryResult);
+            data.push({ data: [], count: 0, error: false });
           }
         }
       });
