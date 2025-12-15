@@ -25,22 +25,12 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  // #region agent log
-  const logDataInit = {location:'AuthContext.tsx:27',message:'AuthProvider initialized',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A,B,C'};
-  console.log('🚀 [DEBUG]', JSON.stringify(logDataInit));
-  fetch('http://127.0.0.1:7242/ingest/533de3d1-c5fa-427f-88e4-6ca8b9bbc865',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(logDataInit)}).catch(()=>{});
-  // #endregion
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // #region agent log
-    const logDataEffect = {location:'AuthContext.tsx:35',message:'AuthProvider useEffect started',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A,B,C'};
-    console.log('🚀 [DEBUG]', JSON.stringify(logDataEffect));
-    fetch('http://127.0.0.1:7242/ingest/533de3d1-c5fa-427f-88e4-6ca8b9bbc865',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(logDataEffect)}).catch(()=>{});
-    // #endregion
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
@@ -59,11 +49,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     // Check for existing session
     supabase.auth.getSession().then(({ data: { session } }) => {
-      // #region agent log
-      const logData1 = {location:'AuthContext.tsx:52',message:'getSession result',data:{hasSession:!!session,userId:session?.user?.id},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'};
-      console.log('🔍 [DEBUG]', JSON.stringify(logData1));
-      fetch('http://127.0.0.1:7242/ingest/533de3d1-c5fa-427f-88e4-6ca8b9bbc865',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(logData1)}).catch(()=>{});
-      // #endregion
       setSession(session);
       setUser(session?.user ?? null);
       
@@ -73,11 +58,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       } else {
         // No user, so we can set loading to false immediately
         setLoading(false);
-        // #region agent log
-        const logData2 = {location:'AuthContext.tsx:70',message:'no user, loading set to false',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'};
-        console.log('🔍 [DEBUG]', JSON.stringify(logData2));
-        fetch('http://127.0.0.1:7242/ingest/533de3d1-c5fa-427f-88e4-6ca8b9bbc865',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(logData2)}).catch(()=>{});
-        // #endregion
       }
     });
 
@@ -85,11 +65,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const checkAdminRole = async (userId: string) => {
-    // #region agent log
-    const logData1 = {location:'AuthContext.tsx:73',message:'checkAdminRole called',data:{userId},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'};
-    console.log('🔍 [DEBUG]', JSON.stringify(logData1));
-    fetch('http://127.0.0.1:7242/ingest/533de3d1-c5fa-427f-88e4-6ca8b9bbc865',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(logData1)}).catch(()=>{});
-    // #endregion
     try {
       const { data, error } = await supabase
         .from("user_roles")
@@ -98,42 +73,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         .eq("role", "admin")
         .maybeSingle();
 
-      // #region agent log
-      const logData2 = {location:'AuthContext.tsx:85',message:'checkAdminRole query result',data:{hasData:!!data,hasError:!!error,error:error?.message,role:data?.role},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'};
-      console.log('🔍 [DEBUG]', JSON.stringify(logData2));
-      fetch('http://127.0.0.1:7242/ingest/533de3d1-c5fa-427f-88e4-6ca8b9bbc865',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(logData2)}).catch(()=>{});
-      // #endregion
 
       if (!error && data) {
         setIsAdmin(true);
-        // #region agent log
-        const logData3 = {location:'AuthContext.tsx:92',message:'isAdmin set to true',data:{userId},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'};
-        console.log('✅ [DEBUG]', JSON.stringify(logData3));
-        fetch('http://127.0.0.1:7242/ingest/533de3d1-c5fa-427f-88e4-6ca8b9bbc865',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(logData3)}).catch(()=>{});
-        // #endregion
       } else {
         setIsAdmin(false);
-        // #region agent log
-        const logData4 = {location:'AuthContext.tsx:97',message:'isAdmin set to false',data:{userId,error:error?.message,hasData:!!data},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'};
-        console.log('❌ [DEBUG]', JSON.stringify(logData4));
-        fetch('http://127.0.0.1:7242/ingest/533de3d1-c5fa-427f-88e4-6ca8b9bbc865',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(logData4)}).catch(()=>{});
-        // #endregion
       }
     } catch (error) {
       console.error("Error checking admin role:", error);
       setIsAdmin(false);
-      // #region agent log
-      const logData5 = {location:'AuthContext.tsx:104',message:'checkAdminRole exception',data:{userId,error:error instanceof Error?error.message:String(error)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'};
-      console.log('⚠️ [DEBUG]', JSON.stringify(logData5));
-      fetch('http://127.0.0.1:7242/ingest/533de3d1-c5fa-427f-88e4-6ca8b9bbc865',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(logData5)}).catch(()=>{});
-      // #endregion
     } finally {
       setLoading(false);
-      // #region agent log
-      const logData6 = {location:'AuthContext.tsx:109',message:'loading set to false',data:{userId},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'};
-      console.log('🔍 [DEBUG]', JSON.stringify(logData6));
-      fetch('http://127.0.0.1:7242/ingest/533de3d1-c5fa-427f-88e4-6ca8b9bbc865',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(logData6)}).catch(()=>{});
-      // #endregion
     }
   };
 

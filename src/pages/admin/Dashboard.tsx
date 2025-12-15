@@ -23,11 +23,6 @@ import {
 } from "lucide-react";
 
 const Dashboard = () => {
-  // #region agent log
-  const logData1 = {location:'Dashboard.tsx:24',message:'Dashboard component rendered',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'};
-  console.log('🎯 [DEBUG]', JSON.stringify(logData1));
-  fetch('http://127.0.0.1:7242/ingest/533de3d1-c5fa-427f-88e4-6ca8b9bbc865',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(logData1)}).catch(()=>{});
-  // #endregion
   const { toast } = useToast();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -45,11 +40,6 @@ const Dashboard = () => {
   });
 
   useEffect(() => {
-    // #region agent log
-    const logData2 = {location:'Dashboard.tsx:41',message:'Dashboard useEffect triggered',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'};
-    console.log('🎯 [DEBUG]', JSON.stringify(logData2));
-    fetch('http://127.0.0.1:7242/ingest/533de3d1-c5fa-427f-88e4-6ca8b9bbc865',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(logData2)}).catch(()=>{});
-    // #endregion
     fetchStats();
   }, []);
 
