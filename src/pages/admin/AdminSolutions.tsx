@@ -384,7 +384,6 @@ const AdminSolutions = () => {
             </div>
           </div>
         </div>
-      </div>
     </AdminLayout>
   );
 };

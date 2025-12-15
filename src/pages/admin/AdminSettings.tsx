@@ -157,7 +157,6 @@ const AdminSettings = () => {
             </TabsContent>
           </Tabs>
         </div>
-      </div>
     </AdminLayout>
   );
 };

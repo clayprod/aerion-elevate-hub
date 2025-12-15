@@ -343,7 +343,6 @@ const AdminProducts = () => {
             </div>
           </div>
         </div>
-      </div>
     </AdminLayout>
   );
 };

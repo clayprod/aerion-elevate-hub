@@ -393,7 +393,6 @@ const AdminHero = () => {
             </div>
           </div>
         </div>
-      </div>
     </AdminLayout>
   );
 };
