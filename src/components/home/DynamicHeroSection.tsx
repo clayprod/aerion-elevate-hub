@@ -103,7 +103,7 @@ const DynamicHeroSection = ({ data }: DynamicHeroSectionProps) => {
 
           {/* Value Props */}
           {(() => {
-            // Usar value_props do banco se existir, senão usar fallback hardcoded
+            // Usar value_props do banco se existir e não for null/vazio, senão usar fallback hardcoded
             const defaultValueProps: ValueProp[] = [
               { icon: "ai", title: "Inteligência Artificial", description: "Reconhecimento automático e navegação inteligente" },
               { icon: "camera", title: "Câmeras térmicas e 6K", description: "Não perca nenhum detalhe com alta resolução" },
@@ -113,7 +113,7 @@ const DynamicHeroSection = ({ data }: DynamicHeroSectionProps) => {
               { icon: "sensor", title: "Sensoriamento Inteligente", description: "Sensores de colisão, antijamming e RTH" },
             ];
             
-            const valueProps = data.value_props && data.value_props.length > 0 
+            const valueProps = (data.value_props && Array.isArray(data.value_props) && data.value_props.length > 0)
               ? data.value_props 
               : defaultValueProps;
               
