@@ -95,13 +95,19 @@ const Dashboard = () => {
           data.push({ data: [], count: 0, error: true });
         } else {
           const queryResult = result.value;
-          console.log(`[Dashboard] Resultado para ${queries[index].name}:`, {
+          const logData = {
             hasError: !!queryResult?.error,
-            error: queryResult?.error,
+            error: queryResult?.error ? {
+              message: queryResult.error.message,
+              code: queryResult.error.code,
+              details: queryResult.error.details,
+              hint: queryResult.error.hint
+            } : null,
             count: queryResult?.count,
             dataLength: queryResult?.data?.length,
-            fullResult: queryResult
-          });
+            data: queryResult?.data ? `Array(${queryResult.data.length})` : null
+          };
+          console.log(`[Dashboard] Resultado para ${queries[index].name}:`, JSON.stringify(logData, null, 2));
           
           if (queryResult && queryResult.error) {
             const errorMsg = `${queries[index].name}: ${queryResult.error.message || queryResult.error.code || "Erro desconhecido"}`;
@@ -143,8 +149,8 @@ const Dashboard = () => {
         });
       }
 
-      console.log("[Dashboard] Estatísticas processadas:", {
-        posts: { count: posts.count, dataLength: posts.data?.length },
+      const statsLog = {
+        posts: { count: posts.count, dataLength: posts.data?.length, published: posts.data?.filter((p) => p.published).length },
         products: { count: products.count, dataLength: products.data?.length },
         solutions: { count: solutions.count, dataLength: solutions.data?.length },
         brands: { count: brands.count, dataLength: brands.data?.length },
@@ -153,7 +159,10 @@ const Dashboard = () => {
         verticals: { count: verticals.count, dataLength: verticals.data?.length },
         customPages: { count: customPages.count, dataLength: customPages.data?.length },
         mediaFiles: { count: mediaFiles.count, dataLength: mediaFiles.data?.length },
-      });
+        pageBlocks: { count: pageBlocks.count, dataLength: pageBlocks.data?.length },
+        productPageContent: { count: productPageContent.count, dataLength: productPageContent.data?.length },
+      };
+      console.log("[Dashboard] Estatísticas processadas:", JSON.stringify(statsLog, null, 2));
 
       setStats({
         totalPosts: posts.count || 0,
