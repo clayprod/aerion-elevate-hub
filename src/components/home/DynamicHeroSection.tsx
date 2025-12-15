@@ -113,11 +113,14 @@ const DynamicHeroSection = ({ data }: DynamicHeroSectionProps) => {
               { icon: "sensor", title: "Sensoriamento Inteligente", description: "Sensores de colisão, antijamming e RTH" },
             ];
             
-            const valueProps = (data.value_props && Array.isArray(data.value_props) && data.value_props.length > 0)
-              ? data.value_props 
-              : defaultValueProps;
+            // Verificar se value_props existe e é um array válido
+            let valueProps: ValueProp[] = defaultValueProps;
+            if (data.value_props && Array.isArray(data.value_props) && data.value_props.length > 0) {
+              valueProps = data.value_props;
+            }
               
-            return valueProps.length > 0 ? (
+            // Sempre renderizar os value_props (sempre há pelo menos os padrões)
+            return (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8 animate-slide-up" style={{ animationDelay: '0.4s' }}>
                 {valueProps.map((prop: ValueProp, index: number) => {
                 // Mapear ícones por nome ou usar SVG padrão
@@ -148,7 +151,7 @@ const DynamicHeroSection = ({ data }: DynamicHeroSectionProps) => {
                 );
               })}
               </div>
-            ) : null;
+            );
           })()}
 
           {/* CTAs */}
