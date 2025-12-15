@@ -55,6 +55,11 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
       link: "#",
       children: [
         {
+          title: "Home",
+          icon: Home,
+          link: "/admin/home",
+        },
+        {
           title: "Blog",
           icon: FileText,
           link: "/admin/blog",

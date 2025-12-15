@@ -2,11 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { SEOHead } from "@/components/SEO/SEOHead";
 import MobileFloatingCTA from "@/components/MobileFloatingCTA";
-import HeroSection from "@/components/home/HeroSection";
-import ProductsSection from "@/components/home/ProductsSection";
-import SolutionsSection from "@/components/home/SolutionsSection";
-import WhyAerionSection from "@/components/home/WhyAerionSection";
-import ContactSection from "@/components/home/ContactSection";
+import BlockRenderer from "@/components/home/BlockRenderer";
 
 const Index = () => {
   return (
@@ -20,11 +16,7 @@ const Index = () => {
       <Header />
       
       <main>
-        <HeroSection />
-        <ProductsSection />
-        <SolutionsSection />
-        <WhyAerionSection />
-        <ContactSection />
+        <BlockRenderer pageSlug="home" />
       </main>
 
       <Footer />

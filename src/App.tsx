@@ -36,6 +36,7 @@ import ResgateEmergencias from "./pages/solucoes/ResgateEmergencias";
 const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
 const AdminBlog = lazy(() => import("./pages/admin/AdminBlog"));
 const AdminHero = lazy(() => import("./pages/admin/AdminHero"));
+const AdminHome = lazy(() => import("./pages/admin/AdminHome"));
 const AdminProducts = lazy(() => import("./pages/admin/AdminProducts"));
 const AdminSolutions = lazy(() => import("./pages/admin/AdminSolutions"));
 const AdminSettings = lazy(() => import("./pages/admin/AdminSettings"));
@@ -129,6 +130,16 @@ const App = () => {
                     <ProtectedRoute requireAdmin>
                       <Suspense fallback={<PageLoader />}>
                         <AdminHero />
+                      </Suspense>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/home"
+                  element={
+                    <ProtectedRoute requireAdmin>
+                      <Suspense fallback={<PageLoader />}>
+                        <AdminHome />
                       </Suspense>
                     </ProtectedRoute>
                   }
