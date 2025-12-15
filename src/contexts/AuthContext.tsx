@@ -49,11 +49,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         
         // Check admin role when user changes
         if (session?.user) {
-          setTimeout(() => {
-            checkAdminRole(session.user.id);
-          }, 0);
+          checkAdminRole(session.user.id);
         } else {
           setIsAdmin(false);
+          setLoading(false);
         }
       }
     );
@@ -69,16 +68,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setUser(session?.user ?? null);
       
       if (session?.user) {
-        setTimeout(() => {
-          checkAdminRole(session.user.id);
-        }, 0);
+        // checkAdminRole will set loading to false when it completes
+        checkAdminRole(session.user.id);
+      } else {
+        // No user, so we can set loading to false immediately
+        setLoading(false);
+        // #region agent log
+        const logData2 = {location:'AuthContext.tsx:70',message:'no user, loading set to false',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'};
+        console.log('🔍 [DEBUG]', JSON.stringify(logData2));
+        fetch('http://127.0.0.1:7242/ingest/533de3d1-c5fa-427f-88e4-6ca8b9bbc865',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(logData2)}).catch(()=>{});
+        // #endregion
       }
-      setLoading(false);
-      // #region agent log
-      const logData2 = {location:'AuthContext.tsx:66',message:'initial loading set to false',data:{hasUser:!!session?.user},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'};
-      console.log('🔍 [DEBUG]', JSON.stringify(logData2));
-      fetch('http://127.0.0.1:7242/ingest/533de3d1-c5fa-427f-88e4-6ca8b9bbc865',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(logData2)}).catch(()=>{});
-      // #endregion
     });
 
     return () => subscription.unsubscribe();
