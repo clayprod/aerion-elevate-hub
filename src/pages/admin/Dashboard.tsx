@@ -87,6 +87,13 @@ const Dashboard = () => {
           data.push({ data: [], count: 0, error: true });
         } else {
           const queryResult = result.value;
+          console.log(`[Dashboard] Resultado para ${queries[index].name}:`, {
+            hasError: !!queryResult?.error,
+            error: queryResult?.error,
+            count: queryResult?.count,
+            dataLength: queryResult?.data?.length
+          });
+          
           if (queryResult && queryResult.error) {
             const errorMsg = `${queries[index].name}: ${queryResult.error.message || queryResult.error.code || "Erro desconhecido"}`;
             errors.push(errorMsg);
