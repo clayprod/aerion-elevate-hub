@@ -229,83 +229,82 @@ const Produtos = () => {
 
               {/* Autel Mapper - Linha separada */}
               {displayProducts.slice(3).map((product, index) => (
-            <div key={product.id} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div>
-                <Card
-                  className="group hover:shadow-xl transition-all duration-300 overflow-hidden animate-fade-in bg-white border-2"
-                  style={{ animationDelay: `${(index + 3) * 0.1}s` }}
-                >
-                    <Link to={`/produtos/${product.slug}`} className="block">
-                      {/* Product Image */}
-                      <div className="relative h-48 overflow-hidden">
-                        <img
-                          src={product.image_url || "/images/placeholder-product.png"}
-                          alt={product.name}
-                          width={400}
-                          height={192}
-                          loading="lazy"
-                          className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
-                          style={{ aspectRatio: '400 / 192' }}
-                          onError={(e) => {
-                            // Fallback to gradient background if image fails to load
-                            e.currentTarget.style.display = 'none';
-                            e.currentTarget.nextElementSibling!.style.display = 'flex';
-                          }}
-                        />
-                        <div className="w-full h-full hidden items-center justify-center bg-gradient-accent">
-                          <svg className="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 3L2 12h3v8h14v-8h3L12 3zm0 2.5L18.5 12H17v6h-4v-4h-2v4H7v-6H5.5L12 5.5z"/>
-                          </svg>
-                        </div>
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                      </div>
-
-                      {/* Content */}
-                      <div className="p-6">
-                        <div className="mb-4">
-                          <h2 className="text-xl font-heading font-bold text-navy-deep mb-2 group-hover:text-blue-medium transition-colors">
-                            {product.name}
-                          </h2>
-                          {product.short_description && (
-                            <p className="text-sm font-heading font-semibold text-blue-medium">
-                              {product.short_description}
-                            </p>
-                          )}
-                        </div>
-
-                        <p className="text-gray-dark mb-4 leading-relaxed text-sm">
-                          {product.description}
-                        </p>
-
-                        {product.features && product.features.length > 0 && (
-                          <div className="mb-4">
-                            <h3 className="font-heading font-bold text-navy-deep mb-2 text-sm">
-                              Especificações Principais:
-                            </h3>
-                            <ul className="space-y-1">
-                              {product.features.slice(0, 2).map((spec, idx) => (
-                                <li key={idx} className="flex items-start text-gray-dark text-xs">
-                                  <svg className="w-4 h-4 mr-2 flex-shrink-0 text-blue-medium mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                  </svg>
-                                  {spec}
-                                </li>
-                              ))}
-                            </ul>
+                <div key={product.id} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  <div>
+                    <Card
+                      className="group hover:shadow-xl transition-all duration-300 overflow-hidden animate-fade-in bg-white border-2"
+                      style={{ animationDelay: `${(index + 3) * 0.1}s` }}
+                    >
+                      <Link to={`/produtos/${product.slug}`} className="block">
+                        {/* Product Image */}
+                        <div className="relative h-48 overflow-hidden">
+                          <img
+                            src={product.image_url || "/images/placeholder-product.png"}
+                            alt={product.name}
+                            width={400}
+                            height={192}
+                            loading="lazy"
+                            className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                            style={{ aspectRatio: '400 / 192' }}
+                            onError={(e) => {
+                              // Fallback to gradient background if image fails to load
+                              e.currentTarget.style.display = 'none';
+                              e.currentTarget.nextElementSibling!.style.display = 'flex';
+                            }}
+                          />
+                          <div className="w-full h-full hidden items-center justify-center bg-gradient-accent">
+                            <svg className="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M12 3L2 12h3v8h14v-8h3L12 3zm0 2.5L18.5 12H17v6h-4v-4h-2v4H7v-6H5.5L12 5.5z"/>
+                            </svg>
                           </div>
-                        )}
-
-                        <div className="inline-flex items-center font-heading font-semibold text-blue-medium group-hover:translate-x-2 transition-transform text-sm">
-                          Saber mais
-                          <ArrowRight className="ml-1 h-4 w-4" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                         </div>
-                      </div>
-                    </Link>
-                </Card>
-              </div>
+
+                        {/* Content */}
+                        <div className="p-6">
+                          <div className="mb-4">
+                            <h2 className="text-xl font-heading font-bold text-navy-deep mb-2 group-hover:text-blue-medium transition-colors">
+                              {product.name}
+                            </h2>
+                            {product.short_description && (
+                              <p className="text-sm font-heading font-semibold text-blue-medium">
+                                {product.short_description}
+                              </p>
+                            )}
+                          </div>
+
+                          <p className="text-gray-dark mb-4 leading-relaxed text-sm">
+                            {product.description}
+                          </p>
+
+                          {product.features && product.features.length > 0 && (
+                            <div className="mb-4">
+                              <h3 className="font-heading font-bold text-navy-deep mb-2 text-sm">
+                                Especificações Principais:
+                              </h3>
+                              <ul className="space-y-1">
+                                {product.features.slice(0, 2).map((spec, idx) => (
+                                  <li key={idx} className="flex items-start text-gray-dark text-xs">
+                                    <svg className="w-4 h-4 mr-2 flex-shrink-0 text-blue-medium mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    {spec}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+
+                          <div className="inline-flex items-center font-heading font-semibold text-blue-medium group-hover:translate-x-2 transition-transform text-sm">
+                            Saber mais
+                            <ArrowRight className="ml-1 h-4 w-4" />
+                          </div>
+                        </div>
+                      </Link>
+                    </Card>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
             </>
           )}
         </div>
