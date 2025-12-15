@@ -62,17 +62,17 @@ const Dashboard = () => {
       console.log("[Dashboard] Supabase client:", supabase ? "disponível" : "não disponível");
       
       const queries = [
-        { name: "blog_posts", query: supabase.from("blog_posts").select("id, published", { count: "exact" }) },
-        { name: "products", query: supabase.from("products").select("id", { count: "exact" }) },
-        { name: "solutions", query: supabase.from("solutions").select("id", { count: "exact" }) },
-        { name: "brands", query: supabase.from("brands").select("id", { count: "exact" }) },
-        { name: "product_families", query: supabase.from("product_families").select("id", { count: "exact" }) },
-        { name: "product_variants", query: supabase.from("product_variants").select("id", { count: "exact" }) },
-        { name: "verticals", query: supabase.from("verticals").select("id", { count: "exact" }) },
-        { name: "custom_pages", query: supabase.from("custom_pages").select("id, published", { count: "exact" }) },
-        { name: "media_library", query: supabase.from("media_library").select("id", { count: "exact" }) },
-        { name: "page_blocks", query: supabase.from("page_blocks").select("id", { count: "exact" }) },
-        { name: "product_page_content", query: supabase.from("product_page_content").select("id", { count: "exact" }) },
+        { name: "blog_posts", query: supabase.from("blog_posts").select("id, published", { count: "exact", head: false }) },
+        { name: "products", query: supabase.from("products").select("id", { count: "exact", head: false }) },
+        { name: "solutions", query: supabase.from("solutions").select("id", { count: "exact", head: false }) },
+        { name: "brands", query: supabase.from("brands").select("id", { count: "exact", head: false }) },
+        { name: "product_families", query: supabase.from("product_families").select("id", { count: "exact", head: false }) },
+        { name: "product_variants", query: supabase.from("product_variants").select("id", { count: "exact", head: false }) },
+        { name: "verticals", query: supabase.from("verticals").select("id", { count: "exact", head: false }) },
+        { name: "custom_pages", query: supabase.from("custom_pages").select("id, published", { count: "exact", head: false }) },
+        { name: "media_library", query: supabase.from("media_library").select("id", { count: "exact", head: false }) },
+        { name: "page_blocks", query: supabase.from("page_blocks").select("id", { count: "exact", head: false }) },
+        { name: "product_page_content", query: supabase.from("product_page_content").select("id", { count: "exact", head: false }) },
       ];
 
       console.log("[Dashboard] Executando queries...");
