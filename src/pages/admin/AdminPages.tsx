@@ -757,8 +757,6 @@ const AdminPages = () => {
             </div>
           </Card>
         </div>
-      </div>
-    </AdminLayout>
 
       {/* Delete Confirmation Dialog */}
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
@@ -793,7 +791,7 @@ const AdminPages = () => {
           )}
         </DialogContent>
       </Dialog>
-    </div>
+    </AdminLayout>
   );
 };
 
