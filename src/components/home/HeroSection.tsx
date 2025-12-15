@@ -10,7 +10,6 @@ const HeroSection = () => {
       <div className="absolute inset-0 w-full h-full overflow-hidden">
         <VideoBackground
           videoSrc="/videos/products/evo_max/Introducing EVO Max 4T_720.mp4"
-          poster="/images/products/evo_max/hero-poster.jpg"
           className="object-cover"
           lazyLoad={false}
         />
