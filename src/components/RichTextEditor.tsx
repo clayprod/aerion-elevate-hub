@@ -87,7 +87,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
   }
 
   return (
-    <div className="rich-text-editor mb-8 overflow-hidden">
+    <div className="rich-text-editor mb-8 overflow-hidden prose prose-lg max-w-none">
       <ReactQuill
         theme="snow"
         value={value}
@@ -106,6 +106,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           line-height: 1.75; /* leading-relaxed */
           color: #374151; /* text-gray-700 */
           padding: 1.5rem;
+          white-space: pre-wrap; /* whitespace-pre-wrap - preserva quebras de linha */
         }
         
         /* Tipografia base - correspondendo ao prose prose-lg */
