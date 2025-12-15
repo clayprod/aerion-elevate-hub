@@ -570,7 +570,6 @@ const AdminBlog = () => {
             </div>
           </Card>
         </div>
-      </div>
     </AdminLayout>
   );
 };
