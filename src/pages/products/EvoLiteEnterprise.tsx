@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
 import { ProductHeader } from '@/components/products/ProductHeader';
 import { ProductStickyMenu } from '@/components/products/ProductStickyMenu';
 import { ProductTechnicalData } from '@/components/products/ProductTechnicalData';
@@ -31,6 +33,25 @@ import {
 const EvoLiteEnterprise: React.FC = () => {
   const productFamily = getProductFamilyBySlug('evo-lite-enterprise');
   const [selectedVariant, setSelectedVariant] = useState('640t');
+  
+  // Fetch product page content from database
+  const { data: pageContent, isLoading } = useQuery({
+    queryKey: ['product-page-content', 'evo-lite-enterprise'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('product_page_content')
+        .select('*')
+        .eq('product_slug', 'evo-lite-enterprise')
+        .single();
+      
+      if (error && error.code !== 'PGRST116') {
+        throw error;
+      }
+      
+      return data;
+    },
+    staleTime: 5 * 60 * 1000, // 5 minutes
+  });
 
   if (!productFamily) {
     return <div>Produto não encontrado</div>;
@@ -164,7 +185,16 @@ const EvoLiteEnterprise: React.FC = () => {
     ]
   };
 
-  const featureHighlights = [...baseHighlights, ...(variantHighlights[selectedVariant] ?? [])];
+  // Icon mapping for highlights
+  const iconMap: Record<string, LucideIcon> = {
+    Feather, Pointer, Scan, RadioTower, Radar, Timer, Thermometer, Camera, ShieldCheck, Lock, Radio, Settings2, Columns, Map
+  };
+
+  // Use data from database or fallback to hardcoded
+  const featureHighlights = (pageContent?.highlights || [...baseHighlights, ...(variantHighlights[selectedVariant] ?? [])]).map((highlight: any) => ({
+    ...highlight,
+    icon: typeof highlight.icon === 'string' ? iconMap[highlight.icon] : highlight.icon
+  }));
 
   const skyLinkStats = [
     { value: '12 km (FCC)', label: 'Distância de transmissão de vídeo' },
@@ -553,7 +583,7 @@ const EvoLiteEnterprise: React.FC = () => {
         <div className="max-w-7xl mx-auto px-6">
           <ProductTechnicalData
             technicalData={productFamily.technicalData}
-            specs={currentVariant.specs}
+            specs={pageContent?.specifications || currentVariant.specs}
             components={productFamily.components}
             accessoriesIncluded={productFamily.accessoriesIncluded}
             title={currentVariant.name}
@@ -566,7 +596,7 @@ const EvoLiteEnterprise: React.FC = () => {
       <section id="applications" className="py-12 bg-gray-light/30">
         <div className="max-w-7xl mx-auto px-6">
           <ProductApplications
-            applications={productFamily.applications}
+            applications={pageContent?.applications || productFamily.applications}
             title={productFamily.name}
           />
         </div>
@@ -576,7 +606,7 @@ const EvoLiteEnterprise: React.FC = () => {
       <section id="videos" className="py-12 bg-gray-light/30">
         <div className="max-w-7xl mx-auto px-6">
           <ProductVideoGallery
-            videos={productFamily.videos}
+            videos={pageContent?.videos || productFamily.videos}
             title={productFamily.name}
           />
         </div>

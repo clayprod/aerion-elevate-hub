@@ -39,6 +39,23 @@ const ProductPageEditor = () => {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [blockToDelete, setBlockToDelete] = useState<PageBlock | null>(null);
   const [productSlug, setProductSlug] = useState(slug || "");
+  const [products, setProducts] = useState<{ slug: string; name: string }[]>([]);
+  const [showPreview, setShowPreview] = useState(false);
+
+  // Available product slugs
+  const availableProducts = [
+    { slug: "evo-max-v2", name: "EVO Max V2" },
+    { slug: "evo-lite-enterprise", name: "EVO Lite Enterprise" },
+    { slug: "autel-alpha", name: "Autel Alpha" },
+    { slug: "autel-mapper", name: "Autel Mapper" },
+  ];
+
+  useEffect(() => {
+    setProducts(availableProducts);
+    if (slug) {
+      setProductSlug(slug);
+    }
+  }, [slug]);
 
   useEffect(() => {
     if (productSlug) {
@@ -199,17 +216,46 @@ const ProductPageEditor = () => {
 
         {/* Product Selector */}
         <Card className="p-6 mb-8">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 flex-wrap">
             <label className="text-sm font-medium">Produto:</label>
-            <Input
-              value={productSlug}
-              onChange={(e) => setProductSlug(e.target.value)}
-              placeholder="ex: evo-max-v2"
-              className="max-w-xs"
-            />
-            <Button onClick={fetchBlocks} disabled={!productSlug}>
-              Carregar
-            </Button>
+            <Select value={productSlug} onValueChange={(value) => {
+              setProductSlug(value);
+              if (value) {
+                setTimeout(() => fetchBlocks(), 100);
+              }
+            }}>
+              <SelectTrigger className="w-[250px]">
+                <SelectValue placeholder="Selecione um produto" />
+              </SelectTrigger>
+              <SelectContent>
+                {products.map((product) => (
+                  <SelectItem key={product.slug} value={product.slug}>
+                    {product.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            {productSlug && (
+              <>
+                <Button onClick={fetchBlocks} disabled={!productSlug || loading}>
+                  {loading ? "Carregando..." : "Recarregar"}
+                </Button>
+                <Button 
+                  variant="outline" 
+                  onClick={() => window.open(`/produtos/${productSlug}`, '_blank')}
+                >
+                  <Eye className="h-4 w-4 mr-2" />
+                  Ver Página Pública
+                </Button>
+                <Button 
+                  variant="outline" 
+                  onClick={() => setShowPreview(!showPreview)}
+                >
+                  <Eye className="h-4 w-4 mr-2" />
+                  {showPreview ? "Ocultar Preview" : "Mostrar Preview"}
+                </Button>
+              </>
+            )}
           </div>
         </Card>
 
@@ -230,6 +276,39 @@ const ProductPageEditor = () => {
                   {getBlockTitle(blockType)}
                 </Button>
               ))}
+            </div>
+          </Card>
+        )}
+
+        {/* Preview Section */}
+        {showPreview && productSlug && (
+          <Card className="p-6 mb-8 border-blue-200 bg-blue-50">
+            <h2 className="text-xl font-heading font-bold text-navy-deep mb-4">
+              Preview em Tempo Real
+            </h2>
+            <div className="bg-white rounded-lg p-4 border border-gray-200 max-h-[600px] overflow-y-auto">
+              <p className="text-sm text-gray-600 mb-4">
+                Visualização dos blocos ativos para: <strong>{products.find(p => p.slug === productSlug)?.name || productSlug}</strong>
+              </p>
+              {blocks.filter(b => b.active).length === 0 ? (
+                <p className="text-gray-500 text-center py-8">Nenhum bloco ativo para preview</p>
+              ) : (
+                <div className="space-y-4">
+                  {blocks
+                    .filter(b => b.active)
+                    .sort((a, b) => a.order_index - b.order_index)
+                    .map((block) => (
+                      <div key={block.id} className="border border-gray-200 rounded p-4">
+                        <h4 className="font-semibold text-sm text-gray-700 mb-2">
+                          {getBlockTitle(block.block_type)}
+                        </h4>
+                        <pre className="text-xs bg-gray-50 p-2 rounded overflow-x-auto">
+                          {JSON.stringify(block.block_data, null, 2)}
+                        </pre>
+                      </div>
+                    ))}
+                </div>
+              )}
             </div>
           </Card>
         )}

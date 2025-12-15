@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
 import { ProductHeader } from '@/components/products/ProductHeader';
 import { ProductStickyMenu } from '@/components/products/ProductStickyMenu';
 import { ProductTechnicalData } from '@/components/products/ProductTechnicalData';
@@ -34,6 +36,25 @@ const AutelAlpha: React.FC = () => {
   }
 
   const currentVariant = productFamily.variants[0]; // Autel Alpha has only one variant
+  
+  // Fetch product page content from database
+  const { data: pageContent, isLoading } = useQuery({
+    queryKey: ['product-page-content', 'autel-alpha'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('product_page_content')
+        .select('*')
+        .eq('product_slug', 'autel-alpha')
+        .single();
+      
+      if (error && error.code !== 'PGRST116') {
+        throw error;
+      }
+      
+      return data;
+    },
+    staleTime: 5 * 60 * 1000, // 5 minutes
+  });
 
   const downloads = [
     {
@@ -121,7 +142,12 @@ const AutelAlpha: React.FC = () => {
     }
   };
 
-  const featureHighlights = [
+  // Icon mapping for highlights
+  const iconMap: Record<string, any> = {
+    Radar, ShieldCheck, Navigation, Share2, ZoomIn, Target, BatteryCharging, RadioTower, CloudRain, Thermometer, Lock, Radio
+  };
+
+  const defaultHighlights = [
     {
       icon: ShieldCheck,
       title: 'Anti-interferência Superior',
@@ -173,6 +199,12 @@ const AutelAlpha: React.FC = () => {
       description: 'Plataforma PSDK aberta para integração de sensores e acessórios personalizados.'
     }
   ];
+
+  // Use data from database or fallback to hardcoded
+  const featureHighlights = (pageContent?.highlights || defaultHighlights).map((highlight: any) => ({
+    ...highlight,
+    icon: typeof highlight.icon === 'string' ? iconMap[highlight.icon] : highlight.icon
+  }));
 
   const missionCards = [
     {
@@ -698,7 +730,7 @@ const AutelAlpha: React.FC = () => {
         <div className="max-w-7xl mx-auto px-6">
           <ProductTechnicalData
             technicalData={productFamily.technicalData}
-            specs={currentVariant.specs}
+            specs={pageContent?.specifications || currentVariant.specs}
             components={productFamily.components}
             accessoriesIncluded={productFamily.accessoriesIncluded}
             title={currentVariant.name}
@@ -711,7 +743,7 @@ const AutelAlpha: React.FC = () => {
       <section id="applications" className="py-12 bg-gray-light/30">
         <div className="max-w-7xl mx-auto px-6">
           <ProductApplications
-            applications={productFamily.applications}
+            applications={pageContent?.applications || productFamily.applications}
             title={productFamily.name}
           />
         </div>
@@ -721,7 +753,7 @@ const AutelAlpha: React.FC = () => {
       <section id="videos" className="py-12 bg-gray-light/30">
         <div className="max-w-7xl mx-auto px-6">
           <ProductVideoGallery
-            videos={productFamily.videos}
+            videos={pageContent?.videos || productFamily.videos}
             title={productFamily.name}
           />
         </div>

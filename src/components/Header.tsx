@@ -169,7 +169,7 @@ const Header = () => {
               <>
                 {isAdmin && (
                   <Button asChild variant="outline">
-                    <Link to="/admin/blog">Admin</Link>
+                    <Link to="/admin">Admin</Link>
                   </Button>
                 )}
                 <Button

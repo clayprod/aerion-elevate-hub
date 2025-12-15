@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
 import { ProductHeader } from '@/components/products/ProductHeader';
 import { ProductStickyMenu } from '@/components/products/ProductStickyMenu';
 import { ProductTechnicalData } from '@/components/products/ProductTechnicalData';
@@ -26,6 +28,25 @@ import {
 const EvoMaxV2: React.FC = () => {
   const productFamily = getProductFamilyBySlug('evo-max-v2');
   const [selectedVariant, setSelectedVariant] = useState('4t');
+  
+  // Fetch product page content from database
+  const { data: pageContent, isLoading } = useQuery({
+    queryKey: ['product-page-content', 'evo-max-v2'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('product_page_content')
+        .select('*')
+        .eq('product_slug', 'evo-max-v2')
+        .single();
+      
+      if (error && error.code !== 'PGRST116') {
+        throw error;
+      }
+      
+      return data;
+    },
+    staleTime: 5 * 60 * 1000, // 5 minutes
+  });
 
   if (!productFamily) {
     return <div>Produto não encontrado</div>;
@@ -165,7 +186,13 @@ const EvoMaxV2: React.FC = () => {
 
   const activePayload = payloadContent[selectedVariant] ?? payloadContent['4t'];
 
-  const featureHighlights = [
+  // Icon mapping for highlights
+  const iconMap: Record<string, any> = {
+    Radar, ShieldCheck, Navigation, Share2, ZoomIn, Target, BatteryCharging, RadioTower, Timer, CloudRain
+  };
+
+  // Use data from database or fallback to hardcoded
+  const featureHighlights = (pageContent?.highlights || [
     {
       icon: Radar,
       title: 'Sem Pontos Cegos',
@@ -216,7 +243,10 @@ const EvoMaxV2: React.FC = () => {
       title: 'Proteção IP43',
       description: 'Operação confiável sob chuva leve e poeira com classificação IP43.'
     }
-  ];
+  ]).map((highlight: any) => ({
+    ...highlight,
+    icon: typeof highlight.icon === 'string' ? iconMap[highlight.icon] : highlight.icon
+  }));
 
   const skylinkStats = [
     { value: '15 km', label: 'Distância de transmissão de imagem' },
@@ -646,7 +676,7 @@ const EvoMaxV2: React.FC = () => {
         <div className="max-w-7xl mx-auto px-6">
           <ProductTechnicalData
             technicalData={productFamily.technicalData}
-            specs={currentVariant.specs}
+            specs={pageContent?.specifications || currentVariant.specs}
             components={productFamily.components}
             accessoriesIncluded={productFamily.accessoriesIncluded}
             title={currentVariant.name}
@@ -659,7 +689,7 @@ const EvoMaxV2: React.FC = () => {
       <section id="applications" className="py-12 bg-gray-light/30">
         <div className="max-w-7xl mx-auto px-6">
           <ProductApplications
-            applications={productFamily.applications}
+            applications={pageContent?.applications || productFamily.applications}
             title={productFamily.name}
           />
         </div>
@@ -669,7 +699,7 @@ const EvoMaxV2: React.FC = () => {
       <section id="videos" className="py-12 bg-gray-light/30">
         <div className="max-w-7xl mx-auto px-6">
           <ProductVideoGallery
-            videos={productFamily.videos}
+            videos={pageContent?.videos || productFamily.videos}
             title={productFamily.name}
           />
         </div>
