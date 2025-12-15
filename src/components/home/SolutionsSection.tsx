@@ -1,35 +1,62 @@
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
-import { Building, Factory, Shield, Siren } from "lucide-react";
 
-const solutions = [
-  {
-    title: "Segurança Pública",
-    description: "Patrulhamento, busca e resgate, monitoramento de eventos",
-    image: "/images/lifestyle/public-safety-1-alpha.jpg",
-    link: "/solucoes/seguranca",
-  },
-  {
-    title: "Inspeção Industrial",
-    description: "Verificação de equipamentos, monitoramento de infraestrutura",
-    image: "/images/lifestyle/oil-and-gas-1.jpg",
-    link: "/solucoes/industrial",
-  },
-  {
-    title: "Construção Civil",
-    description: "Mapeamento de obras, monitoramento de progresso",
-    image: "/images/lifestyle/construction-1.jpeg",
-    link: "/solucoes/construcao",
-  },
-  {
-    title: "Resgate e Emergências",
-    description: "Operações de resgate, busca de pessoas, resposta a emergências",
-    image: "/images/lifestyle/rescue-2.jpg",
-    link: "/solucoes/resgate",
-  },
-];
+interface Solution {
+  id: string;
+  name: string;
+  slug: string;
+  short_description: string | null;
+  description: string;
+  image_url: string | null;
+  order_index: number | null;
+}
 
 const SolutionsSection = () => {
+  const [solutions, setSolutions] = useState<Solution[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchSolutions();
+  }, []);
+
+  const fetchSolutions = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("solutions")
+        .select("*")
+        .eq("active", true)
+        .eq("featured", true)
+        .order("order_index", { ascending: true })
+        .limit(4);
+
+      if (error) throw error;
+
+      setSolutions(data || []);
+    } catch (error) {
+      console.error("Error fetching solutions:", error);
+      setSolutions([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <section className="py-12 md:py-16 bg-white">
+        <div className="container-custom">
+          <div className="text-center py-12">
+            <p className="text-gray-500">Carregando soluções...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (solutions.length === 0) {
+    return null;
+  }
   return (
     <section className="py-12 md:py-16 bg-white">
       <div className="container-custom">
@@ -51,11 +78,11 @@ const SolutionsSection = () => {
               className="group hover:shadow-xl transition-all duration-300 overflow-hidden animate-fade-in flex flex-col h-full"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <Link to={solution.link} className="block flex flex-col h-full">
+              <Link to={`/solucoes/${solution.slug}`} className="block flex flex-col h-full">
                 <div className="relative h-48 overflow-hidden">
                   <img
-                    src={solution.image}
-                    alt={solution.title}
+                    src={solution.image_url || "/images/placeholder-solution.png"}
+                    alt={solution.name}
                     width={600}
                     height={256}
                     loading="lazy"
@@ -65,13 +92,13 @@ const SolutionsSection = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                   <div className="absolute bottom-4 left-4 right-4">
                     <h3 className="text-white text-lg font-semibold mb-2">
-                      {solution.title}
+                      {solution.name}
                     </h3>
                   </div>
                 </div>
                 <div className="p-6 flex flex-col flex-grow">
                   <p className="text-gray-dark leading-relaxed mb-4 flex-grow">
-                    {solution.description}
+                    {solution.short_description || solution.description}
                   </p>
                   <div className="inline-flex items-center font-heading font-semibold text-blue-medium group-hover:translate-x-2 transition-transform">
                     Saiba mais

@@ -6,7 +6,7 @@ import MediaUploader from "@/components/admin/MediaUploader";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Trash2, Search, Image as ImageIcon, Video, File, FolderOpen } from "lucide-react";
+import { Trash2, Search, Image as ImageIcon, Video, File, FolderOpen, RefreshCw } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -43,20 +43,122 @@ const MediaLibrary = () => {
     fetchMedia();
   }, [selectedFolder]);
 
+  // Função recursiva para listar todos os arquivos do bucket
+  const listAllFiles = async (path: string = "", allFiles: any[] = []): Promise<any[]> => {
+    const { data, error } = await supabase.storage
+      .from("public-images")
+      .list(path, {
+        limit: 1000,
+        offset: 0,
+        sortBy: { column: "created_at", order: "desc" },
+      });
+
+    if (error) {
+      console.warn(`Error listing files in ${path}:`, error);
+      return allFiles;
+    }
+
+    if (!data) return allFiles;
+
+    for (const item of data) {
+      const fullPath = path ? `${path}/${item.name}` : item.name;
+      
+      // Se for uma pasta (não tem id), fazer recursão
+      if (!item.id) {
+        await listAllFiles(fullPath, allFiles);
+      } else {
+        // É um arquivo, adicionar com o caminho completo
+        allFiles.push({
+          ...item,
+          fullPath: fullPath,
+        });
+      }
+    }
+
+    return allFiles;
+  };
+
   const fetchMedia = async () => {
     setLoading(true);
     try {
+      // Buscar todos os arquivos do bucket recursivamente
+      const bucketFiles = await listAllFiles();
+
+      // Buscar registros da tabela media_library
       let query = supabase.from("media_library").select("*").order("created_at", { ascending: false });
 
       if (selectedFolder !== "all") {
         query = query.eq("folder", selectedFolder);
       }
 
-      const { data, error } = await query;
+      const { data: dbItems, error: dbError } = await query;
 
-      if (error) throw error;
+      if (dbError) throw dbError;
 
-      setMediaItems(data || []);
+      // Sincronizar: adicionar arquivos do bucket que não estão na tabela
+      if (bucketFiles && bucketFiles.length > 0) {
+        const existingPaths = new Set((dbItems || []).map((item) => {
+          // Extrair o caminho do arquivo da URL
+          const urlParts = item.file_url.split("/public-images/");
+          return urlParts.length > 1 ? urlParts[1] : null;
+        }).filter(Boolean));
+
+        const filesToSync = bucketFiles.filter((file) => {
+          // Verificar se já existe na tabela
+          return !existingPaths.has(file.fullPath);
+        });
+
+        // Inserir arquivos faltantes na tabela
+        if (filesToSync.length > 0) {
+          const itemsToInsert = filesToSync.map((file) => {
+            const filePath = file.fullPath;
+            const publicUrl = supabase.storage.from("public-images").getPublicUrl(filePath).data.publicUrl;
+            const fileExt = filePath.split(".").pop()?.toLowerCase() || "";
+            const isImage = ["jpg", "jpeg", "png", "gif", "webp", "svg"].includes(fileExt);
+            const isVideo = ["mp4", "webm", "ogg", "mov"].includes(fileExt);
+            const pathParts = filePath.split("/");
+            const folder = pathParts.length > 1 ? pathParts[0] : "general";
+
+            return {
+              file_url: publicUrl,
+              file_type: isImage ? "image" : isVideo ? "video" : "other",
+              title: file.name,
+              folder: folder,
+              file_size: file.metadata?.size || null,
+              mime_type: file.metadata?.mimetype || null,
+            };
+          });
+
+          const { error: insertError } = await supabase
+            .from("media_library")
+            .insert(itemsToInsert);
+
+          if (insertError) {
+            console.warn("Error syncing files to database:", insertError);
+          }
+        }
+
+        // Remover da tabela arquivos que não existem mais no bucket
+        if (dbItems && dbItems.length > 0) {
+          const bucketFilePaths = new Set(bucketFiles.map((f) => f.fullPath));
+          const itemsToRemove = dbItems.filter((item) => {
+            const urlParts = item.file_url.split("/public-images/");
+            const filePath = urlParts.length > 1 ? urlParts[1] : null;
+            return filePath && !bucketFilePaths.has(filePath);
+          });
+
+          if (itemsToRemove.length > 0) {
+            const idsToRemove = itemsToRemove.map((item) => item.id);
+            await supabase.from("media_library").delete().in("id", idsToRemove);
+          }
+        }
+      }
+
+      // Buscar novamente após sincronização
+      const { data: finalData, error: finalError } = await query;
+      if (finalError) throw finalError;
+
+      setMediaItems(finalData || []);
     } catch (error: any) {
       console.error("Error fetching media:", error);
       toast({
@@ -77,20 +179,36 @@ const MediaLibrary = () => {
     if (!itemToDelete) return;
 
     try {
-      // Try to delete from storage if it's a Supabase URL
       const url = itemToDelete.file_url;
+      let filePath: string | null = null;
+
+      // Extrair caminho do arquivo da URL do Supabase Storage
       if (url.includes("supabase.co/storage")) {
         const urlParts = url.split("/public-images/");
         if (urlParts.length > 1) {
-          const filePath = urlParts[1];
-          await supabase.storage.from("public-images").remove([filePath]);
+          filePath = urlParts[1];
         }
       }
 
-      // Delete from database
-      const { error } = await supabase.from("media_library").delete().eq("id", itemToDelete.id);
+      // Deletar do storage primeiro
+      if (filePath) {
+        const { error: storageError } = await supabase.storage
+          .from("public-images")
+          .remove([filePath]);
 
-      if (error) throw error;
+        if (storageError) {
+          console.warn("Error deleting from storage:", storageError);
+          // Continuar mesmo se falhar no storage
+        }
+      }
+
+      // Deletar da database
+      const { error: dbError } = await supabase
+        .from("media_library")
+        .delete()
+        .eq("id", itemToDelete.id);
+
+      if (dbError) throw dbError;
 
       toast({
         title: "Sucesso!",
@@ -102,12 +220,36 @@ const MediaLibrary = () => {
       console.error("Error deleting media:", error);
       toast({
         title: "Erro",
-        description: "Não foi possível excluir a mídia.",
+        description: error.message || "Não foi possível excluir a mídia.",
         variant: "destructive",
       });
     } finally {
       setDeleteDialogOpen(false);
       setItemToDelete(null);
+    }
+  };
+
+  const handleSync = async () => {
+    setLoading(true);
+    try {
+      toast({
+        title: "Sincronizando...",
+        description: "Sincronizando arquivos do bucket com a biblioteca.",
+      });
+      await fetchMedia();
+      toast({
+        title: "Sucesso!",
+        description: "Biblioteca sincronizada com o bucket.",
+      });
+    } catch (error: any) {
+      console.error("Error syncing:", error);
+      toast({
+        title: "Erro",
+        description: "Não foi possível sincronizar a biblioteca.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -153,7 +295,7 @@ const MediaLibrary = () => {
           />
         </Card>
 
-        {/* Filters */}
+        {/* Filters and Actions */}
         <div className="flex flex-col md:flex-row gap-4 mb-6">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -178,6 +320,15 @@ const MediaLibrary = () => {
               ))}
             </select>
           )}
+          <Button
+            variant="outline"
+            onClick={handleSync}
+            disabled={loading}
+            className="flex items-center gap-2"
+          >
+            <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
+            Sincronizar com Bucket
+          </Button>
         </div>
 
         {/* Media Grid */}

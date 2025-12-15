@@ -126,3 +126,4 @@ npx vite preview
 3. Verifique no Google Search Console se o conteúdo está sendo indexado corretamente
 
 
+

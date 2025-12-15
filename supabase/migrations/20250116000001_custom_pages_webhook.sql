@@ -52,3 +52,4 @@ COMMENT ON TRIGGER custom_page_deploy_webhook ON public.custom_pages IS
 'Trigger que dispara quando uma página customizada é publicada ou atualizada para chamar webhook de deploy.';
 
 
+

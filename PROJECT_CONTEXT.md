@@ -775,3 +775,4 @@ Este documento deve ser atualizado sempre que:
 *Este arquivo serve como fonte única de verdade sobre o projeto. Qualquer desenvolvedor ou IA trabalhando no projeto deve consultar este documento antes de fazer mudanças significativas.*
 
 
+
