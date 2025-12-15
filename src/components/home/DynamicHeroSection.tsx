@@ -37,7 +37,7 @@ const DynamicHeroSection = ({ data }: DynamicHeroSectionProps) => {
     title: "A Revolução Autel Chegou ao Brasil",
     subtitle: "Tecnologia de ponta com custo-benefício superior e suporte técnico especializado local. A escolha inteligente para operações enterprise.",
     video_url: "/videos/products/evo_max/Introducing EVO Max 4T_720.mp4",
-    poster_url: "/images/products/evo_max/hero-poster.jpg",
+    // poster_url removido - não existe o arquivo, será opcional
     cta1_text: "Conheça os Produtos",
     cta1_link: "/produtos",
     cta2_text: "Fale Conosco",

@@ -208,9 +208,58 @@ async function renderRoute(browser, route) {
       timeout: 30000,
     });
 
-    // Aguardar um pouco para garantir que React terminou de renderizar
-    // Usar Promise com setTimeout ao invés de waitForTimeout (removido no Puppeteer recente)
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    // Aguardar React Query completar - verificar se há queries pendentes
+    try {
+      await page.waitForFunction(
+        () => {
+          // Verificar se React Query está pronto
+          // TanStack Query armazena queries no window.__REACT_QUERY_STATE__ ou similar
+          // Verificar se não há queries em loading state
+          const reactQueryReady = window.__REACT_QUERY_STATE__ === undefined || 
+            (typeof window.__REACT_QUERY_STATE__ !== 'undefined' && 
+             Object.keys(window.__REACT_QUERY_STATE__?.queries || {}).length > 0);
+          
+          // Verificar se não há elementos com loading states visíveis
+          const loadingElements = document.querySelectorAll('[data-loading="true"], .loading, [aria-busy="true"]');
+          const hasLoadingElements = loadingElements.length > 0;
+          
+          // Verificar se imagens críticas carregaram
+          const criticalImages = document.querySelectorAll('img[fetchpriority="high"], img[loading="eager"]');
+          let imagesLoaded = true;
+          criticalImages.forEach(img => {
+            if (!img.complete) imagesLoaded = false;
+          });
+          
+          return !hasLoadingElements && imagesLoaded;
+        },
+        { timeout: 10000 }
+      );
+    } catch (e) {
+      // Se timeout, continuar mesmo assim
+      console.log(`    ⚠️  Timeout aguardando queries (continuando...)`);
+    }
+
+    // Aguardar um pouco mais para garantir que React terminou de renderizar
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    // Aguardar todas as imagens críticas carregarem
+    try {
+      await page.evaluate(() => {
+        return Promise.all(
+          Array.from(document.querySelectorAll('img[fetchpriority="high"], img[loading="eager"]'))
+            .map(img => {
+              if (img.complete) return Promise.resolve();
+              return new Promise((resolve, reject) => {
+                img.onload = resolve;
+                img.onerror = resolve; // Resolver mesmo se erro para não travar
+                setTimeout(resolve, 3000); // Timeout de segurança
+              });
+            })
+        );
+      });
+    } catch (e) {
+      // Continuar mesmo se houver erro
+    }
 
     // Obter HTML renderizado
     const html = await page.content();

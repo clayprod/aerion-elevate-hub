@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Plus, Save, Eye, GripVertical, Trash2, Edit, X } from "lucide-react";
+import DynamicHeroSection from "@/components/home/DynamicHeroSection";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -283,32 +284,34 @@ const ProductPageEditor = () => {
         {/* Preview Section */}
         {showPreview && productSlug && (
           <Card className="p-6 mb-8 border-blue-200 bg-blue-50">
-            <h2 className="text-xl font-heading font-bold text-navy-deep mb-4">
-              Preview em Tempo Real
-            </h2>
-            <div className="bg-white rounded-lg p-4 border border-gray-200 max-h-[600px] overflow-y-auto">
-              <p className="text-sm text-gray-600 mb-4">
-                Visualização dos blocos ativos para: <strong>{products.find(p => p.slug === productSlug)?.name || productSlug}</strong>
-              </p>
-              {blocks.filter(b => b.active).length === 0 ? (
-                <p className="text-gray-500 text-center py-8">Nenhum bloco ativo para preview</p>
-              ) : (
-                <div className="space-y-4">
-                  {blocks
-                    .filter(b => b.active)
-                    .sort((a, b) => a.order_index - b.order_index)
-                    .map((block) => (
-                      <div key={block.id} className="border border-gray-200 rounded p-4">
-                        <h4 className="font-semibold text-sm text-gray-700 mb-2">
-                          {getBlockTitle(block.block_type)}
-                        </h4>
-                        <pre className="text-xs bg-gray-50 p-2 rounded overflow-x-auto">
-                          {JSON.stringify(block.block_data, null, 2)}
-                        </pre>
-                      </div>
-                    ))}
-                </div>
-              )}
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-heading font-bold text-navy-deep">
+                Preview em Tempo Real
+              </h2>
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={() => setShowPreview(false)}
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+            <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+              <div className="p-4 bg-gray-50 border-b">
+                <p className="text-sm text-gray-600">
+                  Visualização dos blocos ativos para: <strong>{products.find(p => p.slug === productSlug)?.name || productSlug}</strong>
+                </p>
+              </div>
+              <div className="max-h-[600px] overflow-y-auto p-4">
+                {blocks.filter(b => b.active).length === 0 && !editingBlock ? (
+                  <p className="text-gray-500 text-center py-8">Nenhum bloco ativo para preview</p>
+                ) : (
+                  <ProductBlockPreview 
+                    blocks={blocks.filter(b => b.active).sort((a, b) => a.order_index - b.order_index)}
+                    editingBlock={editingBlock}
+                  />
+                )}
+              </div>
             </div>
           </Card>
         )}
@@ -563,6 +566,136 @@ const VideoBlockEditor = ({ data, onChange }: { data: any; onChange: (data: any)
       <p className="text-sm text-gray-600">
         Editor de vídeos - será expandido com funcionalidade completa
       </p>
+    </div>
+  );
+};
+
+// Product Block Preview Component
+interface ProductBlockPreviewProps {
+  blocks: PageBlock[];
+  editingBlock?: PageBlock | null;
+}
+
+const ProductBlockPreview = ({ blocks, editingBlock }: ProductBlockPreviewProps) => {
+  // Se está editando um bloco novo (sem id), adicionar ao final
+  // Se está editando um bloco existente, substituir na lista
+  let displayBlocks = [...blocks];
+  
+  if (editingBlock) {
+    if (editingBlock.id) {
+      // Substituir bloco existente
+      displayBlocks = blocks.map((block) =>
+        block.id === editingBlock.id ? editingBlock : block
+      );
+    } else {
+      // Adicionar novo bloco ao final
+      displayBlocks = [...blocks, editingBlock];
+    }
+  }
+
+  return (
+    <div className="space-y-8">
+      {displayBlocks.map((block) => {
+        switch (block.block_type) {
+          case "hero":
+            return (
+              <div key={block.id} className="border border-gray-200 rounded-lg overflow-hidden">
+                <div className="bg-gray-100 px-4 py-2 text-xs font-semibold text-gray-600">
+                  Hero Section
+                </div>
+                <div className="bg-white">
+                  <DynamicHeroSection data={block.block_data} />
+                </div>
+              </div>
+            );
+          case "highlight":
+            return (
+              <div key={block.id} className="border border-gray-200 rounded-lg p-4">
+                <div className="bg-gray-100 px-4 py-2 text-xs font-semibold text-gray-600 mb-4 rounded">
+                  Destaques
+                </div>
+                <div className="text-sm text-gray-600">
+                  {block.block_data?.items?.length > 0 ? (
+                    <ul className="list-disc list-inside space-y-2">
+                      {block.block_data.items.map((item: any, idx: number) => (
+                        <li key={idx}>{item.title || `Destaque ${idx + 1}`}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="text-gray-400 italic">Nenhum destaque adicionado</p>
+                  )}
+                </div>
+              </div>
+            );
+          case "specification":
+            return (
+              <div key={block.id} className="border border-gray-200 rounded-lg p-4">
+                <div className="bg-gray-100 px-4 py-2 text-xs font-semibold text-gray-600 mb-4 rounded">
+                  Especificações
+                </div>
+                <div className="text-sm text-gray-600">
+                  {block.block_data?.categories && Object.keys(block.block_data.categories).length > 0 ? (
+                    <div className="space-y-2">
+                      {Object.entries(block.block_data.categories).map(([category, specs]: [string, any]) => (
+                        <div key={category}>
+                          <strong className="text-gray-800">{category}:</strong> {Object.keys(specs).length} especificações
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-gray-400 italic">Nenhuma especificação adicionada</p>
+                  )}
+                </div>
+              </div>
+            );
+          case "application":
+            return (
+              <div key={block.id} className="border border-gray-200 rounded-lg p-4">
+                <div className="bg-gray-100 px-4 py-2 text-xs font-semibold text-gray-600 mb-4 rounded">
+                  Aplicações
+                </div>
+                <div className="text-sm text-gray-600">
+                  {block.block_data?.items?.length > 0 ? (
+                    <ul className="list-disc list-inside space-y-2">
+                      {block.block_data.items.map((item: any, idx: number) => (
+                        <li key={idx}>{item.title || `Aplicação ${idx + 1}`}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="text-gray-400 italic">Nenhuma aplicação adicionada</p>
+                  )}
+                </div>
+              </div>
+            );
+          case "video":
+            return (
+              <div key={block.id} className="border border-gray-200 rounded-lg p-4">
+                <div className="bg-gray-100 px-4 py-2 text-xs font-semibold text-gray-600 mb-4 rounded">
+                  Vídeos
+                </div>
+                <div className="text-sm text-gray-600">
+                  {block.block_data?.videos?.length > 0 ? (
+                    <ul className="list-disc list-inside space-y-2">
+                      {block.block_data.videos.map((video: any, idx: number) => (
+                        <li key={idx}>{video.title || video.url || `Vídeo ${idx + 1}`}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="text-gray-400 italic">Nenhum vídeo adicionado</p>
+                  )}
+                </div>
+              </div>
+            );
+          default:
+            return (
+              <div key={block.id} className="border border-gray-200 rounded-lg p-4">
+                <div className="text-sm text-gray-600">
+                  Tipo de bloco não suportado: {block.block_type}
+                </div>
+              </div>
+            );
+        }
+      })}
     </div>
   );
 };

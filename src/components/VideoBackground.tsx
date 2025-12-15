@@ -71,6 +71,11 @@ export const VideoBackground: React.FC<VideoBackgroundProps> = ({
           }}
           loading="eager"
           fetchPriority="high"
+          onError={(e) => {
+            // Fallback se imagem não existir - esconder elemento
+            const target = e.target as HTMLImageElement;
+            target.style.display = 'none';
+          }}
         />
       </div>
     );
@@ -86,7 +91,7 @@ export const VideoBackground: React.FC<VideoBackgroundProps> = ({
           muted
           playsInline
           preload="metadata"
-          poster={poster}
+          poster={poster || undefined}
           className="video-responsive"
           style={{
             objectFit: 'cover',

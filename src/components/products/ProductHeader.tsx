@@ -121,6 +121,7 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
                     height={800}
                     className="w-full h-full object-contain p-8 transition-transform duration-300"
                     loading={selectedImage === 0 ? "eager" : "lazy"}
+                    fetchPriority={selectedImage === 0 ? "high" : "auto"}
                     style={{
                       transform: isZooming ? 'scale(2)' : 'scale(1)',
                       transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%`,

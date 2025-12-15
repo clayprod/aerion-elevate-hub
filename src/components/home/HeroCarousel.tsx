@@ -40,7 +40,7 @@ const HeroCarousel = ({
         {slide.video_url && (
           <VideoBackground
             videoSrc={slide.video_url}
-            poster={slide.poster_url || ""}
+            poster={slide.poster_url}
             className="object-cover"
             lazyLoad={false}
           />
@@ -88,7 +88,7 @@ const HeroCarousel = ({
       {currentSlide.video_url && (
         <VideoBackground
           videoSrc={currentSlide.video_url}
-          poster={currentSlide.poster_url || ""}
+          poster={currentSlide.poster_url}
           className="object-cover"
           lazyLoad={false}
         />
