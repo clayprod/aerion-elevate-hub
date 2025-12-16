@@ -65,6 +65,17 @@ const AutelAlpha: React.FC = () => {
     );
   }
 
+  // Verificar se há variantes disponíveis
+  if (!finalProductFamily.variants || finalProductFamily.variants.length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-gray-dark text-lg">Produto sem variantes configuradas</p>
+        </div>
+      </div>
+    );
+  }
+
   const currentVariant = finalProductFamily.variants[0]; // Autel Alpha has only one variant
   
   // Fetch product page content from database
@@ -125,7 +136,7 @@ const AutelAlpha: React.FC = () => {
   ];
 
   // Use only product images for the header
-  const productImages = finalProductFamily.photoGallery.product;
+  const productImages = finalProductFamily.photoGallery?.product || [];
 
   const menuItems = [
     { id: 'product-description', label: 'Descrição do Produto' },

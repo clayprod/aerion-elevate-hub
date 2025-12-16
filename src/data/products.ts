@@ -1420,7 +1420,7 @@ export const productFamilies: ProductFamily[] = [
 export const getProductFamilyBySlugFromDB = async (slug: string): Promise<ProductFamily | undefined> => {
   try {
     const { supabase } = await import('@/integrations/supabase/client');
-    const { data: familyData, error } = await supabase
+    const { data: familyDataArray, error } = await supabase
       .from('product_families')
       .select(`
         *,
@@ -1436,9 +1436,16 @@ export const getProductFamilyBySlugFromDB = async (slug: string): Promise<Produc
       `)
       .eq('slug', slug)
       .eq('active', true)
-      .single();
+      .limit(1);
 
-    if (!error && familyData) {
+    // Se não encontrou ou há erro, retornar undefined para usar fallback
+    if (error || !familyDataArray || familyDataArray.length === 0) {
+      return undefined;
+    }
+
+    const familyData = familyDataArray[0];
+
+    if (familyData) {
       // Ordenar variantes por order_index
       const sortedVariants = (familyData.product_variants || []).sort((a: any, b: any) => 
         (a.order_index || 0) - (b.order_index || 0)

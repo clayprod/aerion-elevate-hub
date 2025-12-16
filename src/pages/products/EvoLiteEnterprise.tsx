@@ -88,6 +88,17 @@ const EvoLiteEnterprise: React.FC = () => {
     );
   }
 
+  // Verificar se há variantes disponíveis
+  if (!finalProductFamily.variants || finalProductFamily.variants.length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-gray-dark text-lg">Produto sem variantes configuradas</p>
+        </div>
+      </div>
+    );
+  }
+
   const currentVariant = finalProductFamily.variants.find(v => v.id === selectedVariant) || finalProductFamily.variants[0];
 
   const downloads = [
@@ -136,7 +147,7 @@ const EvoLiteEnterprise: React.FC = () => {
   ];
 
   // Use only product images for the header
-  const productImages = finalProductFamily.photoGallery.product;
+  const productImages = finalProductFamily.photoGallery?.product || [];
 
   // Define variants for EVO Lite Enterprise
   const variants = [
