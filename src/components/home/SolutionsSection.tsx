@@ -74,7 +74,7 @@ const SolutionsSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {solutions.map((solution, index) => (
             <Card
-              key={solution.title}
+              key={solution.id}
               className="group hover:shadow-xl transition-all duration-300 overflow-hidden animate-fade-in flex flex-col h-full"
               style={{ animationDelay: `${index * 0.1}s` }}
             >

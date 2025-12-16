@@ -27,10 +27,7 @@ import AutelAlpha from "./pages/products/AutelAlpha";
 import EvoLiteEnterprise from "./pages/products/EvoLiteEnterprise";
 import EvoMaxV2 from "./pages/products/EvoMaxV2";
 import AutelMapper from "./pages/products/AutelMapper";
-import ConstrucaoTopografia from "./pages/solucoes/ConstrucaoTopografia";
-import InspecaoIndustrial from "./pages/solucoes/InspecaoIndustrial";
-import SegurancaPublica from "./pages/solucoes/SegurancaPublica";
-import ResgateEmergencias from "./pages/solucoes/ResgateEmergencias";
+import SolutionRouteHandler from "./components/SolutionRouteHandler";
 
 // Rotas admin - lazy loaded (menos acessadas)
 const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
@@ -44,7 +41,6 @@ const MediaLibrary = lazy(() => import("./pages/admin/MediaLibrary"));
 const ProductPageEditor = lazy(() => import("./pages/admin/ProductPageEditor"));
 const AdminBrands = lazy(() => import("./pages/admin/AdminBrands"));
 const AdminProductFamilies = lazy(() => import("./pages/admin/AdminProductFamilies"));
-const AdminProductVariants = lazy(() => import("./pages/admin/AdminProductVariants"));
 const MigrateProductData = lazy(() => import("./pages/admin/MigrateProductData"));
 const AdminVerticals = lazy(() => import("./pages/admin/AdminSolutions"));
 const AdminBackups = lazy(() => import("./pages/admin/AdminBackups"));
@@ -84,10 +80,7 @@ const App = () => {
               <Route path="/produtos/autel-alpha" element={<StaticPageWrapper><AutelAlpha /></StaticPageWrapper>} />
               <Route path="/produtos/autel-mapper" element={<StaticPageWrapper><AutelMapper /></StaticPageWrapper>} />
               <Route path="/solucoes" element={<StaticPageWrapper><Solucoes /></StaticPageWrapper>} />
-              <Route path="/solucoes/construcao" element={<StaticPageWrapper><ConstrucaoTopografia /></StaticPageWrapper>} />
-              <Route path="/solucoes/industrial" element={<StaticPageWrapper><InspecaoIndustrial /></StaticPageWrapper>} />
-              <Route path="/solucoes/seguranca" element={<StaticPageWrapper><SegurancaPublica /></StaticPageWrapper>} />
-              <Route path="/solucoes/resgate" element={<StaticPageWrapper><ResgateEmergencias /></StaticPageWrapper>} />
+              <Route path="/solucoes/:slug" element={<StaticPageWrapper><SolutionRouteHandler /></StaticPageWrapper>} />
               <Route path="/sobre" element={<StaticPageWrapper><Sobre /></StaticPageWrapper>} />
               <Route path="/contato" element={<StaticPageWrapper><Contato /></StaticPageWrapper>} />
               <Route path="/politica-privacidade" element={<StaticPageWrapper><PoliticaPrivacidade /></StaticPageWrapper>} />
@@ -207,16 +200,6 @@ const App = () => {
                     <ProtectedRoute requireAdmin>
                       <Suspense fallback={<PageLoader />}>
                         <AdminProductFamilies />
-                      </Suspense>
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/admin/product-variants"
-                  element={
-                    <ProtectedRoute requireAdmin>
-                      <Suspense fallback={<PageLoader />}>
-                        <AdminProductVariants />
                       </Suspense>
                     </ProtectedRoute>
                   }

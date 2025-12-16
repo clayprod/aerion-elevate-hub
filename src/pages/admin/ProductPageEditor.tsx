@@ -272,16 +272,15 @@ const ProductPageEditor = () => {
             <Button
               variant="outline"
               onClick={() => {
-                // Navegar para a página de variantes com filtro por família
-                const familySlug = productSlug;
-                window.location.href = `/admin/products/variants?family=${familySlug}`;
+                // Navegar para a página de famílias de produtos onde as variantes são gerenciadas
+                window.location.href = `/admin/product-families`;
               }}
             >
               <Plus className="h-4 w-4 mr-2" />
-              Gerenciar Variantes
+              Gerenciar Famílias e Variantes
             </Button>
             <p className="text-xs text-gray-500 mt-2">
-              As variantes são gerenciadas na página dedicada de Variantes de Produtos, onde você pode criar, editar e associar variantes a esta família de produtos.
+              As variantes são gerenciadas junto com as famílias de produtos na página de Famílias de Produtos.
             </p>
           </Card>
         )}
@@ -329,15 +328,11 @@ const ProductPageEditor = () => {
                 </p>
               </div>
               <div className="max-h-[600px] overflow-y-auto p-4">
-                {blocks.filter(b => b.active).length === 0 && !editingBlock ? (
-                  <p className="text-gray-500 text-center py-8">Nenhum bloco ativo para preview</p>
-                ) : (
-                  <ProductBlockPreview 
-                    key={`preview-${productSlug}-${editingBlock?.id || 'new'}-${JSON.stringify(editingBlock?.block_data || {})}`}
-                    blocks={blocks.filter(b => b.active).sort((a, b) => a.order_index - b.order_index)}
-                    editingBlock={editingBlock}
-                  />
-                )}
+                <ProductBlockPreview 
+                  key={`preview-${productSlug}-${editingBlock?.id || 'none'}-${JSON.stringify(editingBlock?.block_data || {})}`}
+                  blocks={blocks.filter(b => b.active).sort((a, b) => a.order_index - b.order_index)}
+                  editingBlock={editingBlock}
+                />
               </div>
             </div>
           </Card>
@@ -976,6 +971,18 @@ const ProductBlockPreview = ({ blocks, editingBlock }: ProductBlockPreviewProps)
         block_data: editingBlock.block_data || {},
       }];
     }
+  }
+
+  // Se não há blocos para mostrar
+  if (displayBlocks.length === 0) {
+    return (
+      <div className="text-center py-12">
+        <p className="text-gray-500">Nenhum bloco ativo para preview</p>
+        {editingBlock && (
+          <p className="text-sm text-gray-400 mt-2">Edite um bloco para ver o preview</p>
+        )}
+      </div>
+    );
   }
 
   return (

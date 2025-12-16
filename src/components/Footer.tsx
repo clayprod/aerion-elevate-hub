@@ -1,10 +1,19 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Instagram, MessageCircle } from "lucide-react";
+import { Mail, Phone, MapPin, Instagram, MessageCircle, Linkedin } from "lucide-react";
 import logo from "@/assets/logo-aerion.png";
 import CookieManager from "./CookieManager";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { settings } = useSiteSettings();
+
+  // Helper function to format WhatsApp number for URL
+  const formatWhatsAppUrl = (phone: string) => {
+    if (!phone) return "";
+    const cleaned = phone.replace(/\D/g, "");
+    return `https://wa.me/${cleaned}`;
+  };
 
   return (
     <footer className="bg-navy-deep text-white">
@@ -96,39 +105,65 @@ const Footer = () => {
           <div>
             <h2 className="font-heading font-bold text-lg mb-4">Contato</h2>
             <div className="flex flex-col space-y-3">
-              <div className="flex items-center space-x-3 text-gray-medium text-sm">
-                <Phone className="h-4 w-4 flex-shrink-0" />
-                <span>+55 11 5102-4229</span>
-              </div>
-              <a
-                href="https://wa.me/5511934668839"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center space-x-3 text-gray-medium hover:text-blue-light transition-colors text-sm"
-              >
-                <MessageCircle className="h-4 w-4 flex-shrink-0" />
-                <span>+55 11 93466-8839 (WhatsApp)</span>
-              </a>
-              <a
-                href="mailto:comercial@aerion.com.br"
-                className="flex items-center space-x-3 text-gray-medium hover:text-blue-light transition-colors text-sm"
-              >
-                <Mail className="h-4 w-4 flex-shrink-0" />
-                <span>comercial@aerion.com.br</span>
-              </a>
-              <div className="flex items-start space-x-3 text-gray-medium text-sm">
-                <MapPin className="h-4 w-4 flex-shrink-0 mt-1" />
-                <span>Edifício Itamaracá<br />R. Quintana 887, Cj. 111, 11º Andar<br />Brooklin Novo - SP, 04569-011</span>
-              </div>
-              <a
-                href="https://instagram.com/aerion.technologies"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center space-x-3 text-gray-medium hover:text-blue-light transition-colors text-sm"
-              >
-                <Instagram className="h-4 w-4 flex-shrink-0" />
-                <span>@aerion.technologies</span>
-              </a>
+              {settings.contact_phone && (
+                <div className="flex items-center space-x-3 text-gray-medium text-sm">
+                  <Phone className="h-4 w-4 flex-shrink-0" />
+                  <span>{settings.contact_phone}</span>
+                </div>
+              )}
+              {settings.contact_whatsapp && (
+                <a
+                  href={formatWhatsAppUrl(settings.contact_whatsapp)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-3 text-gray-medium hover:text-blue-light transition-colors text-sm"
+                >
+                  <MessageCircle className="h-4 w-4 flex-shrink-0" />
+                  <span>{settings.contact_whatsapp} (WhatsApp)</span>
+                </a>
+              )}
+              {settings.contact_email && (
+                <a
+                  href={`mailto:${settings.contact_email}`}
+                  className="flex items-center space-x-3 text-gray-medium hover:text-blue-light transition-colors text-sm"
+                >
+                  <Mail className="h-4 w-4 flex-shrink-0" />
+                  <span>{settings.contact_email}</span>
+                </a>
+              )}
+              {(settings.contact_address_line1 || settings.contact_address_line2 || settings.contact_address_line3) && (
+                <div className="flex items-start space-x-3 text-gray-medium text-sm">
+                  <MapPin className="h-4 w-4 flex-shrink-0 mt-1" />
+                  <span>
+                    {settings.contact_address_line1 && <>{settings.contact_address_line1}<br /></>}
+                    {settings.contact_address_line2 && <>{settings.contact_address_line2}<br /></>}
+                    {settings.contact_address_line3 && <>{settings.contact_address_line3}</>}
+                    {settings.contact_zipcode && <><br />{settings.contact_zipcode}</>}
+                  </span>
+                </div>
+              )}
+              {settings.instagram_url && (
+                <a
+                  href={settings.instagram_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-3 text-gray-medium hover:text-blue-light transition-colors text-sm"
+                >
+                  <Instagram className="h-4 w-4 flex-shrink-0" />
+                  <span>{settings.instagram_handle || settings.instagram_url}</span>
+                </a>
+              )}
+              {settings.linkedin_url && (
+                <a
+                  href={settings.linkedin_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-3 text-gray-medium hover:text-blue-light transition-colors text-sm"
+                >
+                  <Linkedin className="h-4 w-4 flex-shrink-0" />
+                  <span>{settings.linkedin_handle || settings.linkedin_url}</span>
+                </a>
+              )}
             </div>
           </div>
         </div>

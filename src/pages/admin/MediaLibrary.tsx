@@ -127,21 +127,39 @@ const MediaLibrary = () => {
     try {
       console.log(`🔄 Iniciando sincronização com bucket '${STORAGE_BUCKET}'...`);
       
-      // Verificar se o bucket existe
-      const { data: buckets, error: bucketsError } = await supabase.storage.listBuckets();
-      if (bucketsError) {
-        throw new Error(`Erro ao listar buckets: ${bucketsError.message}`);
-      }
-      
-      const bucketExists = buckets?.some(b => b.name === STORAGE_BUCKET);
-      if (!bucketExists) {
-        toast({
-          title: "Bucket não encontrado",
-          description: `O bucket '${STORAGE_BUCKET}' não existe. Por favor, crie o bucket no Supabase Storage antes de usar a biblioteca de mídia.`,
-          variant: "destructive",
-        });
-        setLoading(false);
-        return;
+      // Tentar acessar o bucket diretamente primeiro (mais eficiente)
+      // Se falhar, então verificar se existe
+      try {
+        const { data: testData, error: testError } = await supabase.storage
+          .from(STORAGE_BUCKET)
+          .list("", { limit: 1 });
+        
+        // Se o erro for de bucket não encontrado, então verificar a lista
+        if (testError && (testError.message?.includes("not found") || testError.message?.includes("does not exist") || testError.message?.includes("Bucket not found"))) {
+          // Verificar se o bucket existe na lista
+          const { data: buckets, error: bucketsError } = await supabase.storage.listBuckets();
+          if (bucketsError) {
+            console.warn("Erro ao listar buckets:", bucketsError);
+            // Continuar mesmo assim, pode ser um problema de permissão
+          } else {
+            const bucketExists = buckets?.some(b => b.name === STORAGE_BUCKET);
+            if (!bucketExists) {
+              toast({
+                title: "Bucket não encontrado",
+                description: `O bucket '${STORAGE_BUCKET}' não existe. Por favor, crie o bucket no Supabase Storage antes de usar a biblioteca de mídia.`,
+                variant: "destructive",
+              });
+              setLoading(false);
+              return;
+            }
+          }
+        } else if (testError) {
+          // Outro tipo de erro, mas não necessariamente bucket não existe
+          console.warn("Erro ao acessar bucket (mas pode existir):", testError);
+        }
+      } catch (err) {
+        // Erro na tentativa de acesso, mas continuar
+        console.warn("Erro ao testar acesso ao bucket:", err);
       }
       
       // Buscar todos os arquivos do bucket recursivamente

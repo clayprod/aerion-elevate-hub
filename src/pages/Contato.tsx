@@ -10,6 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Mail, Phone, MapPin, Clock, Instagram, MessageCircle, Loader2, Linkedin } from "lucide-react";
 import emailjs from '@emailjs/browser';
 import SuccessDialog from "@/components/ui/success-dialog";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 import {
   Select,
   SelectContent,
@@ -20,6 +21,7 @@ import {
 
 const Contato = () => {
   const { toast } = useToast();
+  const { settings, loading: settingsLoading } = useSiteSettings();
   const [isLoading, setIsLoading] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const [dialogType, setDialogType] = useState<"success" | "error">("success");
@@ -33,6 +35,13 @@ const Contato = () => {
     vertical: "",
     message: "",
   });
+
+  // Helper function to format WhatsApp number for URL
+  const formatWhatsAppUrl = (phone: string) => {
+    if (!phone) return "";
+    const cleaned = phone.replace(/\D/g, "");
+    return `https://wa.me/${cleaned}`;
+  };
 
   // Inicializar EmailJS quando o componente montar
   useEffect(() => {
@@ -354,98 +363,112 @@ const Contato = () => {
                   </h3>
                   
                   <div className="space-y-3">
-                    <div className="flex items-center space-x-3 group p-3 rounded-xl">
-                      <div className="w-12 h-12 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0">
-                        <Phone className="h-6 w-6 text-blue-medium" />
+                    {settings.contact_phone && (
+                      <div className="flex items-center space-x-3 group p-3 rounded-xl">
+                        <div className="w-12 h-12 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0">
+                          <Phone className="h-6 w-6 text-blue-medium" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-heading font-semibold text-gray-dark mb-1">Telefone</p>
+                          <p className="text-navy-deep">{settings.contact_phone}</p>
+                        </div>
                       </div>
-                      <div>
-                        <p className="text-sm font-heading font-semibold text-gray-dark mb-1">Telefone</p>
-                        <p className="text-navy-deep">+55 11 5102-4229</p>
-                      </div>
-                    </div>
+                    )}
 
-                    <a
-                      href="https://wa.me/5511934668839"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center space-x-3 group hover:bg-gray-light/30 p-3 rounded-xl transition-all duration-200 hover:shadow-sm"
-                    >
-                      <div className="w-12 h-12 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-medium/20 transition-colors">
-                        <MessageCircle className="h-6 w-6 text-blue-medium" />
-                      </div>
-                      <div>
-                        <p className="text-sm font-heading font-semibold text-gray-dark mb-1">WhatsApp (Comercial)</p>
-                        <p className="text-navy-deep">+55 11 93466-8839</p>
-                      </div>
-                    </a>
+                    {settings.contact_whatsapp && (
+                      <a
+                        href={formatWhatsAppUrl(settings.contact_whatsapp)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center space-x-3 group hover:bg-gray-light/30 p-3 rounded-xl transition-all duration-200 hover:shadow-sm"
+                      >
+                        <div className="w-12 h-12 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-medium/20 transition-colors">
+                          <MessageCircle className="h-6 w-6 text-blue-medium" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-heading font-semibold text-gray-dark mb-1">WhatsApp (Comercial)</p>
+                          <p className="text-navy-deep">{settings.contact_whatsapp}</p>
+                        </div>
+                      </a>
+                    )}
 
-                    <a
-                      href="mailto:comercial@aerion.com.br"
-                      className="flex items-center space-x-3 group hover:bg-gray-light/30 p-3 rounded-xl transition-all duration-200 hover:shadow-sm"
-                    >
-                      <div className="w-12 h-12 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-medium/20 transition-colors">
-                        <Mail className="h-6 w-6 text-blue-medium" />
-                      </div>
-                      <div>
-                        <p className="text-sm font-heading font-semibold text-gray-dark mb-1">Email</p>
-                        <p className="text-navy-deep">comercial@aerion.com.br</p>
-                      </div>
-                    </a>
+                    {settings.contact_email && (
+                      <a
+                        href={`mailto:${settings.contact_email}`}
+                        className="flex items-center space-x-3 group hover:bg-gray-light/30 p-3 rounded-xl transition-all duration-200 hover:shadow-sm"
+                      >
+                        <div className="w-12 h-12 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-medium/20 transition-colors">
+                          <Mail className="h-6 w-6 text-blue-medium" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-heading font-semibold text-gray-dark mb-1">Email</p>
+                          <p className="text-navy-deep">{settings.contact_email}</p>
+                        </div>
+                      </a>
+                    )}
 
-                    <div className="flex items-start space-x-3 p-3">
-                      <div className="w-12 h-12 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0">
-                        <MapPin className="h-6 w-6 text-blue-medium" />
+                    {(settings.contact_address_line1 || settings.contact_address_line2 || settings.contact_address_line3) && (
+                      <div className="flex items-start space-x-3 p-3">
+                        <div className="w-12 h-12 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0">
+                          <MapPin className="h-6 w-6 text-blue-medium" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-heading font-semibold text-gray-dark mb-1">Endereço</p>
+                          <p className="text-navy-deep leading-relaxed">
+                            {settings.contact_address_line1 && <>{settings.contact_address_line1}<br /></>}
+                            {settings.contact_address_line2 && <>{settings.contact_address_line2}<br /></>}
+                            {settings.contact_address_line3 && <>{settings.contact_address_line3}<br /></>}
+                            {settings.contact_zipcode && <>CEP: {settings.contact_zipcode}</>}
+                          </p>
+                        </div>
                       </div>
-                      <div>
-                        <p className="text-sm font-heading font-semibold text-gray-dark mb-1">Endereço</p>
-                        <p className="text-navy-deep leading-relaxed">
-                          Edifício Itamaracá<br />
-                          R. Quintana 887, Cj. 111, 11º Andar<br />
-                          Brooklin Novo - SP<br />
-                          CEP: 04569-011
-                        </p>
-                      </div>
-                    </div>
+                    )}
 
-                    <div className="flex items-center space-x-3 p-3">
-                      <div className="w-12 h-12 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0">
-                        <Clock className="h-6 w-6 text-blue-medium" />
+                    {settings.contact_hours && (
+                      <div className="flex items-center space-x-3 p-3">
+                        <div className="w-12 h-12 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0">
+                          <Clock className="h-6 w-6 text-blue-medium" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-heading font-semibold text-gray-dark mb-1">Horário</p>
+                          <p className="text-navy-deep">{settings.contact_hours}</p>
+                        </div>
                       </div>
-                      <div>
-                        <p className="text-sm font-heading font-semibold text-gray-dark mb-1">Horário</p>
-                        <p className="text-navy-deep">Seg-Sex: 9h-18h</p>
-                      </div>
-                    </div>
+                    )}
 
-                    <a
-                      href="https://instagram.com/aerion.technologies"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center space-x-3 group hover:bg-gray-light/30 p-3 rounded-xl transition-all duration-200 hover:shadow-sm"
-                    >
-                      <div className="w-12 h-12 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-medium/20 transition-colors">
-                        <Instagram className="h-6 w-6 text-blue-medium" />
-                      </div>
-                      <div>
-                        <p className="text-sm font-heading font-semibold text-gray-dark mb-1">Instagram</p>
-                        <p className="text-navy-deep">@aerion.technologies</p>
-                      </div>
-                    </a>
+                    {settings.instagram_url && (
+                      <a
+                        href={settings.instagram_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center space-x-3 group hover:bg-gray-light/30 p-3 rounded-xl transition-all duration-200 hover:shadow-sm"
+                      >
+                        <div className="w-12 h-12 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-medium/20 transition-colors">
+                          <Instagram className="h-6 w-6 text-blue-medium" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-heading font-semibold text-gray-dark mb-1">Instagram</p>
+                          <p className="text-navy-deep">{settings.instagram_handle || settings.instagram_url}</p>
+                        </div>
+                      </a>
+                    )}
 
-                    <a
-                      href="https://linkedin.com/company/aerion-technologies-br"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center space-x-3 group hover:bg-gray-light/30 p-3 rounded-xl transition-all duration-200 hover:shadow-sm"
-                    >
-                      <div className="w-12 h-12 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-medium/20 transition-colors">
-                        <Linkedin className="h-6 w-6 text-blue-medium" />
-                      </div>
-                      <div>
-                        <p className="text-sm font-heading font-semibold text-gray-dark mb-1">LinkedIn</p>
-                        <p className="text-navy-deep">@aerion-technologies-br</p>
-                      </div>
-                    </a>
+                    {settings.linkedin_url && (
+                      <a
+                        href={settings.linkedin_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center space-x-3 group hover:bg-gray-light/30 p-3 rounded-xl transition-all duration-200 hover:shadow-sm"
+                      >
+                        <div className="w-12 h-12 rounded-xl bg-blue-medium/10 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-medium/20 transition-colors">
+                          <Linkedin className="h-6 w-6 text-blue-medium" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-heading font-semibold text-gray-dark mb-1">LinkedIn</p>
+                          <p className="text-navy-deep">{settings.linkedin_handle || settings.linkedin_url}</p>
+                        </div>
+                      </a>
+                    )}
                   </div>
                 </div>
 

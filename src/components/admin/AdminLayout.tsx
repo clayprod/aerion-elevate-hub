@@ -83,11 +83,6 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
           link: "/admin/product-families",
         },
         {
-          title: "Variantes de Produtos",
-          icon: Layers,
-          link: "/admin/product-variants",
-        },
-        {
           title: "Editor de Páginas",
           icon: FileEdit,
           link: "/admin/page-editor",

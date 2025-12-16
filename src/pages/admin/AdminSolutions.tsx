@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { Trash2, Edit } from "lucide-react";
+import { Trash2, Edit, ExternalLink } from "lucide-react";
 import { generateSlug } from "@/lib/pageUtils";
 import MediaUploader from "@/components/admin/MediaUploader";
 
@@ -371,6 +371,14 @@ const AdminSolutions = () => {
                       </div>
                     </div>
                     <div className="flex gap-2">
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        onClick={() => window.open(`/solucoes/${solution.slug}`, '_blank')}
+                        title="Ver página pública"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                      </Button>
                       <Button variant="outline" size="sm" onClick={() => handleEdit(solution)}>
                         <Edit className="w-4 h-4" />
                       </Button>

@@ -131,9 +131,10 @@ const AdminBackups = () => {
         // Se o erro for sobre função não encontrada, dar mensagem mais clara
         const errorMessage = error.message || "";
         if (errorMessage.includes("Could not find the function") || 
-            (errorMessage.includes("function") && errorMessage.includes("does not exist")) ||
-            errorMessage.includes("schema cache")) {
-          throw new Error("A função de backup não foi encontrada no banco de dados. Por favor, execute a migration '20250117000000_backup_system.sql' no Supabase SQL Editor.");
+            errorMessage.includes("function") && (errorMessage.includes("does not exist") || errorMessage.includes("doesn't exist")) ||
+            errorMessage.includes("schema cache") ||
+            errorMessage.includes("42883")) {
+          throw new Error("A função de backup não foi encontrada no banco de dados. Por favor, execute a migration '20250117000000_backup_system.sql' no Supabase SQL Editor. Se a migration já foi executada, pode ser necessário aguardar alguns segundos para o cache atualizar.");
         }
         throw error;
       }
