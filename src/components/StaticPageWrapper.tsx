@@ -22,9 +22,19 @@ const StaticPageWrapper: React.FC<StaticPageWrapperProps> = ({
   const location = useLocation();
   const pathToCheck = fallbackPath || location.pathname;
 
+  // Lista de rotas que NÃO devem ter override (sempre usar página estática)
+  const DISABLED_OVERRIDE_ROUTES = [
+    '/produtos/autel-alpha', // Página estática complexa, não deve ser sobrescrita
+  ];
+
   const { data: customPage, isLoading } = useQuery({
     queryKey: ["static-page-override", pathToCheck],
     queryFn: async () => {
+      // Se a rota está na lista de desabilitadas, não buscar override
+      if (DISABLED_OVERRIDE_ROUTES.includes(pathToCheck)) {
+        return null;
+      }
+
       try {
         const { data, error } = await supabase
           .from("custom_pages")
@@ -39,8 +49,9 @@ const StaticPageWrapper: React.FC<StaticPageWrapperProps> = ({
             return null;
           }
           // Erro 406 (Not Acceptable) - geralmente indica problema com formato de dados
-          // Não tentar renderizar página customizada, usar página estática
-          if (error.code === "406" || error.code === "PGRST301") {
+          // Verificar tanto código de erro quanto status HTTP
+          const statusCode = (error as any)?.status || (error as any)?.statusCode;
+          if (error.code === "406" || error.code === "PGRST301" || statusCode === 406) {
             console.warn(`Custom page for ${pathToCheck} has data format issues (406). Using static page instead.`);
             return null;
           }
@@ -56,14 +67,20 @@ const StaticPageWrapper: React.FC<StaticPageWrapperProps> = ({
         }
 
         return data;
-      } catch (err) {
+      } catch (err: any) {
         // Em caso de erro inesperado, não quebrar a página estática
+        // Verificar se é erro HTTP 406
+        if (err?.status === 406 || err?.statusCode === 406 || err?.response?.status === 406) {
+          console.warn(`Custom page for ${pathToCheck} returned HTTP 406. Using static page instead.`);
+          return null;
+        }
         console.warn("Unexpected error fetching custom page:", err);
         return null;
       }
     },
     staleTime: 5 * 60 * 1000, // 5 minutos
     retry: false, // Não retry para não atrasar renderização de páginas estáticas
+    enabled: !DISABLED_OVERRIDE_ROUTES.includes(pathToCheck), // Desabilitar query se rota está na lista
   });
 
   // Se ainda está carregando, mostrar página estática (evita flash)

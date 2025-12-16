@@ -31,8 +31,9 @@ const DynamicPage = () => {
           return null;
         }
         // Erro 406 (Not Acceptable) - problema com formato de dados
-        // Retornar null para mostrar NotFound ao invés de quebrar
-        if (error.code === "406" || error.code === "PGRST301") {
+        // Verificar tanto código de erro quanto status HTTP
+        const statusCode = (error as any)?.status || (error as any)?.statusCode;
+        if (error.code === "406" || error.code === "PGRST301" || statusCode === 406) {
           console.error(`Custom page for ${path} has data format issues (406). Error:`, error);
           return null;
         }
