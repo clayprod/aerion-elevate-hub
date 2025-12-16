@@ -1085,7 +1085,6 @@ const AdminHome = () => {
             </div>
           )}
         </div>
-      </div>
 
       {/* Delete Confirmation Dialog */}
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
@@ -1117,6 +1116,7 @@ const AdminHome = () => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+      </div>
     </AdminLayout>
   );
 };
