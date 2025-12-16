@@ -1016,7 +1016,6 @@ const AdminSolutions = () => {
               ))}
             </div>
           </div>
-        </div>
 
         {/* Delete Confirmation Dialog */}
         <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
