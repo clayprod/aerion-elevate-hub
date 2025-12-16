@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
 import { ProductHeader } from '@/components/products/ProductHeader';
 import { ProductStickyMenu } from '@/components/products/ProductStickyMenu';
 import { ProductTechnicalData } from '@/components/products/ProductTechnicalData';
@@ -9,7 +7,7 @@ import { ProductApplications } from '@/components/products/ProductApplications';
 import { SEOHead } from '@/components/SEO/SEOHead';
 import { ProductSchema } from '@/components/SEO/StructuredData';
 import { Breadcrumbs } from '@/components/SEO/Breadcrumbs';
-import { getProductFamilyBySlugFromDB, getProductFamilyBySlug } from '@/data/products';
+import { getProductFamilyBySlug } from '@/data/products';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import MobileFloatingCTA from '@/components/MobileFloatingCTA';
@@ -29,70 +27,18 @@ import {
 } from 'lucide-react';
 
 const AutelAlpha: React.FC = () => {
-  // TODOS OS HOOKS DEVEM SER CHAMADOS ANTES DE QUALQUER RETURN CONDICIONAL
-  // Fetch product family from database
-  const { data: productFamily, isLoading: isLoadingFamily, error: familyError } = useQuery({
-    queryKey: ['product-family', 'autel-alpha'],
-    queryFn: () => getProductFamilyBySlugFromDB('autel-alpha'),
-    staleTime: 5 * 60 * 1000, // 5 minutes
-    retry: false, // Não retry - se não encontrar, usa fallback
-    throwOnError: false, // Não lançar erro - tratar como caso normal quando não há dados
-  });
+  // Sempre usar dados hardcoded - ignorar banco de dados
+  const finalProductFamily = getProductFamilyBySlug('autel-alpha');
 
-  // Fetch product page content from database - DEVE SER CHAMADO ANTES DOS RETURNS
-  const { data: pageContent, isLoading: isLoadingContent } = useQuery({
-    queryKey: ['product-page-content', 'autel-alpha'],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from('product_page_content')
-        .select('*')
-        .eq('product_slug', 'autel-alpha')
-        .maybeSingle(); // Usar maybeSingle ao invés de single para não quebrar quando não há dados
-      
-      // Tratar erro PGRST116 (nenhum resultado) como caso normal
-      if (error) {
-        if (error.code === 'PGRST116' || error.code === '406') {
-          return null; // Não há conteúdo customizado, usar dados padrão
-        }
-        // Para outros erros, logar mas não quebrar
-        console.warn('Erro ao buscar conteúdo da página:', error);
-        return null;
-      }
-      
-      return data;
-    },
-    staleTime: 5 * 60 * 1000, // 5 minutes
-    retry: false, // Não retry - se não encontrar, usa dados padrão
-    throwOnError: false, // Não lançar erro
-  });
-
-  // Estado local - também deve estar no topo
+  // Estado local
   const [selectedCameraFeature, setSelectedCameraFeature] = useState('super-zoom');
   const videoRef = useRef<HTMLVideoElement>(null);
-
-  // Loading state
-  if (isLoadingFamily) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-blue-medium border-r-transparent"></div>
-          <p className="mt-4 text-gray-dark">Carregando produto...</p>
-        </div>
-      </div>
-    );
-  }
-
-  // Fallback to hardcoded data if database fetch fails
-  const finalProductFamily = productFamily || getProductFamilyBySlug('autel-alpha');
 
   if (!finalProductFamily) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <p className="text-gray-dark text-lg">Produto não encontrado</p>
-          {familyError && (
-            <p className="text-gray-500 text-sm mt-2">Erro ao carregar do banco de dados</p>
-          )}
         </div>
       </div>
     );
@@ -252,8 +198,8 @@ const AutelAlpha: React.FC = () => {
     }
   ];
 
-  // Use data from database or fallback to hardcoded
-  const featureHighlights = (pageContent?.highlights || defaultHighlights).map((highlight: any) => ({
+  // Use hardcoded data
+  const featureHighlights = defaultHighlights.map((highlight: any) => ({
     ...highlight,
     icon: typeof highlight.icon === 'string' ? iconMap[highlight.icon] : highlight.icon
   }));
@@ -782,7 +728,7 @@ const AutelAlpha: React.FC = () => {
         <div className="max-w-7xl mx-auto px-6">
           <ProductTechnicalData
             technicalData={finalProductFamily.technicalData}
-            specs={pageContent?.specifications || currentVariant.specs}
+            specs={currentVariant.specs}
             components={finalProductFamily.components}
             accessoriesIncluded={finalProductFamily.accessoriesIncluded}
             title={currentVariant.name}
@@ -795,7 +741,7 @@ const AutelAlpha: React.FC = () => {
       <section id="applications" className="py-12 bg-gray-light/30">
         <div className="max-w-7xl mx-auto px-6">
           <ProductApplications
-            applications={pageContent?.applications || finalProductFamily.applications}
+            applications={finalProductFamily.applications}
             title={finalProductFamily.name}
           />
         </div>
@@ -805,7 +751,7 @@ const AutelAlpha: React.FC = () => {
       <section id="videos" className="py-12 bg-gray-light/30">
         <div className="max-w-7xl mx-auto px-6">
           <ProductVideoGallery
-            videos={pageContent?.videos || finalProductFamily.videos}
+            videos={finalProductFamily.videos}
             title={finalProductFamily.name}
           />
         </div>
