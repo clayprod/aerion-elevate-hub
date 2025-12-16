@@ -7,9 +7,19 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { Trash2, Edit } from "lucide-react";
+import { Trash2, Edit, Plus, X } from "lucide-react";
 import { generateSlug } from "@/lib/pageUtils";
 import MediaUploader from "@/components/admin/MediaUploader";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 interface Product {
   id: string;
@@ -28,6 +38,10 @@ const AdminProducts = () => {
   const { toast } = useToast();
   const [products, setProducts] = useState<Product[]>([]);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const [showForm, setShowForm] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [productToDelete, setProductToDelete] = useState<Product | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     slug: "",
@@ -63,6 +77,48 @@ const AdminProducts = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+
+    // Validação de slug
+    if (!/^[a-z0-9-]+$/.test(formData.slug)) {
+      toast({
+        title: "Erro de validação",
+        description: "O slug deve conter apenas letras minúsculas, números e hífens.",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Validação de preço
+    if (formData.price && parseFloat(formData.price) < 0) {
+      toast({
+        title: "Erro de validação",
+        description: "O preço não pode ser negativo.",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Verificar se slug já existe (apenas para criação)
+    if (!editingProduct) {
+      const { data: existing } = await supabase
+        .from("products")
+        .select("id")
+        .eq("slug", formData.slug)
+        .maybeSingle();
+
+      if (existing) {
+        toast({
+          title: "Erro de validação",
+          description: "Já existe um produto com este slug. Por favor, escolha outro.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+    }
 
     const features = formData.features
       ? formData.features.split("\n").filter((f) => f.trim())
@@ -80,59 +136,76 @@ const AdminProducts = () => {
       active: formData.active,
     };
 
-    if (editingProduct) {
-      const { error } = await supabase
-        .from("products")
-        .update(productData)
-        .eq("id", editingProduct.id);
+    try {
+      if (editingProduct) {
+        const { error } = await supabase
+          .from("products")
+          .update(productData)
+          .eq("id", editingProduct.id);
 
-      if (error) {
+        if (error) {
+          throw error;
+        }
         toast({
-          title: "Erro",
-          description: "Não foi possível atualizar o produto.",
-          variant: "destructive",
+          title: "Sucesso!",
+          description: `Produto "${formData.name}" atualizado com sucesso.`,
         });
       } else {
-        toast({ title: "Sucesso!", description: "Produto atualizado." });
-        resetForm();
-        fetchProducts();
-      }
-    } else {
-      const { error } = await supabase.from("products").insert(productData);
+        const { error } = await supabase.from("products").insert(productData);
 
-      if (error) {
+        if (error) {
+          throw error;
+        }
         toast({
-          title: "Erro",
-          description: "Não foi possível criar o produto.",
-          variant: "destructive",
+          title: "Sucesso!",
+          description: `Produto "${formData.name}" criado com sucesso.`,
         });
-      } else {
-        toast({ title: "Sucesso!", description: "Produto criado." });
-        resetForm();
-        fetchProducts();
       }
+      resetForm();
+      fetchProducts();
+    } catch (error: any) {
+      console.error("Error saving product:", error);
+      toast({
+        title: "Erro ao salvar produto",
+        description: error.message || "Não foi possível salvar o produto. Verifique os dados e tente novamente.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Tem certeza que deseja excluir este produto?")) return;
+  const handleDeleteClick = (product: Product) => {
+    setProductToDelete(product);
+    setDeleteDialogOpen(true);
+  };
 
-    const { error } = await supabase.from("products").delete().eq("id", id);
+  const handleDeleteConfirm = async () => {
+    if (!productToDelete) return;
+
+    const { error } = await supabase.from("products").delete().eq("id", productToDelete.id);
 
     if (error) {
       toast({
-        title: "Erro",
-        description: "Não foi possível excluir o produto.",
+        title: "Erro ao excluir produto",
+        description: error.message || "Não foi possível excluir o produto. Tente novamente.",
         variant: "destructive",
       });
     } else {
-      toast({ title: "Sucesso!", description: "Produto excluído." });
+      toast({
+        title: "Sucesso!",
+        description: `Produto "${productToDelete.name}" excluído com sucesso.`,
+      });
       fetchProducts();
     }
+
+    setDeleteDialogOpen(false);
+    setProductToDelete(null);
   };
 
   const handleEdit = (product: Product) => {
     setEditingProduct(product);
+    setShowForm(true);
     setFormData({
       name: product.name,
       slug: product.slug,
@@ -144,10 +217,19 @@ const AdminProducts = () => {
       price: product.price ? product.price.toString() : "",
       active: product.active,
     });
+    // Scroll to form
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleAddNew = () => {
+    resetForm();
+    setShowForm(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const resetForm = () => {
     setEditingProduct(null);
+    setShowForm(false);
     setFormData({
       name: "",
       slug: "",
@@ -163,17 +245,44 @@ const AdminProducts = () => {
 
   return (
     <AdminLayout>
-
       <div className="max-w-6xl mx-auto">
-          <h1 className="text-4xl font-heading font-bold text-navy-deep mb-8">
+        <div className="flex items-center justify-between mb-8">
+          <h1 className="text-4xl font-heading font-bold text-navy-deep">
             Gerenciar Produtos
           </h1>
+          {!showForm && (
+            <Button
+              onClick={handleAddNew}
+              className="bg-action hover:bg-action/90 text-action-foreground"
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              Adicionar Novo Produto
+            </Button>
+          )}
+        </div>
 
-          {/* Form */}
+        {/* Form */}
+        {showForm && (
           <Card className="p-8 mb-12">
-            <h2 className="text-2xl font-heading font-bold text-navy-deep mb-6">
-              {editingProduct ? "Editar Produto" : "Novo Produto"}
-            </h2>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-heading font-bold text-navy-deep">
+                {editingProduct ? (
+                  <span>
+                    Editando: <span className="text-blue-medium">{editingProduct.name}</span>
+                  </span>
+                ) : (
+                  "Novo Produto"
+                )}
+              </h2>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={resetForm}
+                aria-label="Fechar formulário"
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -270,8 +379,15 @@ const AdminProducts = () => {
                   <Input
                     type="number"
                     step="0.01"
+                    min="0"
                     value={formData.price}
-                    onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      // Não permitir valores negativos
+                      if (value === "" || parseFloat(value) >= 0) {
+                        setFormData({ ...formData, price: value });
+                      }
+                    }}
                     placeholder="0.00"
                   />
                 </div>
@@ -286,17 +402,24 @@ const AdminProducts = () => {
               </div>
 
               <div className="flex gap-4">
-                <Button type="submit" className="bg-action hover:bg-action/90 text-action-foreground">
-                  {editingProduct ? "Atualizar Produto" : "Criar Produto"}
+                <Button
+                  type="submit"
+                  className="bg-action hover:bg-action/90 text-action-foreground"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting
+                    ? "Salvando..."
+                    : editingProduct
+                    ? "Atualizar Produto"
+                    : "Criar Produto"}
                 </Button>
-                {editingProduct && (
-                  <Button type="button" variant="outline" onClick={resetForm}>
-                    Cancelar
-                  </Button>
-                )}
+                <Button type="button" variant="outline" onClick={resetForm} disabled={isSubmitting}>
+                  Cancelar
+                </Button>
               </div>
             </form>
           </Card>
+        )}
 
           {/* Products List */}
           <div>
@@ -330,10 +453,20 @@ const AdminProducts = () => {
                       </div>
                     </div>
                     <div className="flex gap-2">
-                      <Button variant="outline" size="sm" onClick={() => handleEdit(product)}>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleEdit(product)}
+                        aria-label={`Editar produto ${product.name}`}
+                      >
                         <Edit className="w-4 h-4" />
                       </Button>
-                      <Button variant="outline" size="sm" onClick={() => handleDelete(product.id)}>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleDeleteClick(product)}
+                        aria-label={`Excluir produto ${product.name}`}
+                      >
                         <Trash2 className="w-4 h-4" />
                       </Button>
                     </div>
@@ -343,6 +476,33 @@ const AdminProducts = () => {
             </div>
           </div>
         </div>
+
+        {/* Delete Confirmation Dialog */}
+        <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Confirmar exclusão</AlertDialogTitle>
+              <AlertDialogDescription>
+                Tem certeza que deseja excluir o produto <strong>"{productToDelete?.name}"</strong>?
+                <br />
+                <br />
+                Esta ação não pode ser desfeita e o produto será removido permanentemente.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel onClick={() => setProductToDelete(null)}>
+                Cancelar
+              </AlertDialogCancel>
+              <AlertDialogAction
+                onClick={handleDeleteConfirm}
+                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              >
+                Excluir
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </div>
     </AdminLayout>
   );
 };

@@ -7,9 +7,19 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { Trash2, Edit } from "lucide-react";
+import { Trash2, Edit, Plus, X } from "lucide-react";
 import { generateSlug } from "@/lib/pageUtils";
 import MediaUploader from "@/components/admin/MediaUploader";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 interface Brand {
   id: string;
@@ -26,6 +36,10 @@ const AdminBrands = () => {
   const { toast } = useToast();
   const [brands, setBrands] = useState<Brand[]>([]);
   const [editingBrand, setEditingBrand] = useState<Brand | null>(null);
+  const [showForm, setShowForm] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [brandToDelete, setBrandToDelete] = useState<Brand | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     slug: "",
@@ -58,6 +72,48 @@ const AdminBrands = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+
+    // Validação de slug
+    if (!/^[a-z0-9-]+$/.test(formData.slug)) {
+      toast({
+        title: "Erro de validação",
+        description: "O slug deve conter apenas letras minúsculas, números e hífens.",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Validação de URL
+    if (formData.website && !/^https?:\/\/.+/.test(formData.website)) {
+      toast({
+        title: "Erro de validação",
+        description: "A URL do website deve começar com http:// ou https://",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Verificar se slug já existe (apenas para criação)
+    if (!editingBrand) {
+      const { data: existing } = await supabase
+        .from("brands")
+        .select("id")
+        .eq("slug", formData.slug)
+        .maybeSingle();
+
+      if (existing) {
+        toast({
+          title: "Erro de validação",
+          description: "Já existe uma marca com este slug. Por favor, escolha outro.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+    }
 
     const brandData = {
       name: formData.name,
@@ -68,63 +124,80 @@ const AdminBrands = () => {
       active: formData.active,
     };
 
-    if (editingBrand) {
-      const { error } = await supabase
-        .from("brands")
-        .update(brandData)
-        .eq("id", editingBrand.id);
+    try {
+      if (editingBrand) {
+        const { error } = await supabase
+          .from("brands")
+          .update(brandData)
+          .eq("id", editingBrand.id);
 
-      if (error) {
+        if (error) {
+          throw error;
+        }
         toast({
-          title: "Erro",
-          description: "Não foi possível atualizar a marca.",
-          variant: "destructive",
+          title: "Sucesso!",
+          description: `Marca "${formData.name}" atualizada com sucesso.`,
         });
       } else {
-        toast({ title: "Sucesso!", description: "Marca atualizada." });
-        resetForm();
-        fetchBrands();
+        const maxOrder = Math.max(...brands.map((b) => b.order_index), -1);
+        const { error } = await supabase.from("brands").insert({
+          ...brandData,
+          order_index: maxOrder + 1,
+        });
+
+        if (error) {
+          throw error;
+        }
+        toast({
+          title: "Sucesso!",
+          description: `Marca "${formData.name}" criada com sucesso.`,
+        });
       }
-    } else {
-      const maxOrder = Math.max(...brands.map((b) => b.order_index), -1);
-      const { error } = await supabase.from("brands").insert({
-        ...brandData,
-        order_index: maxOrder + 1,
+      resetForm();
+      fetchBrands();
+    } catch (error: any) {
+      console.error("Error saving brand:", error);
+      toast({
+        title: "Erro ao salvar marca",
+        description: error.message || "Não foi possível salvar a marca. Verifique os dados e tente novamente.",
+        variant: "destructive",
       });
-
-      if (error) {
-        toast({
-          title: "Erro",
-          description: "Não foi possível criar a marca.",
-          variant: "destructive",
-        });
-      } else {
-        toast({ title: "Sucesso!", description: "Marca criada." });
-        resetForm();
-        fetchBrands();
-      }
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Tem certeza que deseja excluir esta marca?")) return;
+  const handleDeleteClick = (brand: Brand) => {
+    setBrandToDelete(brand);
+    setDeleteDialogOpen(true);
+  };
 
-    const { error } = await supabase.from("brands").delete().eq("id", id);
+  const handleDeleteConfirm = async () => {
+    if (!brandToDelete) return;
+
+    const { error } = await supabase.from("brands").delete().eq("id", brandToDelete.id);
 
     if (error) {
       toast({
-        title: "Erro",
-        description: "Não foi possível excluir a marca.",
+        title: "Erro ao excluir marca",
+        description: error.message || "Não foi possível excluir a marca. Tente novamente.",
         variant: "destructive",
       });
     } else {
-      toast({ title: "Sucesso!", description: "Marca excluída." });
+      toast({
+        title: "Sucesso!",
+        description: `Marca "${brandToDelete.name}" excluída com sucesso.`,
+      });
       fetchBrands();
     }
+
+    setDeleteDialogOpen(false);
+    setBrandToDelete(null);
   };
 
   const handleEdit = (brand: Brand) => {
     setEditingBrand(brand);
+    setShowForm(true);
     setFormData({
       name: brand.name,
       slug: brand.slug,
@@ -133,10 +206,18 @@ const AdminBrands = () => {
       website: brand.website || "",
       active: brand.active,
     });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleAddNew = () => {
+    resetForm();
+    setShowForm(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const resetForm = () => {
     setEditingBrand(null);
+    setShowForm(false);
     setFormData({
       name: "",
       slug: "",
@@ -158,14 +239,42 @@ const AdminBrands = () => {
   return (
     <AdminLayout>
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-3xl font-heading font-bold mb-4">
-          Gerenciamento de Marcas
-        </h1>
+        <div className="flex items-center justify-between mb-8">
+          <h1 className="text-4xl font-heading font-bold text-navy-deep">
+            Gerenciamento de Marcas
+          </h1>
+          {!showForm && (
+            <Button
+              onClick={handleAddNew}
+              className="bg-action hover:bg-action/90 text-action-foreground"
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              Adicionar Nova Marca
+            </Button>
+          )}
+        </div>
 
-        <Card className="p-6 mb-8">
-          <h2 className="text-xl font-heading font-semibold mb-4">
-            {editingBrand ? "Editar Marca" : "Nova Marca"}
-          </h2>
+        {showForm && (
+          <Card className="p-8 mb-12">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-heading font-bold text-navy-deep">
+                {editingBrand ? (
+                  <span>
+                    Editando: <span className="text-blue-medium">{editingBrand.name}</span>
+                  </span>
+                ) : (
+                  "Nova Marca"
+                )}
+              </h2>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={resetForm}
+                aria-label="Fechar formulário"
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            </div>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
@@ -243,18 +352,21 @@ const AdminBrands = () => {
               <label className="text-sm font-medium">Ativa</label>
             </div>
 
-            <div className="flex gap-2">
-              <Button type="submit">
-                {editingBrand ? "Atualizar Marca" : "Criar Marca"}
+            <div className="flex gap-4">
+              <Button type="submit" disabled={isSubmitting} className="bg-action hover:bg-action/90 text-action-foreground">
+                {isSubmitting
+                  ? "Salvando..."
+                  : editingBrand
+                  ? "Atualizar Marca"
+                  : "Criar Marca"}
               </Button>
-              {editingBrand && (
-                <Button type="button" variant="outline" onClick={resetForm}>
-                  Cancelar
-                </Button>
-              )}
+              <Button type="button" variant="outline" onClick={resetForm} disabled={isSubmitting}>
+                Cancelar
+              </Button>
             </div>
           </form>
         </Card>
+        )}
 
         <div>
           <h2 className="text-2xl font-heading font-semibold mb-4">
@@ -308,7 +420,8 @@ const AdminBrands = () => {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => handleDelete(brand.id)}
+                        onClick={() => handleDeleteClick(brand)}
+                        aria-label={`Excluir marca ${brand.name}`}
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>
@@ -330,6 +443,32 @@ const AdminBrands = () => {
             </div>
           )}
         </div>
+
+        {/* Delete Confirmation Dialog */}
+        <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Confirmar exclusão</AlertDialogTitle>
+              <AlertDialogDescription>
+                Tem certeza que deseja excluir a marca <strong>"{brandToDelete?.name}"</strong>?
+                <br />
+                <br />
+                Esta ação não pode ser desfeita e a marca será removida permanentemente.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel onClick={() => setBrandToDelete(null)}>
+                Cancelar
+              </AlertDialogCancel>
+              <AlertDialogAction
+                onClick={handleDeleteConfirm}
+                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              >
+                Excluir
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </AdminLayout>
   );

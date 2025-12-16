@@ -13,6 +13,16 @@ import { Switch } from "@/components/ui/switch";
 import AdminLayout from "@/components/admin/AdminLayout";
 import RichTextEditor from "@/components/RichTextEditor";
 import { generateSlug } from "@/lib/pageUtils";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 interface BlogPost {
   id: string;
@@ -37,6 +47,10 @@ const AdminBlog = () => {
   const [formKey, setFormKey] = useState(0); // Chave para forçar re-renderização
   const [uploading, setUploading] = useState(false);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [showForm, setShowForm] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [postToDelete, setPostToDelete] = useState<BlogPost | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
     slug: "",
@@ -79,72 +93,119 @@ const AdminBlog = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+
+    // Validação de slug
+    if (!/^[a-z0-9-]+$/.test(formData.slug)) {
+      toast({
+        title: "Erro de validação",
+        description: "O slug deve conter apenas letras minúsculas, números e hífens.",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Verificar se slug já existe (apenas para criação)
+    if (!editingPost) {
+      const { data: existing } = await supabase
+        .from("blog_posts")
+        .select("id")
+        .eq("slug", formData.slug)
+        .maybeSingle();
+
+      if (existing) {
+        toast({
+          title: "Erro de validação",
+          description: "Já existe um post com este slug. Por favor, escolha outro.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+    }
 
     const tags = formData.tags ? formData.tags.split(",").map((t) => t.trim()) : [];
 
-    if (editingPost) {
-      const { error } = await supabase
-        .from("blog_posts")
-        .update({
+    try {
+      if (editingPost) {
+        const { error } = await supabase
+          .from("blog_posts")
+          .update({
+            ...formData,
+            tags,
+            published_at: formData.published ? new Date().toISOString() : null,
+          })
+          .eq("id", editingPost.id);
+
+        if (error) {
+          throw error;
+        }
+        toast({
+          title: "Sucesso!",
+          description: `Post "${formData.title}" atualizado com sucesso.`,
+        });
+      } else {
+        const { error } = await supabase.from("blog_posts").insert({
           ...formData,
           tags,
+          author_id: user!.id,
           published_at: formData.published ? new Date().toISOString() : null,
-        })
-        .eq("id", editingPost.id);
-
-      if (error) {
-        toast({
-          title: "Erro",
-          description: "Não foi possível atualizar o post.",
-          variant: "destructive",
         });
-      } else {
-        toast({ title: "Sucesso!", description: "Post atualizado." });
-        resetForm();
-        fetchPosts();
+
+        if (error) {
+          throw error;
+        }
+        toast({
+          title: "Sucesso!",
+          description: `Post "${formData.title}" criado com sucesso.`,
+        });
       }
-    } else {
-      const { error } = await supabase.from("blog_posts").insert({
-        ...formData,
-        tags,
-        author_id: user!.id,
-        published_at: formData.published ? new Date().toISOString() : null,
+      resetForm();
+      fetchPosts();
+    } catch (error: any) {
+      console.error("Error saving post:", error);
+      toast({
+        title: "Erro ao salvar post",
+        description: error.message || "Não foi possível salvar o post. Verifique os dados e tente novamente.",
+        variant: "destructive",
       });
-
-      if (error) {
-        toast({
-          title: "Erro",
-          description: "Não foi possível criar o post.",
-          variant: "destructive",
-        });
-      } else {
-        toast({ title: "Sucesso!", description: "Post criado." });
-        resetForm();
-        fetchPosts();
-      }
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Tem certeza que deseja excluir este post?")) return;
+  const handleDeleteClick = (post: BlogPost) => {
+    setPostToDelete(post);
+    setDeleteDialogOpen(true);
+  };
 
-    const { error } = await supabase.from("blog_posts").delete().eq("id", id);
+  const handleDeleteConfirm = async () => {
+    if (!postToDelete) return;
+
+    const { error } = await supabase.from("blog_posts").delete().eq("id", postToDelete.id);
 
     if (error) {
       toast({
-        title: "Erro",
-        description: "Não foi possível excluir o post.",
+        title: "Erro ao excluir post",
+        description: error.message || "Não foi possível excluir o post. Tente novamente.",
         variant: "destructive",
       });
     } else {
-      toast({ title: "Sucesso!", description: "Post excluído." });
+      toast({
+        title: "Sucesso!",
+        description: `Post "${postToDelete.title}" excluído com sucesso.`,
+      });
       fetchPosts();
     }
+
+    setDeleteDialogOpen(false);
+    setPostToDelete(null);
   };
 
   const handleEdit = (post: BlogPost) => {
-    console.log("Post data:", post);
     setEditingPost(post);
+    setShowForm(true);
     
     // Forçar uma atualização completa do estado
     const newFormData = {
@@ -158,15 +219,13 @@ const AdminBlog = () => {
       published: post.published || false,
     };
     
-    console.log("Setting form data:", newFormData);
-    
     // Atualizar preview da imagem se existir
     setImagePreview(newFormData.cover_image || null);
     
     // Atualizar o estado e forçar re-renderização
     setFormData(newFormData);
     setFormKey(prev => prev + 1); // Forçar re-renderização do formulário
-    console.log("Form data updated and key incremented:", newFormData);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -270,8 +329,15 @@ const AdminBlog = () => {
     setImagePreview(null);
   };
 
+  const handleAddNew = () => {
+    resetForm();
+    setShowForm(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const resetForm = () => {
     setEditingPost(null);
+    setShowForm(false);
     setFormKey(prev => prev + 1); // Forçar re-renderização
     setImagePreview(null);
     setFormData({
@@ -294,47 +360,48 @@ const AdminBlog = () => {
     return null;
   }
 
-  // Debug: Log do estado atual do formData
-  console.log("Current formData:", formData);
-  console.log("Editing post:", editingPost);
-
   return (
     <AdminLayout>
       <div className="max-w-7xl mx-auto">
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <h1 className="text-4xl font-heading font-bold text-navy-deep mb-2">
-                Administração do Blog
-              </h1>
-              <p className="text-gray-600">Gerencie posts, conteúdo e publicações do blog</p>
-            </div>
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h1 className="text-4xl font-heading font-bold text-navy-deep mb-2">
+              Administração do Blog
+            </h1>
+            <p className="text-gray-600">Gerencie posts, conteúdo e publicações do blog</p>
+          </div>
+          {!showForm && (
             <Button
-              onClick={resetForm}
-              variant="outline"
-              className="flex items-center gap-2"
+              onClick={handleAddNew}
+              className="bg-action hover:bg-action/90 text-action-foreground flex items-center gap-2"
             >
               <Plus className="w-4 h-4" />
               Novo Post
             </Button>
-          </div>
+          )}
+        </div>
 
-          {/* Form */}
+        {/* Form */}
+        {showForm && (
           <Card className="p-8 mb-8 shadow-lg">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-2xl font-heading font-bold text-navy-deep">
-                {editingPost ? "Editar Post" : "Novo Post"}
+                {editingPost ? (
+                  <span>
+                    Editando: <span className="text-blue-medium">{editingPost.title}</span>
+                  </span>
+                ) : (
+                  "Novo Post"
+                )}
               </h2>
-              {editingPost && (
-                <Button
-                  onClick={resetForm}
-                  variant="outline"
-                  size="sm"
-                  className="flex items-center gap-2"
-                >
-                  <ArrowLeft className="w-4 h-4" />
-                  Cancelar Edição
-                </Button>
-              )}
+              <Button
+                onClick={resetForm}
+                variant="ghost"
+                size="icon"
+                aria-label="Fechar formulário"
+              >
+                <X className="w-4 h-4" />
+              </Button>
             </div>
 
             <form key={formKey} onSubmit={handleSubmit} className="space-y-6">
@@ -346,7 +413,6 @@ const AdminBlog = () => {
                   <Input
                     value={formData.title}
                     onChange={(e) => {
-                      console.log("Title input changed:", e.target.value);
                       setFormData({
                         ...formData,
                         title: e.target.value,
@@ -503,21 +569,25 @@ const AdminBlog = () => {
               </div>
 
               <div className="flex gap-4 pt-4 border-t border-gray-200">
-                <Button 
-                  type="submit" 
+                <Button
+                  type="submit"
                   className="bg-blue-medium hover:bg-blue-dark text-white flex items-center gap-2"
+                  disabled={isSubmitting}
                 >
                   <Save className="w-4 h-4" />
-                  {editingPost ? "Atualizar Post" : "Criar Post"}
+                  {isSubmitting
+                    ? "Salvando..."
+                    : editingPost
+                    ? "Atualizar Post"
+                    : "Criar Post"}
                 </Button>
-                {editingPost && (
-                  <Button type="button" variant="outline" onClick={resetForm}>
-                    Cancelar
-                  </Button>
-                )}
+                <Button type="button" variant="outline" onClick={resetForm} disabled={isSubmitting}>
+                  Cancelar
+                </Button>
               </div>
             </form>
           </Card>
+        )}
 
           {/* Posts List */}
           <Card className="p-6">
@@ -558,8 +628,9 @@ const AdminBlog = () => {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => handleDelete(post.id)}
+                        onClick={() => handleDeleteClick(post)}
                         className="flex items-center gap-2 text-red-600 hover:text-red-700 hover:border-red-300"
+                        aria-label={`Excluir post ${post.title}`}
                       >
                         <Trash2 className="w-4 h-4" />
                         Excluir
@@ -571,6 +642,33 @@ const AdminBlog = () => {
             </div>
           </Card>
         </div>
+
+        {/* Delete Confirmation Dialog */}
+        <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Confirmar exclusão</AlertDialogTitle>
+              <AlertDialogDescription>
+                Tem certeza que deseja excluir o post <strong>"{postToDelete?.title}"</strong>?
+                <br />
+                <br />
+                Esta ação não pode ser desfeita e o post será removido permanentemente.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel onClick={() => setPostToDelete(null)}>
+                Cancelar
+              </AlertDialogCancel>
+              <AlertDialogAction
+                onClick={handleDeleteConfirm}
+                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              >
+                Excluir
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </div>
     </AdminLayout>
   );
 };

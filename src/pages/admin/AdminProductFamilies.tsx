@@ -7,9 +7,19 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { Trash2, Edit } from "lucide-react";
+import { Trash2, Edit, Plus, X } from "lucide-react";
 import { generateSlug } from "@/lib/pageUtils";
 import MediaUploader from "@/components/admin/MediaUploader";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 interface ProductFamily {
   id: string;
@@ -26,6 +36,10 @@ const AdminProductFamilies = () => {
   const { toast } = useToast();
   const [families, setFamilies] = useState<ProductFamily[]>([]);
   const [editingFamily, setEditingFamily] = useState<ProductFamily | null>(null);
+  const [showForm, setShowForm] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [familyToDelete, setFamilyToDelete] = useState<ProductFamily | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     slug: "",
@@ -58,6 +72,37 @@ const AdminProductFamilies = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+
+    // Validação de slug
+    if (!/^[a-z0-9-]+$/.test(formData.slug)) {
+      toast({
+        title: "Erro de validação",
+        description: "O slug deve conter apenas letras minúsculas, números e hífens.",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Verificar se slug já existe (apenas para criação)
+    if (!editingFamily) {
+      const { data: existing } = await supabase
+        .from("product_families")
+        .select("id")
+        .eq("slug", formData.slug)
+        .maybeSingle();
+
+      if (existing) {
+        toast({
+          title: "Erro de validação",
+          description: "Já existe uma família de produtos com este slug. Por favor, escolha outro.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+    }
 
     const familyData = {
       name: formData.name,
@@ -68,63 +113,80 @@ const AdminProductFamilies = () => {
       active: formData.active,
     };
 
-    if (editingFamily) {
-      const { error } = await supabase
-        .from("product_families")
-        .update(familyData)
-        .eq("id", editingFamily.id);
+    try {
+      if (editingFamily) {
+        const { error } = await supabase
+          .from("product_families")
+          .update(familyData)
+          .eq("id", editingFamily.id);
 
-      if (error) {
+        if (error) {
+          throw error;
+        }
         toast({
-          title: "Erro",
-          description: "Não foi possível atualizar a família de produtos.",
-          variant: "destructive",
+          title: "Sucesso!",
+          description: `Família de produtos "${formData.name}" atualizada com sucesso.`,
         });
       } else {
-        toast({ title: "Sucesso!", description: "Família de produtos atualizada." });
-        resetForm();
-        fetchFamilies();
+        const maxOrder = Math.max(...families.map((f) => f.order_index), -1);
+        const { error } = await supabase.from("product_families").insert({
+          ...familyData,
+          order_index: maxOrder + 1,
+        });
+
+        if (error) {
+          throw error;
+        }
+        toast({
+          title: "Sucesso!",
+          description: `Família de produtos "${formData.name}" criada com sucesso.`,
+        });
       }
-    } else {
-      const maxOrder = Math.max(...families.map((f) => f.order_index), -1);
-      const { error } = await supabase.from("product_families").insert({
-        ...familyData,
-        order_index: maxOrder + 1,
+      resetForm();
+      fetchFamilies();
+    } catch (error: any) {
+      console.error("Error saving product family:", error);
+      toast({
+        title: "Erro ao salvar família de produtos",
+        description: error.message || "Não foi possível salvar a família de produtos. Verifique os dados e tente novamente.",
+        variant: "destructive",
       });
-
-      if (error) {
-        toast({
-          title: "Erro",
-          description: "Não foi possível criar a família de produtos.",
-          variant: "destructive",
-        });
-      } else {
-        toast({ title: "Sucesso!", description: "Família de produtos criada." });
-        resetForm();
-        fetchFamilies();
-      }
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Tem certeza que deseja excluir esta família de produtos?")) return;
+  const handleDeleteClick = (family: ProductFamily) => {
+    setFamilyToDelete(family);
+    setDeleteDialogOpen(true);
+  };
 
-    const { error } = await supabase.from("product_families").delete().eq("id", id);
+  const handleDeleteConfirm = async () => {
+    if (!familyToDelete) return;
+
+    const { error } = await supabase.from("product_families").delete().eq("id", familyToDelete.id);
 
     if (error) {
       toast({
-        title: "Erro",
-        description: "Não foi possível excluir a família de produtos.",
+        title: "Erro ao excluir família de produtos",
+        description: error.message || "Não foi possível excluir a família de produtos. Tente novamente.",
         variant: "destructive",
       });
     } else {
-      toast({ title: "Sucesso!", description: "Família de produtos excluída." });
+      toast({
+        title: "Sucesso!",
+        description: `Família de produtos "${familyToDelete.name}" excluída com sucesso.`,
+      });
       fetchFamilies();
     }
+
+    setDeleteDialogOpen(false);
+    setFamilyToDelete(null);
   };
 
   const handleEdit = (family: ProductFamily) => {
     setEditingFamily(family);
+    setShowForm(true);
     setFormData({
       name: family.name,
       slug: family.slug,
@@ -133,10 +195,18 @@ const AdminProductFamilies = () => {
       image_url: family.image_url || "",
       active: family.active,
     });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleAddNew = () => {
+    resetForm();
+    setShowForm(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const resetForm = () => {
     setEditingFamily(null);
+    setShowForm(false);
     setFormData({
       name: "",
       slug: "",
@@ -150,15 +220,43 @@ const AdminProductFamilies = () => {
   return (
     <AdminLayout>
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-heading font-bold text-navy-deep mb-8">
-          Gerenciamento de Famílias de Produtos
-        </h1>
+        <div className="flex items-center justify-between mb-8">
+          <h1 className="text-4xl font-heading font-bold text-navy-deep">
+            Gerenciamento de Famílias de Produtos
+          </h1>
+          {!showForm && (
+            <Button
+              onClick={handleAddNew}
+              className="bg-action hover:bg-action/90 text-action-foreground"
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              Adicionar Nova Família
+            </Button>
+          )}
+        </div>
 
         {/* Form */}
-        <Card className="p-8 mb-12">
-          <h2 className="text-2xl font-heading font-bold text-navy-deep mb-6">
-            {editingFamily ? "Editar Família" : "Nova Família de Produtos"}
-          </h2>
+        {showForm && (
+          <Card className="p-8 mb-12">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-heading font-bold text-navy-deep">
+                {editingFamily ? (
+                  <span>
+                    Editando: <span className="text-blue-medium">{editingFamily.name}</span>
+                  </span>
+                ) : (
+                  "Nova Família de Produtos"
+                )}
+              </h2>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={resetForm}
+                aria-label="Fechar formulário"
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -242,17 +340,24 @@ const AdminProductFamilies = () => {
             </div>
 
             <div className="flex gap-4">
-              <Button type="submit" className="bg-action hover:bg-action/90 text-action-foreground">
-                {editingFamily ? "Atualizar Família" : "Criar Família"}
+              <Button
+                type="submit"
+                className="bg-action hover:bg-action/90 text-action-foreground"
+                disabled={isSubmitting}
+              >
+                {isSubmitting
+                  ? "Salvando..."
+                  : editingFamily
+                  ? "Atualizar Família"
+                  : "Criar Família"}
               </Button>
-              {editingFamily && (
-                <Button type="button" variant="outline" onClick={resetForm}>
-                  Cancelar
-                </Button>
-              )}
+              <Button type="button" variant="outline" onClick={resetForm} disabled={isSubmitting}>
+                Cancelar
+              </Button>
             </div>
           </form>
         </Card>
+        )}
 
         {/* Families List */}
         <div>
@@ -303,7 +408,8 @@ const AdminProductFamilies = () => {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => handleDelete(family.id)}
+                        onClick={() => handleDeleteClick(family)}
+                        aria-label={`Excluir família ${family.name}`}
                       >
                         <Trash2 className="w-4 h-4" />
                       </Button>
@@ -314,6 +420,32 @@ const AdminProductFamilies = () => {
             </div>
           )}
         </div>
+
+        {/* Delete Confirmation Dialog */}
+        <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Confirmar exclusão</AlertDialogTitle>
+              <AlertDialogDescription>
+                Tem certeza que deseja excluir a família de produtos <strong>"{familyToDelete?.name}"</strong>?
+                <br />
+                <br />
+                Esta ação não pode ser desfeita e a família será removida permanentemente.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel onClick={() => setFamilyToDelete(null)}>
+                Cancelar
+              </AlertDialogCancel>
+              <AlertDialogAction
+                onClick={handleDeleteConfirm}
+                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              >
+                Excluir
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </AdminLayout>
   );

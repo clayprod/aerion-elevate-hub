@@ -7,9 +7,19 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { Trash2, Edit, ExternalLink } from "lucide-react";
+import { Trash2, Edit, ExternalLink, Plus, X } from "lucide-react";
 import { generateSlug } from "@/lib/pageUtils";
 import MediaUploader from "@/components/admin/MediaUploader";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 interface Solution {
   id: string;
@@ -30,6 +40,10 @@ const AdminSolutions = () => {
   const { toast } = useToast();
   const [solutions, setSolutions] = useState<Solution[]>([]);
   const [editingSolution, setEditingSolution] = useState<Solution | null>(null);
+  const [showForm, setShowForm] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [solutionToDelete, setSolutionToDelete] = useState<Solution | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     slug: "",
@@ -67,6 +81,37 @@ const AdminSolutions = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+
+    // Validação de slug
+    if (!/^[a-z0-9-]+$/.test(formData.slug)) {
+      toast({
+        title: "Erro de validação",
+        description: "O slug deve conter apenas letras minúsculas, números e hífens.",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Verificar se slug já existe (apenas para criação)
+    if (!editingSolution) {
+      const { data: existing } = await supabase
+        .from("solutions")
+        .select("id")
+        .eq("slug", formData.slug)
+        .maybeSingle();
+
+      if (existing) {
+        toast({
+          title: "Erro de validação",
+          description: "Já existe uma solução com este slug. Por favor, escolha outro.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+    }
 
     const benefits = formData.benefits
       ? formData.benefits.split("\n").filter((b) => b.trim())
@@ -90,59 +135,76 @@ const AdminSolutions = () => {
       featured: formData.featured,
     };
 
-    if (editingSolution) {
-      const { error } = await supabase
-        .from("solutions")
-        .update(solutionData)
-        .eq("id", editingSolution.id);
+    try {
+      if (editingSolution) {
+        const { error } = await supabase
+          .from("solutions")
+          .update(solutionData)
+          .eq("id", editingSolution.id);
 
-      if (error) {
+        if (error) {
+          throw error;
+        }
         toast({
-          title: "Erro",
-          description: "Não foi possível atualizar a solução.",
-          variant: "destructive",
+          title: "Sucesso!",
+          description: `Solução "${formData.name}" atualizada com sucesso.`,
         });
       } else {
-        toast({ title: "Sucesso!", description: "Solução atualizada." });
-        resetForm();
-        fetchSolutions();
-      }
-    } else {
-      const { error } = await supabase.from("solutions").insert(solutionData);
+        const { error } = await supabase.from("solutions").insert(solutionData);
 
-      if (error) {
+        if (error) {
+          throw error;
+        }
         toast({
-          title: "Erro",
-          description: "Não foi possível criar a solução.",
-          variant: "destructive",
+          title: "Sucesso!",
+          description: `Solução "${formData.name}" criada com sucesso.`,
         });
-      } else {
-        toast({ title: "Sucesso!", description: "Solução criada." });
-        resetForm();
-        fetchSolutions();
       }
+      resetForm();
+      fetchSolutions();
+    } catch (error: any) {
+      console.error("Error saving solution:", error);
+      toast({
+        title: "Erro ao salvar solução",
+        description: error.message || "Não foi possível salvar a solução. Verifique os dados e tente novamente.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Tem certeza que deseja excluir esta solução?")) return;
+  const handleDeleteClick = (solution: Solution) => {
+    setSolutionToDelete(solution);
+    setDeleteDialogOpen(true);
+  };
 
-    const { error } = await supabase.from("solutions").delete().eq("id", id);
+  const handleDeleteConfirm = async () => {
+    if (!solutionToDelete) return;
+
+    const { error } = await supabase.from("solutions").delete().eq("id", solutionToDelete.id);
 
     if (error) {
       toast({
-        title: "Erro",
-        description: "Não foi possível excluir a solução.",
+        title: "Erro ao excluir solução",
+        description: error.message || "Não foi possível excluir a solução. Tente novamente.",
         variant: "destructive",
       });
     } else {
-      toast({ title: "Sucesso!", description: "Solução excluída." });
+      toast({
+        title: "Sucesso!",
+        description: `Solução "${solutionToDelete.name}" excluída com sucesso.`,
+      });
       fetchSolutions();
     }
+
+    setDeleteDialogOpen(false);
+    setSolutionToDelete(null);
   };
 
   const handleEdit = (solution: Solution) => {
     setEditingSolution(solution);
+    setShowForm(true);
     setFormData({
       name: solution.name,
       slug: solution.slug,
@@ -156,10 +218,18 @@ const AdminSolutions = () => {
       active: solution.active,
       featured: solution.featured,
     });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleAddNew = () => {
+    resetForm();
+    setShowForm(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const resetForm = () => {
     setEditingSolution(null);
+    setShowForm(false);
     setFormData({
       name: "",
       slug: "",
@@ -178,15 +248,43 @@ const AdminSolutions = () => {
   return (
     <AdminLayout>
       <div className="max-w-6xl mx-auto">
-          <h1 className="text-4xl font-heading font-bold text-navy-deep mb-8">
+        <div className="flex items-center justify-between mb-8">
+          <h1 className="text-4xl font-heading font-bold text-navy-deep">
             Gerenciar Soluções
           </h1>
+          {!showForm && (
+            <Button
+              onClick={handleAddNew}
+              className="bg-action hover:bg-action/90 text-action-foreground"
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              Adicionar Nova Solução
+            </Button>
+          )}
+        </div>
 
-          {/* Form */}
+        {/* Form */}
+        {showForm && (
           <Card className="p-8 mb-12">
-            <h2 className="text-2xl font-heading font-bold text-navy-deep mb-6">
-              {editingSolution ? "Editar Solução" : "Nova Solução"}
-            </h2>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-heading font-bold text-navy-deep">
+                {editingSolution ? (
+                  <span>
+                    Editando: <span className="text-blue-medium">{editingSolution.name}</span>
+                  </span>
+                ) : (
+                  "Nova Solução"
+                )}
+              </h2>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={resetForm}
+                aria-label="Fechar formulário"
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -323,17 +421,24 @@ const AdminSolutions = () => {
               </div>
 
               <div className="flex gap-4">
-                <Button type="submit" className="bg-action hover:bg-action/90 text-action-foreground">
-                  {editingSolution ? "Atualizar Solução" : "Criar Solução"}
+                <Button
+                  type="submit"
+                  className="bg-action hover:bg-action/90 text-action-foreground"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting
+                    ? "Salvando..."
+                    : editingSolution
+                    ? "Atualizar Solução"
+                    : "Criar Solução"}
                 </Button>
-                {editingSolution && (
-                  <Button type="button" variant="outline" onClick={resetForm}>
-                    Cancelar
-                  </Button>
-                )}
+                <Button type="button" variant="outline" onClick={resetForm} disabled={isSubmitting}>
+                  Cancelar
+                </Button>
               </div>
             </form>
           </Card>
+        )}
 
           {/* Solutions List */}
           <div>
@@ -379,10 +484,20 @@ const AdminSolutions = () => {
                       >
                         <ExternalLink className="w-4 h-4" />
                       </Button>
-                      <Button variant="outline" size="sm" onClick={() => handleEdit(solution)}>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleEdit(solution)}
+                        aria-label={`Editar solução ${solution.name}`}
+                      >
                         <Edit className="w-4 h-4" />
                       </Button>
-                      <Button variant="outline" size="sm" onClick={() => handleDelete(solution.id)}>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleDeleteClick(solution)}
+                        aria-label={`Excluir solução ${solution.name}`}
+                      >
                         <Trash2 className="w-4 h-4" />
                       </Button>
                     </div>
@@ -392,6 +507,33 @@ const AdminSolutions = () => {
             </div>
           </div>
         </div>
+
+        {/* Delete Confirmation Dialog */}
+        <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Confirmar exclusão</AlertDialogTitle>
+              <AlertDialogDescription>
+                Tem certeza que deseja excluir a solução <strong>"{solutionToDelete?.name}"</strong>?
+                <br />
+                <br />
+                Esta ação não pode ser desfeita e a solução será removida permanentemente.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel onClick={() => setSolutionToDelete(null)}>
+                Cancelar
+              </AlertDialogCancel>
+              <AlertDialogAction
+                onClick={handleDeleteConfirm}
+                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              >
+                Excluir
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </div>
     </AdminLayout>
   );
 };

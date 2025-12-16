@@ -78,6 +78,11 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
       link: "#",
       children: [
         {
+          title: "Gerenciar Produtos",
+          icon: Package,
+          link: "/admin/products",
+        },
+        {
           title: "Famílias de Produtos",
           icon: Package,
           link: "/admin/product-families",
@@ -92,7 +97,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
     {
       title: "Soluções",
       icon: Lightbulb,
-      link: "/admin/verticals",
+      link: "/admin/solutions",
     },
     {
       title: "Marcas",

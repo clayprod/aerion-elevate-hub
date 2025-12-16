@@ -11,6 +11,16 @@ import { Trash2, Edit, Plus, ArrowUp, ArrowDown, Eye, X } from "lucide-react";
 import MediaUploader from "@/components/admin/MediaUploader";
 import { Link } from "react-router-dom";
 import BlockRenderer from "@/components/home/BlockRenderer";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 interface PageBlock {
   id: string;
@@ -36,6 +46,8 @@ const AdminHome = () => {
   const [showForm, setShowForm] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [previewKey, setPreviewKey] = useState(0);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [blockToDelete, setBlockToDelete] = useState<PageBlock | null>(null);
   const [formData, setFormData] = useState({
     block_type: "hero",
     block_data: {} as any,
@@ -169,20 +181,33 @@ const AdminHome = () => {
     }
   };
 
-  const handleDeleteBlock = async (id: string) => {
-    if (!window.confirm("Tem certeza que deseja excluir este bloco?")) return;
+  const handleDeleteClick = (id: string) => {
+    const block = blocks.find((b) => b.id === id);
+    if (!block) return;
+    setBlockToDelete(block);
+    setDeleteDialogOpen(true);
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (!blockToDelete) return;
 
     try {
-      const { error } = await supabase.from("page_blocks").delete().eq("id", id);
+      const { error } = await supabase.from("page_blocks").delete().eq("id", blockToDelete.id);
       if (error) throw error;
-      toast({ title: "Sucesso!", description: "Bloco excluído." });
+      toast({
+        title: "Sucesso!",
+        description: `Bloco "${BLOCK_TYPES.find((t) => t.value === blockToDelete.block_type)?.label || blockToDelete.block_type}" excluído com sucesso.`,
+      });
       fetchBlocks();
     } catch (error: any) {
       toast({
-        title: "Erro",
-        description: "Não foi possível excluir o bloco.",
+        title: "Erro ao excluir bloco",
+        description: error.message || "Não foi possível excluir o bloco.",
         variant: "destructive",
       });
+    } finally {
+      setDeleteDialogOpen(false);
+      setBlockToDelete(null);
     }
   };
 
@@ -1015,7 +1040,12 @@ const AdminHome = () => {
                           <Button variant="outline" size="sm" onClick={() => handleEditBlock(block)}>
                             <Edit className="w-4 h-4" />
                           </Button>
-                          <Button variant="outline" size="sm" onClick={() => handleDeleteBlock(block.id)}>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleDeleteClick(block.id)}
+                            aria-label={`Excluir bloco ${BLOCK_TYPES.find((t) => t.value === block.block_type)?.label || block.block_type}`}
+                          >
                             <Trash2 className="w-4 h-4" />
                           </Button>
                         </div>
@@ -1055,6 +1085,37 @@ const AdminHome = () => {
             </div>
           )}
         </div>
+
+        {/* Delete Confirmation Dialog */}
+        <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Confirmar exclusão</AlertDialogTitle>
+              <AlertDialogDescription>
+                Tem certeza que deseja excluir o bloco{" "}
+                <strong>
+                  "{BLOCK_TYPES.find((t) => t.value === blockToDelete?.block_type)?.label ||
+                    blockToDelete?.block_type}"
+                </strong>
+                ?
+                <br />
+                <br />
+                Esta ação não pode ser desfeita e o bloco será removido permanentemente.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel onClick={() => setBlockToDelete(null)}>
+                Cancelar
+              </AlertDialogCancel>
+              <AlertDialogAction
+                onClick={handleDeleteConfirm}
+                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              >
+                Excluir
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </AdminLayout>
   );

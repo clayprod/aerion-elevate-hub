@@ -5,16 +5,29 @@ import AdminLayout from "@/components/admin/AdminLayout";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { migrateProductDataToDatabase } from "@/scripts/migrateProductData";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 const MigrateProductData = () => {
   const { toast } = useToast();
   const [migrating, setMigrating] = useState(false);
   const [migrationStatus, setMigrationStatus] = useState<string>("");
+  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
+
+  const handleMigrationClick = () => {
+    setConfirmDialogOpen(true);
+  };
 
   const handleMigration = async () => {
-    if (!confirm("Tem certeza que deseja migrar os dados de produtos? Isso irá atualizar ou criar registros no banco de dados.")) {
-      return;
-    }
+    setConfirmDialogOpen(false);
 
     setMigrating(true);
     setMigrationStatus("Iniciando migração...");
@@ -78,7 +91,7 @@ const MigrateProductData = () => {
           </div>
 
           <Button
-            onClick={handleMigration}
+            onClick={handleMigrationClick}
             disabled={migrating}
             className="bg-action hover:bg-action/90 text-action-foreground"
           >
@@ -106,6 +119,33 @@ const MigrateProductData = () => {
             <li>Use o Editor de Páginas para personalizar o conteúdo de cada produto</li>
           </ol>
         </Card>
+
+        {/* Confirmation Dialog */}
+        <AlertDialog open={confirmDialogOpen} onOpenChange={setConfirmDialogOpen}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Confirmar migração de dados</AlertDialogTitle>
+              <AlertDialogDescription>
+                Tem certeza que deseja migrar os dados de produtos?
+                <br />
+                <br />
+                Esta operação irá atualizar ou criar registros no banco de dados. Os dados existentes serão atualizados e novos dados serão criados.
+                <br />
+                <br />
+                <strong>Esta ação não pode ser desfeita facilmente.</strong>
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancelar</AlertDialogCancel>
+              <AlertDialogAction
+                onClick={handleMigration}
+                className="bg-action hover:bg-action/90 text-action-foreground"
+              >
+                Executar Migração
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </AdminLayout>
   );
