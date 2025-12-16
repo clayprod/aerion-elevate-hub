@@ -502,6 +502,7 @@ const AdminProducts = () => {
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
+      </div>
     </AdminLayout>
   );
 };

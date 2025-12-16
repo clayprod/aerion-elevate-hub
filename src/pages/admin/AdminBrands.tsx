@@ -469,6 +469,7 @@ const AdminBrands = () => {
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
+      </div>
     </AdminLayout>
   );
 };
