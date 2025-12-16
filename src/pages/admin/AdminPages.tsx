@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { STORAGE_BUCKET } from "@/integrations/supabase/storage";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -345,7 +346,7 @@ const AdminPages = () => {
     try {
       const fileName = `pages/${Date.now()}_${file.name}`;
       const { error: uploadError } = await supabase.storage
-        .from("public-images")
+        .from(STORAGE_BUCKET)
         .upload(fileName, file, {
           cacheControl: "3600",
           upsert: false,
@@ -354,7 +355,7 @@ const AdminPages = () => {
       if (uploadError) throw uploadError;
 
       const { data: { publicUrl } } = supabase.storage
-        .from("public-images")
+        .from(STORAGE_BUCKET)
         .getPublicUrl(fileName);
 
       setFormData({ ...formData, featured_image: publicUrl });
@@ -383,10 +384,10 @@ const AdminPages = () => {
     const url = formData.featured_image;
     if (url.includes("supabase.co/storage")) {
       try {
-        const urlParts = url.split("/public-images/");
+        const urlParts = url.split(`/${STORAGE_BUCKET}/`);
         if (urlParts.length > 1) {
           const filePath = urlParts[1];
-          await supabase.storage.from("public-images").remove([filePath]);
+          await supabase.storage.from(STORAGE_BUCKET).remove([filePath]);
         }
       } catch (error) {
         console.error("Error removing image:", error);

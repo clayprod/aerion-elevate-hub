@@ -18,6 +18,7 @@ import {
   LogOut,
   Home,
   ChevronRight,
+  Database,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
@@ -109,6 +110,11 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
       link: "/admin/media-library",
     },
     {
+      title: "Backups",
+      icon: Database,
+      link: "/admin/backups",
+    },
+    {
       title: "Configurações",
       icon: Settings,
       link: "/admin/settings",
@@ -193,7 +199,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
     <div className="min-h-screen bg-gray-50 flex">
       {/* Sidebar Desktop */}
       <aside
-        className={`hidden md:flex flex-col bg-white border-r border-gray-200 transition-all duration-300 ${
+        className={`hidden md:flex flex-col bg-white border-r border-gray-200 transition-all duration-300 z-20 ${
           sidebarOpen ? "w-64" : "w-20"
         }`}
       >
@@ -272,7 +278,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
             className="fixed inset-0 bg-black bg-opacity-50"
             onClick={() => setMobileMenuOpen(false)}
           />
-          <aside className="fixed left-0 top-0 bottom-0 w-64 bg-white shadow-xl overflow-y-auto">
+          <aside className="fixed left-0 top-0 bottom-0 w-64 bg-white shadow-xl overflow-y-auto z-50">
             <div className="h-16 flex items-center justify-between px-4 border-b border-gray-200">
               <h1 className="text-xl font-heading font-bold text-navy-deep">
                 AERION CMS
@@ -333,7 +339,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
       {/* Main Content */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Top Bar */}
-        <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-4 md:px-6">
+        <header className="sticky top-0 z-30 h-16 bg-white border-b border-gray-200 flex items-center justify-between px-4 md:px-6">
           <Button
             variant="ghost"
             size="icon"

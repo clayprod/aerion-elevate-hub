@@ -35,6 +35,7 @@ const AdminHome = () => {
   const [editingBlock, setEditingBlock] = useState<PageBlock | null>(null);
   const [showForm, setShowForm] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
+  const [previewKey, setPreviewKey] = useState(0);
   const [formData, setFormData] = useState({
     block_type: "hero",
     block_data: {} as any,
@@ -67,6 +68,67 @@ const AdminHome = () => {
 
   const handleSaveBlock = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validações básicas
+    if (!formData.block_type) {
+      toast({
+        title: "Erro",
+        description: "Selecione um tipo de bloco.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Validações específicas por tipo de bloco
+    if (formData.block_type === "hero") {
+      const slides = formData.block_data.slides || [];
+      if (slides.length === 0) {
+        // Se não há slides, validar campos antigos
+        if (!formData.block_data.title || !formData.block_data.subtitle) {
+          toast({
+            title: "Erro",
+            description: "Preencha título e subtítulo do hero.",
+            variant: "destructive",
+          });
+          return;
+        }
+      } else {
+        // Validar slides
+        for (let i = 0; i < slides.length; i++) {
+          const slide = slides[i];
+          if (!slide.title || !slide.subtitle) {
+            toast({
+              title: "Erro",
+              description: `Slide ${i + 1}: Preencha título e subtítulo.`,
+              variant: "destructive",
+            });
+            return;
+          }
+        }
+      }
+    }
+
+    if (formData.block_type === "why_aerion") {
+      if (!formData.block_data.title) {
+        toast({
+          title: "Erro",
+          description: "Preencha o título da seção.",
+          variant: "destructive",
+        });
+        return;
+      }
+    }
+
+    if (formData.block_type === "contact") {
+      if (!formData.block_data.title) {
+        toast({
+          title: "Erro",
+          description: "Preencha o título da seção.",
+          variant: "destructive",
+        });
+        return;
+      }
+    }
 
     try {
       if (editingBlock) {
@@ -108,7 +170,7 @@ const AdminHome = () => {
   };
 
   const handleDeleteBlock = async (id: string) => {
-    if (!confirm("Tem certeza que deseja excluir este bloco?")) return;
+    if (!window.confirm("Tem certeza que deseja excluir este bloco?")) return;
 
     try {
       const { error } = await supabase.from("page_blocks").delete().eq("id", id);
@@ -794,10 +856,11 @@ const AdminHome = () => {
     );
   };
 
-  // Criar blocos mockados para preview
+  // Criar blocos mockados para preview - atualiza automaticamente quando formData muda
   const getPreviewBlocks = (): PageBlock[] => {
     const activeBlocks = blocks.filter((b) => b.active).sort((a, b) => a.order_index - b.order_index);
     
+    // Sempre mostrar preview quando formulário está aberto e há dados
     if (showForm && formData.block_type) {
       // Se está editando um bloco existente, substituir na lista
       if (editingBlock) {
@@ -828,6 +891,13 @@ const AdminHome = () => {
     
     return activeBlocks;
   };
+
+  // Atualizar preview quando formData mudar
+  useEffect(() => {
+    if (showForm && showPreview) {
+      setPreviewKey((prev) => prev + 1);
+    }
+  }, [formData, showForm, showPreview]);
 
   return (
     <AdminLayout>
@@ -970,8 +1040,8 @@ const AdminHome = () => {
                   </Button>
                 </div>
                 <div className="border rounded-lg overflow-auto bg-white flex-1">
-                  <div className="min-h-screen">
-                    {showForm ? (
+                  <div className="min-h-screen" key={previewKey}>
+                    {showForm && formData.block_type ? (
                       <BlockRenderer
                         pageSlug="home"
                         previewBlocks={getPreviewBlocks()}

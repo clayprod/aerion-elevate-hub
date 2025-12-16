@@ -260,6 +260,32 @@ const ProductPageEditor = () => {
           </div>
         </Card>
 
+        {/* Product Variants Section */}
+        {productSlug && (
+          <Card className="p-6 mb-8">
+            <h2 className="text-xl font-heading font-bold text-navy-deep mb-4">
+              Variantes do Produto
+            </h2>
+            <p className="text-sm text-gray-600 mb-4">
+              Gerencie as variantes deste produto. Variantes são versões diferentes que aparecem dentro da mesma página de produto.
+            </p>
+            <Button
+              variant="outline"
+              onClick={() => {
+                // Navegar para a página de variantes com filtro por família
+                const familySlug = productSlug;
+                window.location.href = `/admin/products/variants?family=${familySlug}`;
+              }}
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              Gerenciar Variantes
+            </Button>
+            <p className="text-xs text-gray-500 mt-2">
+              As variantes são gerenciadas na página dedicada de Variantes de Produtos, onde você pode criar, editar e associar variantes a esta família de produtos.
+            </p>
+          </Card>
+        )}
+
         {/* Add Block */}
         {productSlug && (
           <Card className="p-6 mb-8">
@@ -307,6 +333,7 @@ const ProductPageEditor = () => {
                   <p className="text-gray-500 text-center py-8">Nenhum bloco ativo para preview</p>
                 ) : (
                   <ProductBlockPreview 
+                    key={`preview-${editingBlock?.id || 'new'}-${JSON.stringify(editingBlock?.block_data || {})}`}
                     blocks={blocks.filter(b => b.active).sort((a, b) => a.order_index - b.order_index)}
                     editingBlock={editingBlock}
                   />
@@ -416,6 +443,18 @@ const BlockEditorDialog = ({ block, onSave, onCancel, saving }: BlockEditorDialo
   const [active, setActive] = useState(block.active);
 
   const handleSave = () => {
+    // Validações básicas por tipo de bloco
+    if (block.block_type === "hero") {
+      if (!blockData.title && !blockData.video_url) {
+        toast({
+          title: "Erro",
+          description: "Preencha pelo menos o título ou adicione um vídeo.",
+          variant: "destructive",
+        });
+        return;
+      }
+    }
+
     onSave({
       ...block,
       block_data: blockData,
@@ -528,44 +567,368 @@ const HeroBlockEditor = ({ data, onChange }: { data: any; onChange: (data: any) 
 };
 
 const HighlightBlockEditor = ({ data, onChange }: { data: any; onChange: (data: any) => void }) => {
+  const items = data.items || [];
+
+  const addItem = () => {
+    onChange({ ...data, items: [...items, { title: "", description: "", icon: "" }] });
+  };
+
+  const updateItem = (index: number, field: string, value: string) => {
+    const newItems = [...items];
+    newItems[index] = { ...newItems[index], [field]: value };
+    onChange({ ...data, items: newItems });
+  };
+
+  const removeItem = (index: number) => {
+    onChange({ ...data, items: items.filter((_: any, i: number) => i !== index) });
+  };
+
   return (
     <div className="space-y-4">
-      <p className="text-sm text-gray-600">
-        Editor de destaques - será expandido com funcionalidade completa
-      </p>
-      <Button onClick={() => onChange({ ...data, items: [...(data.items || []), {}] })}>
-        Adicionar Destaque
-      </Button>
+      <div className="flex justify-between items-center">
+        <h3 className="text-lg font-semibold">Destaques</h3>
+        <Button type="button" onClick={addItem} size="sm">
+          <Plus className="h-4 w-4 mr-2" />
+          Adicionar Destaque
+        </Button>
+      </div>
+      {items.length === 0 ? (
+        <p className="text-sm text-gray-500 italic">Nenhum destaque adicionado ainda</p>
+      ) : (
+        <div className="space-y-4">
+          {items.map((item: any, index: number) => (
+            <Card key={index} className="p-4">
+              <div className="flex justify-between items-center mb-3">
+                <h4 className="font-medium">Destaque {index + 1}</h4>
+                <Button
+                  type="button"
+                  variant="destructive"
+                  size="sm"
+                  onClick={() => removeItem(index)}
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>
+              <div className="space-y-3">
+                <div>
+                  <label className="block text-sm font-medium mb-1">Título</label>
+                  <Input
+                    value={item.title || ""}
+                    onChange={(e) => updateItem(index, "title", e.target.value)}
+                    placeholder="Título do destaque"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1">Descrição</label>
+                  <Input
+                    value={item.description || ""}
+                    onChange={(e) => updateItem(index, "description", e.target.value)}
+                    placeholder="Descrição do destaque"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1">Ícone (nome do ícone Lucide)</label>
+                  <Input
+                    value={item.icon || ""}
+                    onChange={(e) => updateItem(index, "icon", e.target.value)}
+                    placeholder="Ex: ShieldCheck, BatteryCharging"
+                  />
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
 
 const SpecificationBlockEditor = ({ data, onChange }: { data: any; onChange: (data: any) => void }) => {
+  const categories = data.categories || {};
+
+  const addCategory = () => {
+    const categoryName = prompt("Nome da categoria:");
+    if (categoryName && categoryName.trim()) {
+      onChange({ ...data, categories: { ...categories, [categoryName.trim()]: {} } });
+    }
+  };
+
+  const removeCategory = (categoryName: string) => {
+    const newCategories = { ...categories };
+    delete newCategories[categoryName];
+    onChange({ ...data, categories: newCategories });
+  };
+
+  const addSpec = (categoryName: string) => {
+    const specKey = prompt("Nome da especificação:");
+    const specValue = prompt("Valor da especificação:");
+    if (specKey && specValue && specKey.trim() && specValue.trim()) {
+      onChange({
+        ...data,
+        categories: {
+          ...categories,
+          [categoryName]: {
+            ...categories[categoryName],
+            [specKey.trim()]: specValue.trim(),
+          },
+        },
+      });
+    }
+  };
+
+  const removeSpec = (categoryName: string, specKey: string) => {
+    const newCategories = { ...categories };
+    const newSpecs = { ...newCategories[categoryName] };
+    delete newSpecs[specKey];
+    newCategories[categoryName] = newSpecs;
+    onChange({ ...data, categories: newCategories });
+  };
+
+  const updateSpec = (categoryName: string, specKey: string, value: string) => {
+    onChange({
+      ...data,
+      categories: {
+        ...categories,
+        [categoryName]: {
+          ...categories[categoryName],
+          [specKey]: value,
+        },
+      },
+    });
+  };
+
   return (
     <div className="space-y-4">
-      <p className="text-sm text-gray-600">
-        Editor de especificações - será expandido com funcionalidade completa
-      </p>
+      <div className="flex justify-between items-center">
+        <h3 className="text-lg font-semibold">Especificações</h3>
+        <Button type="button" onClick={addCategory} size="sm">
+          <Plus className="h-4 w-4 mr-2" />
+          Adicionar Categoria
+        </Button>
+      </div>
+      {Object.keys(categories).length === 0 ? (
+        <p className="text-sm text-gray-500 italic">Nenhuma categoria adicionada ainda</p>
+      ) : (
+        <div className="space-y-4">
+          {Object.entries(categories).map(([categoryName, specs]: [string, any]) => (
+            <Card key={categoryName} className="p-4">
+              <div className="flex justify-between items-center mb-3">
+                <h4 className="font-medium">{categoryName}</h4>
+                <div className="flex gap-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => addSpec(categoryName)}
+                  >
+                    <Plus className="h-4 w-4 mr-1" />
+                    Adicionar
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    size="sm"
+                    onClick={() => removeCategory(categoryName)}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+              <div className="space-y-2">
+                {Object.entries(specs).map(([specKey, specValue]: [string, any]) => (
+                  <div key={specKey} className="flex gap-2 items-center">
+                    <Input
+                      value={specKey}
+                      onChange={(e) => {
+                        const newSpecs = { ...specs };
+                        delete newSpecs[specKey];
+                        newSpecs[e.target.value] = specValue;
+                        onChange({
+                          ...data,
+                          categories: {
+                            ...categories,
+                            [categoryName]: newSpecs,
+                          },
+                        });
+                      }}
+                      className="flex-1"
+                      placeholder="Nome"
+                    />
+                    <Input
+                      value={specValue}
+                      onChange={(e) => updateSpec(categoryName, specKey, e.target.value)}
+                      className="flex-1"
+                      placeholder="Valor"
+                    />
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => removeSpec(categoryName, specKey)}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
 
 const ApplicationBlockEditor = ({ data, onChange }: { data: any; onChange: (data: any) => void }) => {
+  const items = data.items || [];
+
+  const addItem = () => {
+    onChange({ ...data, items: [...items, { title: "", description: "", image_url: "" }] });
+  };
+
+  const updateItem = (index: number, field: string, value: string) => {
+    const newItems = [...items];
+    newItems[index] = { ...newItems[index], [field]: value };
+    onChange({ ...data, items: newItems });
+  };
+
+  const removeItem = (index: number) => {
+    onChange({ ...data, items: items.filter((_: any, i: number) => i !== index) });
+  };
+
   return (
     <div className="space-y-4">
-      <p className="text-sm text-gray-600">
-        Editor de aplicações - será expandido com funcionalidade completa
-      </p>
+      <div className="flex justify-between items-center">
+        <h3 className="text-lg font-semibold">Aplicações</h3>
+        <Button type="button" onClick={addItem} size="sm">
+          <Plus className="h-4 w-4 mr-2" />
+          Adicionar Aplicação
+        </Button>
+      </div>
+      {items.length === 0 ? (
+        <p className="text-sm text-gray-500 italic">Nenhuma aplicação adicionada ainda</p>
+      ) : (
+        <div className="space-y-4">
+          {items.map((item: any, index: number) => (
+            <Card key={index} className="p-4">
+              <div className="flex justify-between items-center mb-3">
+                <h4 className="font-medium">Aplicação {index + 1}</h4>
+                <Button
+                  type="button"
+                  variant="destructive"
+                  size="sm"
+                  onClick={() => removeItem(index)}
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>
+              <div className="space-y-3">
+                <div>
+                  <label className="block text-sm font-medium mb-1">Título</label>
+                  <Input
+                    value={item.title || ""}
+                    onChange={(e) => updateItem(index, "title", e.target.value)}
+                    placeholder="Título da aplicação"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1">Descrição</label>
+                  <Input
+                    value={item.description || ""}
+                    onChange={(e) => updateItem(index, "description", e.target.value)}
+                    placeholder="Descrição da aplicação"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1">URL da Imagem</label>
+                  <Input
+                    value={item.image_url || ""}
+                    onChange={(e) => updateItem(index, "image_url", e.target.value)}
+                    placeholder="URL da imagem"
+                  />
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
 
 const VideoBlockEditor = ({ data, onChange }: { data: any; onChange: (data: any) => void }) => {
+  const videos = data.videos || [];
+
+  const addVideo = () => {
+    onChange({ ...data, videos: [...videos, { title: "", url: "", thumbnail_url: "" }] });
+  };
+
+  const updateVideo = (index: number, field: string, value: string) => {
+    const newVideos = [...videos];
+    newVideos[index] = { ...newVideos[index], [field]: value };
+    onChange({ ...data, videos: newVideos });
+  };
+
+  const removeVideo = (index: number) => {
+    onChange({ ...data, videos: videos.filter((_: any, i: number) => i !== index) });
+  };
+
   return (
     <div className="space-y-4">
-      <p className="text-sm text-gray-600">
-        Editor de vídeos - será expandido com funcionalidade completa
-      </p>
+      <div className="flex justify-between items-center">
+        <h3 className="text-lg font-semibold">Vídeos</h3>
+        <Button type="button" onClick={addVideo} size="sm">
+          <Plus className="h-4 w-4 mr-2" />
+          Adicionar Vídeo
+        </Button>
+      </div>
+      {videos.length === 0 ? (
+        <p className="text-sm text-gray-500 italic">Nenhum vídeo adicionado ainda</p>
+      ) : (
+        <div className="space-y-4">
+          {videos.map((video: any, index: number) => (
+            <Card key={index} className="p-4">
+              <div className="flex justify-between items-center mb-3">
+                <h4 className="font-medium">Vídeo {index + 1}</h4>
+                <Button
+                  type="button"
+                  variant="destructive"
+                  size="sm"
+                  onClick={() => removeVideo(index)}
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>
+              <div className="space-y-3">
+                <div>
+                  <label className="block text-sm font-medium mb-1">Título</label>
+                  <Input
+                    value={video.title || ""}
+                    onChange={(e) => updateVideo(index, "title", e.target.value)}
+                    placeholder="Título do vídeo"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1">URL do Vídeo</label>
+                  <Input
+                    value={video.url || ""}
+                    onChange={(e) => updateVideo(index, "url", e.target.value)}
+                    placeholder="URL do vídeo"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1">URL da Thumbnail</label>
+                  <Input
+                    value={video.thumbnail_url || ""}
+                    onChange={(e) => updateVideo(index, "thumbnail_url", e.target.value)}
+                    placeholder="URL da thumbnail"
+                  />
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
@@ -583,13 +946,21 @@ const ProductBlockPreview = ({ blocks, editingBlock }: ProductBlockPreviewProps)
   
   if (editingBlock) {
     if (editingBlock.id) {
-      // Substituir bloco existente
+      // Substituir bloco existente com dados atualizados
       displayBlocks = blocks.map((block) =>
-        block.id === editingBlock.id ? editingBlock : block
+        block.id === editingBlock.id 
+          ? {
+              ...editingBlock,
+              block_data: editingBlock.block_data || block.block_data,
+            }
+          : block
       );
     } else {
       // Adicionar novo bloco ao final
-      displayBlocks = [...blocks, editingBlock];
+      displayBlocks = [...blocks, {
+        ...editingBlock,
+        block_data: editingBlock.block_data || {},
+      }];
     }
   }
 

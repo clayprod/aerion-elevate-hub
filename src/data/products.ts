@@ -1413,7 +1413,83 @@ export const productFamilies: ProductFamily[] = [
   }
 ];
 
+/**
+ * Busca uma família de produtos pelo slug do banco de dados
+ * Retorna Promise para uso com React Query ou async/await
+ */
+export const getProductFamilyBySlugFromDB = async (slug: string): Promise<ProductFamily | undefined> => {
+  try {
+    const { supabase } = await import('@/integrations/supabase/client');
+    const { data: familyData, error } = await supabase
+      .from('product_families')
+      .select(`
+        *,
+        product_variants (
+          id,
+          name,
+          slug,
+          description,
+          image_path,
+          specs,
+          order_index
+        )
+      `)
+      .eq('slug', slug)
+      .eq('active', true)
+      .single();
+
+    if (!error && familyData) {
+      // Ordenar variantes por order_index
+      const sortedVariants = (familyData.product_variants || []).sort((a: any, b: any) => 
+        (a.order_index || 0) - (b.order_index || 0)
+      );
+
+      // Transformar dados do banco para o formato ProductFamily
+      const variants = sortedVariants.map((v: any) => ({
+        id: v.slug.split('-').pop() || v.id,
+        name: v.name,
+        description: v.description,
+        imagePath: v.image_path || '',
+        specs: v.specs || {},
+      }));
+
+      return {
+        id: familyData.id,
+        name: familyData.name,
+        slug: familyData.slug,
+        description: familyData.description,
+        youtubeVideoId: familyData.youtube_video_id || undefined,
+        fallbackImage: familyData.fallback_image || familyData.image_url || '',
+        brochure: familyData.brochure || '',
+        variants: variants,
+        gallery: familyData.gallery || [],
+        lifestyleImages: familyData.lifestyle_images || [],
+        accessories: familyData.accessories || [],
+        applications: familyData.applications || [],
+        productCodes: familyData.product_codes || { sku: '', ean: '', ncm: '' },
+        keyFeatures: familyData.key_features || [],
+        technicalData: familyData.technical_data || {},
+        components: familyData.components || [],
+        accessoriesIncluded: familyData.accessories_included || [],
+        videos: familyData.videos || [],
+        photoGallery: familyData.photo_gallery || { product: [], lifestyle: [], details: [] },
+      };
+    }
+  } catch (error) {
+    console.warn('Erro ao buscar família do banco, usando fallback:', error);
+  }
+
+  // Fallback para dados hardcoded
+  return productFamilies.find(family => family.slug === slug);
+};
+
+/**
+ * Versão síncrona que usa dados hardcoded (mantida para compatibilidade)
+ * Tenta buscar do banco se disponível, senão usa fallback
+ */
 export const getProductFamilyBySlug = (slug: string): ProductFamily | undefined => {
+  // Por enquanto, retorna apenas do código hardcoded
+  // As páginas devem migrar para usar getProductFamilyBySlugFromDB com React Query
   return productFamilies.find(family => family.slug === slug);
 };
 

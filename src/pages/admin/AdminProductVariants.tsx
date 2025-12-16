@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import AdminLayout from "@/components/admin/AdminLayout";
@@ -41,8 +42,11 @@ interface ProductFamily {
 
 const AdminProductVariants = () => {
   const { toast } = useToast();
+  const [searchParams] = useSearchParams();
+  const familySlug = searchParams.get("family");
   const [variants, setVariants] = useState<ProductVariant[]>([]);
   const [families, setFamilies] = useState<ProductFamily[]>([]);
+  const [selectedFamilyFilter, setSelectedFamilyFilter] = useState<string>("");
   const [editingVariant, setEditingVariant] = useState<ProductVariant | null>(null);
   const [formData, setFormData] = useState({
     name: "",
@@ -53,6 +57,7 @@ const AdminProductVariants = () => {
     specifications: "",
     price: "",
     image_url: "",
+    image_path: "",
     gallery_urls: "",
     active: true,
   });
@@ -62,11 +67,28 @@ const AdminProductVariants = () => {
     fetchFamilies();
   }, []);
 
+  useEffect(() => {
+    // Se há um filtro de família na URL, aplicar automaticamente
+    if (familySlug) {
+      const family = families.find(f => f.slug === familySlug);
+      if (family) {
+        setSelectedFamilyFilter(family.id);
+        setFormData(prev => ({ ...prev, family_id: family.id }));
+      }
+    }
+  }, [familySlug, families]);
+
   const fetchVariants = async () => {
-    const { data, error } = await supabase
+    let query = supabase
       .from("product_variants")
-      .select("*")
-      .order("order_index", { ascending: true });
+      .select("*");
+
+    // Aplicar filtro de família se selecionado
+    if (selectedFamilyFilter) {
+      query = query.eq("family_id", selectedFamilyFilter);
+    }
+
+    const { data, error } = await query.order("order_index", { ascending: true });
 
     if (error) {
       toast({
@@ -78,6 +100,13 @@ const AdminProductVariants = () => {
       setVariants(data || []);
     }
   };
+
+  useEffect(() => {
+    if (families.length > 0 || !selectedFamilyFilter) {
+      fetchVariants();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedFamilyFilter]);
 
   const fetchFamilies = async () => {
     const { data, error } = await supabase
@@ -119,8 +148,10 @@ const AdminProductVariants = () => {
       short_description: formData.short_description || null,
       family_id: formData.family_id || null,
       specifications,
+      specs: specifications, // Também salvar em specs para compatibilidade
       price: formData.price ? parseFloat(formData.price) : null,
       image_url: formData.image_url || null,
+      image_path: formData.image_path || null,
       gallery_urls: galleryUrls.length > 0 ? galleryUrls : null,
       active: formData.active,
     };
@@ -182,17 +213,20 @@ const AdminProductVariants = () => {
 
   const handleEdit = (variant: ProductVariant) => {
     setEditingVariant(variant);
+    // Usar specs se specifications não estiver disponível
+    const specs = variant.specifications || (variant as any).specs || {};
     setFormData({
       name: variant.name,
       slug: variant.slug,
       description: variant.description,
       short_description: variant.short_description || "",
       family_id: variant.family_id || "",
-      specifications: variant.specifications
-        ? JSON.stringify(variant.specifications, null, 2)
+      specifications: Object.keys(specs).length > 0
+        ? JSON.stringify(specs, null, 2)
         : "",
       price: variant.price ? variant.price.toString() : "",
       image_url: variant.image_url || "",
+      image_path: (variant as any).image_path || "",
       gallery_urls: variant.gallery_urls ? variant.gallery_urls.join("\n") : "",
       active: variant.active,
     });
@@ -205,10 +239,11 @@ const AdminProductVariants = () => {
       slug: "",
       description: "",
       short_description: "",
-      family_id: "",
+      family_id: familySlug ? (families.find(f => f.slug === familySlug)?.id || "") : "",
       specifications: "",
       price: "",
       image_url: "",
+      image_path: "",
       gallery_urls: "",
       active: true,
     });
@@ -226,6 +261,44 @@ const AdminProductVariants = () => {
         <h1 className="text-4xl font-heading font-bold text-navy-deep mb-8">
           Gerenciamento de Variantes de Produtos
         </h1>
+
+        {/* Family Filter */}
+        <Card className="p-4 mb-6">
+          <div className="flex items-center gap-4">
+            <label className="text-sm font-medium">Filtrar por Família:</label>
+            <Select
+              value={selectedFamilyFilter}
+              onValueChange={(value) => {
+                setSelectedFamilyFilter(value);
+                setFormData(prev => ({ ...prev, family_id: value }));
+              }}
+            >
+              <SelectTrigger className="w-[300px]">
+                <SelectValue placeholder="Todas as famílias" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="">Todas as famílias</SelectItem>
+                {families.map((family) => (
+                  <SelectItem key={family.id} value={family.id}>
+                    {family.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            {selectedFamilyFilter && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  setSelectedFamilyFilter("");
+                  setFormData(prev => ({ ...prev, family_id: "" }));
+                }}
+              >
+                Limpar Filtro
+              </Button>
+            )}
+          </div>
+        </Card>
 
         {/* Form */}
         <Card className="p-8 mb-12">
@@ -337,6 +410,20 @@ const AdminProductVariants = () => {
                   accept="image/*"
                 />
               </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-heading font-semibold text-navy-deep mb-2">
+                Caminho da Pasta de Imagens
+              </label>
+              <Input
+                value={formData.image_path}
+                onChange={(e) => setFormData({ ...formData, image_path: e.target.value })}
+                placeholder="/images/products/evo_lite/640t"
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                Caminho base para imagens numeradas (ex: /images/products/evo_lite/640t)
+              </p>
             </div>
 
             <div>

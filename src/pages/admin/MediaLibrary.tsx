@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { STORAGE_BUCKET } from "@/integrations/supabase/storage";
 import { useToast } from "@/hooks/use-toast";
 import AdminLayout from "@/components/admin/AdminLayout";
 import MediaUploader from "@/components/admin/MediaUploader";
@@ -45,44 +46,90 @@ const MediaLibrary = () => {
 
   // Função recursiva para listar todos os arquivos do bucket
   const listAllFiles = async (path: string = "", allFiles: any[] = []): Promise<any[]> => {
-    const { data, error } = await supabase.storage
-      .from("public-images")
-      .list(path, {
-        limit: 1000,
-        offset: 0,
-        sortBy: { column: "created_at", order: "desc" },
-      });
-
-    if (error) {
-      console.warn(`Error listing files in ${path}:`, error);
-      return allFiles;
-    }
-
-    if (!data) return allFiles;
-
-    for (const item of data) {
-      const fullPath = path ? `${path}/${item.name}` : item.name;
-      
-      // Se for uma pasta (não tem id), fazer recursão
-      if (!item.id) {
-        await listAllFiles(fullPath, allFiles);
-      } else {
-        // É um arquivo, adicionar com o caminho completo
-        allFiles.push({
-          ...item,
-          fullPath: fullPath,
+    try {
+      const { data, error } = await supabase.storage
+        .from(STORAGE_BUCKET)
+        .list(path, {
+          limit: 1000,
+          offset: 0,
+          sortBy: { column: "created_at", order: "desc" },
         });
+
+      if (error) {
+        console.warn(`Error listing files in ${path}:`, error);
+        return allFiles;
       }
+
+      if (!data || data.length === 0) return allFiles;
+
+      for (const item of data) {
+        const fullPath = path ? `${path}/${item.name}` : item.name;
+        
+        // Verificar se é uma pasta: pastas geralmente não têm metadata ou têm metadata vazio
+        // Arquivos têm id ou metadata com size
+        const isFolder = !item.id && (!item.metadata || !item.metadata.size);
+        
+        if (isFolder) {
+          // É uma pasta, fazer recursão
+          await listAllFiles(fullPath, allFiles);
+        } else {
+          // É um arquivo, adicionar com o caminho completo
+          allFiles.push({
+            ...item,
+            fullPath: fullPath,
+          });
+        }
+      }
+    } catch (error) {
+      console.error(`Error in listAllFiles for path ${path}:`, error);
     }
 
     return allFiles;
   };
 
+  // Função auxiliar para extrair o caminho do arquivo da URL
+  const extractFilePathFromUrl = (url: string): string | null => {
+    if (!url) return null;
+    
+    try {
+      // Decodificar URL para lidar com caracteres especiais
+      const decodedUrl = decodeURIComponent(url);
+      
+      // Tentar diferentes formatos de URL do Supabase
+      let path: string | null = null;
+      
+      // Formato: https://...supabase.co/storage/v1/object/public/{bucket}/path/to/file
+      const fullPathPattern = `/storage/v1/object/public/${STORAGE_BUCKET}/`;
+      if (decodedUrl.includes(fullPathPattern)) {
+        const parts = decodedUrl.split(fullPathPattern);
+        if (parts.length > 1) {
+          path = parts[1].split("?")[0].split("#")[0]; // Remove query params e hash
+        }
+      } 
+      // Formato alternativo: .../{bucket}/path/to/file
+      else if (decodedUrl.includes(`/${STORAGE_BUCKET}/`)) {
+        const parts = decodedUrl.split(`/${STORAGE_BUCKET}/`);
+        if (parts.length > 1) {
+          path = parts[1].split("?")[0].split("#")[0]; // Remove query params e hash
+        }
+      }
+      
+      // Normalizar o caminho (remover espaços extras, etc)
+      return path ? path.trim() : null;
+    } catch (error) {
+      console.warn("Error extracting file path from URL:", url, error);
+      return null;
+    }
+  };
+
   const fetchMedia = async () => {
     setLoading(true);
     try {
+      console.log(`🔄 Iniciando sincronização com bucket '${STORAGE_BUCKET}'...`);
+      
       // Buscar todos os arquivos do bucket recursivamente
       const bucketFiles = await listAllFiles();
+      console.log(`📦 Arquivos encontrados no bucket: ${bucketFiles.length}`);
 
       // Buscar registros da tabela media_library
       let query = supabase.from("media_library").select("*").order("created_at", { ascending: false });
@@ -94,63 +141,99 @@ const MediaLibrary = () => {
       const { data: dbItems, error: dbError } = await query;
 
       if (dbError) throw dbError;
+      console.log(`📊 Registros na tabela: ${dbItems?.length || 0}`);
 
       // Sincronizar: adicionar arquivos do bucket que não estão na tabela
       if (bucketFiles && bucketFiles.length > 0) {
-        const existingPaths = new Set((dbItems || []).map((item) => {
-          // Extrair o caminho do arquivo da URL
-          const urlParts = item.file_url.split("/public-images/");
-          return urlParts.length > 1 ? urlParts[1] : null;
-        }).filter(Boolean));
-
-        const filesToSync = bucketFiles.filter((file) => {
-          // Verificar se já existe na tabela
-          return !existingPaths.has(file.fullPath);
+        // Criar um mapa de caminhos existentes na tabela (normalizados)
+        const existingPaths = new Set<string>();
+        (dbItems || []).forEach((item) => {
+          const path = extractFilePathFromUrl(item.file_url);
+          if (path) {
+            existingPaths.add(path);
+          }
         });
+
+        // Encontrar arquivos do bucket que não estão na tabela
+        const filesToSync = bucketFiles.filter((file) => {
+          const normalizedPath = file.fullPath?.trim();
+          return normalizedPath && !existingPaths.has(normalizedPath);
+        });
+
+        console.log(`➕ Arquivos para sincronizar: ${filesToSync.length}`);
 
         // Inserir arquivos faltantes na tabela
         if (filesToSync.length > 0) {
           const itemsToInsert = filesToSync.map((file) => {
             const filePath = file.fullPath;
-            const publicUrl = supabase.storage.from("public-images").getPublicUrl(filePath).data.publicUrl;
+            const publicUrl = supabase.storage.from(STORAGE_BUCKET).getPublicUrl(filePath).data.publicUrl;
             const fileExt = filePath.split(".").pop()?.toLowerCase() || "";
-            const isImage = ["jpg", "jpeg", "png", "gif", "webp", "svg"].includes(fileExt);
-            const isVideo = ["mp4", "webm", "ogg", "mov"].includes(fileExt);
+            const isImage = ["jpg", "jpeg", "png", "gif", "webp", "svg", "bmp", "ico"].includes(fileExt);
+            const isVideo = ["mp4", "webm", "ogg", "mov", "avi", "mkv"].includes(fileExt);
             const pathParts = filePath.split("/");
             const folder = pathParts.length > 1 ? pathParts[0] : "general";
 
             return {
               file_url: publicUrl,
               file_type: isImage ? "image" : isVideo ? "video" : "other",
-              title: file.name,
+              title: file.name || filePath.split("/").pop() || "Arquivo sem nome",
               folder: folder,
-              file_size: file.metadata?.size || null,
-              mime_type: file.metadata?.mimetype || null,
+              file_size: file.metadata?.size || file.size || null,
+              mime_type: file.metadata?.mimetype || file.metadata?.contentType || null,
             };
           });
 
-          const { error: insertError } = await supabase
-            .from("media_library")
-            .insert(itemsToInsert);
+          // Inserir em lotes para evitar problemas com muitos arquivos
+          const batchSize = 50;
+          for (let i = 0; i < itemsToInsert.length; i += batchSize) {
+            const batch = itemsToInsert.slice(i, i + batchSize);
+            const { error: insertError } = await supabase
+              .from("media_library")
+              .insert(batch);
 
-          if (insertError) {
-            console.warn("Error syncing files to database:", insertError);
+            if (insertError) {
+              console.warn(`Error syncing batch ${i / batchSize + 1}:`, insertError);
+              // Tentar inserir um por um se o lote falhar
+              for (const item of batch) {
+                const { error: singleError } = await supabase
+                  .from("media_library")
+                  .insert(item);
+                if (singleError) {
+                  console.warn("Error inserting single item:", item.title, singleError);
+                }
+              }
+            }
           }
         }
 
         // Remover da tabela arquivos que não existem mais no bucket
         if (dbItems && dbItems.length > 0) {
-          const bucketFilePaths = new Set(bucketFiles.map((f) => f.fullPath));
+          const bucketFilePaths = new Set(bucketFiles.map((f) => f.fullPath?.trim()).filter(Boolean));
           const itemsToRemove = dbItems.filter((item) => {
-            const urlParts = item.file_url.split("/public-images/");
-            const filePath = urlParts.length > 1 ? urlParts[1] : null;
+            const filePath = extractFilePathFromUrl(item.file_url);
             return filePath && !bucketFilePaths.has(filePath);
           });
 
+          console.log(`➖ Arquivos para remover: ${itemsToRemove.length}`);
+
           if (itemsToRemove.length > 0) {
             const idsToRemove = itemsToRemove.map((item) => item.id);
-            await supabase.from("media_library").delete().in("id", idsToRemove);
+            const { error: deleteError } = await supabase
+              .from("media_library")
+              .delete()
+              .in("id", idsToRemove);
+            
+            if (deleteError) {
+              console.warn("Error removing orphaned items:", deleteError);
+            }
           }
+        }
+      } else {
+        // Se o bucket estiver vazio, remover todos os registros da tabela
+        if (dbItems && dbItems.length > 0) {
+          console.log("⚠️ Bucket vazio, removendo todos os registros da tabela");
+          const idsToRemove = dbItems.map((item) => item.id);
+          await supabase.from("media_library").delete().in("id", idsToRemove);
         }
       }
 
@@ -160,21 +243,22 @@ const MediaLibrary = () => {
         .select("*")
         .order("created_at", { ascending: false });
       
+      if (finalError) throw finalError;
+
+      // Aplicar filtro de pasta se necessário
       if (selectedFolder !== "all") {
         const filteredData = finalData?.filter((item) => item.folder === selectedFolder) || [];
         setMediaItems(filteredData);
+        console.log(`✅ Sincronização concluída. Itens exibidos: ${filteredData.length}`);
       } else {
         setMediaItems(finalData || []);
+        console.log(`✅ Sincronização concluída. Total de itens: ${finalData?.length || 0}`);
       }
-      
-      if (finalError) throw finalError;
-
-      setMediaItems(finalData || []);
     } catch (error: any) {
       console.error("Error fetching media:", error);
       toast({
         title: "Erro",
-        description: "Não foi possível carregar a biblioteca de mídia.",
+        description: error.message || "Não foi possível carregar a biblioteca de mídia.",
         variant: "destructive",
       });
     } finally {
@@ -189,27 +273,29 @@ const MediaLibrary = () => {
   const handleDelete = async () => {
     if (!itemToDelete) return;
 
+    // Validação: confirmar que há um item para deletar
+    if (!itemToDelete.id) {
+      toast({
+        title: "Erro",
+        description: "Item inválido para exclusão.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     try {
       const url = itemToDelete.file_url;
-      let filePath: string | null = null;
-
-      // Extrair caminho do arquivo da URL do Supabase Storage
-      if (url.includes("supabase.co/storage")) {
-        const urlParts = url.split("/public-images/");
-        if (urlParts.length > 1) {
-          filePath = urlParts[1];
-        }
-      }
+      const filePath = extractFilePathFromUrl(url);
 
       // Deletar do storage primeiro
       if (filePath) {
         const { error: storageError } = await supabase.storage
-          .from("public-images")
+          .from(STORAGE_BUCKET)
           .remove([filePath]);
 
         if (storageError) {
           console.warn("Error deleting from storage:", storageError);
-          // Continuar mesmo se falhar no storage
+          // Continuar mesmo se falhar no storage (pode já ter sido deletado)
         }
       }
 
@@ -242,11 +328,11 @@ const MediaLibrary = () => {
 
   const handleSync = async () => {
     setLoading(true);
+    const syncToast = toast({
+      title: "Sincronizando...",
+      description: "Sincronizando arquivos do bucket com a biblioteca. Isso pode levar alguns instantes.",
+    });
     try {
-      toast({
-        title: "Sincronizando...",
-        description: "Sincronizando arquivos do bucket com a biblioteca.",
-      });
       await fetchMedia();
       toast({
         title: "Sucesso!",
@@ -256,7 +342,7 @@ const MediaLibrary = () => {
       console.error("Error syncing:", error);
       toast({
         title: "Erro",
-        description: "Não foi possível sincronizar a biblioteca.",
+        description: error.message || "Não foi possível sincronizar a biblioteca.",
         variant: "destructive",
       });
     } finally {
@@ -338,7 +424,7 @@ const MediaLibrary = () => {
             className="flex items-center gap-2"
           >
             <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
-            Sincronizar com Bucket
+            {loading ? "Sincronizando..." : "Sincronizar com Bucket"}
           </Button>
         </div>
 

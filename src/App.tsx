@@ -45,7 +45,9 @@ const ProductPageEditor = lazy(() => import("./pages/admin/ProductPageEditor"));
 const AdminBrands = lazy(() => import("./pages/admin/AdminBrands"));
 const AdminProductFamilies = lazy(() => import("./pages/admin/AdminProductFamilies"));
 const AdminProductVariants = lazy(() => import("./pages/admin/AdminProductVariants"));
+const MigrateProductData = lazy(() => import("./pages/admin/MigrateProductData"));
 const AdminVerticals = lazy(() => import("./pages/admin/AdminSolutions"));
+const AdminBackups = lazy(() => import("./pages/admin/AdminBackups"));
 
 // Rota dinâmica handler - lazy loaded
 const DynamicRouteHandler = lazy(() => import("./components/DynamicRouteHandler"));
@@ -220,11 +222,31 @@ const App = () => {
                   }
                 />
                 <Route
+                  path="/admin/migrate-products"
+                  element={
+                    <ProtectedRoute requireAdmin>
+                      <Suspense fallback={<PageLoader />}>
+                        <MigrateProductData />
+                      </Suspense>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
                   path="/admin/verticals"
                   element={
                     <ProtectedRoute requireAdmin>
                       <Suspense fallback={<PageLoader />}>
                         <AdminVerticals />
+                      </Suspense>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/backups"
+                  element={
+                    <ProtectedRoute requireAdmin>
+                      <Suspense fallback={<PageLoader />}>
+                        <AdminBackups />
                       </Suspense>
                     </ProtectedRoute>
                   }

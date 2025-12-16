@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { STORAGE_BUCKET } from "@/integrations/supabase/storage";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -80,7 +81,7 @@ const MediaUploader = ({
 
       // Upload to Supabase Storage
       const { data: uploadData, error: uploadError } = await supabase.storage
-        .from("public-images")
+        .from(STORAGE_BUCKET)
         .upload(fileName, file, {
           cacheControl: "3600",
           upsert: false,
@@ -93,7 +94,7 @@ const MediaUploader = ({
       // Get public URL
       const {
         data: { publicUrl },
-      } = supabase.storage.from("public-images").getPublicUrl(fileName);
+      } = supabase.storage.from(STORAGE_BUCKET).getPublicUrl(fileName);
 
       // Save to media_library
       const { error: mediaError } = await supabase.from("media_library").insert({
