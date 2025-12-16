@@ -29,6 +29,7 @@ import {
 } from 'lucide-react';
 
 const AutelAlpha: React.FC = () => {
+  // TODOS OS HOOKS DEVEM SER CHAMADOS ANTES DE QUALQUER RETURN CONDICIONAL
   // Fetch product family from database
   const { data: productFamily, isLoading: isLoadingFamily, error: familyError } = useQuery({
     queryKey: ['product-family', 'autel-alpha'],
@@ -37,6 +38,37 @@ const AutelAlpha: React.FC = () => {
     retry: false, // Não retry - se não encontrar, usa fallback
     throwOnError: false, // Não lançar erro - tratar como caso normal quando não há dados
   });
+
+  // Fetch product page content from database - DEVE SER CHAMADO ANTES DOS RETURNS
+  const { data: pageContent, isLoading: isLoadingContent } = useQuery({
+    queryKey: ['product-page-content', 'autel-alpha'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('product_page_content')
+        .select('*')
+        .eq('product_slug', 'autel-alpha')
+        .maybeSingle(); // Usar maybeSingle ao invés de single para não quebrar quando não há dados
+      
+      // Tratar erro PGRST116 (nenhum resultado) como caso normal
+      if (error) {
+        if (error.code === 'PGRST116' || error.code === '406') {
+          return null; // Não há conteúdo customizado, usar dados padrão
+        }
+        // Para outros erros, logar mas não quebrar
+        console.warn('Erro ao buscar conteúdo da página:', error);
+        return null;
+      }
+      
+      return data;
+    },
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    retry: false, // Não retry - se não encontrar, usa dados padrão
+    throwOnError: false, // Não lançar erro
+  });
+
+  // Estado local - também deve estar no topo
+  const [selectedCameraFeature, setSelectedCameraFeature] = useState('super-zoom');
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   // Loading state
   if (isLoadingFamily) {
@@ -78,33 +110,6 @@ const AutelAlpha: React.FC = () => {
   }
 
   const currentVariant = finalProductFamily.variants[0]; // Autel Alpha has only one variant
-  
-  // Fetch product page content from database
-  const { data: pageContent, isLoading } = useQuery({
-    queryKey: ['product-page-content', 'autel-alpha'],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from('product_page_content')
-        .select('*')
-        .eq('product_slug', 'autel-alpha')
-        .maybeSingle(); // Usar maybeSingle ao invés de single para não quebrar quando não há dados
-      
-      // Tratar erro PGRST116 (nenhum resultado) como caso normal
-      if (error) {
-        if (error.code === 'PGRST116' || error.code === '406') {
-          return null; // Não há conteúdo customizado, usar dados padrão
-        }
-        // Para outros erros, logar mas não quebrar
-        console.warn('Erro ao buscar conteúdo da página:', error);
-        return null;
-      }
-      
-      return data;
-    },
-    staleTime: 5 * 60 * 1000, // 5 minutes
-    retry: false, // Não retry - se não encontrar, usa dados padrão
-    throwOnError: false, // Não lançar erro
-  });
 
   const downloads = [
     {
@@ -156,9 +161,6 @@ const AutelAlpha: React.FC = () => {
     { id: 'applications', label: 'Aplicações' },
     { id: 'videos', label: 'Vídeos' }
   ];
-
-  const [selectedCameraFeature, setSelectedCameraFeature] = useState('super-zoom');
-  const videoRef = useRef<HTMLVideoElement>(null);
   
   useEffect(() => {
     if (videoRef.current) {
