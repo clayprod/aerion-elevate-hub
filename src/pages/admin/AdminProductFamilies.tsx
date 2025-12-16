@@ -446,7 +446,6 @@ const AdminProductFamilies = () => {
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
-      </div>
     </AdminLayout>
   );
 };

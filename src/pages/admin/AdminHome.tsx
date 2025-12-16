@@ -1116,7 +1116,6 @@ const AdminHome = () => {
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
-      </div>
     </AdminLayout>
   );
 };
