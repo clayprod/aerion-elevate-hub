@@ -17,10 +17,9 @@ const HARDCODED_SOLUTIONS: Record<string, React.ComponentType> = {
 };
 
 /**
- * Componente que verifica se existe uma solução no banco de dados.
- * Se existir, sempre renderiza SolutionPage (dinâmica com layout rico).
- * Se não existir mas for uma página hardcoded, renderiza a página hardcoded (fallback).
- * Caso contrário, mostra NotFound.
+ * Componente que gerencia o roteamento de páginas de soluções.
+ * Páginas hardcoded (construcao, industrial, seguranca, resgate) sempre usam os componentes hardcoded.
+ * Outras soluções verificam o banco de dados e usam SolutionPage se existirem.
  */
 const SolutionRouteHandler = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -29,7 +28,13 @@ const SolutionRouteHandler = () => {
     return <NotFound />;
   }
 
-  // Verificar se existe solução no banco de dados
+  // Verificar primeiro se é uma página hardcoded - essas sempre usam os componentes originais
+  const HardcodedComponent = HARDCODED_SOLUTIONS[slug];
+  if (HardcodedComponent) {
+    return <HardcodedComponent />;
+  }
+
+  // Se não for hardcoded, verificar se existe solução no banco de dados
   const { data: solution, isLoading } = useQuery({
     queryKey: ["solution-check", slug],
     queryFn: async () => {
@@ -62,15 +67,9 @@ const SolutionRouteHandler = () => {
     );
   }
 
-  // Se existe solução no banco, sempre usar página dinâmica (com layout rico)
+  // Se existe solução no banco, usar página dinâmica (com layout rico)
   if (solution) {
     return <SolutionPage />;
-  }
-
-  // Se não existe no banco mas é uma página hardcoded, usar componente hardcoded (fallback temporário)
-  const HardcodedComponent = HARDCODED_SOLUTIONS[slug];
-  if (HardcodedComponent) {
-    return <HardcodedComponent />;
   }
 
   // Caso contrário, não encontrado
