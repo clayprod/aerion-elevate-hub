@@ -141,7 +141,6 @@ const Dashboard = () => {
         solutions: { count: solutions.count, dataLength: solutions.data?.length },
         brands: { count: brands.count, dataLength: brands.data?.length },
         productFamilies: { count: productFamilies.count, dataLength: productFamilies.data?.length },
-        productVariants: { count: productVariants.count, dataLength: productVariants.data?.length },
         verticals: { count: verticals.count, dataLength: verticals.data?.length },
         customPages: { count: customPages.count, dataLength: customPages.data?.length },
         mediaFiles: { count: mediaFiles.count, dataLength: mediaFiles.data?.length },
