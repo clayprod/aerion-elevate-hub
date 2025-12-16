@@ -34,7 +34,8 @@ const AutelAlpha: React.FC = () => {
     queryKey: ['product-family', 'autel-alpha'],
     queryFn: () => getProductFamilyBySlugFromDB('autel-alpha'),
     staleTime: 5 * 60 * 1000, // 5 minutes
-    retry: 1,
+    retry: false, // Não retry - se não encontrar, usa fallback
+    throwOnError: false, // Não lançar erro - tratar como caso normal quando não há dados
   });
 
   // Loading state
@@ -86,15 +87,23 @@ const AutelAlpha: React.FC = () => {
         .from('product_page_content')
         .select('*')
         .eq('product_slug', 'autel-alpha')
-        .single();
+        .maybeSingle(); // Usar maybeSingle ao invés de single para não quebrar quando não há dados
       
-      if (error && error.code !== 'PGRST116') {
-        throw error;
+      // Tratar erro PGRST116 (nenhum resultado) como caso normal
+      if (error) {
+        if (error.code === 'PGRST116' || error.code === '406') {
+          return null; // Não há conteúdo customizado, usar dados padrão
+        }
+        // Para outros erros, logar mas não quebrar
+        console.warn('Erro ao buscar conteúdo da página:', error);
+        return null;
       }
       
       return data;
     },
     staleTime: 5 * 60 * 1000, // 5 minutes
+    retry: false, // Não retry - se não encontrar, usa dados padrão
+    throwOnError: false, // Não lançar erro
   });
 
   const downloads = [

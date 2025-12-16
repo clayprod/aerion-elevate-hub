@@ -1438,8 +1438,19 @@ export const getProductFamilyBySlugFromDB = async (slug: string): Promise<Produc
       .eq('active', true)
       .limit(1);
 
-    // Se não encontrou ou há erro, retornar undefined para usar fallback
-    if (error || !familyDataArray || familyDataArray.length === 0) {
+    // Tratar erro PGRST116 (nenhum resultado) como caso normal, não como erro
+    if (error) {
+      // PGRST116 = nenhum resultado encontrado (não é um erro crítico)
+      if (error.code === 'PGRST116' || error.code === '406') {
+        return undefined; // Retornar undefined para usar fallback
+      }
+      // Para outros erros, logar mas não quebrar
+      console.warn('Erro ao buscar família do banco:', error);
+      return undefined;
+    }
+
+    // Se não encontrou dados, retornar undefined para usar fallback
+    if (!familyDataArray || familyDataArray.length === 0) {
       return undefined;
     }
 
