@@ -533,7 +533,6 @@ const AdminSolutions = () => {
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
-      </div>
     </AdminLayout>
   );
 };
