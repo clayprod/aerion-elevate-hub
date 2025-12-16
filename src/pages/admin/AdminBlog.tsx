@@ -641,7 +641,6 @@ const AdminBlog = () => {
               ))}
             </div>
           </Card>
-        </div>
 
         {/* Delete Confirmation Dialog */}
         <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
