@@ -38,10 +38,20 @@ const StaticPageWrapper: React.FC<StaticPageWrapperProps> = ({
           if (error.code === "PGRST116") {
             return null;
           }
-          // Log outros erros mas não quebrar a página estática
-          if (error.code !== "406") {
-            console.warn("Error fetching custom page override:", error);
+          // Erro 406 (Not Acceptable) - geralmente indica problema com formato de dados
+          // Não tentar renderizar página customizada, usar página estática
+          if (error.code === "406" || error.code === "PGRST301") {
+            console.warn(`Custom page for ${pathToCheck} has data format issues (406). Using static page instead.`);
+            return null;
           }
+          // Log outros erros mas não quebrar a página estática
+          console.warn("Error fetching custom page override:", error);
+          return null;
+        }
+
+        // Validar se os dados retornados são válidos
+        if (!data || !data.title || !data.content) {
+          console.warn(`Custom page for ${pathToCheck} has invalid data. Using static page instead.`);
           return null;
         }
 
@@ -61,8 +71,8 @@ const StaticPageWrapper: React.FC<StaticPageWrapperProps> = ({
     return <>{children}</>;
   }
 
-  // Se existe página customizada publicada, renderizar ela
-  if (customPage) {
+  // Se existe página customizada publicada E os dados são válidos, renderizar ela
+  if (customPage && customPage.title && customPage.content) {
     return <DynamicPage />;
   }
 

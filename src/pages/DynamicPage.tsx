@@ -30,13 +30,25 @@ const DynamicPage = () => {
         if (error.code === "PGRST116") {
           return null;
         }
+        // Erro 406 (Not Acceptable) - problema com formato de dados
+        // Retornar null para mostrar NotFound ao invés de quebrar
+        if (error.code === "406" || error.code === "PGRST301") {
+          console.error(`Custom page for ${path} has data format issues (406). Error:`, error);
+          return null;
+        }
         throw error;
+      }
+
+      // Validar se os dados retornados são válidos
+      if (!data || !data.title || !data.content) {
+        console.error(`Custom page for ${path} has invalid data structure.`);
+        return null;
       }
 
       return data;
     },
     staleTime: 5 * 60 * 1000, // 5 minutos
-    retry: 3,
+    retry: 1, // Reduzir retries para evitar loops
     retryDelay: 1000,
   });
 
