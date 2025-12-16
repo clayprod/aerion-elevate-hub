@@ -83,9 +83,9 @@ BEGIN
   LOOP
     -- Check if table exists
     IF EXISTS (
-      SELECT 1 FROM information_schema.tables 
-      WHERE table_schema = 'public' 
-      AND table_name = table_name
+      SELECT 1 FROM information_schema.tables t
+      WHERE t.table_schema = 'public' 
+      AND t.table_name = table_name
     ) THEN
       -- Get all data from table
       EXECUTE format('SELECT json_agg(row_to_json(t)) FROM (SELECT * FROM public.%I) t', table_name)
@@ -158,9 +158,9 @@ BEGIN
   LOOP
     -- Check if table exists
     IF EXISTS (
-      SELECT 1 FROM information_schema.tables 
-      WHERE table_schema = 'public' 
-      AND table_name = table_name
+      SELECT 1 FROM information_schema.tables t
+      WHERE t.table_schema = 'public' 
+      AND t.table_name = table_name
     ) THEN
       -- Get table data from backup
       table_data := backup_record.backup_data->table_name;
