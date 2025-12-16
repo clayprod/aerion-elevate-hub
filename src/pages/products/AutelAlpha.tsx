@@ -9,7 +9,7 @@ import { ProductApplications } from '@/components/products/ProductApplications';
 import { SEOHead } from '@/components/SEO/SEOHead';
 import { ProductSchema } from '@/components/SEO/StructuredData';
 import { Breadcrumbs } from '@/components/SEO/Breadcrumbs';
-import { getProductFamilyBySlug } from '@/data/products';
+import { getProductFamilyBySlugFromDB, getProductFamilyBySlug } from '@/data/products';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import MobileFloatingCTA from '@/components/MobileFloatingCTA';
@@ -29,13 +29,43 @@ import {
 } from 'lucide-react';
 
 const AutelAlpha: React.FC = () => {
-  const productFamily = getProductFamilyBySlug('autel-alpha');
+  // Fetch product family from database
+  const { data: productFamily, isLoading: isLoadingFamily, error: familyError } = useQuery({
+    queryKey: ['product-family', 'autel-alpha'],
+    queryFn: () => getProductFamilyBySlugFromDB('autel-alpha'),
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    retry: 1,
+  });
 
-  if (!productFamily) {
-    return <div>Produto não encontrado</div>;
+  // Loading state
+  if (isLoadingFamily) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-blue-medium border-r-transparent"></div>
+          <p className="mt-4 text-gray-dark">Carregando produto...</p>
+        </div>
+      </div>
+    );
   }
 
-  const currentVariant = productFamily.variants[0]; // Autel Alpha has only one variant
+  // Fallback to hardcoded data if database fetch fails
+  const finalProductFamily = productFamily || getProductFamilyBySlug('autel-alpha');
+
+  if (!finalProductFamily) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-gray-dark text-lg">Produto não encontrado</p>
+          {familyError && (
+            <p className="text-gray-500 text-sm mt-2">Erro ao carregar do banco de dados</p>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  const currentVariant = finalProductFamily.variants[0]; // Autel Alpha has only one variant
   
   // Fetch product page content from database
   const { data: pageContent, isLoading } = useQuery({
@@ -60,7 +90,7 @@ const AutelAlpha: React.FC = () => {
     {
       title: 'Brochure Autel Alpha',
       description: 'Catálogo completo com especificações e aplicações',
-      url: productFamily.brochure,
+      url: finalProductFamily.brochure,
       type: 'pdf' as const,
       size: '2.5 MB'
     },
@@ -95,7 +125,7 @@ const AutelAlpha: React.FC = () => {
   ];
 
   // Use only product images for the header
-  const productImages = productFamily.photoGallery.product;
+  const productImages = finalProductFamily.photoGallery.product;
 
   const menuItems = [
     { id: 'product-description', label: 'Descrição do Produto' },
@@ -312,10 +342,10 @@ const AutelAlpha: React.FC = () => {
       {/* Product Header - E-commerce Layout */}
       <div id="product-description">
         <ProductHeader
-          name={productFamily.name}
-          description={productFamily.description}
-          productCodes={productFamily.productCodes}
-          keyFeatures={productFamily.keyFeatures}
+          name={finalProductFamily.name}
+          description={finalProductFamily.description}
+          productCodes={finalProductFamily.productCodes}
+          keyFeatures={finalProductFamily.keyFeatures}
           images={productImages}
           category="Drone Profissional"
         />
@@ -729,10 +759,10 @@ const AutelAlpha: React.FC = () => {
       <section id="dados-tecnicos" className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <ProductTechnicalData
-            technicalData={productFamily.technicalData}
+            technicalData={finalProductFamily.technicalData}
             specs={pageContent?.specifications || currentVariant.specs}
-            components={productFamily.components}
-            accessoriesIncluded={productFamily.accessoriesIncluded}
+            components={finalProductFamily.components}
+            accessoriesIncluded={finalProductFamily.accessoriesIncluded}
             title={currentVariant.name}
             downloads={downloads}
           />
@@ -743,8 +773,8 @@ const AutelAlpha: React.FC = () => {
       <section id="applications" className="py-12 bg-gray-light/30">
         <div className="max-w-7xl mx-auto px-6">
           <ProductApplications
-            applications={pageContent?.applications || productFamily.applications}
-            title={productFamily.name}
+            applications={pageContent?.applications || finalProductFamily.applications}
+            title={finalProductFamily.name}
           />
         </div>
       </section>
@@ -753,8 +783,8 @@ const AutelAlpha: React.FC = () => {
       <section id="videos" className="py-12 bg-gray-light/30">
         <div className="max-w-7xl mx-auto px-6">
           <ProductVideoGallery
-            videos={pageContent?.videos || productFamily.videos}
-            title={productFamily.name}
+            videos={pageContent?.videos || finalProductFamily.videos}
+            title={finalProductFamily.name}
           />
         </div>
       </section>

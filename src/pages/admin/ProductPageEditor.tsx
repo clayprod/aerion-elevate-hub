@@ -333,7 +333,7 @@ const ProductPageEditor = () => {
                   <p className="text-gray-500 text-center py-8">Nenhum bloco ativo para preview</p>
                 ) : (
                   <ProductBlockPreview 
-                    key={`preview-${editingBlock?.id || 'new'}-${JSON.stringify(editingBlock?.block_data || {})}`}
+                    key={`preview-${productSlug}-${editingBlock?.id || 'new'}-${JSON.stringify(editingBlock?.block_data || {})}`}
                     blocks={blocks.filter(b => b.active).sort((a, b) => a.order_index - b.order_index)}
                     editingBlock={editingBlock}
                   />
@@ -406,6 +406,7 @@ const ProductPageEditor = () => {
             block={editingBlock}
             onSave={handleSaveBlock}
             onCancel={() => setEditingBlock(null)}
+            onUpdate={(updatedBlock) => setEditingBlock(updatedBlock)}
             saving={saving}
           />
         )}
@@ -435,12 +436,25 @@ interface BlockEditorDialogProps {
   block: PageBlock;
   onSave: (block: PageBlock) => void;
   onCancel: () => void;
+  onUpdate?: (block: PageBlock) => void;
   saving: boolean;
 }
 
-const BlockEditorDialog = ({ block, onSave, onCancel, saving }: BlockEditorDialogProps) => {
+const BlockEditorDialog = ({ block, onSave, onCancel, onUpdate, saving }: BlockEditorDialogProps) => {
+  const { toast } = useToast();
   const [blockData, setBlockData] = useState(block.block_data);
   const [active, setActive] = useState(block.active);
+  
+  // Atualizar preview em tempo real quando blockData mudar
+  useEffect(() => {
+    if (onUpdate) {
+      onUpdate({
+        ...block,
+        block_data: blockData,
+        active,
+      });
+    }
+  }, [blockData, active, block, onUpdate]);
 
   const handleSave = () => {
     // Validações básicas por tipo de bloco

@@ -2,8 +2,33 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, Play } from "lucide-react";
 import { VideoBackground } from "../VideoBackground";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const HeroSection = () => {
+  // Buscar conteúdo dinâmico do banco de dados
+  const { data: heroContent } = useSiteContent('hero');
+  
+  // Usar conteúdo do banco ou fallback hardcoded
+  const title = heroContent?.content?.title || "A Revolução Autel Chegou ao Brasil";
+  const subtitle = heroContent?.content?.subtitle || "Tecnologia de ponta com custo-benefício superior e suporte técnico especializado local. A escolha inteligente para operações enterprise.";
+  const valueProps = heroContent?.content?.valueProps || [
+    {
+      icon: "ai",
+      title: "Inteligência Artificial",
+      description: "Reconhecimento automático e navegação inteligente"
+    },
+    {
+      icon: "camera",
+      title: "Câmeras térmicas e 6K",
+      description: "Não perca nenhum detalhe com alta resolução"
+    },
+    {
+      icon: "zoom",
+      title: "Zoom até 560x",
+      description: "Detecção e identificação a longa distância"
+    }
+  ];
+
   return (
     <section className="relative min-h-screen flex items-start justify-center pt-20 pb-12 sm:pt-24 sm:pb-16 md:pt-28 md:pb-20">
       {/* Video Background Container - full coverage */}
@@ -24,12 +49,12 @@ const HeroSection = () => {
 
           {/* Main Headline */}
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-8 leading-tight animate-slide-up">
-            A Revolução Autel Chegou ao Brasil
+            {title}
           </h1>
 
           {/* Subheadline */}
           <p className="text-base md:text-lg text-white/90 mb-10 leading-relaxed animate-slide-up" style={{ animationDelay: '0.2s' }}>
-            Tecnologia de ponta com custo-benefício superior e suporte técnico especializado local. A escolha inteligente para operações enterprise.
+            {subtitle}
           </p>
 
           {/* Value Props */}

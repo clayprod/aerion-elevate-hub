@@ -121,12 +121,22 @@ const AdminBackups = () => {
 
     setCreating(true);
     try {
+      // Chamar a função com os parâmetros corretos
       const { data, error } = await supabase.rpc("create_site_backup", {
-        backup_name: backupName,
-        backup_description: backupDescription || null,
+        backup_name: backupName.trim(),
+        backup_description: backupDescription?.trim() || null,
       });
 
-      if (error) throw error;
+      if (error) {
+        // Se o erro for sobre função não encontrada, dar mensagem mais clara
+        const errorMessage = error.message || "";
+        if (errorMessage.includes("Could not find the function") || 
+            (errorMessage.includes("function") && errorMessage.includes("does not exist")) ||
+            errorMessage.includes("schema cache")) {
+          throw new Error("A função de backup não foi encontrada no banco de dados. Por favor, execute a migration '20250117000000_backup_system.sql' no Supabase SQL Editor.");
+        }
+        throw error;
+      }
 
       toast({
         title: "Sucesso!",

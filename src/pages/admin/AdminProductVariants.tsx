@@ -79,25 +79,46 @@ const AdminProductVariants = () => {
   }, [familySlug, families]);
 
   const fetchVariants = async () => {
-    let query = supabase
-      .from("product_variants")
-      .select("*");
+    try {
+      let query = supabase
+        .from("product_variants")
+        .select("*");
 
-    // Aplicar filtro de família se selecionado
-    if (selectedFamilyFilter) {
-      query = query.eq("family_id", selectedFamilyFilter);
-    }
+      // Aplicar filtro de família se selecionado
+      if (selectedFamilyFilter) {
+        query = query.eq("family_id", selectedFamilyFilter);
+      }
 
-    const { data, error } = await query.order("order_index", { ascending: true });
+      const { data, error } = await query.order("order_index", { ascending: true });
 
-    if (error) {
+      if (error) {
+        console.error("Error fetching variants:", error);
+        let errorMessage = "Não foi possível carregar as variantes de produtos.";
+        
+        if (error.message?.includes("relation") && error.message?.includes("does not exist")) {
+          errorMessage = "A tabela 'product_variants' não existe. Por favor, execute as migrations no Supabase.";
+        } else if (error.message?.includes("permission") || error.message?.includes("policy")) {
+          errorMessage = "Erro de permissão. Verifique as políticas RLS no Supabase.";
+        } else if (error.message) {
+          errorMessage = error.message;
+        }
+        
+        toast({
+          title: "Erro",
+          description: errorMessage,
+          variant: "destructive",
+        });
+      } else {
+        setVariants(data || []);
+        console.log(`✅ Variantes carregadas: ${data?.length || 0}`);
+      }
+    } catch (err: any) {
+      console.error("Unexpected error fetching variants:", err);
       toast({
         title: "Erro",
-        description: "Não foi possível carregar as variantes de produtos.",
+        description: err.message || "Erro inesperado ao carregar variantes.",
         variant: "destructive",
       });
-    } else {
-      setVariants(data || []);
     }
   };
 

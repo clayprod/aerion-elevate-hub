@@ -127,6 +127,23 @@ const MediaLibrary = () => {
     try {
       console.log(`🔄 Iniciando sincronização com bucket '${STORAGE_BUCKET}'...`);
       
+      // Verificar se o bucket existe
+      const { data: buckets, error: bucketsError } = await supabase.storage.listBuckets();
+      if (bucketsError) {
+        throw new Error(`Erro ao listar buckets: ${bucketsError.message}`);
+      }
+      
+      const bucketExists = buckets?.some(b => b.name === STORAGE_BUCKET);
+      if (!bucketExists) {
+        toast({
+          title: "Bucket não encontrado",
+          description: `O bucket '${STORAGE_BUCKET}' não existe. Por favor, crie o bucket no Supabase Storage antes de usar a biblioteca de mídia.`,
+          variant: "destructive",
+        });
+        setLoading(false);
+        return;
+      }
+      
       // Buscar todos os arquivos do bucket recursivamente
       const bucketFiles = await listAllFiles();
       console.log(`📦 Arquivos encontrados no bucket: ${bucketFiles.length}`);
@@ -256,9 +273,20 @@ const MediaLibrary = () => {
       }
     } catch (error: any) {
       console.error("Error fetching media:", error);
+      const errorMessage = error.message || "";
+      let userMessage = "Não foi possível carregar a biblioteca de mídia.";
+      
+      if (errorMessage.includes("Bucket not found") || errorMessage.includes("does not exist")) {
+        userMessage = `O bucket '${STORAGE_BUCKET}' não foi encontrado. Por favor, crie o bucket no Supabase Storage (Settings > Storage > New bucket) e marque-o como público.`;
+      } else if (errorMessage.includes("permission") || errorMessage.includes("policy")) {
+        userMessage = `Erro de permissão ao acessar o bucket '${STORAGE_BUCKET}'. Verifique as políticas RLS no Supabase.`;
+      } else if (errorMessage) {
+        userMessage = errorMessage;
+      }
+      
       toast({
         title: "Erro",
-        description: error.message || "Não foi possível carregar a biblioteca de mídia.",
+        description: userMessage,
         variant: "destructive",
       });
     } finally {
