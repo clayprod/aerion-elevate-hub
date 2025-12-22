@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-import { writeFileSync, existsSync } from 'fs';
+import { writeFileSync, existsSync, readFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -129,7 +129,7 @@ async function generateSitemap() {
   writeFileSync(publicPath, xml, 'utf-8');
   console.log(`✅ Sitemap gerado em public: ${publicPath}`);
   
-  // Se dist existe, também salvar lá (para build)
+  // Se dist existe, também salvar lá (para build - será sobrescrito pelo prerender)
   const distPath = join(__dirname, '..', 'dist', 'sitemap.xml');
   const distDir = join(__dirname, '..', 'dist');
   if (existsSync(distDir)) {
@@ -138,6 +138,16 @@ async function generateSitemap() {
   }
   
   console.log(`   Total de URLs: ${staticRoutes.length + blogPosts.length + customPages.length}`);
+  
+  // Verificar se o arquivo foi criado corretamente
+  if (existsSync(publicPath)) {
+    const content = readFileSync(publicPath, 'utf-8');
+    if (!content.startsWith('<?xml')) {
+      console.error('❌ ERRO: Arquivo sitemap.xml não começa com <?xml!');
+      console.error(`   Primeiros 100 caracteres: ${content.substring(0, 100)}`);
+      process.exit(1);
+    }
+  }
 }
 
 // Executar
