@@ -28,7 +28,6 @@ import EvoLiteEnterprise from "./pages/products/EvoLiteEnterprise";
 import EvoMaxV2 from "./pages/products/EvoMaxV2";
 import AutelMapper from "./pages/products/AutelMapper";
 import SolutionRouteHandler from "./components/SolutionRouteHandler";
-import Sitemap from "./pages/Sitemap";
 
 // Rotas admin - lazy loaded (menos acessadas)
 const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
@@ -90,9 +89,6 @@ const App = () => {
               {/* Blog - não usa wrapper pois tem sistema próprio */}
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
-              
-              {/* Sitemap - fallback caso o arquivo estático não seja encontrado */}
-              <Route path="/sitemap.xml" element={<Sitemap />} />
               
               {/* Auth - não precisa de override */}
               <Route path="/auth" element={<Auth />} />
