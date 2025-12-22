@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-import { writeFileSync } from 'fs';
+import { writeFileSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -124,11 +124,19 @@ async function generateSitemap() {
 
   xml += '</urlset>';
 
-  // Salvar arquivo em public/sitemap.xml
-  const outputPath = join(__dirname, '..', 'public', 'sitemap.xml');
-  writeFileSync(outputPath, xml, 'utf-8');
+  // Salvar arquivo em public/sitemap.xml (para desenvolvimento)
+  const publicPath = join(__dirname, '..', 'public', 'sitemap.xml');
+  writeFileSync(publicPath, xml, 'utf-8');
+  console.log(`✅ Sitemap gerado em public: ${publicPath}`);
   
-  console.log(`✅ Sitemap gerado com sucesso: ${outputPath}`);
+  // Se dist existe, também salvar lá (para build)
+  const distPath = join(__dirname, '..', 'dist', 'sitemap.xml');
+  const distDir = join(__dirname, '..', 'dist');
+  if (existsSync(distDir)) {
+    writeFileSync(distPath, xml, 'utf-8');
+    console.log(`✅ Sitemap gerado em dist: ${distPath}`);
+  }
+  
   console.log(`   Total de URLs: ${staticRoutes.length + blogPosts.length + customPages.length}`);
 }
 

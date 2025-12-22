@@ -299,6 +299,105 @@ function saveHTML(route, html) {
   console.log(`  ✅ Salvo: ${filePath}`);
 }
 
+// Função para gerar sitemap.xml diretamente (sem Puppeteer)
+async function generateSitemapXML() {
+  const supabaseUrl = process.env.VITE_SUPABASE_URL;
+  const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY;
+  const BASE_URL = 'https://aerion.com.br';
+  const currentDate = new Date().toISOString().split('T')[0];
+  
+  let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+  xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+
+  // Rotas estáticas
+  const staticRoutesForSitemap = [
+    { path: '', priority: '1.0', changefreq: 'weekly' },
+    { path: '/produtos', priority: '0.9', changefreq: 'monthly' },
+    { path: '/produtos/evo-lite-enterprise', priority: '0.8', changefreq: 'monthly' },
+    { path: '/produtos/evo-max-v2', priority: '0.8', changefreq: 'monthly' },
+    { path: '/produtos/autel-alpha', priority: '0.8', changefreq: 'monthly' },
+    { path: '/produtos/autel-mapper', priority: '0.8', changefreq: 'monthly' },
+    { path: '/solucoes', priority: '0.9', changefreq: 'monthly' },
+    { path: '/solucoes/construcao', priority: '0.8', changefreq: 'monthly' },
+    { path: '/solucoes/industrial', priority: '0.8', changefreq: 'monthly' },
+    { path: '/solucoes/seguranca', priority: '0.8', changefreq: 'monthly' },
+    { path: '/solucoes/resgate', priority: '0.8', changefreq: 'monthly' },
+    { path: '/sobre', priority: '0.7', changefreq: 'monthly' },
+    { path: '/contato', priority: '0.8', changefreq: 'monthly' },
+    { path: '/blog', priority: '0.9', changefreq: 'weekly' },
+    { path: '/politica-privacidade', priority: '0.5', changefreq: 'yearly' },
+    { path: '/termos-uso', priority: '0.5', changefreq: 'yearly' },
+  ];
+
+  // Adicionar rotas estáticas
+  staticRoutesForSitemap.forEach((route) => {
+    xml += '  <url>\n';
+    xml += `    <loc>${BASE_URL}${route.path}</loc>\n`;
+    xml += `    <lastmod>${currentDate}</lastmod>\n`;
+    xml += `    <changefreq>${route.changefreq}</changefreq>\n`;
+    xml += `    <priority>${route.priority}</priority>\n`;
+    xml += '  </url>\n';
+  });
+
+  // Buscar posts do blog e páginas customizadas
+  if (supabaseUrl && supabaseKey) {
+    try {
+      const supabase = createClient(supabaseUrl, supabaseKey);
+      
+      // Buscar posts do blog
+      const { data: blogData, error: blogError } = await supabase
+        .from('blog_posts')
+        .select('slug, updated_at, published_at')
+        .eq('published', true)
+        .order('published_at', { ascending: false });
+
+      if (!blogError && blogData && blogData.length > 0) {
+        blogData.forEach((post) => {
+          const lastmod = post.updated_at || post.published_at || currentDate;
+          const lastmodDate = new Date(lastmod).toISOString().split('T')[0];
+          
+          xml += '  <url>\n';
+          xml += `    <loc>${BASE_URL}/blog/${encodeURIComponent(post.slug)}</loc>\n`;
+          xml += `    <lastmod>${lastmodDate}</lastmod>\n`;
+          xml += '    <changefreq>monthly</changefreq>\n';
+          xml += '    <priority>0.7</priority>\n';
+          xml += '  </url>\n';
+        });
+      }
+
+      // Buscar páginas customizadas
+      const { data: pagesData, error: pagesError } = await supabase
+        .from('custom_pages')
+        .select('path, updated_at, published_at')
+        .eq('published', true)
+        .order('published_at', { ascending: false });
+
+      if (!pagesError && pagesData && pagesData.length > 0) {
+        pagesData.forEach((page) => {
+          const lastmod = page.updated_at || page.published_at || currentDate;
+          const lastmodDate = new Date(lastmod).toISOString().split('T')[0];
+          
+          xml += '  <url>\n';
+          xml += `    <loc>${BASE_URL}${encodeURIComponent(page.path)}</loc>\n`;
+          xml += `    <lastmod>${lastmodDate}</lastmod>\n`;
+          xml += '    <changefreq>monthly</changefreq>\n';
+          xml += '    <priority>0.7</priority>\n';
+          xml += '  </url>\n';
+        });
+      }
+    } catch (error) {
+      console.warn('⚠️  Erro ao buscar dados do Supabase para sitemap:', error.message);
+    }
+  }
+
+  xml += '</urlset>';
+
+  // Salvar arquivo XML diretamente no dist
+  const sitemapPath = join(DIST_DIR, 'sitemap.xml');
+  writeFileSync(sitemapPath, xml, 'utf-8');
+  console.log(`  ✅ Sitemap XML gerado: ${sitemapPath}`);
+}
+
 // Função principal
 async function prerender() {
   console.log('🚀 Iniciando prerendering...\n');
@@ -366,6 +465,10 @@ async function prerender() {
   }
   
   console.log('✅ Servidor pronto\n');
+
+  // Gerar sitemap.xml diretamente (sem Puppeteer)
+  console.log('📄 Gerando sitemap.xml...');
+  await generateSitemapXML();
 
   // Renderizar cada rota
   let successCount = 0;
