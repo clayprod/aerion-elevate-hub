@@ -125,6 +125,7 @@ const Contato = () => {
         'industrial': 'Inspeção Industrial e Energia',
         'seguranca': 'Segurança Pública e Defesa Civil',
         'resgate': 'Resgate e Emergências',
+        'generalista': 'Generalista',
         'outro': 'Outro'
       };
 
@@ -310,6 +311,7 @@ const Contato = () => {
                           <SelectItem value="industrial">Inspeção Industrial e Energia</SelectItem>
                           <SelectItem value="seguranca">Segurança Pública e Defesa Civil</SelectItem>
                           <SelectItem value="resgate">Resgate e Emergências</SelectItem>
+                          <SelectItem value="generalista">Generalista</SelectItem>
                           <SelectItem value="outro">Outro</SelectItem>
                         </SelectContent>
                       </Select>
