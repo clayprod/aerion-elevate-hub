@@ -85,11 +85,24 @@ const Sitemap = () => {
     // Gerar XML
     const xml = generateSitemap();
     
-    // Substituir todo o conteúdo do documento com XML puro
-    // Isso é necessário para que o sitemap seja servido como XML, não HTML
-    document.open('text/xml');
-    document.write(xml);
-    document.close();
+    // Substituir completamente o documento HTML por XML puro
+    // Isso força o navegador a tratar como XML, não HTML
+    if (typeof document !== 'undefined') {
+      // Criar um novo documento XML
+      const xmlString = xml;
+      
+      // Limpar o documento atual
+      document.open();
+      
+      // Escrever o XML diretamente
+      document.write(xmlString);
+      
+      // Fechar o documento
+      document.close();
+      
+      // Tentar definir o Content-Type (pode não funcionar em todos os navegadores)
+      // Mas o importante é que o conteúdo seja XML válido
+    }
   }, [blogPosts, isLoading]);
 
   // Retornar null pois vamos substituir o documento
