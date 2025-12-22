@@ -395,7 +395,23 @@ async function generateSitemapXML() {
   // Salvar arquivo XML diretamente no dist
   const sitemapPath = join(DIST_DIR, 'sitemap.xml');
   writeFileSync(sitemapPath, xml, 'utf-8');
-  console.log(`  ✅ Sitemap XML gerado: ${sitemapPath}`);
+  
+  // Verificar se o arquivo foi criado corretamente
+  if (existsSync(sitemapPath)) {
+    const stats = statSync(sitemapPath);
+    console.log(`  ✅ Sitemap XML gerado: ${sitemapPath}`);
+    console.log(`     Tamanho: ${stats.size} bytes`);
+    
+    // Verificar se começa com XML válido
+    const content = readFileSync(sitemapPath, 'utf-8');
+    if (content.startsWith('<?xml')) {
+      console.log(`     ✅ Arquivo XML válido`);
+    } else {
+      console.warn(`     ⚠️  Arquivo não começa com <?xml`);
+    }
+  } else {
+    console.error(`  ❌ Erro: Arquivo não foi criado em ${sitemapPath}`);
+  }
 }
 
 // Função principal
