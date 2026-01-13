@@ -1,0 +1,806 @@
+{
+  "totalKeywords": 122,
+  "aerionKeywords": 12,
+  "otherSitesKeywords": 110,
+  "categorized": {
+    "home": [
+      "drones profissional",
+      "drone dji mini 3",
+      "dji mini 3 pro",
+      "drone dji mini 2",
+      "drone profissional",
+      "drone com câmera",
+      "dji mini 4 pro",
+      "drone dji mini 4 pro",
+      "dronesdji",
+      "dji mini2",
+      "djimini 2",
+      "drone agricola",
+      "loja de drones",
+      "drone melhor custo benefício",
+      "preco de drones"
+    ],
+    "products": [
+      "drones profissional",
+      "drone dji mini 3",
+      "drone dji mini 2",
+      "drone profissional",
+      "drone com câmera",
+      "drone dji mini 4 pro",
+      "dronesdji",
+      "drone agricola",
+      "loja de drones",
+      "drone melhor custo benefício",
+      "preco de drones",
+      "drone dji mini",
+      "drone dji mini 3 pro",
+      "drone mini 3 pro",
+      "drone preço"
+    ],
+    "product-evo-lite": [],
+    "product-evo-max": [],
+    "product-alpha": [],
+    "product-mapper": [
+      "drones para mapeamento",
+      "mapeamento com drones",
+      "drones mapeamento",
+      "mapeamento com drone",
+      "drone para mapeamento agrícola",
+      "drone para mapeamento",
+      "drone de mapeamento",
+      "drone mapeamento",
+      "mapeamento drone"
+    ],
+    "solutions": [
+      "topografia com drones",
+      "drones topografia",
+      "inspeção com drone",
+      "drones de segurança",
+      "drone de resgate",
+      "drone para topografia",
+      "topografia com drone"
+    ],
+    "solution-topography": [
+      "topografia com drones",
+      "drones topografia",
+      "drone para topografia",
+      "topografia com drone"
+    ],
+    "solution-industrial": [
+      "inspeção com drone"
+    ],
+    "solution-security": [
+      "drones de segurança"
+    ],
+    "solution-rescue": [
+      "drone de resgate"
+    ],
+    "solution-construction": [],
+    "about": [
+      "dji no brasil"
+    ],
+    "contact": [
+      "loja de drones",
+      "loja de drone"
+    ],
+    "general": [
+      "drones profissional",
+      "drone dji mini 3",
+      "dji mini 3 pro",
+      "drone dji mini 2",
+      "drone profissional",
+      "drone com câmera",
+      "dji mini 4 pro",
+      "drone dji mini 4 pro",
+      "dronesdji",
+      "dji mini2",
+      "djimini 2",
+      "drone agricola",
+      "loja de drones",
+      "drone melhor custo benefício",
+      "preco de drones"
+    ]
+  },
+  "topKeywords": [
+    {
+      "keyword": "drones profissional",
+      "volume": 50000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "aerion.com.br"
+    },
+    {
+      "keyword": "drone dji mini 3",
+      "volume": 50000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "dji mini 3 pro",
+      "volume": 50000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "drone dji mini 2",
+      "volume": 50000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "drone profissional",
+      "volume": 50000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "drone com câmera",
+      "volume": 50000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "dji mini 4 pro",
+      "volume": 50000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "drone dji mini 4 pro",
+      "volume": 50000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "dronesdji",
+      "volume": 50000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "dji mini2",
+      "volume": 50000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "gohobby.com.br"
+    },
+    {
+      "keyword": "djimini 2",
+      "volume": 50000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "gohobby.com.br"
+    },
+    {
+      "keyword": "drone agricola",
+      "volume": 50000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "mercadaodosdrones"
+    },
+    {
+      "keyword": "loja de drones",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "aerion.com.br"
+    },
+    {
+      "keyword": "drone melhor custo benefício",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "aerion.com.br"
+    },
+    {
+      "keyword": "preco de drones",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "aerion.com.br"
+    },
+    {
+      "keyword": "dji mini 3 pro fly more combo",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "drone dji mini",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "drone dji mini 3 pro",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "mini 3 pro",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "dji mini se",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "drone mini 3 pro",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "dji mini 2 se",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "mini 3",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "dji mini 4",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "drone preço",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "dji mini se 2",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "drone barato",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "drone dji mini 2 se",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "loja de drone",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "camera dji",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "preço de drone",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "drone com câmera profissional",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "drone valor",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "mini drone com camera",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "drones dji mini 3 pro",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "valor de um drone",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "mavic pro dji",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "drone com câmera 4k",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "drone profissional preço",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "dji mini 4k",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "valor de drone",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "dji no brasil",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "valores de drones",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "dji mini4",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "preço dos drones",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "dji mini 5",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "drone dji mini 4k",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "drone valores",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "drone dji mini 4",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "preço drone profissional",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "preço do drone profissional",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "dji mini 5 pro",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "drone dji mavic 3",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "flypro.com.br"
+    },
+    {
+      "keyword": "dji mini 2se",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "flypro.com.br"
+    },
+    {
+      "keyword": "drones bons e baratos",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "flypro.com.br"
+    },
+    {
+      "keyword": "drone bom e barato",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "flypro.com.br"
+    },
+    {
+      "keyword": "drone com camera 4k",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "flypro.com.br"
+    },
+    {
+      "keyword": "drone mavic 3 pro",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "flypro.com.br"
+    },
+    {
+      "keyword": "drone barato e bom",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "flypro.com.br"
+    },
+    {
+      "keyword": "mavic 4 pro",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "flypro.com.br"
+    },
+    {
+      "keyword": "drones valores",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "flypro.com.br"
+    },
+    {
+      "keyword": "drone bom barato",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "flypro.com.br"
+    },
+    {
+      "keyword": "dji agras",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "spgeo.com.br"
+    },
+    {
+      "keyword": "preço dos drone",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "spgeo.com.br"
+    },
+    {
+      "keyword": "valores de um drone",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "spgeo.com.br"
+    },
+    {
+      "keyword": "mavic 3 pro",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "gohobby.com.br"
+    },
+    {
+      "keyword": "mavic 2 pro",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "gohobby.com.br"
+    },
+    {
+      "keyword": "phantom 4",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "gohobby.com.br"
+    },
+    {
+      "keyword": "djimavic",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "gohobby.com.br"
+    },
+    {
+      "keyword": "mavicpro",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "gohobby.com.br"
+    },
+    {
+      "keyword": "controle dji",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "gohobby.com.br"
+    },
+    {
+      "keyword": "mavicair 2",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "gohobby.com.br"
+    },
+    {
+      "keyword": "dji agras t50",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "mercadaodosdrones"
+    },
+    {
+      "keyword": "dji t50",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "mercadaodosdrones"
+    },
+    {
+      "keyword": "drone agrícola preço",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "mercadaodosdrones"
+    },
+    {
+      "keyword": "drone agricola valor",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "mercadaodosdrones"
+    },
+    {
+      "keyword": "app dji",
+      "volume": 5000,
+      "competition": "Baixo",
+      "category": "general",
+      "site": "mercadaodosdrones"
+    },
+    {
+      "keyword": "drone agricola preço",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "mercadaodosdrones"
+    },
+    {
+      "keyword": "bateria dji mini 3",
+      "volume": 5000,
+      "competition": "Alto",
+      "category": "general",
+      "site": "worldwidebrasil.com.br"
+    },
+    {
+      "keyword": "topografia com drones",
+      "volume": 500,
+      "competition": "MÃ©dio",
+      "category": "solution-topography",
+      "site": "aerion.com.br"
+    },
+    {
+      "keyword": "drones topografia",
+      "volume": 500,
+      "competition": "Alto",
+      "category": "solution-topography",
+      "site": "aerion.com.br"
+    },
+    {
+      "keyword": "inspeção com drone",
+      "volume": 500,
+      "competition": "MÃ©dio",
+      "category": "solution-industrial",
+      "site": "aerion.com.br"
+    },
+    {
+      "keyword": "drones para mapeamento",
+      "volume": 500,
+      "competition": "Alto",
+      "category": "product-mapper",
+      "site": "aerion.com.br"
+    },
+    {
+      "keyword": "drones de segurança",
+      "volume": 500,
+      "competition": "Alto",
+      "category": "solution-security",
+      "site": "aerion.com.br"
+    },
+    {
+      "keyword": "mapeamento com drones",
+      "volume": 500,
+      "competition": "MÃ©dio",
+      "category": "product-mapper",
+      "site": "aerion.com.br"
+    },
+    {
+      "keyword": "drone de resgate",
+      "volume": 500,
+      "competition": "MÃ©dio",
+      "category": "solution-rescue",
+      "site": "aerion.com.br"
+    },
+    {
+      "keyword": "drones mapeamento",
+      "volume": 500,
+      "competition": "Alto",
+      "category": "product-mapper",
+      "site": "aerion.com.br"
+    },
+    {
+      "keyword": "drone profissional 4k",
+      "volume": 500,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "comprar drone profissional",
+      "volume": 500,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "drone 4k profissional",
+      "volume": 500,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "melhor drone profissional",
+      "volume": 500,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "preço de drone profissional",
+      "volume": 500,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "preço drone com câmera profissional",
+      "volume": 500,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "valor de um drone profissional",
+      "volume": 500,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "mini drone profissional",
+      "volume": 500,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "valor de drone profissional",
+      "volume": 500,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "drone para filmagem profissional",
+      "volume": 500,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "valor drone profissional",
+      "volume": 500,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "drone profissional comprar",
+      "volume": 500,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    },
+    {
+      "keyword": "drone profissional com câmera",
+      "volume": 500,
+      "competition": "Alto",
+      "category": "general",
+      "site": "lojadji.com.br"
+    }
+  ]
+}
