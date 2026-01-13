@@ -1,0 +1,211 @@
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { ArrowRight, Play } from "lucide-react";
+import HeroCarousel from "./HeroCarousel";
+
+interface HeroSlide {
+  title: string;
+  subtitle: string;
+  video_url?: string;
+  poster_url?: string;
+  cta1_text?: string;
+  cta1_link?: string;
+  cta2_text?: string;
+  cta2_link?: string;
+  order_index: number;
+}
+
+interface ValueProp {
+  icon?: string;
+  title: string;
+  description: string;
+}
+
+interface DynamicHeroSectionProps {
+  data: {
+    slides?: HeroSlide[];
+    title?: string;
+    subtitle?: string;
+    video_url?: string;
+    poster_url?: string;
+    cta1_text?: string;
+    cta1_link?: string;
+    cta2_text?: string;
+    cta2_link?: string;
+    autoplay?: boolean;
+    autoplay_interval?: number;
+    value_props?: ValueProp[];
+  };
+}
+
+const DynamicHeroSection = ({ data }: DynamicHeroSectionProps) => {
+  const defaultSlide: HeroSlide = {
+    title: "A Revolução Autel Chegou ao Brasil",
+    subtitle: "Tecnologia de ponta com custo-benefício superior e suporte técnico especializado local. A escolha inteligente para operações enterprise.",
+    video_url: "/videos/products/evo_max/Introducing EVO Max 4T_720.mp4",
+    // poster_url removido - não existe o arquivo, será opcional
+    cta1_text: "Conheça os Produtos",
+    cta1_link: "/produtos",
+    cta2_text: "Fale Conosco",
+    cta2_link: "/contato",
+    order_index: 0,
+  };
+
+  // Se há slides no data, usar carrossel; senão, usar formato antigo (compatibilidade)
+  const hasSlides = data.slides && data.slides.length > 0;
+  const slides = hasSlides ? data.slides : [defaultSlide];
+  
+  // Se não há slides mas há dados individuais, criar slide único
+  if (!hasSlides && (data.title || data.subtitle)) {
+    slides[0] = {
+      ...defaultSlide,
+      ...data,
+      order_index: 0,
+    };
+  }
+
+  // Ordenar slides por order_index
+  const sortedSlides = [...slides].sort((a, b) => a.order_index - b.order_index);
+  
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const currentSlide = sortedSlides[currentSlideIndex] || sortedSlides[0];
+
+  const handleSlideChange = (index: number) => {
+    setCurrentSlideIndex(index);
+  };
+
+  return (
+    <section className="relative min-h-screen flex items-start justify-center pt-20 pb-12 sm:pt-24 sm:pb-16 md:pt-28 md:pb-20">
+      {/* Video Background Container */}
+      <div className="absolute inset-0 w-full h-full overflow-hidden">
+        <HeroCarousel
+          slides={sortedSlides}
+          autoplay={sortedSlides.length > 1 && data.autoplay !== false}
+          autoplayInterval={data.autoplay_interval || 5000}
+          onSlideChange={handleSlideChange}
+          initialIndex={currentSlideIndex}
+        />
+        <div className="absolute inset-0 bg-black bg-opacity-80 z-20" />
+      </div>
+
+      <div className="container-custom relative z-30 py-6 sm:py-6 md:py-8 px-6 sm:px-8 md:px-8">
+        <div className="max-w-4xl">
+          {/* Main Headline */}
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-8 leading-tight animate-slide-up">
+            {currentSlide.title}
+          </h1>
+
+          {/* Subheadline */}
+          <p className="text-base md:text-lg text-white/90 mb-10 leading-relaxed animate-slide-up" style={{ animationDelay: '0.2s' }}>
+            {currentSlide.subtitle}
+          </p>
+
+          {/* Value Props */}
+          {(() => {
+            // Usar value_props do banco se existir e não for null/vazio, senão usar fallback hardcoded
+            const defaultValueProps: ValueProp[] = [
+              { icon: "ai", title: "Inteligência Artificial", description: "Reconhecimento automático e navegação inteligente" },
+              { icon: "camera", title: "Câmeras térmicas e 6K", description: "Não perca nenhum detalhe com alta resolução" },
+              { icon: "zoom", title: "Zoom até 560x", description: "Detecção e identificação a longa distância" },
+              { icon: "shield", title: "Proteção IP55", description: "Resistente a intempéries e condições extremas" },
+              { icon: "language", title: "Software em Português", description: "Interface e suporte técnico localizados" },
+              { icon: "sensor", title: "Sensoriamento Inteligente", description: "Sensores de colisão, antijamming e RTH" },
+            ];
+            
+            // Verificar se value_props existe e é um array válido
+            let valueProps: ValueProp[] = defaultValueProps;
+            if (data.value_props && Array.isArray(data.value_props) && data.value_props.length > 0) {
+              valueProps = data.value_props;
+            }
+              
+            // Sempre renderizar os value_props (sempre há pelo menos os padrões)
+            return (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8 animate-slide-up" style={{ animationDelay: '0.4s' }}>
+                {valueProps.map((prop: ValueProp, index: number) => {
+                // Mapear ícones por nome ou usar SVG padrão
+                const getIconSVG = (iconName?: string) => {
+                  const iconMap: Record<string, string> = {
+                    ai: "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z",
+                    camera: "M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9zM15 13a3 3 0 11-6 0 3 3 0 016 0z",
+                    zoom: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7",
+                    shield: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
+                    language: "M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129",
+                    sensor: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z",
+                  };
+                  return iconMap[iconName || ''] || iconMap.ai;
+                };
+
+                return (
+                  <div key={index} className="flex items-start space-x-3">
+                    <div className="w-10 h-10 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
+                      <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={getIconSVG(prop.icon)} />
+                      </svg>
+                    </div>
+                    <div>
+                      <h2 className="text-white font-heading font-semibold mb-1 text-sm">{prop.title}</h2>
+                      <p className="text-white/80 text-xs">{prop.description}</p>
+                    </div>
+                  </div>
+                );
+              })}
+              </div>
+            );
+          })()}
+
+          {/* CTAs */}
+          <div className="flex flex-col sm:flex-row gap-6 mb-6 sm:mb-8 animate-slide-up" style={{ animationDelay: '0.6s' }}>
+            {currentSlide.cta1_text && currentSlide.cta1_link && (
+              <Button
+                asChild
+                size="lg"
+                className="bg-action hover:bg-action/90 text-action-foreground font-heading font-semibold text-base px-8 py-3 shadow-glow group rounded-xl transition-all duration-300 hover:shadow-xl"
+              >
+                <Link to={currentSlide.cta1_link} className="flex items-center">
+                  {currentSlide.cta1_text}
+                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </Button>
+            )}
+
+            {currentSlide.cta2_text && currentSlide.cta2_link && (
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="bg-white/10 hover:bg-white/20 border-white/30 text-white font-heading font-semibold text-base px-8 backdrop-blur-sm group"
+              >
+                <Link to={currentSlide.cta2_link} className="flex items-center">
+                  {currentSlide.cta2_text}
+                  <Play className="ml-2 h-5 w-5 group-hover:scale-110 transition-transform" />
+                </Link>
+              </Button>
+            )}
+          </div>
+
+          {/* Slide Navigation Dots (se múltiplos slides) */}
+          {sortedSlides.length > 1 && (
+            <div className="flex gap-2 mt-8 justify-center">
+              {sortedSlides.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleSlideChange(index)}
+                  className={`h-2 rounded-full transition-all ${
+                    index === currentSlideIndex
+                      ? "w-8 bg-white"
+                      : "w-2 bg-white/50 hover:bg-white/75"
+                  }`}
+                  aria-label={`Ir para slide ${index + 1}`}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default DynamicHeroSection;
+
