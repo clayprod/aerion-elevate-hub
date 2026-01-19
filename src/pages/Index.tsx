@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { SEOHead } from "@/components/SEO/SEOHead";
+import { OrganizationSchema } from "@/components/SEO/OrganizationSchema";
 import MobileFloatingCTA from "@/components/MobileFloatingCTA";
 import BlockRenderer from "@/components/home/BlockRenderer";
 import { getKeywordsForRoute } from "@/data/keywords";
@@ -14,6 +15,7 @@ const Index = () => {
         keywords={getKeywordsForRoute('/')}
         canonical="https://aerion.com.br"
       />
+      <OrganizationSchema />
       <Header />
       
       <main>

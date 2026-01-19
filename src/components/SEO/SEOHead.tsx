@@ -69,6 +69,12 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
     updateMetaTag('og:title', title);
     updateMetaTag('og:description', description);
     updateMetaTag('og:image', ogImage);
+    // Adicionar dimensões da imagem para melhor exibição no Google
+    updateMetaTag('og:image:width', '1200');
+    updateMetaTag('og:image:height', '630');
+    updateMetaTag('og:image:type', 'image/png');
+    updateMetaTag('og:image:alt', `${title} - Logo Aerion Technologies`);
+    updateMetaTag('og:site_name', 'Aerion Technologies');
     if (canonical) {
       updateMetaTag('og:url', canonical);
     }
@@ -88,6 +94,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
     updateTwitterTag('twitter:title', title);
     updateTwitterTag('twitter:description', description);
     updateTwitterTag('twitter:image', ogImage);
+    updateTwitterTag('twitter:image:alt', `${title} - Logo Aerion Technologies`);
 
     // Adicionar/atualizar meta tag robots
     let metaRobots = document.querySelector('meta[name="robots"]');
