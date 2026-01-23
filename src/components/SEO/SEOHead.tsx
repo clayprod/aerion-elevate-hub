@@ -7,7 +7,6 @@ interface SEOHeadProps {
   canonical?: string;
   ogType?: string;
   ogImage?: string;
-  noindex?: boolean;
 }
 
 export const SEOHead: React.FC<SEOHeadProps> = ({
@@ -16,8 +15,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
   keywords,
   canonical,
   ogType = 'website',
-  ogImage = 'https://aerion.com.br/images/logos/logo-aerion.png',
-  noindex = false,
+  ogImage = '/images/logos/autel-logo.png',
 }) => {
   useEffect(() => {
     // Atualizar título da página
@@ -69,12 +67,6 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
     updateMetaTag('og:title', title);
     updateMetaTag('og:description', description);
     updateMetaTag('og:image', ogImage);
-    // Adicionar dimensões da imagem para melhor exibição no Google
-    updateMetaTag('og:image:width', '1200');
-    updateMetaTag('og:image:height', '630');
-    updateMetaTag('og:image:type', 'image/png');
-    updateMetaTag('og:image:alt', `${title} - Logo Aerion Technologies`);
-    updateMetaTag('og:site_name', 'Aerion Technologies');
     if (canonical) {
       updateMetaTag('og:url', canonical);
     }
@@ -94,17 +86,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
     updateTwitterTag('twitter:title', title);
     updateTwitterTag('twitter:description', description);
     updateTwitterTag('twitter:image', ogImage);
-    updateTwitterTag('twitter:image:alt', `${title} - Logo Aerion Technologies`);
-
-    // Adicionar/atualizar meta tag robots
-    let metaRobots = document.querySelector('meta[name="robots"]');
-    if (!metaRobots) {
-      metaRobots = document.createElement('meta');
-      metaRobots.setAttribute('name', 'robots');
-      document.head.appendChild(metaRobots);
-    }
-    metaRobots.setAttribute('content', noindex ? 'noindex, nofollow' : 'index, follow');
-  }, [title, description, keywords, canonical, ogType, ogImage, noindex]);
+  }, [title, description, keywords, canonical, ogType, ogImage]);
 
   return null;
 };

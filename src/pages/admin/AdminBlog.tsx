@@ -125,20 +125,33 @@ const AdminBlog = () => {
       }
     }
 
-    const tags = formData.tags ? formData.tags.split(",").map((t) => t.trim()) : [];
+    const tags = formData.tags ? formData.tags.split(",").map((t) => t.trim()).filter((t) => t.length > 0) : [];
 
     try {
       if (editingPost) {
-        const { error } = await supabase
+        // Construir objeto de update explicitamente, sem spread do formData
+        const updateData = {
+          title: formData.title,
+          slug: formData.slug,
+          excerpt: formData.excerpt,
+          content: formData.content,
+          cover_image: formData.cover_image || null,
+          category: formData.category || null,
+          tags: tags.length > 0 ? tags : null,
+          published: formData.published,
+          published_at: formData.published ? new Date().toISOString() : null,
+        };
+
+        const { error, data } = await supabase
           .from("blog_posts")
-          .update({
-            ...formData,
-            tags,
-            published_at: formData.published ? new Date().toISOString() : null,
-          })
-          .eq("id", editingPost.id);
+          .update(updateData)
+          .eq("id", editingPost.id)
+          .select();
 
         if (error) {
+          console.error("Error saving post:", error);
+          console.error("Error details:", JSON.stringify(error, null, 2));
+          console.error("Update data:", JSON.stringify(updateData, null, 2));
           throw error;
         }
         toast({
@@ -146,14 +159,29 @@ const AdminBlog = () => {
           description: `Post "${formData.title}" atualizado com sucesso.`,
         });
       } else {
-        const { error } = await supabase.from("blog_posts").insert({
-          ...formData,
-          tags,
-          author_id: user!.id,
+        // Construir objeto de insert explicitamente
+        const insertData = {
+          title: formData.title,
+          slug: formData.slug,
+          excerpt: formData.excerpt,
+          content: formData.content,
+          cover_image: formData.cover_image || null,
+          category: formData.category || null,
+          tags: tags.length > 0 ? tags : null,
+          published: formData.published,
           published_at: formData.published ? new Date().toISOString() : null,
-        });
+          author_id: user!.id,
+        };
+
+        const { error, data } = await supabase
+          .from("blog_posts")
+          .insert(insertData)
+          .select();
 
         if (error) {
+          console.error("Error saving post:", error);
+          console.error("Error details:", JSON.stringify(error, null, 2));
+          console.error("Insert data:", JSON.stringify(insertData, null, 2));
           throw error;
         }
         toast({
@@ -165,9 +193,13 @@ const AdminBlog = () => {
       fetchPosts();
     } catch (error: any) {
       console.error("Error saving post:", error);
+      console.error("Error details:", JSON.stringify(error, null, 2));
+      console.error("Error code:", error.code);
+      console.error("Error message:", error.message);
+      console.error("Error hint:", error.hint);
       toast({
         title: "Erro ao salvar post",
-        description: error.message || "Não foi possível salvar o post. Verifique os dados e tente novamente.",
+        description: error.message || error.hint || "Não foi possível salvar o post. Verifique os dados e tente novamente.",
         variant: "destructive",
       });
     } finally {
