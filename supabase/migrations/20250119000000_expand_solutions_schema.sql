@@ -28,3 +28,4 @@ COMMENT ON COLUMN public.solutions.theme_colors IS 'Theme colors: {primary, seco
 
 
 
+

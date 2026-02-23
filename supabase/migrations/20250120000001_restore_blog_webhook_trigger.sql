@@ -1,7 +1,8 @@
--- Migration: Webhook trigger para rebuild automático quando posts são publicados
--- Este trigger chama o webhook do Easypanel quando um post do blog é publicado ou atualizado
+-- Migration: Restaurar o trigger de webhook do blog ao estado original
+-- O trigger foi temporariamente desabilitado devido a problemas de timeout
+-- Agora que o problema foi resolvido (compressão de imagens), o trigger pode ser restaurado
 
--- Função para chamar webhook HTTP
+-- Restaurar a função original do webhook
 CREATE OR REPLACE FUNCTION public.call_deploy_webhook()
 RETURNS TRIGGER
 LANGUAGE plpgsql
@@ -39,7 +40,7 @@ BEGIN
 END;
 $$;
 
--- Trigger que executa quando um post é inserido ou atualizado
+-- Recriar o trigger
 CREATE TRIGGER blog_post_deploy_webhook
   AFTER INSERT OR UPDATE OF published, slug, title, content
   ON public.blog_posts
@@ -55,18 +56,5 @@ Configure webhook via Supabase Dashboard > Database > Webhooks ou use Edge Funct
 
 COMMENT ON TRIGGER blog_post_deploy_webhook ON public.blog_posts IS 
 'Trigger que dispara quando um post é publicado ou atualizado para chamar webhook de deploy.';
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

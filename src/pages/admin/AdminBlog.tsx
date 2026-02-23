@@ -142,11 +142,11 @@ const AdminBlog = () => {
           published_at: formData.published ? new Date().toISOString() : null,
         };
 
-        const { error, data } = await supabase
+        // Não usar .select() para evitar overhead e possíveis timeouts
+        const { error } = await supabase
           .from("blog_posts")
           .update(updateData)
-          .eq("id", editingPost.id)
-          .select();
+          .eq("id", editingPost.id);
 
         if (error) {
           console.error("Error saving post:", error);
@@ -173,10 +173,10 @@ const AdminBlog = () => {
           author_id: user!.id,
         };
 
-        const { error, data } = await supabase
+        // Não usar .select() para evitar overhead e possíveis timeouts
+        const { error } = await supabase
           .from("blog_posts")
-          .insert(insertData)
-          .select();
+          .insert(insertData);
 
         if (error) {
           console.error("Error saving post:", error);
@@ -260,6 +260,67 @@ const AdminBlog = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  // Função para comprimir e redimensionar imagem
+  const compressImage = (file: File, maxWidth: number = 1920, maxHeight: number = 1080, quality: number = 0.85): Promise<File> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (event) => {
+        const img = new Image();
+        img.src = event.target?.result as string;
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          let width = img.width;
+          let height = img.height;
+
+          // Calcular novas dimensões mantendo proporção
+          if (width > height) {
+            if (width > maxWidth) {
+              height = (height * maxWidth) / width;
+              width = maxWidth;
+            }
+          } else {
+            if (height > maxHeight) {
+              width = (width * maxHeight) / height;
+              height = maxHeight;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+
+          const ctx = canvas.getContext('2d');
+          if (!ctx) {
+            reject(new Error('Não foi possível criar contexto do canvas'));
+            return;
+          }
+
+          // Desenhar imagem redimensionada
+          ctx.drawImage(img, 0, 0, width, height);
+
+          // Converter para blob e depois para File
+          canvas.toBlob(
+            (blob) => {
+              if (!blob) {
+                reject(new Error('Falha ao comprimir imagem'));
+                return;
+              }
+              const compressedFile = new File([blob], file.name, {
+                type: 'image/jpeg',
+                lastModified: Date.now(),
+              });
+              resolve(compressedFile);
+            },
+            'image/jpeg',
+            quality
+          );
+        };
+        img.onerror = () => reject(new Error('Erro ao carregar imagem'));
+      };
+      reader.onerror = () => reject(new Error('Erro ao ler arquivo'));
+    });
+  };
+
   const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -275,12 +336,12 @@ const AdminBlog = () => {
       return;
     }
 
-    // Validação de tamanho (20MB máximo)
-    const maxSize = 20 * 1024 * 1024; // 20MB
+    // Validação de tamanho (5MB máximo antes da compressão)
+    const maxSize = 5 * 1024 * 1024; // 5MB
     if (file.size > maxSize) {
       toast({
         title: "Erro",
-        description: "Arquivo muito grande. Tamanho máximo: 20MB.",
+        description: "Arquivo muito grande. Tamanho máximo: 5MB. Por favor, use uma imagem menor ou comprima antes de enviar.",
         variant: "destructive",
       });
       return;
@@ -289,14 +350,32 @@ const AdminBlog = () => {
     setUploading(true);
 
     try {
+      // Comprimir imagem antes do upload
+      let fileToUpload = file;
+      
+      // Se a imagem for maior que 1MB, comprimir
+      if (file.size > 1024 * 1024) {
+        toast({
+          title: "Comprimindo imagem...",
+          description: "Aguarde enquanto a imagem é otimizada.",
+        });
+        fileToUpload = await compressImage(file, 1920, 1080, 0.85);
+        
+        // Verificar se após compressão ainda está muito grande (mais de 2MB)
+        if (fileToUpload.size > 2 * 1024 * 1024) {
+          // Comprimir mais agressivamente
+          fileToUpload = await compressImage(file, 1600, 900, 0.75);
+        }
+      }
+
       // Gerar nome único para o arquivo
-      const fileExt = file.name.split('.').pop();
+      const fileExt = 'jpg'; // Sempre usar JPG após compressão
       const fileName = `blog/cover-images/${Date.now()}-${Math.random().toString(36).substring(2, 15)}.${fileExt}`;
 
       // Upload para Supabase Storage
       const { data: uploadData, error: uploadError } = await supabase.storage
         .from(STORAGE_BUCKET)
-        .upload(fileName, file, {
+        .upload(fileName, fileToUpload, {
           cacheControl: '3600',
           upsert: false
         });
@@ -314,9 +393,12 @@ const AdminBlog = () => {
       setFormData({ ...formData, cover_image: publicUrl });
       setImagePreview(publicUrl);
 
+      const originalSizeMB = (file.size / (1024 * 1024)).toFixed(2);
+      const compressedSizeMB = (fileToUpload.size / (1024 * 1024)).toFixed(2);
+      
       toast({
         title: "Sucesso!",
-        description: "Imagem enviada com sucesso.",
+        description: `Imagem enviada com sucesso. ${file.size !== fileToUpload.size ? `Tamanho reduzido de ${originalSizeMB}MB para ${compressedSizeMB}MB.` : ''}`,
       });
     } catch (error: any) {
       console.error('Error uploading image:', error);
@@ -535,7 +617,7 @@ const AdminBlog = () => {
                             <p className="mb-2 text-sm text-gray-600">
                               <span className="font-semibold">Clique para fazer upload</span> ou arraste e solte
                             </p>
-                            <p className="text-xs text-gray-500">PNG, JPG, GIF ou WebP (máx. 20MB)</p>
+                            <p className="text-xs text-gray-500">PNG, JPG, GIF ou WebP (máx. 5MB - será comprimida automaticamente)</p>
                           </>
                         )}
                       </div>

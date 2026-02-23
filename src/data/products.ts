@@ -88,7 +88,7 @@ export const productFamilies: ProductFamily[] = [
       commercial: {
         "NCM": "8806.22.00",
         "IPI": "13%",
-        "Origem": "China",
+        "Origem": "Vietnã",
         "PIS": "1,65%",
         "COFINS": "7,60%",
         "GTIN EVO Lite 6K Enterprise (Tela 6.0\")": "6924991132738",
@@ -538,7 +538,7 @@ export const productFamilies: ProductFamily[] = [
       commercial: {
         "NCM": "8806.22.00",
         "IPI": "13%",
-        "Origem": "China",
+        "Origem": "Vietnã",
         "PIS": "1,65%",
         "COFINS": "7,60%",
         "GTIN EVO Max 4T V2": "889520203920",
@@ -1097,7 +1097,7 @@ export const productFamilies: ProductFamily[] = [
       commercial: {
         "NCM": "8806.22.00",
         "IPI": "13%",
-        "Origem": "China",
+        "Origem": "Vietnã",
         "PIS": "1,65%",
         "COFINS": "7,60%",
         "GTIN Autel Alpha": "889520206136"

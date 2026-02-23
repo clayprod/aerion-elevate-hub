@@ -40,3 +40,4 @@ COMMENT ON COLUMN public.product_variants.image_path IS 'Path to folder with num
 
 
 
+
