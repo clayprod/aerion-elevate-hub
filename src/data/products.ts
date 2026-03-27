@@ -122,6 +122,11 @@ export const productFamilies: ProductFamily[] = [
     ],
     videos: [
       {
+        title: "EVO Lite Enterprise - Unboxing",
+        description: "Unboxing completo do EVO Lite Enterprise",
+        youtubeId: "8Hzbqc3CTcg"
+      },
+      {
         title: "EVO Lite Enterprise - Demonstração Completa",
         description: "Conheça todas as funcionalidades do EVO Lite Enterprise em ação",
         youtubeId: "1MwBSeCUb7w"
