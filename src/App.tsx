@@ -27,6 +27,7 @@ import AutelAlpha from "./pages/products/AutelAlpha";
 import EvoLiteEnterprise from "./pages/products/EvoLiteEnterprise";
 import EvoMaxV2 from "./pages/products/EvoMaxV2";
 import AutelMapper from "./pages/products/AutelMapper";
+import EvoNest from "./pages/products/EvoNest";
 import SolutionRouteHandler from "./components/SolutionRouteHandler";
 
 // Rotas admin - lazy loaded (menos acessadas)
@@ -79,6 +80,7 @@ const App = () => {
               <Route path="/produtos/evo-max-v2" element={<StaticPageWrapper><EvoMaxV2 /></StaticPageWrapper>} />
               <Route path="/produtos/autel-alpha" element={<StaticPageWrapper><AutelAlpha /></StaticPageWrapper>} />
               <Route path="/produtos/autel-mapper" element={<StaticPageWrapper><AutelMapper /></StaticPageWrapper>} />
+              <Route path="/produtos/evo-nest" element={<StaticPageWrapper><EvoNest /></StaticPageWrapper>} />
               <Route path="/solucoes" element={<StaticPageWrapper><Solucoes /></StaticPageWrapper>} />
               <Route path="/solucoes/:slug" element={<StaticPageWrapper><SolutionRouteHandler /></StaticPageWrapper>} />
               <Route path="/sobre" element={<StaticPageWrapper><Sobre /></StaticPageWrapper>} />

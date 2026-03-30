@@ -131,6 +131,25 @@ export const keywordsConfig: KeywordsConfig = {
     'georreferenciamento drone',
   ],
 
+  // EVO Nest
+  '/produtos/evo-nest': [
+    'evo nest',
+    'estação de pouso drone',
+    'drone dock station',
+    'carregamento automático drone',
+    'base autônoma drone',
+    'drone nest',
+    'autel nest',
+    'operações remotas drone',
+    'drone-in-a-box',
+    'estação drone autônoma',
+    'pouso automático drone',
+    'drone profissional',
+    'AICS autel',
+    'drone patrulha autônoma',
+    'vigilância drone autônoma',
+  ],
+
   // Soluções - Listagem geral
   '/solucoes': [
     'soluções drones',

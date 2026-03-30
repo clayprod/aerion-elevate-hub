@@ -1415,6 +1415,153 @@ export const productFamilies: ProductFamily[] = [
         link: "/solucoes/construcao"
       }
     ]
+  },
+  {
+    id: "evo-nest",
+    name: "EVO Nest",
+    slug: "evo-nest",
+    description: "Confiável, durável e transportável, o EVO Nest é uma base para decolagem, pouso, carregamento e planejamento de missões automáticos para a série EVO. O Nest é projetado para operação em todas as condições climáticas e usa um tambor protetor de peça única com menos partes móveis para simplificar a manutenção. O Nest cabe na caçamba de uma picape padrão e é leve o suficiente para ser carregado por 2 pessoas. Pareado com o Sistema de Comando Integrado Autel (AICS) para gerenciamento centralizado de drones, o Nest é fácil de configurar, manter e operar.",
+    youtubeVideoId: undefined,
+    fallbackImage: "/images/products/evo_nest/20240822-193854.jpg",
+    brochure: "/downloads/EVO_Nest_Brochure.pdf",
+    productCodes: {
+      sku: "EVO-NEST",
+      ean: "A definir",
+      ncm: "8479.89.99"
+    },
+    keyFeatures: [
+      "Deploy rápido - pronto para operação em minutos",
+      "Alcance operacional de 7 km para missões remotas",
+      "Carregamento rápido: 10% a 90% em 25 minutos",
+      "Performance em todas as condições climáticas (-30°C a 50°C)",
+      "Design compacto tipo tambor com menos peças móveis",
+      "Peso de 59 kg - transportável por 2 pessoas",
+      "Classificação IP55 para proteção contra intempéries",
+      "Criptografia AES-256 para segurança de dados",
+      "Ciclo de vida: ≥50.000 aberturas"
+    ],
+    technicalData: {
+      cadastral: {
+        "Produto": "Estação de Pouso Autônomo",
+        "Código": "EVO-NEST",
+        "Categoria": "Infraestrutura para Drones",
+        "Fabricante": "Autel Robotics"
+      },
+      commercial: {
+        "NCM": "8479.89.99",
+        "Origem": "China"
+      },
+      logistics: {
+        dimensions: "93,40 × 64,11 × 77,50 cm (Fechado)",
+        weight: "59 kg",
+        cubagem: "0.46 m³",
+        packaging: "Embalagem industrial reforçada"
+      }
+    },
+    components: [
+      "EVO Nest (estação base)",
+      "Sistema de carregamento automático",
+      "Sensores meteorológicos integrados",
+      "Sistema de controle térmico",
+      "Antenas de comunicação",
+      "Painel de controle",
+      "Cabos e conectores",
+      "Manual de instalação"
+    ],
+    accessoriesIncluded: [
+      "Kit de instalação completo",
+      "Ferramentas de montagem",
+      "Cabos de energia",
+      "Cabos de comunicação",
+      "Manual técnico",
+      "Certificado de garantia"
+    ],
+    videos: [],
+    photoGallery: {
+      product: [
+        "/images/products/evo_nest/20240822-193854.jpg",
+        "/images/products/evo_nest/20240827-092244.png",
+        "/images/products/evo_nest/20240827-092306.png",
+        "/images/products/evo_nest/20240827-092358.png",
+        "/images/products/evo_nest/Charge.png"
+      ],
+      lifestyle: [],
+      details: [
+        "/images/products/evo_nest/Charge.png"
+      ]
+    },
+    variants: [
+      {
+        id: "standard",
+        name: "EVO Nest Standard",
+        description: "Estação de pouso autônomo para drones da série EVO com carregamento rápido e operação em todas as condições climáticas",
+        imagePath: "/images/products/evo_nest",
+        specs: {
+          "DIMENSÕES E PESO": {
+            "Dimensões (Fechado)": "93,40 × 64,11 × 77,50 cm",
+            "Dimensões (Aberto)": "93,40 × 64,11 × 54,79 cm",
+            "Peso": "59 kg"
+          },
+          "PROTEÇÃO E AMBIENTE": {
+            "Nível de Proteção": "IP55",
+            "Temperatura de operação": "-30°C a 50°C",
+            "Umidade de operação": "95 ± 3% (20°C - 30°C)",
+            "Altitude de Operação": "3100 m"
+          },
+          "ENERGIA": {
+            "Potência Máxima": "1200W ~ 2000W",
+            "Potência em Stand-by": "10W",
+            "Tensão de Operação": "AC 110V / 220V",
+            "Corrente Máxima": "16A"
+          },
+          "DESEMPENHO": {
+            "Duração da recarga": "10% ~ 90% em 25 min",
+            "Ciclo de vida": "≥50.000 aberturas",
+            "Modelo compatível": "EVO Max Series",
+            "Conectividade": "Com fio, 4G, 5G",
+            "Criptografia": "AES-256"
+          },
+          "SISTEMA": {
+            "Software de comando": "Autel Integrated Command System (AICS)",
+            "Capacidade de rede": "Múltiplos Nests em rede",
+            "Transmissão de imagem": "Criptografada em tempo real",
+            "Operação": "Autônoma, Semi-autônoma, Pilotagem remota"
+          }
+        }
+      }
+    ],
+    gallery: [
+      "/images/products/evo_nest/20240822-193854.jpg",
+      "/images/products/evo_nest/20240827-092244.png"
+    ],
+    lifestyleImages: [],
+    accessories: [],
+    applications: [
+      {
+        title: "Segurança Pública",
+        description: "Patrulhamento autônomo, vigilância de perímetros, resposta a emergências",
+        image: "/images/lifestyle/public-safety-1-alpha.jpg",
+        link: "/solucoes/seguranca"
+      },
+      {
+        title: "Infraestrutura",
+        description: "Inspeção de linhas de transmissão, oleodutos, rodovias e ferrovias",
+        image: "/images/lifestyle/oil-and-gas-1.jpg",
+        link: "/solucoes/industrial"
+      },
+      {
+        title: "Monitoramento Ambiental",
+        description: "Vigilância de áreas florestais, detecção de incêndios, monitoramento de fauna",
+        image: "/images/lifestyle/environment-1.jpg",
+        link: "/solucoes/meio-ambiente"
+      },
+      {
+        title: "Operações Portuárias",
+        description: "Monitoramento de terminais, vigilância marítima, controle de tráfego",
+        image: "/images/lifestyle/maritime-1.jpg",
+        link: "/solucoes/maritimo"
+      }
+    ]
   }
 ];
 

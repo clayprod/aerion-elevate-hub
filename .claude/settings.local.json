@@ -1,7 +1,16 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git push)"
+      "Bash(git push)",
+      "Bash(where:*)",
+      "Bash(npx --version)",
+      "Bash(curl:*)",
+      "Bash(npx sharp-cli:*)",
+      "Bash(npm run build:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx vite build)",
+      "Bash(./node_modules/.bin/vite build:*)",
+      "Bash(node:*)"
     ]
   }
 }
