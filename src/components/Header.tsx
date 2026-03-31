@@ -30,6 +30,7 @@ const Header = () => {
         { name: "EVO Lite Enterprise", path: "/produtos/evo-lite-enterprise", category: "Drones" },
         { name: "EVO Max V2", path: "/produtos/evo-max-v2", category: "Drones" },
         { name: "Autel Alpha", path: "/produtos/autel-alpha", category: "Drones" },
+        { name: "EVO Nest", path: "/produtos/evo-nest", category: "Softwares" },
         { name: "Autel Mapper", path: "/produtos/autel-mapper", category: "Softwares" },
       ]
     },
