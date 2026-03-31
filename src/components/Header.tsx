@@ -30,7 +30,7 @@ const Header = () => {
         { name: "EVO Lite Enterprise", path: "/produtos/evo-lite-enterprise", category: "Drones" },
         { name: "EVO Max V2", path: "/produtos/evo-max-v2", category: "Drones" },
         { name: "Autel Alpha", path: "/produtos/autel-alpha", category: "Drones" },
-        { name: "EVO Nest", path: "/produtos/evo-nest", category: "Softwares" },
+        { name: "EVO Nest", path: "/produtos/evo-nest", category: "Docks" },
         { name: "Autel Mapper", path: "/produtos/autel-mapper", category: "Softwares" },
       ]
     },
@@ -102,6 +102,7 @@ const Header = () => {
                     <div className="py-2">
                       {(() => {
                         const drones = link.dropdown.filter(item => item.category === "Drones");
+                        const docks = link.dropdown.filter(item => item.category === "Docks");
                         const softwares = link.dropdown.filter(item => item.category === "Softwares");
                         const uncategorized = link.dropdown.filter(item => !item.category);
                         
@@ -123,9 +124,26 @@ const Header = () => {
                                 ))}
                               </>
                             )}
-                            {softwares.length > 0 && (
+                            {docks.length > 0 && (
                               <>
                                 {drones.length > 0 && <div className="border-t border-gray-200 my-1" />}
+                                <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                                  Docks
+                                </div>
+                                {docks.map((dropdownLink) => (
+                                  <Link
+                                    key={dropdownLink.path}
+                                    to={dropdownLink.path}
+                                    className="block px-4 py-2 text-sm text-gray-dark hover:text-blue-medium hover:bg-blue-medium/5 transition-colors"
+                                  >
+                                    {dropdownLink.name}
+                                  </Link>
+                                ))}
+                              </>
+                            )}
+                            {softwares.length > 0 && (
+                              <>
+                                {(drones.length > 0 || docks.length > 0) && <div className="border-t border-gray-200 my-1" />}
                                 <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
                                   Softwares
                                 </div>
@@ -142,7 +160,7 @@ const Header = () => {
                             )}
                             {uncategorized.length > 0 && (
                               <>
-                                {(drones.length > 0 || softwares.length > 0) && <div className="border-t border-gray-200 my-1" />}
+                                {(drones.length > 0 || docks.length > 0 || softwares.length > 0) && <div className="border-t border-gray-200 my-1" />}
                                 {uncategorized.map((dropdownLink) => (
                                   <Link
                                     key={dropdownLink.path}
@@ -240,6 +258,7 @@ const Header = () => {
                         <div className="pl-4 space-y-1 mt-2">
                           {(() => {
                             const drones = link.dropdown.filter(item => item.category === "Drones");
+                            const docks = link.dropdown.filter(item => item.category === "Docks");
                             const softwares = link.dropdown.filter(item => item.category === "Softwares");
                             const uncategorized = link.dropdown.filter(item => !item.category);
                             
@@ -265,9 +284,30 @@ const Header = () => {
                                     ))}
                                   </>
                                 )}
-                                {softwares.length > 0 && (
+                                {docks.length > 0 && (
                                   <>
                                     {drones.length > 0 && <div className="border-t border-gray-200 my-1" />}
+                                    <div className="px-2 py-1 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                                      Docks
+                                    </div>
+                                    {docks.map((dropdownLink) => (
+                                      <Link
+                                        key={dropdownLink.path}
+                                        to={dropdownLink.path}
+                                        onClick={() => {
+                                          setIsMobileMenuOpen(false);
+                                          setOpenMobileDropdown(null);
+                                        }}
+                                        className="block py-2 text-sm text-gray-dark hover:text-blue-medium"
+                                      >
+                                        {dropdownLink.name}
+                                      </Link>
+                                    ))}
+                                  </>
+                                )}
+                                {softwares.length > 0 && (
+                                  <>
+                                    {(drones.length > 0 || docks.length > 0) && <div className="border-t border-gray-200 my-1" />}
                                     <div className="px-2 py-1 text-xs font-semibold text-gray-500 uppercase tracking-wider">
                                       Softwares
                                     </div>
@@ -288,7 +328,7 @@ const Header = () => {
                                 )}
                                 {uncategorized.length > 0 && (
                                   <>
-                                    {(drones.length > 0 || softwares.length > 0) && <div className="border-t border-gray-200 my-1" />}
+                                    {(drones.length > 0 || docks.length > 0 || softwares.length > 0) && <div className="border-t border-gray-200 my-1" />}
                                     {uncategorized.map((dropdownLink) => (
                                       <Link
                                         key={dropdownLink.path}
