@@ -52,7 +52,7 @@ const Produtos = () => {
   };
 
   // Fallback hardcoded caso não haja produtos no banco
-  const fallbackProducts = [
+  const fallbackProducts: Product[] = [
     {
       id: "evo-lite-enterprise",
       name: "EVO Lite Enterprise",
@@ -99,21 +99,6 @@ const Produtos = () => {
       order_index: 3,
     },
     {
-      id: "autel-mapper",
-      name: "Autel Mapper",
-      slug: "autel-mapper",
-      short_description: "Mapeamento Profissional com Deep Learning",
-      description: "Software profissional de reconstrução 2D e 3D com processamento em nuvem ou local, utilizando deep learning para resultados altamente precisos. Processamento rápido e preciso para mapeamento, topografia e inspeções.",
-      features: [
-        "Reconstrução 2D e 3D com precisão centimétrica (1:500)",
-        "Processamento rápido com algoritmos de deep learning",
-        "Suporte para processamento local ou em nuvem",
-        "Compatível com drones Autel e múltiplos formatos de saída",
-      ],
-      image_url: "/images/products/mapper/autel-mapper.png",
-      order_index: 4,
-    },
-    {
       id: "evo-nest",
       name: "EVO Nest",
       slug: "evo-nest",
@@ -126,11 +111,46 @@ const Produtos = () => {
         "Integração com AICS para gerenciamento centralizado de drones",
       ],
       image_url: "/images/products/evo_nest/weather-resistant.webp",
+      order_index: 4,
+    },
+    {
+      id: "autel-mapper",
+      name: "Autel Mapper",
+      slug: "autel-mapper",
+      short_description: "Mapeamento Profissional com Deep Learning",
+      description: "Software profissional de reconstrução 2D e 3D com processamento em nuvem ou local, utilizando deep learning para resultados altamente precisos. Processamento rápido e preciso para mapeamento, topografia e inspeções.",
+      features: [
+        "Reconstrução 2D e 3D com precisão centimétrica (1:500)",
+        "Processamento rápido com algoritmos de deep learning",
+        "Suporte para processamento local ou em nuvem",
+        "Compatível com drones Autel e múltiplos formatos de saída",
+      ],
+      image_url: "/images/products/mapper/autel-mapper.png",
       order_index: 5,
     },
   ];
 
-  const displayProducts = products.length > 0 ? products : fallbackProducts;
+  const sourceProducts = products.length > 0 ? products : fallbackProducts;
+  const preferredOrder = [
+    "evo-lite-enterprise",
+    "evo-max-v2",
+    "autel-alpha",
+    "evo-nest",
+    "autel-mapper",
+  ];
+
+  const sourceBySlug = new Map(sourceProducts.map((product) => [product.slug, product]));
+  const fallbackBySlug = new Map(fallbackProducts.map((product) => [product.slug, product]));
+
+  const orderedProducts = preferredOrder
+    .map((slug) => sourceBySlug.get(slug) || fallbackBySlug.get(slug))
+    .filter((product): product is Product => Boolean(product));
+
+  const extraProducts = sourceProducts
+    .filter((product) => !preferredOrder.includes(product.slug))
+    .sort((a, b) => (a.order_index ?? Number.MAX_SAFE_INTEGER) - (b.order_index ?? Number.MAX_SAFE_INTEGER));
+
+  const displayProducts = [...orderedProducts, ...extraProducts];
 
   return (
     <div className="min-h-screen">
