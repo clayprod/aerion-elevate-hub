@@ -1423,7 +1423,7 @@ export const productFamilies: ProductFamily[] = [
     description: "Confiável, durável e transportável, o EVO Nest é uma base para decolagem, pouso, carregamento e planejamento de missões automáticos para a série EVO. O Nest é projetado para operação em todas as condições climáticas e usa um tambor protetor de peça única com menos partes móveis para simplificar a manutenção. O Nest cabe na caçamba de uma picape padrão e é leve o suficiente para ser carregado por 2 pessoas. Pareado com o Sistema de Comando Integrado Autel (AICS) para gerenciamento centralizado de drones, o Nest é fácil de configurar, manter e operar.",
     youtubeVideoId: undefined,
     fallbackImage: "/images/products/evo_nest/weather-resistant.webp",
-    brochure: "/downloads/EVO_Nest_Brochure.pdf",
+    brochure: "/downloads/Brochure_Autel_EvoNest.pdf",
     productCodes: {
       sku: "EVO-NEST",
       ean: "A definir",
