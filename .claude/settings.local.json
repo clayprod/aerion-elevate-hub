@@ -10,7 +10,9 @@
       "Bash(npx tsc:*)",
       "Bash(npx vite build)",
       "Bash(./node_modules/.bin/vite build:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(sort:*)",
+      "WebFetch(domain:www.youtube.com)"
     ]
   }
 }

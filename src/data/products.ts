@@ -1422,12 +1422,12 @@ export const productFamilies: ProductFamily[] = [
     slug: "evo-nest",
     description: "Confiável, durável e transportável, o EVO Nest é uma base para decolagem, pouso, carregamento e planejamento de missões automáticos para a série EVO. O Nest é projetado para operação em todas as condições climáticas e usa um tambor protetor de peça única com menos partes móveis para simplificar a manutenção. O Nest cabe na caçamba de uma picape padrão e é leve o suficiente para ser carregado por 2 pessoas. Pareado com o Sistema de Comando Integrado Autel (AICS) para gerenciamento centralizado de drones, o Nest é fácil de configurar, manter e operar.",
     youtubeVideoId: undefined,
-    fallbackImage: "/images/products/evo_nest/20240822-193854.jpg",
+    fallbackImage: "/images/products/evo_nest/weather-resistant.webp",
     brochure: "/downloads/EVO_Nest_Brochure.pdf",
     productCodes: {
       sku: "EVO-NEST",
       ean: "A definir",
-      ncm: "8479.89.99"
+      ncm: "8517.62.77"
     },
     keyFeatures: [
       "Deploy rápido - pronto para operação em minutos",
@@ -1448,7 +1448,7 @@ export const productFamilies: ProductFamily[] = [
         "Fabricante": "Autel Robotics"
       },
       commercial: {
-        "NCM": "8479.89.99",
+        "NCM": "8517.62.77",
         "Origem": "China"
       },
       logistics: {
@@ -1459,35 +1459,38 @@ export const productFamilies: ProductFamily[] = [
       }
     },
     components: [
-      "EVO Nest (estação base)",
-      "Sistema de carregamento automático",
-      "Sensores meteorológicos integrados",
-      "Sistema de controle térmico",
-      "Antenas de comunicação",
-      "Painel de controle",
-      "Cabos e conectores",
-      "Manual de instalação"
+      "Nest — 1 pc",
+      "Poste de monitoramento climático (câmera de vigilância, sensor de temperatura e umidade, sensor mecânico de velocidade do vento e sensor de chuva) — 1 pc",
+      "Placa de fundação do Nest (parafuso de expansão M12×120) — 4 pcs",
+      "Cabo de alimentação do Nest — 1 pc",
+      "Kit de ferramentas de manutenção (chave inglesa 19 mm, chave sextavada 5 mm, chave Allen S2) — 1 conjunto",
+      "Screw pack (kit de parafusos) — 1 conjunto"
     ],
     accessoriesIncluded: [
-      "Kit de instalação completo",
-      "Ferramentas de montagem",
-      "Cabos de energia",
-      "Cabos de comunicação",
-      "Manual técnico",
-      "Certificado de garantia"
+      "Chave triangular — 1 pc",
+      "Lista de produtos — 1 pc",
+      "Diretrizes de segurança — 1 pc",
+      "Guia rápido de instalação — 1 pc",
+      "Certificado do produto — 1 pc"
     ],
-    videos: [],
+    videos: [
+      {
+        title: "EVO Nest - Sistema de Operações Remotas",
+        description: "Conheça o EVO Nest: estação de pouso e carregamento autônomo para drones da série EVO",
+        youtubeId: "oPMYMi9qiEA"
+      }
+    ],
     photoGallery: {
       product: [
-        "/images/products/evo_nest/20240822-193854.jpg",
-        "/images/products/evo_nest/20240827-092244.png",
-        "/images/products/evo_nest/20240827-092306.png",
-        "/images/products/evo_nest/20240827-092358.png",
-        "/images/products/evo_nest/Charge.png"
+        "/images/products/evo_nest/weather-resistant.webp",
+        "/images/products/evo_nest/product-main.webp",
+        "/images/products/evo_nest/autonomous-system.webp",
+        "/images/products/evo_nest/transportable.webp",
+        "/images/products/evo_nest/charge.webp"
       ],
       lifestyle: [],
       details: [
-        "/images/products/evo_nest/Charge.png"
+        "/images/products/evo_nest/charge.webp"
       ]
     },
     variants: [
@@ -1531,8 +1534,8 @@ export const productFamilies: ProductFamily[] = [
       }
     ],
     gallery: [
-      "/images/products/evo_nest/20240822-193854.jpg",
-      "/images/products/evo_nest/20240827-092244.png"
+      "/images/products/evo_nest/product-main.webp",
+      "/images/products/evo_nest/autonomous-system.webp"
     ],
     lifestyleImages: [],
     accessories: [],

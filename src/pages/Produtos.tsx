@@ -113,6 +113,21 @@ const Produtos = () => {
       image_url: "/images/products/mapper/autel-mapper.png",
       order_index: 4,
     },
+    {
+      id: "evo-nest",
+      name: "EVO Nest",
+      slug: "evo-nest",
+      short_description: "Estação de Pouso e Carregamento Autônomo",
+      description: "Base autônoma para decolagem, pouso, carregamento e planejamento de missões para a série EVO. Design compacto tipo tambor com proteção IP55, operação em todas as condições climáticas e integração com o Sistema de Comando Integrado Autel (AICS).",
+      features: [
+        "Carregamento rápido: 10% a 90% em 25 minutos",
+        "Operação em temperaturas de -30°C a 50°C com proteção IP55",
+        "Peso de apenas 59 kg - transportável por 2 pessoas",
+        "Integração com AICS para gerenciamento centralizado de drones",
+      ],
+      image_url: "/images/products/evo_nest/weather-resistant.webp",
+      order_index: 5,
+    },
   ];
 
   const displayProducts = products.length > 0 ? products : fallbackProducts;
@@ -228,11 +243,12 @@ const Produtos = () => {
                 ))}
               </div>
 
-              {/* Autel Mapper - Linha separada */}
-              {displayProducts.slice(3).map((product, index) => (
-                <div key={product.id} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  <div>
+              {/* Software e Infraestrutura - Segunda linha */}
+              {displayProducts.length > 3 && (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {displayProducts.slice(3).map((product, index) => (
                     <Card
+                      key={product.id}
                       className="group hover:shadow-xl transition-all duration-300 overflow-hidden animate-fade-in bg-white border-2"
                       style={{ animationDelay: `${(index + 3) * 0.1}s` }}
                     >
@@ -303,9 +319,9 @@ const Produtos = () => {
                         </div>
                       </Link>
                     </Card>
-                  </div>
+                  ))}
                 </div>
-              ))}
+              )}
             </>
           )}
         </div>

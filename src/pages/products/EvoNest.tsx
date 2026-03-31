@@ -180,14 +180,6 @@ const EvoNest: React.FC = () => {
     }
   ];
 
-  const aiRecognitionTargets = [
-    { icon: Eye, label: 'Pessoas' },
-    { icon: Truck, label: 'Veículos' },
-    { icon: Target, label: 'Embarcações' },
-    { icon: CloudSun, label: 'Fumaça' },
-    { icon: Thermometer, label: 'Fogo' }
-  ];
-
   const weatherFeatures = [
     {
       icon: Thermometer,
@@ -254,12 +246,14 @@ const EvoNest: React.FC = () => {
               className="absolute inset-0 bg-cover bg-[center_left_30%] md:bg-center"
               style={{ backgroundImage: "url('/images/products/evo_nest/banner.webp')" }}
             />
-            <div className="absolute inset-0 bg-gradient-to-l from-black/80 via-black/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-l from-black/95 via-black/70 to-black/30" />
             <div className="relative z-10 h-full min-h-[500px] md:min-h-[600px] flex flex-col justify-center items-end px-6 py-16 sm:px-10 lg:px-16">
               <div className="max-w-xl text-right">
-                <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight">
-                  EVO Nest
-                </h2>
+                <img
+                  src="/images/products/evo_nest/evo-nest-logo.png"
+                  alt="EVO Nest"
+                  className="h-16 sm:h-20 lg:h-24 w-auto ml-auto"
+                />
                 <p className="mt-4 text-xl sm:text-2xl text-gray-100 font-light">
                   Simplifique operações complexas
                 </p>
@@ -358,31 +352,10 @@ const EvoNest: React.FC = () => {
             </div>
             <div className="relative overflow-hidden rounded-3xl shadow-xl">
               <img
-                src="/images/products/evo_nest/20240827-092244.png"
+                src="/images/products/evo_nest/autonomous-system.webp"
                 alt="EVO Nest Sistema Autônomo"
                 className="w-full h-full object-cover"
               />
-            </div>
-          </div>
-
-          {/* AI Recognition Section */}
-          <div className="bg-navy-deep text-white rounded-3xl px-6 py-12 sm:px-10 sm:py-14 shadow-xl">
-            <div className="max-w-3xl mx-auto text-center space-y-6">
-              <h3 className="text-3xl sm:text-4xl font-semibold leading-tight">
-                Reconhecimento de Alvos por IA
-              </h3>
-              <p className="text-base sm:text-lg text-gray-200">
-                O sistema de inteligência artificial integrado identifica automaticamente diversos tipos
-                de alvos, permitindo operações de vigilância e monitoramento altamente eficientes.
-              </p>
-              <div className="flex flex-wrap justify-center gap-4 mt-8">
-                {aiRecognitionTargets.map(({ icon: Icon, label }) => (
-                  <div key={label} className="flex flex-col items-center gap-2 bg-white/10 rounded-2xl px-6 py-4">
-                    <Icon className="h-8 w-8 text-blue-400" />
-                    <span className="text-sm font-medium">{label}</span>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
 
@@ -437,90 +410,78 @@ const EvoNest: React.FC = () => {
           </div>
 
           {/* All Weather Performance */}
-          <div className="relative overflow-hidden rounded-3xl min-h-[450px] text-white shadow-xl">
-            <div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: "url('/images/products/evo_nest/all-weather.webp')" }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30" />
-            <div className="relative z-10 h-full min-h-[450px] flex flex-col justify-end px-6 pb-12 pt-10 sm:px-10 lg:px-16">
-              <div className="inline-flex items-center gap-2 bg-blue-500/20 border border-blue-400/30 rounded-full px-4 py-2 mb-4 w-fit">
-                <CloudSun className="h-5 w-5 text-blue-400" />
-                <span className="text-sm font-medium text-blue-300">All Weather Performance</span>
-              </div>
-              <h3 className="text-4xl sm:text-5xl font-bold leading-tight max-w-2xl">
+          <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+            <div className="space-y-4">
+              <h3 className="text-3xl sm:text-4xl font-semibold text-gray-900 leading-tight">
                 Performance em Todas as Condições Climáticas
               </h3>
-              <p className="mt-4 text-base sm:text-lg text-gray-200 max-w-2xl leading-relaxed">
+              <p className="text-base sm:text-lg text-gray-700">
                 O sistema meteorológico integrado do Nest fornece dados climáticos localizados para
                 operações seguras de drones remotos. A unidade de controle de temperatura industrial
                 permite que o Nest opere em temperaturas entre <strong>-30°C e 55°C</strong>.
               </p>
-              <div className="flex flex-wrap gap-4 mt-8">
-                <div className="flex items-center gap-3 bg-white/10 backdrop-blur rounded-2xl border border-white/20 px-5 py-3">
-                  <Thermometer className="h-7 w-7 text-blue-400" />
-                  <div>
-                    <div className="text-xl font-bold">-30°C a 55°C</div>
-                    <div className="text-sm text-gray-300">Faixa de operação</div>
-                  </div>
+              <div className="grid grid-cols-3 gap-4 mt-6">
+                <div className="text-center p-4 rounded-2xl bg-gray-50">
+                  <Thermometer className="h-6 w-6 mx-auto text-blue-600 mb-2" />
+                  <div className="text-lg font-bold text-gray-900">-30°C a 55°C</div>
+                  <div className="text-xs text-gray-600">Faixa de operação</div>
                 </div>
-                <div className="flex items-center gap-3 bg-white/10 backdrop-blur rounded-2xl border border-white/20 px-5 py-3">
-                  <Shield className="h-7 w-7 text-green-400" />
-                  <div>
-                    <div className="text-xl font-bold">IP55</div>
-                    <div className="text-sm text-gray-300">Proteção climática</div>
-                  </div>
+                <div className="text-center p-4 rounded-2xl bg-gray-50">
+                  <Shield className="h-6 w-6 mx-auto text-green-600 mb-2" />
+                  <div className="text-lg font-bold text-gray-900">IP55</div>
+                  <div className="text-xs text-gray-600">Proteção climática</div>
                 </div>
-                <div className="flex items-center gap-3 bg-white/10 backdrop-blur rounded-2xl border border-white/20 px-5 py-3">
-                  <Wind className="h-7 w-7 text-cyan-400" />
-                  <div>
-                    <div className="text-xl font-bold">Sensores</div>
-                    <div className="text-sm text-gray-300">Meteorológicos integrados</div>
-                  </div>
+                <div className="text-center p-4 rounded-2xl bg-gray-50">
+                  <Wind className="h-6 w-6 mx-auto text-cyan-600 mb-2" />
+                  <div className="text-lg font-bold text-gray-900">Sensores</div>
+                  <div className="text-xs text-gray-600">Meteorológicos</div>
                 </div>
               </div>
+            </div>
+            <div className="relative overflow-hidden rounded-3xl shadow-xl">
+              <img
+                src="/images/products/evo_nest/all-weather.webp"
+                alt="EVO Nest All Weather Performance"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
 
           {/* Fast Charge Section */}
-          <div className="relative overflow-hidden rounded-3xl min-h-[400px] text-white shadow-xl">
-            <div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: "url('/images/products/evo_nest/fast-charge.webp')" }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
-            <div className="relative z-10 h-full min-h-[400px] flex flex-col justify-center px-6 py-12 sm:px-10 lg:px-16">
-              <div className="max-w-xl">
-                <div className="inline-flex items-center gap-2 bg-green-500/20 border border-green-400/30 rounded-full px-4 py-2 mb-6">
-                  <Zap className="h-5 w-5 text-green-400" />
-                  <span className="text-sm font-medium text-green-300">Carregamento Ultra-Rápido</span>
+          <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+            <div className="relative overflow-hidden rounded-3xl shadow-xl order-2 lg:order-1">
+              <img
+                src="/images/products/evo_nest/fast-charge.webp"
+                alt="EVO Nest Fast Charge"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="order-1 lg:order-2 space-y-4">
+              <div className="inline-flex items-center gap-2 bg-green-100 border border-green-200 rounded-full px-4 py-2">
+                <Zap className="h-5 w-5 text-green-600" />
+                <span className="text-sm font-medium text-green-700">Carregamento Ultra-Rápido</span>
+              </div>
+              <h3 className="text-3xl sm:text-4xl font-semibold text-gray-900 leading-tight">
+                Fast Charge
+              </h3>
+              <p className="text-base sm:text-lg text-gray-700">
+                O EVO Nest é equipado com tecnologia de carregamento ultra-rápido, permitindo que a
+                bateria inteligente da aeronave carregue de 10% a 90% em apenas 25 minutos* a 25°C,
+                otimizando a experiência operacional.
+              </p>
+              <p className="text-sm text-gray-500">
+                *A temperatura da bateria deve estar entre 25°C e 30°C.
+              </p>
+              <div className="grid grid-cols-2 gap-4 mt-6">
+                <div className="text-center p-4 rounded-2xl bg-gray-50">
+                  <BatteryCharging className="h-6 w-6 mx-auto text-green-600 mb-2" />
+                  <div className="text-lg font-bold text-gray-900">10% → 90%</div>
+                  <div className="text-xs text-gray-600">em 25 minutos</div>
                 </div>
-                <h3 className="text-4xl sm:text-5xl font-bold leading-tight">
-                  Fast Charge
-                </h3>
-                <p className="mt-6 text-base sm:text-lg text-gray-200 leading-relaxed">
-                  O EVO Nest é equipado com tecnologia de carregamento ultra-rápido, permitindo que a
-                  bateria inteligente da aeronave carregue de 10% a 90% em apenas 25 minutos* a 25°C,
-                  otimizando a experiência operacional.
-                </p>
-                <p className="mt-4 text-sm text-gray-400">
-                  *A temperatura da bateria deve estar entre 25°C e 30°C.
-                </p>
-                <div className="flex flex-wrap items-center gap-6 mt-8">
-                  <div className="flex items-center gap-3 bg-white/10 rounded-2xl px-5 py-3">
-                    <BatteryCharging className="h-8 w-8 text-green-400" />
-                    <div>
-                      <div className="text-2xl font-bold">10% → 90%</div>
-                      <div className="text-sm text-gray-300">em 25 minutos</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 bg-white/10 rounded-2xl px-5 py-3">
-                    <Thermometer className="h-8 w-8 text-orange-400" />
-                    <div>
-                      <div className="text-2xl font-bold">25°C - 30°C</div>
-                      <div className="text-sm text-gray-300">Temperatura ideal</div>
-                    </div>
-                  </div>
+                <div className="text-center p-4 rounded-2xl bg-gray-50">
+                  <Thermometer className="h-6 w-6 mx-auto text-orange-500 mb-2" />
+                  <div className="text-lg font-bold text-gray-900">25°C - 30°C</div>
+                  <div className="text-xs text-gray-600">Temperatura ideal</div>
                 </div>
               </div>
             </div>
@@ -529,10 +490,6 @@ const EvoNest: React.FC = () => {
           {/* Information Management Section */}
           <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
             <div className="space-y-6">
-              <div className="inline-flex items-center gap-2 bg-purple-100 border border-purple-200 rounded-full px-4 py-2">
-                <Cloud className="h-5 w-5 text-purple-600" />
-                <span className="text-sm font-medium text-purple-700">Gerenciamento na Nuvem</span>
-              </div>
               <h3 className="text-3xl sm:text-4xl font-semibold text-gray-900 leading-tight">
                 Gestão de Informações
               </h3>
@@ -613,10 +570,6 @@ const EvoNest: React.FC = () => {
           {/* Autel SDK Section */}
           <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
             <div className="order-2 lg:order-1 space-y-4">
-              <div className="inline-flex items-center gap-2 bg-indigo-100 border border-indigo-200 rounded-full px-4 py-2">
-                <Code className="h-5 w-5 text-indigo-600" />
-                <span className="text-sm font-medium text-indigo-700">Desenvolvimento</span>
-              </div>
               <h3 className="text-3xl sm:text-4xl font-semibold text-gray-900 leading-tight">Autel SDK</h3>
               <p className="text-base sm:text-lg text-gray-700">
                 O Autel SDK é aberto ao mercado, ajudando desenvolvedores e parceiros a reduzir custos de criação de software e hardware e a construir um novo ecossistema para a indústria.
