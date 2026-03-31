@@ -378,7 +378,7 @@ const EvoNest: React.FC = () => {
           <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
             <div className="relative overflow-hidden rounded-3xl shadow-xl order-2 lg:order-1">
               <img
-                src="/images/products/evo_nest/20240827-092306.png"
+                src="/images/products/evo_nest/transportable.webp"
                 alt="EVO Nest Transportável"
                 className="w-full h-full object-cover"
               />
