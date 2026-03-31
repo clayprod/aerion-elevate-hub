@@ -1551,18 +1551,6 @@ export const productFamilies: ProductFamily[] = [
         description: "Inspeção de linhas de transmissão, oleodutos, rodovias e ferrovias",
         image: "/images/lifestyle/oil-and-gas-1.jpg",
         link: "/solucoes/industrial"
-      },
-      {
-        title: "Monitoramento Ambiental",
-        description: "Vigilância de áreas florestais, detecção de incêndios, monitoramento de fauna",
-        image: "/images/lifestyle/environment-1.jpg",
-        link: "/solucoes/meio-ambiente"
-      },
-      {
-        title: "Operações Portuárias",
-        description: "Monitoramento de terminais, vigilância marítima, controle de tráfego",
-        image: "/images/lifestyle/maritime-1.jpg",
-        link: "/solucoes/maritimo"
       }
     ]
   }

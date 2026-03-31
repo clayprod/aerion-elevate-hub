@@ -156,7 +156,7 @@ const EvoNest: React.FC = () => {
   ];
 
   const connectivityFeatures = [
-    { icon: Wifi, title: 'Rede com Fio', description: 'Conexão estável via cabo' },
+    { icon: Wifi, title: 'Rede sem Fio', description: 'Conexão wireless estável' },
     { icon: Radio, title: '4G LTE', description: 'Conectividade móvel' },
     { icon: Zap, title: '5G', description: 'Conexão ultrarrápida' }
   ];
@@ -252,7 +252,7 @@ const EvoNest: React.FC = () => {
                 <img
                   src="/images/products/evo_nest/evo-nest-logo.png"
                   alt="EVO Nest"
-                  className="h-16 sm:h-20 lg:h-24 w-auto ml-auto"
+                  className="h-16 sm:h-20 lg:h-24 w-auto ml-auto brightness-0 invert"
                 />
                 <p className="mt-4 text-xl sm:text-2xl text-gray-100 font-light">
                   Simplifique operações complexas
