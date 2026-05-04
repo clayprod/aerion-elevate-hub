@@ -31,6 +31,7 @@ interface BlogPost {
   excerpt: string;
   content: string;
   cover_image?: string;
+  cover_image_position?: string | null;
   category?: string;
   tags?: string[];
   published: boolean;
@@ -57,6 +58,7 @@ const AdminBlog = () => {
     excerpt: "",
     content: "",
     cover_image: "",
+    cover_image_position: "50% 50%",
     category: "",
     tags: "",
     published: false,
@@ -136,6 +138,7 @@ const AdminBlog = () => {
           excerpt: formData.excerpt,
           content: formData.content,
           cover_image: formData.cover_image || null,
+          cover_image_position: formData.cover_image ? formData.cover_image_position : null,
           category: formData.category || null,
           tags: tags.length > 0 ? tags : null,
           published: formData.published,
@@ -166,6 +169,7 @@ const AdminBlog = () => {
           excerpt: formData.excerpt,
           content: formData.content,
           cover_image: formData.cover_image || null,
+          cover_image_position: formData.cover_image ? formData.cover_image_position : null,
           category: formData.category || null,
           tags: tags.length > 0 ? tags : null,
           published: formData.published,
@@ -246,6 +250,7 @@ const AdminBlog = () => {
       excerpt: post.excerpt || "",
       content: post.content || "",
       cover_image: post.cover_image || "",
+      cover_image_position: post.cover_image_position || "50% 50%",
       category: post.category || "",
       tags: post.tags ? post.tags.join(", ") : "",
       published: post.published || false,
@@ -460,6 +465,7 @@ const AdminBlog = () => {
       excerpt: "",
       content: "",
       cover_image: "",
+      cover_image_position: "50% 50%",
       category: "",
       tags: "",
       published: false,
@@ -582,23 +588,74 @@ const AdminBlog = () => {
                     Imagem de Capa
                   </label>
                   
-                  {/* Preview da imagem */}
+                  {/* Preview da imagem com foco ajustável */}
                   {(imagePreview || formData.cover_image) && (
-                    <div className="relative mb-4">
-                      <img
-                        src={imagePreview || formData.cover_image}
-                        alt="Preview"
-                        className="w-full h-48 object-cover rounded-lg border border-gray-300"
-                      />
-                      <Button
-                        type="button"
-                        variant="destructive"
-                        size="sm"
-                        onClick={handleImageRemove}
-                        className="absolute top-2 right-2"
+                    <div className="mb-4">
+                      <p className="text-xs text-gray-600 mb-2">
+                        Clique na imagem para ajustar qual parte fica visível na página do post (mesmo enquadramento 4:5).
+                      </p>
+                      <div
+                        className="relative mx-auto rounded-lg border border-gray-300 overflow-hidden cursor-crosshair bg-gray-50"
+                        style={{ aspectRatio: '4 / 5', maxWidth: '240px' }}
+                        onClick={(e) => {
+                          const rect = e.currentTarget.getBoundingClientRect();
+                          const x = ((e.clientX - rect.left) / rect.width) * 100;
+                          const y = ((e.clientY - rect.top) / rect.height) * 100;
+                          const clamp = (n: number) => Math.max(0, Math.min(100, n));
+                          setFormData({
+                            ...formData,
+                            cover_image_position: `${clamp(x).toFixed(1)}% ${clamp(y).toFixed(1)}%`,
+                          });
+                        }}
                       >
-                        <X className="w-4 h-4" />
-                      </Button>
+                        <img
+                          src={imagePreview || formData.cover_image}
+                          alt="Preview"
+                          className="w-full h-full object-cover pointer-events-none select-none"
+                          style={{ objectPosition: formData.cover_image_position || '50% 50%' }}
+                          draggable={false}
+                        />
+                        {/* Marcador do ponto focal */}
+                        {(() => {
+                          const [px, py] = (formData.cover_image_position || '50% 50%')
+                            .split(' ')
+                            .map((v) => parseFloat(v));
+                          return (
+                            <div
+                              className="absolute w-5 h-5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white shadow-lg pointer-events-none"
+                              style={{
+                                left: `${px}%`,
+                                top: `${py}%`,
+                                background: 'hsl(var(--blue-medium))',
+                              }}
+                            />
+                          );
+                        })()}
+                        <Button
+                          type="button"
+                          variant="destructive"
+                          size="sm"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleImageRemove();
+                          }}
+                          className="absolute top-2 right-2"
+                        >
+                          <X className="w-4 h-4" />
+                        </Button>
+                      </div>
+                      <div className="flex items-center justify-between mt-2 text-xs text-gray-500">
+                        <span>Foco: {formData.cover_image_position}</span>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setFormData({ ...formData, cover_image_position: '50% 50%' })
+                          }
+                          className="text-blue-medium hover:underline"
+                        >
+                          Centralizar
+                        </button>
+                      </div>
                     </div>
                   )}
 

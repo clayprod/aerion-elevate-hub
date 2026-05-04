@@ -161,7 +161,10 @@ const BlogPost = () => {
                       height={500}
                       loading="eager"
                       className="w-full h-full object-cover rounded-xl shadow-lg"
-                      style={{ aspectRatio: '4 / 5' }}
+                      style={{
+                        aspectRatio: '4 / 5',
+                        objectPosition: post.cover_image_position || '50% 50%',
+                      }}
                     />
                   )}
                 </div>

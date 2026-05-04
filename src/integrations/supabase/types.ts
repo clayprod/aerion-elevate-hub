@@ -20,6 +20,7 @@ export type Database = {
           category: string | null
           content: string
           cover_image: string | null
+          cover_image_position: string | null
           created_at: string | null
           excerpt: string
           featured: boolean | null
@@ -36,6 +37,7 @@ export type Database = {
           category?: string | null
           content: string
           cover_image?: string | null
+          cover_image_position?: string | null
           created_at?: string | null
           excerpt: string
           featured?: boolean | null
@@ -52,6 +54,7 @@ export type Database = {
           category?: string | null
           content?: string
           cover_image?: string | null
+          cover_image_position?: string | null
           created_at?: string | null
           excerpt?: string
           featured?: boolean | null

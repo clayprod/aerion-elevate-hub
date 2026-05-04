@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState, useEffect, useRef, useCallback } from 'react';
 
 interface RichTextEditorProps {
   value: string;
@@ -15,6 +15,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
 }) => {
   const [ReactQuill, setReactQuill] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const quillRef = useRef<any>(null);
 
   useEffect(() => {
     const loadQuill = async () => {
@@ -33,21 +34,78 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
     loadQuill();
   }, []);
 
+  // Garante atributos seguros em todos os iframes inseridos (sem barra interna)
+  useEffect(() => {
+    if (!ReactQuill || !quillRef.current) return;
+    const editor = quillRef.current.getEditor?.();
+    if (!editor?.root) return;
+
+    const setupIframe = (iframe: HTMLIFrameElement) => {
+      if (iframe.getAttribute('scrolling') !== 'no') {
+        iframe.setAttribute('scrolling', 'no');
+      }
+      if (!iframe.hasAttribute('width')) {
+        iframe.setAttribute('width', '100%');
+      }
+    };
+
+    editor.root.querySelectorAll('iframe.ql-video').forEach(setupIframe);
+
+    const observer = new MutationObserver(() => {
+      editor.root.querySelectorAll('iframe.ql-video').forEach(setupIframe);
+    });
+    observer.observe(editor.root, { childList: true, subtree: true });
+
+    return () => observer.disconnect();
+  }, [ReactQuill, value]);
+
+  const setVideoWidth = useCallback((width: string) => {
+    const editor = quillRef.current?.getEditor?.();
+    if (!editor || !width) return;
+
+    let target: HTMLIFrameElement | null = null;
+    const range = editor.getSelection();
+    if (range) {
+      const [leaf] = editor.getLeaf(range.index);
+      const node: HTMLElement | undefined = leaf?.domNode;
+      if (node?.tagName === 'IFRAME' && node.classList.contains('ql-video')) {
+        target = node as HTMLIFrameElement;
+      }
+    }
+    if (!target) {
+      const all = editor.root.querySelectorAll('iframe.ql-video');
+      target = all[all.length - 1] as HTMLIFrameElement | null;
+    }
+    if (!target) return;
+
+    target.setAttribute('width', width);
+    // Sincroniza HTML com o React state
+    onChange(editor.root.innerHTML);
+  }, [onChange]);
+
   const modules = useMemo(() => ({
-    toolbar: [
-      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-      ['bold', 'italic', 'underline', 'strike'],
-      [{ 'color': [] }, { 'background': [] }],
-      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-      [{ 'align': [] }],
-      ['blockquote', 'code-block'],
-      ['link', 'image', 'video'],
-      ['clean']
-    ],
+    toolbar: {
+      container: [
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+        ['bold', 'italic', 'underline', 'strike'],
+        [{ 'color': [] }, { 'background': [] }],
+        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        [{ 'align': [] }],
+        ['blockquote', 'code-block'],
+        ['link', 'image', 'video'],
+        [{ 'video-size': ['33%', '50%', '66%', '100%'] }],
+        ['clean']
+      ],
+      handlers: {
+        'video-size': function (this: any, value: string) {
+          setVideoWidth(value);
+        }
+      }
+    },
     clipboard: {
       matchVisual: false,
     }
-  }), []);
+  }), [setVideoWidth]);
 
   const formats = [
     'header',
@@ -56,7 +114,8 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
     'list', 'bullet',
     'align',
     'blockquote', 'code-block',
-    'link', 'image', 'video'
+    'link', 'image', 'video',
+    'width', 'height'
   ];
 
   if (isLoading) {
@@ -89,6 +148,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
   return (
     <div className="rich-text-editor mb-8 overflow-hidden prose prose-lg max-w-none">
       <ReactQuill
+        ref={quillRef}
         theme="snow"
         value={value}
         onChange={onChange}
@@ -242,12 +302,57 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
         /* Vídeos (YouTube/Vimeo embeds) */
         .rich-text-editor .ql-editor iframe.ql-video {
           display: block;
-          width: 100%;
+          max-width: 100%;
           aspect-ratio: 16 / 9;
           height: auto;
           border: 0;
           border-radius: 0.5rem;
           margin: 1.5em 0;
+          overflow: hidden;
+        }
+        /* Sem atributo width, cai para 100% */
+        .rich-text-editor .ql-editor iframe.ql-video:not([width]) {
+          width: 100%;
+        }
+        /* Alinhamento do vídeo (Quill aplica .ql-align-*) */
+        .rich-text-editor .ql-editor iframe.ql-video.ql-align-center {
+          margin-left: auto;
+          margin-right: auto;
+        }
+        .rich-text-editor .ql-editor iframe.ql-video.ql-align-right {
+          margin-left: auto;
+          margin-right: 0;
+        }
+
+        /* Dropdown customizado de tamanho de vídeo */
+        .rich-text-editor .ql-toolbar .ql-picker.ql-video-size {
+          width: auto;
+        }
+        .rich-text-editor .ql-toolbar .ql-picker.ql-video-size .ql-picker-label::before {
+          content: 'Tam. vídeo';
+          padding-right: 0.25rem;
+        }
+        .rich-text-editor .ql-toolbar .ql-picker.ql-video-size .ql-picker-item[data-value="33%"]::before { content: '33%'; }
+        .rich-text-editor .ql-toolbar .ql-picker.ql-video-size .ql-picker-item[data-value="50%"]::before { content: '50%'; }
+        .rich-text-editor .ql-toolbar .ql-picker.ql-video-size .ql-picker-item[data-value="66%"]::before { content: '66%'; }
+        .rich-text-editor .ql-toolbar .ql-picker.ql-video-size .ql-picker-item[data-value="100%"]::before { content: '100%'; }
+
+        /* Tooltip do Quill (link/vídeo) — evitar overflow para fora do editor */
+        .rich-text-editor .ql-container {
+          position: relative;
+        }
+        .rich-text-editor .ql-tooltip {
+          left: 1rem !important;
+          right: auto;
+          transform: none !important;
+          z-index: 50;
+          max-width: calc(100% - 2rem);
+          white-space: normal;
+        }
+        .rich-text-editor .ql-tooltip input[type="text"] {
+          width: 100%;
+          min-width: 240px;
+          max-width: 360px;
         }
         
         /* Espaçamento geral */

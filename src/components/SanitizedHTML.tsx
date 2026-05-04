@@ -33,7 +33,7 @@ export const SanitizedHTML: React.FC<SanitizedHTMLProps> = ({ html, className })
         ALLOWED_ATTR: [
           'href', 'title', 'alt', 'src', 'width', 'height', 'class', 'id',
           'target', 'rel', 'colspan', 'rowspan', 'scope',
-          'allowfullscreen', 'frameborder', 'allow', 'referrerpolicy', 'loading'
+          'allowfullscreen', 'frameborder', 'allow', 'referrerpolicy', 'loading', 'scrolling'
         ],
         ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|sms|cid|xmpp|data):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,
         ADD_ATTR: ['target'], // Permitir target para links externos
@@ -61,6 +61,7 @@ export const SanitizedHTML: React.FC<SanitizedHTMLProps> = ({ html, className })
         // Garantir atributos seguros
         iframe.setAttribute('loading', 'lazy');
         iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+        iframe.setAttribute('scrolling', 'no');
         if (!iframe.getAttribute('allow')) {
           iframe.setAttribute('allow', 'accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
         }

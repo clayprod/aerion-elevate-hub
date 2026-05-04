@@ -259,11 +259,23 @@ All colors MUST be HSL.
   /* Vídeos embedados (YouTube/Vimeo) no conteúdo de blog */
   .prose iframe {
     display: block;
-    width: 100%;
+    max-width: 100%;
     aspect-ratio: 16 / 9;
     height: auto;
     border: 0;
     border-radius: 0.5rem;
     margin: 1.5em 0;
+    overflow: hidden;
+  }
+  .prose iframe:not([width]) {
+    width: 100%;
+  }
+  .prose iframe.ql-align-center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .prose iframe.ql-align-right {
+    margin-left: auto;
+    margin-right: 0;
   }
 }
