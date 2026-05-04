@@ -28,11 +28,12 @@ export const SanitizedHTML: React.FC<SanitizedHTMLProps> = ({ html, className })
         ALLOWED_TAGS: [
           'p', 'br', 'strong', 'em', 'u', 's', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
           'ul', 'ol', 'li', 'a', 'img', 'blockquote', 'code', 'pre', 'span', 'div',
-          'table', 'thead', 'tbody', 'tr', 'th', 'td', 'hr'
+          'table', 'thead', 'tbody', 'tr', 'th', 'td', 'hr', 'iframe'
         ],
         ALLOWED_ATTR: [
           'href', 'title', 'alt', 'src', 'width', 'height', 'class', 'id',
-          'target', 'rel', 'colspan', 'rowspan', 'scope'
+          'target', 'rel', 'colspan', 'rowspan', 'scope',
+          'allowfullscreen', 'frameborder', 'allow', 'referrerpolicy', 'loading'
         ],
         ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|sms|cid|xmpp|data):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,
         ADD_ATTR: ['target'], // Permitir target para links externos
@@ -41,12 +42,30 @@ export const SanitizedHTML: React.FC<SanitizedHTMLProps> = ({ html, className })
         RETURN_DOM: false,
         RETURN_DOM_FRAGMENT: false,
         RETURN_TRUSTED_TYPE: false,
-        FORBID_TAGS: ['script', 'iframe', 'object', 'embed', 'form', 'input', 'button'],
+        FORBID_TAGS: ['script', 'object', 'embed', 'form', 'input', 'button'],
         FORBID_ATTR: ['onerror', 'onload', 'onclick', 'onmouseover', 'onfocus', 'onblur'],
       });
 
       // Inserir HTML sanitizado
       containerRef.current.innerHTML = cleanHTML;
+
+      // Whitelist de iframes: apenas YouTube e Vimeo são permitidos
+      const allowedIframeSrc = /^https:\/\/(www\.)?(youtube\.com\/embed\/|youtube-nocookie\.com\/embed\/|player\.vimeo\.com\/video\/)/;
+      const iframes = containerRef.current.querySelectorAll('iframe');
+      iframes.forEach((iframe) => {
+        const src = iframe.getAttribute('src') || '';
+        if (!allowedIframeSrc.test(src)) {
+          iframe.remove();
+          return;
+        }
+        // Garantir atributos seguros
+        iframe.setAttribute('loading', 'lazy');
+        iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+        if (!iframe.getAttribute('allow')) {
+          iframe.setAttribute('allow', 'accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+        }
+        iframe.setAttribute('allowfullscreen', '');
+      });
 
       // Adicionar rel="noopener noreferrer" a todos os links externos
       const links = containerRef.current.querySelectorAll('a[href^="http"]');

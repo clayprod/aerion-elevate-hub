@@ -255,4 +255,15 @@ All colors MUST be HSL.
   .scrollbar-thumb-gray-500::-webkit-scrollbar-thumb {
     background: #6b7280;
   }
+
+  /* Vídeos embedados (YouTube/Vimeo) no conteúdo de blog */
+  .prose iframe {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+    border: 0;
+    border-radius: 0.5rem;
+    margin: 1.5em 0;
+  }
 }

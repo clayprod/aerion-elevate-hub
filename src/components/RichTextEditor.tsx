@@ -41,7 +41,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
       [{ 'list': 'ordered'}, { 'list': 'bullet' }],
       [{ 'align': [] }],
       ['blockquote', 'code-block'],
-      ['link', 'image'],
+      ['link', 'image', 'video'],
       ['clean']
     ],
     clipboard: {
@@ -56,7 +56,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
     'list', 'bullet',
     'align',
     'blockquote', 'code-block',
-    'link', 'image'
+    'link', 'image', 'video'
   ];
 
   if (isLoading) {
@@ -235,6 +235,17 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
         .rich-text-editor .ql-editor img {
           max-width: 100%;
           height: auto;
+          border-radius: 0.5rem;
+          margin: 1.5em 0;
+        }
+
+        /* Vídeos (YouTube/Vimeo embeds) */
+        .rich-text-editor .ql-editor iframe.ql-video {
+          display: block;
+          width: 100%;
+          aspect-ratio: 16 / 9;
+          height: auto;
+          border: 0;
           border-radius: 0.5rem;
           margin: 1.5em 0;
         }
