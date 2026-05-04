@@ -32,7 +32,7 @@ export const SanitizedHTML: React.FC<SanitizedHTMLProps> = ({ html, className })
         ],
         ALLOWED_ATTR: [
           'href', 'title', 'alt', 'src', 'width', 'height', 'class', 'id',
-          'target', 'rel', 'colspan', 'rowspan', 'scope',
+          'target', 'rel', 'colspan', 'rowspan', 'scope', 'style',
           'allowfullscreen', 'frameborder', 'allow', 'referrerpolicy', 'loading', 'scrolling'
         ],
         ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|sms|cid|xmpp|data):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,

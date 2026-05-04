@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect, useRef, useCallback } from 'react';
+import React, { useMemo, useState, useEffect, useRef } from 'react';
 
 interface RichTextEditorProps {
   value: string;
@@ -15,14 +15,60 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
 }) => {
   const [ReactQuill, setReactQuill] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [hasBlotFormatter, setHasBlotFormatter] = useState(false);
   const quillRef = useRef<any>(null);
 
   useEffect(() => {
     const loadQuill = async () => {
       try {
-        // Tentar carregar o React Quill
         const quillModule = await import('react-quill');
         await import('react-quill/dist/quill.snow.css');
+        const Quill = (quillModule.default as any).Quill;
+
+        // Custom Video blot: registra width/height/scrolling como formats preservados
+        // (sem isso, scrolling é descartado pelo round-trip e dispara loop)
+        const Video: any = Quill.import('formats/video');
+        const VIDEO_ATTRS = ['height', 'width', 'scrolling', 'allow', 'allowfullscreen'];
+        class CustomVideo extends (Video as { new (...args: any[]): any }) {
+          static create(value: string) {
+            const node = super.create(value);
+            if (!node.hasAttribute('width')) node.setAttribute('width', '100%');
+            if (!node.hasAttribute('scrolling')) node.setAttribute('scrolling', 'no');
+            if (!node.hasAttribute('allow')) {
+              node.setAttribute('allow', 'accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+            }
+            node.setAttribute('allowfullscreen', 'true');
+            return node;
+          }
+          static formats(domNode: HTMLElement) {
+            return VIDEO_ATTRS.reduce((formats: any, attr) => {
+              if (domNode.hasAttribute(attr)) formats[attr] = domNode.getAttribute(attr);
+              return formats;
+            }, {});
+          }
+          format(name: string, value: any) {
+            if (VIDEO_ATTRS.indexOf(name) > -1) {
+              if (value) (this as any).domNode.setAttribute(name, value);
+              else (this as any).domNode.removeAttribute(name);
+            } else {
+              super.format(name, value);
+            }
+          }
+        }
+        Quill.register('formats/video', CustomVideo, true);
+
+        // Tenta carregar quill-blot-formatter (drag-resize estilo imagem)
+        let blotOk = false;
+        try {
+          const blotMod: any = await import('quill-blot-formatter');
+          const BlotFormatter = blotMod.default || blotMod;
+          Quill.register('modules/blotFormatter', BlotFormatter);
+          blotOk = true;
+        } catch (e) {
+          console.warn('quill-blot-formatter não disponível — drag-resize de vídeo desabilitado.', e);
+        }
+
+        setHasBlotFormatter(blotOk);
         setReactQuill(() => quillModule.default);
         setIsLoading(false);
       } catch (error) {
@@ -34,78 +80,27 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
     loadQuill();
   }, []);
 
-  // Garante atributos seguros em todos os iframes inseridos (sem barra interna)
-  useEffect(() => {
-    if (!ReactQuill || !quillRef.current) return;
-    const editor = quillRef.current.getEditor?.();
-    if (!editor?.root) return;
-
-    const setupIframe = (iframe: HTMLIFrameElement) => {
-      if (iframe.getAttribute('scrolling') !== 'no') {
-        iframe.setAttribute('scrolling', 'no');
-      }
-      if (!iframe.hasAttribute('width')) {
-        iframe.setAttribute('width', '100%');
-      }
-    };
-
-    editor.root.querySelectorAll('iframe.ql-video').forEach(setupIframe);
-
-    const observer = new MutationObserver(() => {
-      editor.root.querySelectorAll('iframe.ql-video').forEach(setupIframe);
-    });
-    observer.observe(editor.root, { childList: true, subtree: true });
-
-    return () => observer.disconnect();
-  }, [ReactQuill, value]);
-
-  const setVideoWidth = useCallback((width: string) => {
-    const editor = quillRef.current?.getEditor?.();
-    if (!editor || !width) return;
-
-    let target: HTMLIFrameElement | null = null;
-    const range = editor.getSelection();
-    if (range) {
-      const [leaf] = editor.getLeaf(range.index);
-      const node: HTMLElement | undefined = leaf?.domNode;
-      if (node?.tagName === 'IFRAME' && node.classList.contains('ql-video')) {
-        target = node as HTMLIFrameElement;
-      }
-    }
-    if (!target) {
-      const all = editor.root.querySelectorAll('iframe.ql-video');
-      target = all[all.length - 1] as HTMLIFrameElement | null;
-    }
-    if (!target) return;
-
-    target.setAttribute('width', width);
-    // Sincroniza HTML com o React state
-    onChange(editor.root.innerHTML);
-  }, [onChange]);
-
-  const modules = useMemo(() => ({
-    toolbar: {
-      container: [
+  const modules = useMemo(() => {
+    const base: any = {
+      toolbar: [
         [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
         ['bold', 'italic', 'underline', 'strike'],
         [{ 'color': [] }, { 'background': [] }],
-        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
         [{ 'align': [] }],
         ['blockquote', 'code-block'],
         ['link', 'image', 'video'],
-        [{ 'video-size': ['33%', '50%', '66%', '100%'] }],
-        ['clean']
+        ['clean'],
       ],
-      handlers: {
-        'video-size': function (this: any, value: string) {
-          setVideoWidth(value);
-        }
-      }
-    },
-    clipboard: {
-      matchVisual: false,
+      clipboard: {
+        matchVisual: false,
+      },
+    };
+    if (hasBlotFormatter) {
+      base.blotFormatter = {};
     }
-  }), [setVideoWidth]);
+    return base;
+  }, [hasBlotFormatter]);
 
   const formats = [
     'header',
@@ -115,7 +110,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
     'align',
     'blockquote', 'code-block',
     'link', 'image', 'video',
-    'width', 'height'
+    'width', 'height', 'scrolling', 'allow', 'allowfullscreen'
   ];
 
   if (isLoading) {
@@ -324,18 +319,10 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           margin-right: 0;
         }
 
-        /* Dropdown customizado de tamanho de vídeo */
-        .rich-text-editor .ql-toolbar .ql-picker.ql-video-size {
-          width: auto;
+        /* Handles do quill-blot-formatter (drag-resize) */
+        .rich-text-editor .blot-formatter__overlay {
+          z-index: 30;
         }
-        .rich-text-editor .ql-toolbar .ql-picker.ql-video-size .ql-picker-label::before {
-          content: 'Tam. vídeo';
-          padding-right: 0.25rem;
-        }
-        .rich-text-editor .ql-toolbar .ql-picker.ql-video-size .ql-picker-item[data-value="33%"]::before { content: '33%'; }
-        .rich-text-editor .ql-toolbar .ql-picker.ql-video-size .ql-picker-item[data-value="50%"]::before { content: '50%'; }
-        .rich-text-editor .ql-toolbar .ql-picker.ql-video-size .ql-picker-item[data-value="66%"]::before { content: '66%'; }
-        .rich-text-editor .ql-toolbar .ql-picker.ql-video-size .ql-picker-item[data-value="100%"]::before { content: '100%'; }
 
         /* Tooltip do Quill (link/vídeo) — evitar overflow para fora do editor */
         .rich-text-editor .ql-container {
