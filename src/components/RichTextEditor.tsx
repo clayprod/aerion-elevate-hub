@@ -61,26 +61,28 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
   }, []);
 
   const modules = useMemo(() => ({
-    toolbar: [
-      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-      ['bold', 'italic', 'underline', 'strike'],
-      [{ 'color': [] }, { 'background': [] }],
-      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-      [{ 'align': [] }],
-      ['blockquote', 'code-block'],
-      ['link', 'image', 'video'],
-      ['clean'],
-    ],
-    handlers: {
-      video: function videoHandler(this: any) {
-        const rawUrl = window.prompt('Cole a URL do video');
-        if (!rawUrl) return;
+    toolbar: {
+      container: [
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+        ['bold', 'italic', 'underline', 'strike'],
+        [{ 'color': [] }, { 'background': [] }],
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+        [{ 'align': [] }],
+        ['blockquote', 'code-block'],
+        ['link', 'image', 'video'],
+        ['clean'],
+      ],
+      handlers: {
+        video: function videoHandler(this: any) {
+          const rawUrl = window.prompt('Cole a URL do video');
+          if (!rawUrl) return;
 
-        const index = this.quill.getSelection(true)?.index ?? this.quill.getLength();
-        const embedUrl = toEmbedVideoUrl(rawUrl);
+          const index = this.quill.getSelection(true)?.index ?? this.quill.getLength();
+          const embedUrl = toEmbedVideoUrl(rawUrl);
 
-        this.quill.insertEmbed(index, 'video', embedUrl, 'user');
-        this.quill.setSelection(index + 1, 0, 'silent');
+          this.quill.insertEmbed(index, 'video', embedUrl, 'user');
+          this.quill.setSelection(index + 1, 0, 'silent');
+        },
       },
     },
     clipboard: {
@@ -146,7 +148,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
       root.removeEventListener('click', handleClick);
       editor.off('text-change', normalizeVideoIframes);
     };
-  }, [ReactQuill, normalizeVideoIframes, value]);
+  }, [ReactQuill, normalizeVideoIframes]);
 
   const applyVideoWidth = (width: string) => {
     const iframe = selectedVideoRef.current;
