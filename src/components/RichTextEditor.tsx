@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect, useRef } from 'react';
+import React, { useMemo, useState, useEffect, useRef, useCallback } from 'react';
 
 interface RichTextEditorProps {
   value: string;
@@ -16,6 +16,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
   const [ReactQuill, setReactQuill] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
   const quillRef = useRef<any>(null);
+  const selectedVideoRef = useRef<HTMLIFrameElement | null>(null);
 
   useEffect(() => {
     const loadQuill = async () => {
@@ -33,6 +34,32 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
     loadQuill();
   }, []);
 
+  const toEmbedVideoUrl = useCallback((rawUrl: string) => {
+    try {
+      const url = new URL(rawUrl.trim());
+      const host = url.hostname.replace('www.', '');
+
+      if (host === 'youtube.com' || host === 'm.youtube.com') {
+        const videoId = url.searchParams.get('v');
+        if (videoId) return `https://www.youtube.com/embed/${videoId}`;
+      }
+
+      if (host === 'youtu.be') {
+        const videoId = url.pathname.replace('/', '');
+        if (videoId) return `https://www.youtube.com/embed/${videoId}`;
+      }
+
+      if (host === 'vimeo.com') {
+        const videoId = url.pathname.split('/').filter(Boolean)[0];
+        if (videoId) return `https://player.vimeo.com/video/${videoId}`;
+      }
+
+      return rawUrl;
+    } catch {
+      return rawUrl;
+    }
+  }, []);
+
   const modules = useMemo(() => ({
     toolbar: [
       [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
@@ -44,10 +71,22 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
       ['link', 'image', 'video'],
       ['clean'],
     ],
+    handlers: {
+      video: function videoHandler(this: any) {
+        const rawUrl = window.prompt('Cole a URL do video');
+        if (!rawUrl) return;
+
+        const index = this.quill.getSelection(true)?.index ?? this.quill.getLength();
+        const embedUrl = toEmbedVideoUrl(rawUrl);
+
+        this.quill.insertEmbed(index, 'video', embedUrl, 'user');
+        this.quill.setSelection(index + 1, 0, 'silent');
+      },
+    },
     clipboard: {
       matchVisual: false,
     },
-  }), []);
+  }), [toEmbedVideoUrl]);
 
   const formats = [
     'header',
@@ -59,6 +98,69 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
     'link', 'image', 'video',
     'width', 'height',
   ];
+
+  const normalizeVideoIframes = useCallback(() => {
+    const editor = quillRef.current?.getEditor?.();
+    if (!editor) return;
+
+    const root = editor.root as HTMLElement;
+    const iframes = root.querySelectorAll('iframe.ql-video');
+
+    iframes.forEach((iframe) => {
+      const src = iframe.getAttribute('src') || '';
+      const embedSrc = toEmbedVideoUrl(src);
+      if (src && embedSrc !== src) {
+        iframe.setAttribute('src', embedSrc);
+      }
+
+      iframe.setAttribute('scrolling', 'no');
+      iframe.setAttribute('frameborder', '0');
+      iframe.setAttribute('allowfullscreen', 'true');
+      iframe.style.display = 'block';
+      iframe.style.maxWidth = '100%';
+      iframe.style.aspectRatio = '16 / 9';
+      iframe.style.height = 'auto';
+      iframe.style.overflow = 'hidden';
+      iframe.style.border = '0';
+    });
+  }, [toEmbedVideoUrl]);
+
+  useEffect(() => {
+    const editor = quillRef.current?.getEditor?.();
+    if (!editor) return;
+
+    const root = editor.root as HTMLElement;
+
+    const handleClick = (event: Event) => {
+      const target = event.target as HTMLElement;
+      if (target?.tagName === 'IFRAME' && target.classList.contains('ql-video')) {
+        selectedVideoRef.current = target as HTMLIFrameElement;
+      }
+    };
+
+    normalizeVideoIframes();
+    root.addEventListener('click', handleClick);
+    editor.on('text-change', normalizeVideoIframes);
+
+    return () => {
+      root.removeEventListener('click', handleClick);
+      editor.off('text-change', normalizeVideoIframes);
+    };
+  }, [ReactQuill, normalizeVideoIframes, value]);
+
+  const applyVideoWidth = (width: string) => {
+    const iframe = selectedVideoRef.current;
+    if (!iframe) return;
+
+    if (width === 'auto') {
+      iframe.style.width = '100%';
+      iframe.removeAttribute('width');
+      return;
+    }
+
+    iframe.setAttribute('width', width);
+    iframe.style.width = width;
+  };
 
   if (isLoading) {
     return (
@@ -89,6 +191,13 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
 
   return (
     <div className="rich-text-editor mb-8 overflow-hidden prose prose-lg max-w-none">
+      <div className="mb-3 flex flex-wrap items-center gap-2 text-sm">
+        <span className="text-gray-500">Tamanho do video:</span>
+        <button type="button" onClick={() => applyVideoWidth('50%')} className="rounded border border-gray-300 px-2 py-1 hover:bg-gray-50">50%</button>
+        <button type="button" onClick={() => applyVideoWidth('75%')} className="rounded border border-gray-300 px-2 py-1 hover:bg-gray-50">75%</button>
+        <button type="button" onClick={() => applyVideoWidth('100%')} className="rounded border border-gray-300 px-2 py-1 hover:bg-gray-50">100%</button>
+        <button type="button" onClick={() => applyVideoWidth('auto')} className="rounded border border-gray-300 px-2 py-1 hover:bg-gray-50">Auto</button>
+      </div>
       <ReactQuill
         ref={quillRef}
         theme="snow"
