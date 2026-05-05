@@ -23,49 +23,17 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
       try {
         const quillModule = await import('react-quill');
         await import('react-quill/dist/quill.snow.css');
-        const Quill = (quillModule.default as any).Quill;
 
-        // Custom Video blot: registra width/height/scrolling como formats preservados
-        // (sem isso, scrolling é descartado pelo round-trip e dispara loop)
-        const Video: any = Quill.import('formats/video');
-        const VIDEO_ATTRS = ['height', 'width', 'scrolling', 'allow', 'allowfullscreen'];
-        class CustomVideo extends (Video as { new (...args: any[]): any }) {
-          static create(value: string) {
-            const node = super.create(value);
-            if (!node.hasAttribute('width')) node.setAttribute('width', '100%');
-            if (!node.hasAttribute('scrolling')) node.setAttribute('scrolling', 'no');
-            if (!node.hasAttribute('allow')) {
-              node.setAttribute('allow', 'accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-            }
-            node.setAttribute('allowfullscreen', 'true');
-            return node;
-          }
-          static formats(domNode: HTMLElement) {
-            return VIDEO_ATTRS.reduce((formats: any, attr) => {
-              if (domNode.hasAttribute(attr)) formats[attr] = domNode.getAttribute(attr);
-              return formats;
-            }, {});
-          }
-          format(name: string, value: any) {
-            if (VIDEO_ATTRS.indexOf(name) > -1) {
-              if (value) (this as any).domNode.setAttribute(name, value);
-              else (this as any).domNode.removeAttribute(name);
-            } else {
-              super.format(name, value);
-            }
-          }
-        }
-        Quill.register('formats/video', CustomVideo, true);
-
-        // Tenta carregar quill-blot-formatter (drag-resize estilo imagem)
+        // quill-blot-formatter (drag-resize) — opcional. Se não estiver instalado, segue sem.
         let blotOk = false;
         try {
+          const Quill: any = (quillModule.default as any).Quill;
           const blotMod: any = await import('quill-blot-formatter');
           const BlotFormatter = blotMod.default || blotMod;
           Quill.register('modules/blotFormatter', BlotFormatter);
           blotOk = true;
         } catch (e) {
-          console.warn('quill-blot-formatter não disponível — drag-resize de vídeo desabilitado.', e);
+          console.warn('quill-blot-formatter indisponível — drag-resize desabilitado:', e);
         }
 
         setHasBlotFormatter(blotOk);
@@ -110,7 +78,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
     'align',
     'blockquote', 'code-block',
     'link', 'image', 'video',
-    'width', 'height', 'scrolling', 'allow', 'allowfullscreen'
+    'width', 'height', // Quill Video suporta nativamente — usado pelo blot-formatter pra persistir tamanho
   ];
 
   if (isLoading) {
