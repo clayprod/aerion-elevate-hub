@@ -15,7 +15,6 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
 }) => {
   const [ReactQuill, setReactQuill] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [hasBlotFormatter, setHasBlotFormatter] = useState(false);
   const quillRef = useRef<any>(null);
 
   useEffect(() => {
@@ -23,20 +22,6 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
       try {
         const quillModule = await import('react-quill');
         await import('react-quill/dist/quill.snow.css');
-
-        // quill-blot-formatter (drag-resize) — opcional. Se não estiver instalado, segue sem.
-        let blotOk = false;
-        try {
-          const Quill: any = (quillModule.default as any).Quill;
-          const blotMod: any = await import('quill-blot-formatter');
-          const BlotFormatter = blotMod.default || blotMod;
-          Quill.register('modules/blotFormatter', BlotFormatter);
-          blotOk = true;
-        } catch (e) {
-          console.warn('quill-blot-formatter indisponível — drag-resize desabilitado:', e);
-        }
-
-        setHasBlotFormatter(blotOk);
         setReactQuill(() => quillModule.default);
         setIsLoading(false);
       } catch (error) {
@@ -48,27 +33,21 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
     loadQuill();
   }, []);
 
-  const modules = useMemo(() => {
-    const base: any = {
-      toolbar: [
-        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-        ['bold', 'italic', 'underline', 'strike'],
-        [{ 'color': [] }, { 'background': [] }],
-        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-        [{ 'align': [] }],
-        ['blockquote', 'code-block'],
-        ['link', 'image', 'video'],
-        ['clean'],
-      ],
-      clipboard: {
-        matchVisual: false,
-      },
-    };
-    if (hasBlotFormatter) {
-      base.blotFormatter = {};
-    }
-    return base;
-  }, [hasBlotFormatter]);
+  const modules = useMemo(() => ({
+    toolbar: [
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+      ['bold', 'italic', 'underline', 'strike'],
+      [{ 'color': [] }, { 'background': [] }],
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+      [{ 'align': [] }],
+      ['blockquote', 'code-block'],
+      ['link', 'image', 'video'],
+      ['clean'],
+    ],
+    clipboard: {
+      matchVisual: false,
+    },
+  }), []);
 
   const formats = [
     'header',
@@ -78,7 +57,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
     'align',
     'blockquote', 'code-block',
     'link', 'image', 'video',
-    'width', 'height', // Quill Video suporta nativamente — usado pelo blot-formatter pra persistir tamanho
+    'width', 'height',
   ];
 
   if (isLoading) {
@@ -285,11 +264,6 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
         .rich-text-editor .ql-editor iframe.ql-video.ql-align-right {
           margin-left: auto;
           margin-right: 0;
-        }
-
-        /* Handles do quill-blot-formatter (drag-resize) */
-        .rich-text-editor .blot-formatter__overlay {
-          z-index: 30;
         }
 
         /* Tooltip do Quill (link/vídeo) — evitar overflow para fora do editor */
