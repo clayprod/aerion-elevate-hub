@@ -86,7 +86,7 @@ const DynamicHeroSection = ({ data }: DynamicHeroSectionProps) => {
           onSlideChange={handleSlideChange}
           initialIndex={currentSlideIndex}
         />
-        <div className="absolute inset-0 bg-black bg-opacity-80 z-20" />
+        <div className="absolute inset-0 bg-black bg-opacity-65 z-20" />
       </div>
 
       <div className="container-custom relative z-30 py-6 sm:py-6 md:py-8 px-6 sm:px-8 md:px-8">

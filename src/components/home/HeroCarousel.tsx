@@ -45,7 +45,7 @@ const HeroCarousel = ({
             lazyLoad={false}
           />
         )}
-        <div className="absolute inset-0 bg-black bg-opacity-80 z-20" />
+        <div className="absolute inset-0 bg-black bg-opacity-65 z-20" />
       </div>
     );
   }
@@ -93,7 +93,7 @@ const HeroCarousel = ({
           lazyLoad={false}
         />
       )}
-      <div className="absolute inset-0 bg-black bg-opacity-80 z-20" />
+      <div className="absolute inset-0 bg-black bg-opacity-65 z-20" />
 
       {/* Navigation Arrows */}
       {slides.length > 1 && (
@@ -141,4 +141,3 @@ const HeroCarousel = ({
 };
 
 export default HeroCarousel;
-

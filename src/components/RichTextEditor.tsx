@@ -72,18 +72,6 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
         ['link', 'image', 'video'],
         ['clean'],
       ],
-      handlers: {
-        video: function videoHandler(this: any) {
-          const rawUrl = window.prompt('Cole a URL do video');
-          if (!rawUrl) return;
-
-          const index = this.quill.getSelection(true)?.index ?? this.quill.getLength();
-          const embedUrl = toEmbedVideoUrl(rawUrl);
-
-          this.quill.insertEmbed(index, 'video', embedUrl, 'user');
-          this.quill.setSelection(index + 1, 0, 'silent');
-        },
-      },
     },
     clipboard: {
       matchVisual: false,
