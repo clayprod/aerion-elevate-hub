@@ -15,20 +15,17 @@ import { ptBR } from "date-fns/locale";
 const Blog = () => {
   const { data: posts, isLoading, error } = useQuery({
     queryKey: ["blog-posts"],
+    staleTime: 5 * 60 * 1000,
+    gcTime: 30 * 60 * 1000,
     queryFn: async () => {
-      console.log("🔍 Fetching blog posts...");
       const { data, error } = await supabase
         .from("blog_posts")
-        .select("*")
+        .select("id, title, slug, excerpt, category, cover_image, published_at, updated_at")
         .eq("published", true)
-        .order("published_at", { ascending: false });
+        .order("published_at", { ascending: false })
+        .limit(24);
 
-      if (error) {
-        console.error("❌ Error fetching blog posts:", error);
-        throw error;
-      }
-      
-      console.log("✅ Blog posts fetched:", data);
+      if (error) throw error;
       return data;
     },
   });

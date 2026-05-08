@@ -142,7 +142,11 @@ const AdminBlog = () => {
           category: formData.category || null,
           tags: tags.length > 0 ? tags : null,
           published: formData.published,
-          published_at: formData.published ? new Date().toISOString() : null,
+          // Preserva a data de publicação original. Só seta agora se está
+          // publicando pela primeira vez (rascunho → publicado).
+          published_at: formData.published
+            ? (editingPost.published_at ?? new Date().toISOString())
+            : null,
         };
 
         // Não usar .select() para evitar overhead e possíveis timeouts

@@ -232,7 +232,7 @@ async function renderRoute(browser, route) {
           
           return !hasLoadingElements && imagesLoaded;
         },
-        { timeout: 10000 }
+        { timeout: 30000 }
       );
     } catch (e) {
       // Se timeout, continuar mesmo assim

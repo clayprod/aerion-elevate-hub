@@ -19,6 +19,8 @@ const BlogPost = () => {
 
   const { data: post, isLoading } = useQuery({
     queryKey: ["blog-post", slug],
+    staleTime: 5 * 60 * 1000,
+    gcTime: 30 * 60 * 1000,
     queryFn: async () => {
       const { data, error } = await supabase
         .from("blog_posts")
@@ -31,6 +33,11 @@ const BlogPost = () => {
       return data;
     },
   });
+
+  const wasEdited =
+    post?.updated_at &&
+    post?.published_at &&
+    new Date(post.updated_at).getTime() - new Date(post.published_at).getTime() > 60_000;
 
   // Construir meta tags dinâmicas baseadas no post
   const getSEOProps = () => {
@@ -142,6 +149,11 @@ const BlogPost = () => {
                         <span>{format(new Date(post.published_at), "dd 'de' MMMM, yyyy", { locale: ptBR })}</span>
                       </div>
                     )}
+                    {wasEdited && (
+                      <div className="flex items-center space-x-2 text-sm text-gray-500 italic">
+                        <span>Editado em {format(new Date(post.updated_at!), "dd 'de' MMMM, yyyy", { locale: ptBR })}</span>
+                      </div>
+                    )}
                   </div>
                   
                   {post.excerpt && (
@@ -160,6 +172,8 @@ const BlogPost = () => {
                       width={400}
                       height={500}
                       loading="eager"
+                      fetchPriority="high"
+                      decoding="async"
                       className="w-full h-full object-cover rounded-xl shadow-lg"
                       style={{
                         aspectRatio: '4 / 5',

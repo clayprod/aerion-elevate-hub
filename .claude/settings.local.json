@@ -12,7 +12,8 @@
       "Bash(./node_modules/.bin/vite build:*)",
       "Bash(node:*)",
       "Bash(sort:*)",
-      "WebFetch(domain:www.youtube.com)"
+      "WebFetch(domain:www.youtube.com)",
+      "PowerShell(Get-Command *)"
     ]
   }
 }
