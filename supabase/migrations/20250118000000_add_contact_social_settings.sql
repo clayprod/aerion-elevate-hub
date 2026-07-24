@@ -3,7 +3,7 @@
 
 -- Inserir ou atualizar configurações de contato
 INSERT INTO public.site_settings (key, value, category, description) VALUES
-  ('contact_phone', '+55 11 5102-4229', 'contact', 'Telefone de contato principal'),
+  ('contact_phone', '+55 11 5197-3319', 'contact', 'Telefone de contato principal'),
   ('contact_whatsapp', '+55 11 93466-8839', 'contact', 'WhatsApp comercial'),
   ('contact_email', 'comercial@aerion.com.br', 'contact', 'Email de contato comercial'),
   ('contact_address_line1', 'Edifício Itamaracá', 'contact', 'Linha 1 do endereço'),

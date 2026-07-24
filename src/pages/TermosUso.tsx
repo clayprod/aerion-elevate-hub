@@ -195,7 +195,7 @@ const TermosUso = () => {
                           <strong>Email:</strong> contato@aerion.com.br
                         </p>
                         <p className="text-gray-700 mb-2">
-                          <strong>Telefone:</strong> +55 11 5102-4229
+                          <strong>Telefone:</strong> +55 11 5197-3319
                         </p>
                         <p className="text-gray-700">
                           <strong>Endereço:</strong> Edifício Itamaracá, R. Quintana 887, Cj. 111, 11º Andar, Brooklin Novo - SP, 04569-011
