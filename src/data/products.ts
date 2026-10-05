@@ -6,14 +6,31 @@ export interface ProductVariant {
   specs: Record<string, Record<string, string>>;
 }
 
+export interface EditorialProductCard {
+  tagline: string;
+  description: string;
+  image: string;
+  imageFit?: "cover" | "contain";
+  specifications: string[];
+}
+
+export interface ProductDownload {
+  title: string;
+  description: string;
+  url: string;
+  language?: string;
+}
+
 export interface ProductFamily {
   id: string;
   name: string;
   slug: string;
   description: string;
+  editorialCard?: EditorialProductCard;
   youtubeVideoId?: string;
   fallbackImage: string;
   brochure: string;
+  downloads?: ProductDownload[];
   variants: ProductVariant[];
   gallery: string[];
   lifestyleImages: string[];
@@ -1420,6 +1437,7 @@ export const productFamilies: ProductFamily[] = [
     id: "evo-nest",
     name: "EVO Nest",
     slug: "evo-nest",
+    storeUrl: "/loja/produto/evo-nest/",
     description: "Confiável, durável e transportável, o EVO Nest é uma base para decolagem, pouso, carregamento e planejamento de missões automáticos para a série EVO. O Nest é projetado para operação em todas as condições climáticas e usa um tambor protetor de peça única com menos partes móveis para simplificar a manutenção. O Nest cabe na caçamba de uma picape padrão e é leve o suficiente para ser carregado por 2 pessoas. Pareado com o Sistema de Comando Integrado Autel (AICS) para gerenciamento centralizado de drones, o Nest é fácil de configurar, manter e operar.",
     youtubeVideoId: undefined,
     fallbackImage: "/images/products/evo_nest/weather-resistant.webp",
@@ -1553,6 +1571,217 @@ export const productFamilies: ProductFamily[] = [
         link: "/solucoes/industrial"
       }
     ]
+  },
+  {
+    id: "hubsan-mini-7",
+    name: "HUBSAN Mini 7",
+    slug: "hubsan-mini-7",
+    description: "Um drone dobrável com menos de 249 g feito para transformar viagens, encontros e ideias em conteúdo que chama atenção. O HUBSAN Mini 7 combina câmera aérea de 1 polegada, movimentos estabilizados e controle com tela própria para você tirar da mochila e começar a criar com menos etapas.",
+    editorialCard: {
+      tagline: "Leve na mochila. Grande na imagem.",
+      description: "Menos de 249 g, câmera de 1 polegada, vídeo 4K e controle com tela integrada para transformar viagens, paisagens e momentos cotidianos em histórias vistas de outro ângulo.",
+      image: "/images/products/hubsan-mini-7/mini-7-front-three-quarter.webp",
+      imageFit: "contain",
+      specifications: [
+        "Câmera CMOS de 1 polegada e 48 MP com vídeo 4K a 30 fps",
+        "Até 30 minutos de voo e sensoriamento visual dianteiro, traseiro e inferior"
+      ]
+    },
+    fallbackImage: "/images/products/hubsan-mini-7/mini-7-front-three-quarter.webp",
+    brochure: "/downloads/HUBSAN-MINI-7-User-Guide-EN-V26.05.15.pdf",
+    downloads: [
+      {
+        title: "Ficha técnica HUBSAN Mini 7",
+        description: "",
+        url: "/downloads/HUBSAN-MINI-7-Specifications-EN.pdf",
+        language: ""
+      }
+    ],
+    productCodes: {
+      sku: ""
+    },
+    keyFeatures: [
+      "Captura vertical nativa para produzir conteúdos pensados desde o início para as redes sociais",
+      "Órbita, rastreamento, hyperlapse, panorama e waypoints para variar a linguagem de cada cena",
+      "Cartão microSD U3 de até 2 TB para acompanhar produções mais longas",
+      "Saída HDMI no controle HT55 para exibir e acompanhar a imagem em telas externas"
+    ],
+    technicalData: {
+      "AERONAVE": {
+        "Peso de decolagem": "Menos de 249 g",
+        "Dimensões aberta": "203 × 162 × 62 mm",
+        "Dimensões dobrada": "137 × 88 × 62 mm",
+        "Velocidade horizontal máxima": "16 m/s no modo Sport",
+        "Altitude máxima de decolagem": "4.000 m",
+        "Resistência ao vento": "Nível 5, de 8,5 a 10,5 m/s",
+        "Tempo máximo de voo": "30 min com bateria de 3.000 mAh"
+      },
+      "CÂMERA": {
+        "Sensor": "CMOS de 1 polegada",
+        "Resolução fotográfica": "48 MP",
+        "Lente": "Campo de visão de 84°, abertura f/1.9 e foco de 5 m ao infinito",
+        "Vídeo": "Até 4K a 30 fps",
+        "Obturador": "3 s a 1/8000 s",
+        "Recursos": "Modo noturno e captura vertical",
+        "Formato de foto": "JPEG",
+        "Vídeo e codec": "MP4 com H.264",
+        "Armazenamento": "Cartão microSD U3 de até 2 TB"
+      },
+      "GIMBAL": {
+        "Estabilização": "Mecânica em 3 eixos",
+        "Faixa mecânica de inclinação": "-111,1° a +45°",
+        "Faixa mecânica de rolagem": "±35°",
+        "Faixa mecânica de guinada": "±35°",
+        "Velocidade máxima de controle": "120°/s"
+      },
+      "SISTEMA DE VISÃO": {
+        "Dianteiro": "Binocular; precisão de 0,5 a 12 m e detecção acima de 15 m",
+        "Traseiro": "Binocular; precisão de 0,5 a 9 m e detecção acima de 12 m",
+        "Inferior": "Câmera monocular e TOF, de 0,3 a 5 m",
+        "Retorno visual": "Reconhecimento do ponto de decolagem e da área de pouso"
+      },
+      "TRANSMISSÃO E POSICIONAMENTO": {
+        "Sistema de transmissão": "SyncLeas 5.0",
+        "Distância máxima de transmissão": "16 km",
+        "Taxa de transmissão de vídeo": "5 Mbps",
+        "Latência": "Até 250 ms",
+        "Conectividade": "Wi-Fi 6E e Bluetooth"
+      },
+      "RECURSOS DE VOO E CAPTURA": {
+        "Planejamento": "Waypoints, memória de rota e voo em linha",
+        "Movimentos inteligentes": "Órbita e rastreamento do assunto",
+        "Captura criativa": "Hyperlapse, panorama e modos cinematográficos automatizados",
+        "Aplicativo": "X-Hubsan 3.0"
+      },
+      "CONTROLE HT55": {
+        "Tela": "5,5 polegadas, 1920 × 1080 e brilho de 2.000 nits",
+        "Sistema": "Android 10",
+        "Autonomia": "Até 6 h",
+        "Tempo aproximado de recarga": "2,5 h",
+        "Conexões": "USB-C, HDMI e slot para cartão TF",
+        "Posicionamento": "GPS, GLONASS, Galileo e BeiDou"
+      },
+      "BATERIA INTELIGENTE": {
+        "Tipo": "Lítio 2S",
+        "Capacidade": "3.000 mAh",
+        "Tensão nominal": "7,2 V",
+        "Recarga recomendada": "Carregador rápido de 9 V / 2 A",
+        "Tempo aproximado de recarga": "1,5 h"
+      }
+    },
+    components: [],
+    accessoriesIncluded: [],
+    videos: [],
+    photoGallery: {
+      product: [
+        "/images/products/hubsan-mini-7/mini-7-front-three-quarter.webp",
+        "/images/products/hubsan-mini-7/mini-7-folded.webp",
+        "/images/products/hubsan-mini-7/mini-7-controller-unfolded.webp",
+        "/images/products/hubsan-mini-7/mini-7-controller-folded.webp",
+        "/images/products/hubsan-mini-7/mini-7-in-flight.webp",
+        "/images/products/hubsan-mini-7/mini-7-camera-detail.webp",
+        "/images/products/hubsan-mini-7/mini-7-head-on.webp"
+      ],
+      lifestyle: [
+        "/images/products/hubsan-mini-7/mini-7-lifestyle-horizonte.jpeg",
+        "/images/products/hubsan-mini-7/hubsan-mini-7-aplus-image-quality-v2.jpeg",
+        "/images/products/hubsan-mini-7/hubsan-mini-7-aplus-content-creation-v2.jpeg",
+        "/images/products/hubsan-mini-7/hubsan-mini-7-aplus-spatial-awareness-v2.jpeg",
+        "/images/products/hubsan-mini-7/hubsan-mini-7-aplus-stabilization-v2.jpeg",
+        "/images/products/hubsan-mini-7/hubsan-mini-7-aplus-wind-resistance-v4.jpeg",
+        "/images/products/hubsan-mini-7/hubsan-mini-7-aplus-transmission-range-v5.jpeg",
+        "/images/products/hubsan-mini-7/hubsan-mini-7-aplus-controller-v4.jpeg"
+      ],
+      details: [
+        "/images/products/hubsan-mini-7/mini-7-camera-detail.webp",
+        "/images/products/hubsan-mini-7/mini-7-head-on.webp",
+        "/images/products/hubsan-mini-7/mini-7-folded.webp"
+      ]
+    },
+    variants: [
+      {
+        id: "standard",
+        name: "HUBSAN Mini 7",
+        description: "Bateria inteligente de 3.000 mAh e controle HT55 com tela integrada.",
+        imagePath: "/images/products/hubsan-mini-7",
+        specs: {
+          "AERONAVE": {
+            "Peso de decolagem": "Menos de 249 g",
+            "Dimensões aberta": "203 × 162 × 62 mm",
+            "Dimensões dobrada": "137 × 88 × 62 mm",
+            "Tempo máximo de voo": "30 min",
+            "Velocidade horizontal máxima": "16 m/s no modo Sport",
+            "Resistência ao vento": "Nível 5, de 8,5 a 10,5 m/s"
+          },
+          "CÂMERA E GIMBAL": {
+            "Sensor": "CMOS de 1 polegada e 48 MP",
+            "Vídeo": "Até 4K a 30 fps",
+            "Lente": "84°, f/1.9 e foco de 5 m ao infinito",
+            "Estabilização": "Gimbal mecânico de 3 eixos"
+          },
+          "SENSORIAMENTO": {
+            "Dianteiro": "Visão binocular",
+            "Traseiro": "Visão binocular",
+            "Inferior": "Câmera monocular e TOF"
+          },
+          "TRANSMISSÃO": {
+            "Sistema": "SyncLeas 5.0",
+            "Distância máxima de transmissão": "16 km",
+            "Conectividade": "Wi-Fi 6E e Bluetooth"
+          },
+          "CONTROLE": {
+            "Modelo": "HT55",
+            "Tela": "5,5 polegadas Full HD, 2.000 nits",
+            "Autonomia": "Até 6 h"
+          }
+        }
+      }
+    ],
+    gallery: [
+      "/images/products/hubsan-mini-7/mini-7-front-three-quarter.webp",
+      "/images/products/hubsan-mini-7/mini-7-folded.webp",
+      "/images/products/hubsan-mini-7/mini-7-in-flight.webp",
+      "/images/products/hubsan-mini-7/mini-7-camera-detail.webp"
+    ],
+    lifestyleImages: [
+      "/images/products/hubsan-mini-7/mini-7-lifestyle-horizonte.jpeg",
+      "/images/products/hubsan-mini-7/hubsan-mini-7-aplus-image-quality-v2.jpeg",
+      "/images/products/hubsan-mini-7/hubsan-mini-7-aplus-content-creation-v2.jpeg",
+      "/images/products/hubsan-mini-7/hubsan-mini-7-aplus-spatial-awareness-v2.jpeg",
+      "/images/products/hubsan-mini-7/hubsan-mini-7-aplus-stabilization-v2.jpeg",
+      "/images/products/hubsan-mini-7/hubsan-mini-7-aplus-wind-resistance-v4.jpeg",
+      "/images/products/hubsan-mini-7/hubsan-mini-7-aplus-transmission-range-v5.jpeg",
+      "/images/products/hubsan-mini-7/hubsan-mini-7-aplus-controller-v4.jpeg"
+    ],
+    accessories: [],
+    applications: [
+      {
+        title: "Viagens",
+        description: "Um drone compacto para registrar destinos sem pesar na bagagem.",
+        image: "/images/products/hubsan-mini-7/mini-7-folded.png",
+        link: "/contato/"
+      },
+      {
+        title: "Conteúdo para redes sociais",
+        description: "Captura vertical e movimentos automatizados para ampliar as possibilidades criativas.",
+        image: "/images/products/hubsan-mini-7/mini-7-in-flight.png",
+        link: "/contato/"
+      },
+      {
+        title: "Paisagens e experiências",
+        description: "Sensor de 1 polegada e vídeo 4K para mostrar mais textura, luz e profundidade.",
+        image: "/images/products/hubsan-mini-7/mini-7-camera-detail.png",
+        link: "/contato/"
+      },
+      {
+        title: "Produção móvel",
+        description: "Controle com tela integrada para sair do estojo e começar a criar com menos etapas.",
+        image: "/images/products/hubsan-mini-7/mini-7-controller-unfolded.png",
+        link: "/contato/"
+      }
+    ],
+    storeAvailable: true,
+    storeUrl: "/loja/produto/hubsan-mini-7/"
   }
 ];
 
