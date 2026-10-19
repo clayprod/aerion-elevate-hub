@@ -483,13 +483,18 @@ try {
     // --- 14. Estoque -------------------------------------------------------
     $section('14. Estoque pelo Sankhya: soma empresas, zera ausentes e não apaga a loja com resposta vazia');
     $candidates = [];
+    // A sincronização agora cobre todo produto publicado (inclusive kits e itens fora do ERP): guarda o estado de todos.
+    $presaleMeta = [];
+    foreach (wc_get_products(['limit' => -1, 'status' => ['publish', 'private']]) as $existing) {
+        $stockSnapshot[$existing->get_id()] = [$existing->get_manage_stock(), $existing->get_stock_quantity(), $existing->get_stock_status(), $existing->get_backorders()];
+        $presaleMeta[$existing->get_id()] = $existing->get_meta('_aerion_presale', true);
+    }
     foreach (array_keys(Aerion_Inventory::whitelist()) as $sku) {
         $id = wc_get_product_id_by_sku((string) $sku);
         $candidate = $id ? wc_get_product($id) : null;
         if (! $candidate) {
             continue;
         }
-        $stockSnapshot[$id] = [$candidate->get_manage_stock(), $candidate->get_stock_quantity(), $candidate->get_stock_status(), $candidate->get_backorders()];
         $bom = $candidate->get_meta('_aerion_bom', true);
         if (count($candidates) < 2 && ctype_digit((string) $sku) && ! $candidate->is_virtual() && ! (is_array($bom) && $bom)) {
             $candidates[] = $candidate;
@@ -511,8 +516,33 @@ try {
         $second = wc_get_product($second->get_id());
         $check(! is_wp_error($result), 'sincronização concluída');
         $check((int) $first->get_stock_quantity() === 9, 'soma o saldo das duas empresas');
-        $check((int) $second->get_stock_quantity() === 0 && $second->get_stock_status() === 'onbackorder', 'produto sem saldo no Sankhya fica zerado');
+        $check((int) $second->get_stock_quantity() === 0 && $second->get_stock_status() === 'outofstock' && $second->get_backorders() === 'no', 'produto sem saldo no Sankhya fica esgotado (sem encomenda)');
         $check(is_array($result) && ($result['ignored'] ?? 0) === 1, 'produto fora da loja é ignorado');
+        $hubsan = wc_get_product(wc_get_product_id_by_sku('HUBSAN-MINI-7'));
+        if ($hubsan) {
+            $check($hubsan->get_stock_status() === 'outofstock' && ! $hubsan->is_in_stock(), 'produto sem cadastro no ERP (HUBSAN) aparece sem estoque');
+            $hubsan->update_meta_data('_aerion_presale', 'yes');
+            $hubsan->save();
+            Aerion_Inventory::apply_stock([(string) $first->get_sku() => 9]);
+            $hubsan = wc_get_product($hubsan->get_id());
+            $check($hubsan->get_stock_status() === 'onbackorder' && $hubsan->get_backorders() === 'notify', 'marcado como pré-venda, vende sem estoque');
+            $hubsan->update_meta_data('_aerion_presale', 'no');
+            $hubsan->save();
+            Aerion_Inventory::apply_stock([(string) $first->get_sku() => 9]);
+            $check(wc_get_product($hubsan->get_id())->get_stock_status() === 'outofstock', 'sem a marca de pré-venda, volta a esgotado');
+        }
+        $kitsChecked = 0;
+        foreach (wc_get_products(['limit' => -1, 'status' => 'publish']) as $kit) {
+            $bom = $kit->get_meta('_aerion_bom', true);
+            if (is_array($bom) && $bom && ! Aerion_Inventory::presale($kit)) {
+                $kitsChecked++;
+                $expected = Aerion_Inventory::kit_quantity($kit);
+                $check($kit->get_stock_status() === (($expected === null || $expected > 0) ? 'instock' : 'outofstock') && $kit->get_backorders() === 'no', 'kit ' . $kit->get_sku() . ': esgotado quando falta componente, sem encomenda');
+                if ($kitsChecked >= 3) {
+                    break;
+                }
+            }
+        }
         $pages = array_map(static function (array $call): string {
             parse_str((string) wp_parse_url($call['url'], PHP_URL_QUERY), $q);
             return (string) ($q['page'] ?? '');
@@ -1074,6 +1104,7 @@ try {
             $restored->set_stock_quantity($quantity);
             $restored->set_backorders($backorders);
             $restored->set_stock_status($status);
+            $restored->update_meta_data('_aerion_presale', $presaleMeta[$productId] ?? '');
             $restored->save();
         }
     }
