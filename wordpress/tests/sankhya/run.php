@@ -308,6 +308,15 @@ try {
     $check(str_starts_with((string) ($sale['observacao'] ?? ''), 'Pedido site #' . $order->get_order_number()), 'observação com a marca do pedido');
     $check(! array_key_exists('chaveNfe', $sale), 'não envia campos de nota importada');
 
+    // Baixa recusada pelo ERP: reenvia com o título em aberto, sem perder o pedido.
+    $http->reset();
+    $http->push('POST /v1/vendas/pedidos', Aerion_Sankhya_Fake_Http::json(422, ['erro' => 'campo dataBaixa invalido']));
+    $http->push('POST /v1/vendas/pedidos', Aerion_Sankhya_Fake_Http::json(200, ['codigo' => 200, 'retorno' => ['codigoPedido' => 777001]]));
+    $fallback = (new Aerion_Sankhya_Client('live'))->create_sales_order($order, 'k');
+    $posts = $http->all('POST /v1/vendas/pedidos');
+    $check(! is_wp_error($fallback) && ($fallback['remote_id'] ?? '') === '777001' && count($posts) === 2, 'baixa recusada: reenvia o pedido com o título em aberto');
+    $check(isset($posts[0]['body']['financeiros'][0]['dataBaixa']) && ! isset($posts[1]['body']['financeiros'][0]['dataBaixa']), 'segunda tentativa sem dataBaixa');
+
     // --- 2. Validade do token --------------------------------------------
     $section('2. Token guardado por menos que os 300s de validade');
     if (wp_using_ext_object_cache()) {

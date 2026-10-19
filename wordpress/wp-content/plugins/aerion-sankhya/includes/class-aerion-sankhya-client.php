@@ -113,6 +113,16 @@ final class Aerion_Sankhya_Client implements Aerion_ERP_Client
             ];
         }
         $response = $this->request('POST', '/v1/vendas/pedidos', $payload);
+        // O proxy repassa o título sem validar; se o ERP recusar a baixa embutida, o pedido
+        // entra com o título em aberto (o financeiro baixa) em vez de ficar parado.
+        if (! is_wp_error($response) && in_array($response['status'], [400, 422], true) && isset($payload['financeiros'][0]['dataBaixa']) && stripos((string) wp_json_encode($response['body']), 'baixa') !== false) {
+            unset($payload['financeiros'][0]['dataBaixa']);
+            $retry = $this->request('POST', '/v1/vendas/pedidos', $payload);
+            if (! is_wp_error($retry) && $retry['status'] >= 200 && $retry['status'] < 300) {
+                $order->add_order_note('Sankhya: o ERP não aceitou a baixa do título; pedido enviado com o título em aberto (baixar no financeiro).');
+                $response = $retry;
+            }
+        }
         if (is_wp_error($response)) {
             return $response;
         }
