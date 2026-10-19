@@ -1,0 +1,109 @@
+name: ${COMPOSE_PROJECT_NAME:-aerion-wordpress}
+
+services:
+  db:
+    image: mariadb:11.4
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: ${WORDPRESS_DB_NAME:-aerion_wordpress}
+      MARIADB_USER: ${WORDPRESS_DB_USER:-aerion}
+      MARIADB_PASSWORD: ${WORDPRESS_DB_PASSWORD:-local-only-change-me}
+      MARIADB_ROOT_PASSWORD: ${WORDPRESS_DB_ROOT_PASSWORD:-local-root-change-me}
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  wordpress:
+    build:
+      context: ..
+      dockerfile: wordpress/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "${WORDPRESS_PORT:-8088}:80"
+    environment: &wordpress-environment
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME:-aerion_wordpress}
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER:-aerion}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD:-local-only-change-me}
+      WORDPRESS_SITE_URL: ${WORDPRESS_SITE_URL:-http://localhost:8088}
+      WORDPRESS_SITE_TITLE: ${WORDPRESS_SITE_TITLE:-Aerion Technologies}
+      WORDPRESS_ADMIN_USER: ${WORDPRESS_ADMIN_USER:-admin}
+      WORDPRESS_ADMIN_PASSWORD: ${WORDPRESS_ADMIN_PASSWORD:-local-admin-change-me}
+      WORDPRESS_ADMIN_EMAIL: ${WORDPRESS_ADMIN_EMAIL:-clayton.costa@aerion.com.br}
+      SUPABASE_URL: ${SUPABASE_URL:-}
+      SUPABASE_SERVICE_ROLE_KEY: ${SUPABASE_SERVICE_ROLE_KEY:-}
+      AERION_SMTP_HOST: ${AERION_SMTP_HOST:-}
+      AERION_SMTP_PORT: ${AERION_SMTP_PORT:-587}
+      AERION_SMTP_ENCRYPTION: ${AERION_SMTP_ENCRYPTION:-tls}
+      AERION_SMTP_USER: ${AERION_SMTP_USER:-resend}
+      AERION_SMTP_PASSWORD: ${AERION_SMTP_PASSWORD:-}
+      AERION_MAIL_FROM: ${AERION_MAIL_FROM:-naoresponda@aerion.com.br}
+      AERION_MAIL_FROM_NAME: ${AERION_MAIL_FROM_NAME:-Aerion Technologies}
+      AERION_MAIL_REPLY_TO: ${AERION_MAIL_REPLY_TO:-comercial@aerion.com.br}
+      AERION_GTM_ID: ${AERION_GTM_ID:-}
+      AERION_GA4_ID: ${AERION_GA4_ID:-}
+      AERION_META_PIXEL_ID: ${AERION_META_PIXEL_ID:-}
+      AERION_SANKHYA_MODE: ${AERION_SANKHYA_MODE:-disabled}
+      AERION_SANKHYA_BASE_URL: ${AERION_SANKHYA_BASE_URL:-}
+      AERION_SANKHYA_CLIENT_ID: ${AERION_SANKHYA_CLIENT_ID:-}
+      AERION_SANKHYA_CLIENT_SECRET: ${AERION_SANKHYA_CLIENT_SECRET:-}
+      AERION_SANKHYA_X_TOKEN: ${AERION_SANKHYA_X_TOKEN:-}
+      AERION_SANKHYA_PARTNER_KEY: ${AERION_SANKHYA_PARTNER_KEY:-}
+      AERION_INVOICE_WEBHOOK_KEY: ${AERION_INVOICE_WEBHOOK_KEY:-}
+      AERION_SANKHYA_COMPANY_ID: ${AERION_SANKHYA_COMPANY_ID:-}
+      WORDPRESS_CONFIG_EXTRA: |
+        define( 'WP_ENVIRONMENT_TYPE', getenv( 'WP_ENVIRONMENT_TYPE' ) ?: 'local' );
+        define( 'WP_HOME', getenv( 'WORDPRESS_SITE_URL' ) ?: 'http://localhost:8088' );
+        define( 'WP_SITEURL', getenv( 'WORDPRESS_SITE_URL' ) ?: 'http://localhost:8088' );
+        define( 'DISALLOW_FILE_EDIT', true );
+        define( 'WP_MEMORY_LIMIT', '256M' );
+        define( 'WP_MAX_MEMORY_LIMIT', '512M' );
+        define( 'AERION_PRIVATE_DIR', '/var/www/aerion-private' );
+        define( 'AERION_GTM_ID', getenv( 'AERION_GTM_ID' ) ?: '' );
+        define( 'AERION_GA4_ID', getenv( 'AERION_GA4_ID' ) ?: '' );
+        define( 'AERION_META_PIXEL_ID', getenv( 'AERION_META_PIXEL_ID' ) ?: '' );
+        define( 'AERION_SANKHYA_MODE', getenv( 'AERION_SANKHYA_MODE' ) ?: 'disabled' );
+    volumes:
+      - wordpress_data:/var/www/html
+      - migration_data:/migration
+      - private_data:/var/www/aerion-private
+
+  wpcli:
+    image: wordpress:cli-php8.3
+    depends_on:
+      db:
+        condition: service_healthy
+      wordpress:
+        condition: service_started
+    environment: *wordpress-environment
+    user: "33:33"
+    working_dir: /var/www/html
+    entrypoint: ["wp"]
+    volumes:
+      - wordpress_data:/var/www/html
+      - migration_data:/migration
+      - private_data:/var/www/aerion-private
+
+  mailpit:
+    image: axllent/mailpit:v1.27
+    restart: unless-stopped
+    ports:
+      - "${MAILPIT_SMTP_PORT:-1025}:1025"
+      - "${MAILPIT_UI_PORT:-8025}:8025"
+    healthcheck:
+      test: ["CMD", "/mailpit", "readyz"]
+      interval: 15s
+      start_period: 10s
+
+volumes:
+  db_data:
+  wordpress_data:
+  migration_data:
+  private_data:
