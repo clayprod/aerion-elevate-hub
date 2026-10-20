@@ -86,7 +86,7 @@ final class Aerion_Presale
         return '<div class="aerion-presale-box"><div class="aerion-presale-box__head"><b>Pré-venda</b><strong>'
             . esc_html(self::delivery_text($product)) . '</strong></div>'
             . '<p>Garanta o seu agora e receba a partir dessa data. Se a entrega não acontecer, você recebe o valor de volta. '
-            . '<a href="' . esc_url(self::page_url()) . '">Saiba mais</a></p></div>';
+            . '<a href="' . esc_url(self::page_url()) . '" target="_blank" rel="noopener">Saiba mais</a></p></div>';
     }
 
     public static function button_text(string $text, $product): string
