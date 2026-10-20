@@ -308,7 +308,20 @@ final class Aerion_Inventory
         return false;
     }
 
+    /** Disponivel para compra agora: ha saldo, ou e pre-venda marcada (entra com chip e prazo, ver Aerion_Presale). */
     public static function immediately_available(WC_Product $product): bool
+    {
+        return self::has_stock_now($product)||(self::presale($product)&&$product->is_in_stock());
+    }
+
+    /** Pre-venda em vigor: marcada no produto e ainda sem saldo. Com saldo, vende normal e o chip some. */
+    public static function presale_active(WC_Product $product): bool
+    {
+        return self::presale($product)&&$product->is_in_stock()&&!self::has_stock_now($product);
+    }
+
+    /** Saldo real (ou componentes, no kit) para entrega imediata. */
+    public static function has_stock_now(WC_Product $product): bool
     {
         $bom=$product->get_meta('_aerion_bom',true);
         if(is_array($bom)&&$bom){

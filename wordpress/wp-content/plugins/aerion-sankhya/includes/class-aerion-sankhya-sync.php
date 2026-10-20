@@ -29,6 +29,10 @@ final class Aerion_Sankhya_Sync
         if (! $order || $order->get_meta('_aerion_sankhya_remote_id')) {
             return;
         }
+        // Pré-venda não tem saldo no ERP: só segue quando a equipe libera (ação manual do pedido).
+        if ($order->get_meta('_aerion_presale') === 'yes' && $order->get_meta('_aerion_presale_released') !== 'yes') {
+            return;
+        }
         $key = (string) $order->get_meta('_aerion_sankhya_idempotency_key');
         if (! $key) {
             $created = $order->get_date_created()?->getTimestamp() ?? time();
@@ -109,6 +113,10 @@ final class Aerion_Sankhya_Sync
         if (self::mode() === 'disabled') {
             $order->add_order_note('Sankhya: integração desativada; nenhuma chamada foi feita.');
             return;
+        }
+        if ($order->get_meta('_aerion_presale') === 'yes') {
+            $order->update_meta_data('_aerion_presale_released', 'yes');
+            $order->add_order_note('Pré-venda liberada para o ERP.');
         }
         $order->delete_meta_data('_aerion_sankhya_remote_id');
         $order->delete_meta_data('_aerion_sankhya_partner_code');

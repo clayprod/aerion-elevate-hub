@@ -529,6 +529,11 @@ try {
         $check(is_array($result) && ($result['ignored'] ?? 0) === 1, 'produto fora da loja é ignorado');
         $hubsan = wc_get_product(wc_get_product_id_by_sku('HUBSAN-MINI-7'));
         if ($hubsan) {
+            // Estado limpo: sem pré-venda marcada (o snapshot devolve a marca original ao final).
+            $hubsan->update_meta_data('_aerion_presale', 'no');
+            $hubsan->save();
+            Aerion_Inventory::apply_stock([(string) $first->get_sku() => 9]);
+            $hubsan = wc_get_product($hubsan->get_id());
             $check($hubsan->get_stock_status() === 'outofstock' && ! $hubsan->is_in_stock(), 'produto sem cadastro no ERP (HUBSAN) aparece sem estoque');
             $hubsan->update_meta_data('_aerion_presale', 'yes');
             $hubsan->save();
@@ -1080,6 +1085,48 @@ try {
     } else {
         update_option(Aerion_Sankhya_Mapper::STOCK_BY_LOCATION_OPTION, $previousMap, false);
     }
+
+    // --- 35. Pré-venda ----------------------------------------------------------
+    $section('35. Pré-venda: chip, prazo e pedido seguro até a liberação');
+    $pre = new WC_Product_Simple();
+    $pre->set_name('Produto pré-venda teste');
+    $pre->set_sku('PREVENDA-TESTE');
+    $pre->set_regular_price('100');
+    $pre->set_manage_stock(true);
+    $pre->set_stock_quantity(0);
+    $pre->set_backorders('no');
+    $pre->set_stock_status('outofstock');
+    $pre->save();
+    $created['products'][] = $pre->get_id();
+    $check(! Aerion_Presale::active($pre) && Aerion_Presale::chip($pre) === '' && ! Aerion_Inventory::immediately_available($pre), 'sem a marca, sem estoque = indisponível e sem chip');
+    $pre->update_meta_data('_aerion_presale', 'yes');
+    $pre->update_meta_data('_aerion_presale_date', wp_date('Y-m-d', time() + 30 * DAY_IN_SECONDS));
+    $pre->set_backorders('notify');
+    $pre->set_stock_status('onbackorder');
+    $pre->save();
+    $pre = wc_get_product($pre->get_id());
+    $check(Aerion_Presale::active($pre) && Aerion_Inventory::immediately_available($pre), 'marcado e sem saldo: pré-venda ativa e comprável');
+    $check(str_contains(Aerion_Presale::chip($pre), 'Pré-venda') && ! preg_match('/[0-9]/', Aerion_Presale::chip($pre)), 'chip do card mostra só "Pré-venda", sem data');
+    $check(str_contains(Aerion_Presale::product_notice($pre), 'Entrega a partir de ' . wp_date('d/m/Y', time() + 30 * DAY_IN_SECONDS)) && str_contains(Aerion_Presale::product_notice($pre), 'Saiba mais'), 'página do produto mostra a data e o "Saiba mais"');
+    $check(str_contains(Aerion_Presale::product_notice($pre), 'valor de volta'), 'aviso da página cita a devolução do valor');
+    $check(get_page_by_path('pre-venda') instanceof WP_Post, 'página "Como funciona a pré-venda" existe');
+    $pre->update_meta_data('_aerion_presale_date', wp_date('Y-m-d', time() - DAY_IN_SECONDS));
+    $pre->save();
+    $check(str_contains(Aerion_Presale::product_notice(wc_get_product($pre->get_id())), 'Prazo de entrega a confirmar'), 'data vencida: prazo a confirmar');
+    $pre->set_stock_quantity(3);
+    $pre->set_stock_status('instock');
+    $pre->save();
+    $check(! Aerion_Presale::active(wc_get_product($pre->get_id())), 'com saldo de volta, o chip some');
+
+    $http->reset();
+    $forceLive = static fn (): string => 'live';
+    add_filter('aerion_sankhya_mode', $forceLive);
+    $holdOrder = $makeOrder();
+    $holdOrder->update_meta_data('_aerion_presale', 'yes');
+    $holdOrder->save();
+    Aerion_Sankhya_Sync::queue($holdOrder->get_id());
+    $check(! function_exists('as_has_scheduled_action') || ! as_has_scheduled_action('aerion_sankhya_push_order', [$holdOrder->get_id(), (string) wc_get_order($holdOrder->get_id())->get_meta('_aerion_sankhya_idempotency_key'), 1], 'aerion-sankhya'), 'pedido de pré-venda não é enviado ao ERP sozinho');
+    remove_filter('aerion_sankhya_mode', $forceLive);
 } catch (Throwable $error) {
     $failures++;
     WP_CLI::log('  FALHA exceção: ' . $error->getMessage() . ' em ' . $error->getFile() . ':' . $error->getLine());
