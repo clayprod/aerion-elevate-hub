@@ -261,3 +261,82 @@ add_action('wp_enqueue_scripts', static function (): void {
     $file = get_theme_file_path('assets/js/lazy-turnstile.js');
     wp_enqueue_script('aerion-lazy-turnstile', get_theme_file_uri('assets/js/lazy-turnstile.js'), [], (string) filemtime($file), ['in_footer' => true, 'strategy' => 'defer']);
 }, 20);
+
+/**
+ * Paginas institucionais (fora da loja, carrinho, checkout e conta): tira CSS
+ * que nao e usado e adia o que so aparece depois da primeira tela. Medido
+ * comparando o estilo calculado de todos os elementos com e sem cada folha:
+ * o CSS do WooCommerce nao altera nada nessas paginas; o do Fluent Forms so
+ * afeta o formulario de contato, que fica no rodape.
+ */
+function aerion_is_institutional_request(): bool
+{
+    if (is_admin() || is_feed() || (function_exists('aerion_is_store_context') && aerion_is_store_context())) {
+        return false;
+    }
+    if (function_exists('is_woocommerce') && (is_woocommerce() || is_cart() || is_checkout() || is_account_page())) {
+        return false;
+    }
+
+    return true;
+}
+
+// O WooCommerce Blocks enfileira o CSS dele mais tarde; por isso tambem na impressao dos estilos.
+$aerionDropWooStyles = static function (): void {
+    if (! aerion_is_institutional_request()) {
+        return;
+    }
+    foreach (['woocommerce-layout', 'woocommerce-smallscreen', 'woocommerce-general', 'woocommerce-blocktheme', 'wc-blocks-style'] as $handle) {
+        wp_dequeue_style($handle);
+    }
+};
+add_action('wp_enqueue_scripts', $aerionDropWooStyles, 100);
+add_action('wp_print_styles', $aerionDropWooStyles, 1);
+add_action('wp_footer', $aerionDropWooStyles, 1);
+
+add_filter('style_loader_tag', static function (string $tag, string $handle): string {
+    static $deferred = ['fluent-form-styles', 'fluentform-public-default', 'aerion-presale'];
+    if (! in_array($handle, $deferred, true) || ! aerion_is_institutional_request()) {
+        return $tag;
+    }
+    // Carrega sem bloquear a renderizacao e passa a valer ao terminar; sem JS, a folha original.
+    $async = str_replace("media='all'", "media='print' onload=\"this.media='all'\"", $tag);
+
+    return $async === $tag ? $tag : $async . '<noscript>' . $tag . '</noscript>';
+}, 10, 2);
+
+// Paginas institucionais: o jQuery Migrate (shim de APIs antigas) nao e usado
+// por nenhum script do site nelas; testado sem erro de JS em home, contato,
+// produtos, revendas, blog e sobre. A loja mantem (checkout tem plugins de terceiros).
+add_action('wp_enqueue_scripts', static function (): void {
+    if (! aerion_is_institutional_request()) {
+        return;
+    }
+    $jquery = wp_scripts()->registered['jquery'] ?? null;
+    if ($jquery && is_array($jquery->deps)) {
+        $jquery->deps = array_values(array_diff($jquery->deps, ['jquery-migrate']));
+    }
+}, 100);
+
+/**
+ * Listagem da loja (home, categorias e busca): seis folhas nao alteram nenhum
+ * elemento nessas paginas (medido a 390 e 1280 px), entao saem do caminho
+ * critico. Produto, carrinho, checkout e conta continuam com tudo bloqueante.
+ */
+function aerion_is_store_listing_request(): bool
+{
+    return function_exists('aerion_is_store_context') && aerion_is_store_context()
+        && ! is_admin()
+        && function_exists('is_product') && ! is_product() && ! is_cart() && ! is_checkout() && ! is_account_page();
+}
+
+add_filter('style_loader_tag', static function (string $tag, string $handle): string {
+    static $deferred = ['woocommerce-smallscreen', 'woocommerce-general', 'aerion-product-extras', 'aerion-store-coupon', 'aerion-store-compact', 'aerion-presale'];
+    if (! in_array($handle, $deferred, true) || ! aerion_is_store_listing_request()) {
+        return $tag;
+    }
+    // Preserva a media original (ex.: smallscreen so vale ate 768 px) e a restaura ao carregar.
+    $async = (string) preg_replace("/media='([^']*)'/", "media='print' data-media='$1' onload=\"this.media=this.dataset.media\"", $tag, 1);
+
+    return $async === $tag ? $tag : $async . '<noscript>' . $tag . '</noscript>';
+}, 10, 2);

@@ -16,15 +16,13 @@
   var started = false;
 
   function renderAll() {
-    if (!window.turnstile || typeof window.turnstile.ready !== 'function') return;
-    window.turnstile.ready(function () {
-      widgets.forEach(function (el) {
-        // O Fluent Forms guarda o id do widget neste atributo e o usa para
-        // reiniciar o desafio depois de um envio com erro.
-        if (!el.id || el.getAttribute('data-cf-turnstile_widget_id')) return;
-        var id = window.turnstile.render('#' + el.id, { sitekey: el.getAttribute('data-sitekey') });
-        el.setAttribute('data-cf-turnstile_widget_id', id);
-      });
+    if (!window.turnstile || typeof window.turnstile.render !== 'function') return;
+    widgets.forEach(function (el) {
+      // O Fluent Forms guarda o id do widget neste atributo e o usa para
+      // reiniciar o desafio depois de um envio com erro.
+      if (!el.id || el.getAttribute('data-cf-turnstile_widget_id')) return;
+      var id = window.turnstile.render('#' + el.id, { sitekey: el.getAttribute('data-sitekey') });
+      el.setAttribute('data-cf-turnstile_widget_id', id);
     });
   }
 
@@ -33,8 +31,10 @@
     started = true;
     var script = document.createElement('script');
     script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
-    script.async = true;
-    script.defer = true;
+    // Sem async/defer: o Turnstile recusa o desafio quando o script e marcado
+    // assim e a pagina chama turnstile.ready(). Aqui chamamos render() no onload.
+    script.async = false;
+    script.defer = false;
     script.onload = renderAll;
     document.head.appendChild(script);
   }
