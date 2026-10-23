@@ -45,6 +45,7 @@ require_once __DIR__ . '/includes/class-aerion-coupons.php';
 require_once __DIR__ . '/includes/class-aerion-checkout.php';
 require_once __DIR__ . '/includes/class-aerion-birth-date.php';
 require_once __DIR__ . '/includes/class-aerion-shipping-packages.php';
+require_once __DIR__ . '/includes/class-aerion-structured-data.php';
 require_once __DIR__ . '/includes/class-aerion-order-operations.php';
 require_once __DIR__ . '/includes/class-aerion-billing-profiles.php';
 require_once __DIR__ . '/includes/class-aerion-order-status.php';
@@ -223,6 +224,7 @@ Aerion_Pix_Experience::boot();
 Aerion_Traducoes::boot();
 Aerion_Email_Imagens::boot();
     Aerion_Shipping_Packages::boot();
+    Aerion_Structured_Data::boot();
     Aerion_Order_Operations::boot();
     Aerion_Commerce_Settings::boot();
     if (get_option('aerion_commerce_schema_version') !== AERION_COMMERCE_VERSION) {

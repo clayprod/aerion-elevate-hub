@@ -1,0 +1,155 @@
+.aerion-product-capabilities { background: #0a0e27; border-radius: 1.2rem; color: #fff; margin: 0 0 7rem; padding: clamp(2rem, 5vw, 4.5rem); }
+.aerion-product-capabilities > header { margin-bottom: 2.5rem; max-width: 700px; }
+.aerion-product-capabilities > header span, .aerion-product-video > div > span { color: #40cfff; font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.aerion-product-capabilities h2, .aerion-product-video h2 { color: #fff; font-size: clamp(2rem, 4vw, 3.2rem); margin: .5rem 0; }
+.aerion-product-capabilities__grid { display: grid; gap: 1px; grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.aerion-product-capabilities__grid article { border: 1px solid rgb(255 255 255 / 13%); padding: 1.4rem; }
+.aerion-product-capabilities__grid .aerion-icon { color: #40cfff; }
+.aerion-product-capabilities__grid h3 { color: #fff; font-size: .92rem; margin: .8rem 0 .45rem; }
+.aerion-product-capabilities__grid p { color: rgb(255 255 255 / 63%); font-size: .72rem; line-height: 1.55; }
+.aerion-product-missions, .aerion-product-modules { margin-bottom: 7rem; }
+.aerion-product-missions__grid, .aerion-product-modules__grid { display: grid; gap: 1.5rem; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.aerion-product-missions__grid article, .aerion-product-modules__grid article { background: #f5f7f8; border: 1px solid #e3e8eb; border-radius: .8rem; overflow: hidden; }
+.aerion-product-missions__grid img { aspect-ratio: 16 / 10; object-fit: cover; width: 100%; }
+.aerion-product-missions__grid article > div, .aerion-product-modules__grid article { padding-bottom: 1.5rem; }
+.aerion-product-missions__grid article > div { padding-inline: 1.4rem; }
+.aerion-product-missions__grid h3, .aerion-product-modules__grid h3 { font-size: 1rem; margin: 1.2rem 0 .45rem; }
+.aerion-product-missions__grid p, .aerion-product-modules__grid p { color: #626b72; font-size: .78rem; line-height: 1.6; }
+.aerion-product-modules__grid article { padding: 1.5rem; text-align: center; }
+.aerion-product-modules__grid img { height: 190px; object-fit: contain; width: 100%; }
+.aerion-product-video { align-items: center; background: #071022; border-radius: 1.2rem; color: #fff; display: grid; gap: 3rem; grid-template-columns: .8fr 1.2fr; margin-bottom: 1rem; padding: clamp(2rem, 5vw, 4rem); }
+.aerion-product-video p { color: rgb(255 255 255 / 68%); line-height: 1.7; }
+.aerion-product-video__frame { aspect-ratio: 16 / 9; border-radius: .7rem; overflow: hidden; }
+.aerion-product-video iframe { border: 0; height: 100%; width: 100%; }
+@media (max-width: 900px) { .aerion-product-capabilities__grid { grid-template-columns: repeat(2, 1fr); } .aerion-product-missions__grid, .aerion-product-modules__grid { grid-template-columns: 1fr; } .aerion-product-video { grid-template-columns: 1fr; } }
+@media (max-width: 600px) { .aerion-product-capabilities { margin-bottom: 4.5rem; padding: 1.5rem; } .aerion-product-capabilities__grid { grid-template-columns: 1fr; } .aerion-product-missions, .aerion-product-modules { margin-bottom: 4.5rem; } }
+
+.aerion-product-capabilities--mini7 { background: linear-gradient(135deg, #071022 0%, #102c3f 100%); }
+.aerion-product-capabilities--mini7 .aerion-product-capabilities__grid { gap: 1rem; grid-template-columns: repeat(12, minmax(0, 1fr)); }
+.aerion-product-capabilities--mini7 .aerion-product-capabilities__grid article { background: linear-gradient(145deg, rgb(255 255 255 / 9%), rgb(255 255 255 / 3%)); border: 1px solid rgb(255 255 255 / 11%); border-radius: 1rem; display: flex; flex-direction: column; grid-column: span 3; min-height: 178px; padding: 1.5rem; }
+.aerion-product-capabilities--mini7 .aerion-product-capabilities__grid article:nth-child(3), .aerion-product-capabilities--mini7 .aerion-product-capabilities__grid article:nth-child(7), .aerion-product-capabilities--mini7 .aerion-product-capabilities__grid article:nth-child(8) { grid-column: span 6; }
+.aerion-product-capabilities--mini7 .aerion-product-capabilities__grid article:nth-child(4), .aerion-product-capabilities--mini7 .aerion-product-capabilities__grid article:nth-child(5), .aerion-product-capabilities--mini7 .aerion-product-capabilities__grid article:nth-child(6) { grid-column: span 4; }
+.aerion-product-capabilities--mini7 .aerion-product-capabilities__grid .aerion-icon { background: rgb(64 207 255 / 12%); border-radius: 999px; height: 2rem; padding: .48rem; width: 2rem; }
+.aerion-product-capabilities--mini7 .aerion-product-capabilities__grid h3 { font-size: clamp(1rem, 1.45vw, 1.35rem); margin-top: auto; }
+.aerion-product-capabilities--mini7 .aerion-product-capabilities__grid p { font-size: .78rem; max-width: 34rem; }
+.aerion-mini7-lifestyle { margin-bottom: 7rem; }
+.aerion-mini7-lifestyle > header { margin: 0 auto 2.4rem; max-width: 760px; text-align: center; }
+.aerion-mini7-lifestyle > header > span, .aerion-mini7-lifestyle__stories article > div > span { color: #079fd2; font-size: .7rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.aerion-mini7-lifestyle > header h2 { font-size: clamp(2rem, 4vw, 3.35rem); margin: .45rem 0 .75rem; }
+.aerion-mini7-lifestyle > header p { color: #64717b; }
+.aerion-mini7-lifestyle__stories { display: grid; gap: 1.5rem; }
+.aerion-mini7-lifestyle__stories article { background: #071625; border-radius: 1.2rem; display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(280px, .7fr); min-height: 390px; overflow: hidden; }
+.aerion-mini7-lifestyle__stories article:nth-child(2) { background: #f1f5f7; grid-template-columns: minmax(280px, .72fr) minmax(0, 1.48fr); }
+.aerion-mini7-lifestyle__stories figure { min-height: 100%; overflow: hidden; }
+.aerion-mini7-lifestyle__stories img { height: 100%; object-fit: cover; width: 100%; }
+.aerion-mini7-lifestyle__stories article:first-child img { object-position: 55% center; }
+.aerion-mini7-lifestyle__stories article:nth-child(2) img { object-position: 50% center; }
+.aerion-mini7-lifestyle__stories article > div { align-self: center; padding: clamp(2rem, 4vw, 3.5rem); }
+.aerion-mini7-lifestyle__stories h3 { color: #fff; font-size: clamp(1.65rem, 3vw, 2.45rem); letter-spacing: -.035em; margin: .7rem 0 1rem; }
+.aerion-mini7-lifestyle__stories p { color: rgb(255 255 255 / 68%); font-size: .9rem; line-height: 1.75; }
+.aerion-mini7-lifestyle__stories article:nth-child(2) h3 { color: #071625; }
+.aerion-mini7-lifestyle__stories article:nth-child(2) p { color: #5e6a73; }
+.aerion-mini7-lifestyle__modes { display: flex; flex-wrap: wrap; gap: .65rem; justify-content: center; margin: 1.5rem 0 0; padding: 0; }
+.aerion-mini7-lifestyle__modes li { background: #f2f6f8; border: 1px solid #dce6ea; border-radius: 999px; color: #314652; font-size: .72rem; font-weight: 700; list-style: none; padding: .6rem .9rem; }
+.aerion-download-grid { display: grid; gap: 1rem; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.aerion-download-grid .aerion-download-card { max-width: none; }
+.aerion-download-grid--single { grid-template-columns: minmax(0, 620px); justify-content: center; }
+.aerion-nav__product-link, .aerion-mobile__product-link { align-items: center; display: flex!important; gap: .75rem; justify-content: space-between; }
+.aerion-nav__product-link small, .aerion-mobile__product-link small { background: #e6f7fd; border-radius: 999px; color: #007dab; font-size: .58rem; font-weight: 800; letter-spacing: .06em; line-height: 1; padding: .42rem .58rem; text-transform: uppercase; white-space: nowrap; }
+.aerion-product-highlights--mini7 .aerion-product-story > div:last-child > span,
+.aerion-product-highlights--mini7 .aerion-product-stats { display: none; }
+.aerion-product-highlights--mini7 .aerion-product-story:nth-child(odd) .aerion-product-story__media { order: 2; }
+.aerion-product-highlights--mini7 .aerion-product-story:nth-child(even) .aerion-product-story__media { order: 0; }
+.aerion-product-highlights--mini7 .aerion-product-feature-hero { aspect-ratio: 16 / 9; background-color: #03101e!important; background-image: linear-gradient(0deg, rgb(3 16 30 / 78%) 0%, rgb(3 16 30 / 38%) 26%, rgb(3 16 30 / 10%) 48%, transparent 68%), var(--aerion-feature-image)!important; background-blend-mode: normal!important; background-position: center; min-height: 560px; position: relative; }
+.aerion-product-highlights--mini7 .aerion-product-feature-hero::before { content: none; }
+.aerion-product-highlights--mini7 .aerion-product-story__media { aspect-ratio: 16 / 9; min-height: 0; }
+.aerion-product-compliance { align-items: center; background: transparent; border: 0; border-radius: 0; display: grid; gap: clamp(1.5rem, 4vw, 3rem); grid-template-columns: minmax(100px, 145px) minmax(0, 1fr); margin: 0 0 7rem; padding: clamp(1rem, 2vw, 1.75rem) 0; }
+.aerion-product-compliance img { height: auto; max-height: 88px; object-fit: contain; width: 100%; }
+.aerion-product-compliance span { color: #008fc5; display: block; font-size: .7rem; font-weight: 800; letter-spacing: .12em; margin-bottom: .55rem; text-transform: uppercase; }
+.aerion-product-compliance h3 { color: #071625; font-size: clamp(1.45rem, 2.5vw, 2.2rem); letter-spacing: -.035em; margin: 0 0 .55rem; }
+.aerion-product-compliance p { color: #52636d; line-height: 1.7; margin: 0; max-width: 54rem; }
+.aerion-product-compliance p:empty { display: none; }
+.aerion-institutional-product--hubsan-mini-7 .aerion-product-videos { background: #f4f7f9; }
+.aerion-institutional-product--hubsan-mini-7 .aerion-product-videos__grid { grid-template-columns: minmax(0, 1fr); }
+.aerion-product-video-card { background: #fff; border: 1px solid #dfe7eb; border-radius: 1.2rem; box-shadow: 0 18px 48px rgb(0 26 54 / 8%); overflow: hidden; }
+.aerion-product-video-card__media { background: #020812; }
+.aerion-product-video-card__media video { aspect-ratio: 16 / 9; display: block; object-fit: cover; width: 100%; }
+.aerion-product-video-card__body { padding: clamp(1.25rem, 2.4vw, 2rem); }
+.aerion-product-videos__grid .aerion-product-video-card__body strong,
+.aerion-product-videos__grid .aerion-product-video-card__body small { padding-inline: 0; }
+.aerion-product-videos__grid .aerion-product-video-card__body strong { font-size: clamp(1.1rem, 2vw, 1.45rem); margin: 0; }
+.aerion-product-videos__grid .aerion-product-video-card__body small { font-size: .88rem; max-width: 54rem; }
+.aerion-product-technical--mini7 .aerion-variant-specs > h3 { display: none; }
+.aerion-editorial-product-card__image { position: relative; }
+.aerion-products-catalog { background: #f7f9fa; padding: clamp(4rem, 7vw, 6.5rem) 0 7rem; }
+.aerion-products-catalog__header { margin: 0 auto 2.5rem; max-width: 720px; text-align: center; }
+.aerion-products-catalog__header > span { color: #007cab; font-size: .72rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+.aerion-products-catalog__header h1 { color: #031331; font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -.04em; margin: .35rem 0 .55rem; }
+.aerion-products-catalog__header p { color: #5d6b75; font-size: clamp(1rem, 1.8vw, 1.2rem); }
+.aerion-products-catalog__filters { align-items: flex-end; background: #fff; border: 1px solid #dfe6ea; border-radius: 1rem; box-shadow: 0 12px 32px rgb(0 31 63 / 6%); display: flex; gap: 2.5rem; justify-content: space-between; margin-bottom: 1.2rem; padding: 1.2rem 1.35rem; }
+.aerion-products-catalog__filter-group { align-items: center; display: flex; gap: 1rem; }
+.aerion-products-catalog__filter-group > strong { color: #65727c; font-size: .67rem; letter-spacing: .09em; text-transform: uppercase; white-space: nowrap; }
+.aerion-products-catalog__filter-group > div { display: flex; flex-wrap: wrap; gap: .4rem; }
+.aerion-products-catalog__filter-group button { border: 1px solid transparent; border-radius: 999px; color: #40515d; font-size: .76rem; font-weight: 700; line-height: 1; padding: .65rem .9rem; transition: background-color .18s ease, border-color .18s ease, color .18s ease; }
+.aerion-products-catalog__filter-group button:hover { background: #edf7fb; color: #007dac; }
+.aerion-products-catalog__filter-group button.is-active { background: #071b31; color: #fff; }
+.aerion-products-catalog__filter-group button.has-logo { align-items: center; display: inline-flex; height: 2.35rem; justify-content: center; min-width: 6rem; padding: .45rem .75rem; }
+.aerion-products-catalog__filter-group button.has-logo img { display: block; height: 1.15rem; max-width: 4.9rem; object-fit: contain; width: auto; }
+.aerion-products-catalog__filter-group button.has-logo[data-filter-value="hubsan"] img { height: 1.35rem; }
+.aerion-products-catalog__filter-group button.has-logo.is-active { background: #eef8fb; border-color: #009fdb; box-shadow: inset 0 0 0 1px #009fdb; }
+.aerion-products-catalog__count { color: #71808a; font-size: .78rem; margin: 0 0 1rem; text-align: right; }
+.aerion-products-catalog__count strong { color: #031331; }
+.aerion-products-catalog__grid { align-items: stretch; }
+.aerion-products-catalog__item { display: flex; min-width: 0; }
+.aerion-products-catalog__item[hidden] { display: none; }
+.aerion-products-catalog__item .aerion-editorial-product-card { height: 100%; width: 100%; }
+.aerion-products-catalog .aerion-editorial-product-card__image { background: #f3f4f4; }
+.aerion-products-catalog .aerion-editorial-product-card__image.is-contain img { object-fit: contain; padding: 1.2rem; }
+.aerion-products-catalog__item[data-brand="hubsan"] .aerion-editorial-product-card__image { padding: 0; }
+.aerion-products-catalog__item[data-brand="hubsan"] .aerion-editorial-product-card__image img { object-fit: contain; object-position: center; padding: 0; transform: translate(-.25rem, .65rem) scale(1.4); transform-origin: center; }
+.aerion-editorial-product-card__meta { align-items: center; display: flex; justify-content: space-between; margin: 0 0 .7rem; min-height: 1.5rem; }
+.aerion-editorial-product-card__meta > span { color: #6a757e; font-size: .62rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.aerion-editorial-product-card__meta > small { background: #e9f7fc; border: 1px solid #ccebf6; border-radius: 999px; color: #007da9; font-size: .56rem; font-weight: 800; letter-spacing: .07em; line-height: 1; padding: .38rem .52rem; text-transform: uppercase; }
+.aerion-products-catalog__empty { background: #fff; border: 1px dashed #cfd9de; border-radius: .9rem; color: #5d6b75; margin: 1.5rem 0 0; padding: 2rem; text-align: center; }
+@media (max-width: 900px) { .aerion-product-capabilities--mini7 .aerion-product-capabilities__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .aerion-product-capabilities--mini7 .aerion-product-capabilities__grid article, .aerion-product-capabilities--mini7 .aerion-product-capabilities__grid article:nth-child(n) { grid-column: span 1; } .aerion-download-grid:not(.aerion-download-grid--single) { grid-template-columns: repeat(2, minmax(0, 1fr)); } .aerion-product-highlights--mini7 .aerion-product-story .aerion-product-story__media { order: 0; } .aerion-product-highlights--mini7 .aerion-product-feature-hero { aspect-ratio: auto; max-width: 100%; min-height: 560px; width: 100%; } .aerion-product-compliance { grid-template-columns: 120px minmax(0, 1fr); } }
+@media (max-width: 900px) { .aerion-mini7-lifestyle__stories article, .aerion-mini7-lifestyle__stories article:nth-child(2) { grid-template-columns: 1fr; } .aerion-mini7-lifestyle__stories figure { aspect-ratio: 16 / 9; min-height: 0; } .aerion-mini7-lifestyle__stories article:nth-child(2) > div { order: 2; } }
+@media (max-width: 900px) { .aerion-products-catalog__filters { align-items: stretch; flex-direction: column; gap: 1rem; } .aerion-products-catalog__filter-group { justify-content: space-between; } }
+@media (max-width: 600px) { .aerion-product-intro__grid { grid-template-columns: minmax(0, 1fr); } .aerion-product-intro__grid > * { min-width: 0; } .aerion-product-gallery { max-width: 100%; min-width: 0; width: 100%; } .aerion-product-capabilities--mini7 .aerion-product-capabilities__grid, .aerion-download-grid { grid-template-columns: 1fr; } .aerion-product-capabilities--mini7 .aerion-product-capabilities__grid article { min-height: 155px; } .aerion-mini7-lifestyle { margin-bottom: 4.5rem; } .aerion-mini7-lifestyle__stories article { min-height: 0; } .aerion-mini7-lifestyle__stories article > div { padding: 1.6rem; } .aerion-product-compliance { align-items: start; grid-template-columns: 1fr; margin-bottom: 4.5rem; } .aerion-product-compliance img { max-width: 110px; } }
+@media (max-width: 600px) { .aerion-products-catalog { padding-top: 3rem; } .aerion-products-catalog__filters { padding: 1rem; } .aerion-products-catalog__filter-group { align-items: flex-start; flex-direction: column; gap: .55rem; } .aerion-products-catalog__filter-group > div { width: 100%; } .aerion-products-catalog__filter-group button { flex: 1 1 auto; } }
+
+/* Overlays dos banners editoriais (snapshots) na página institucional.
+   As classes Tailwind de opacidade (from-black/80 etc.) não existem no CSS
+   compilado, então o degradê sumia e o texto ficava ilegível. Mesmos valores
+   que a loja aplica em store-hardening.css (.aerion-product-aplus--*). */
+[data-aerion-editorial-snapshot] .absolute.bg-gradient-to-r.from-black\/80 { background-color: transparent !important; background-image: linear-gradient(to right, rgba(0,0,0,.9) 0%, rgba(0,0,0,.68) 40%, rgba(0,0,0,.2) 72%, rgba(0,0,0,0) 100%) !important; }
+[data-aerion-editorial-snapshot] .absolute.bg-gradient-to-b.from-black\/70 { background-color: transparent !important; background-image: linear-gradient(to bottom, rgba(5,17,27,.94) 0%, rgba(5,17,27,.82) 48%, rgba(5,17,27,.5) 70%, rgba(5,17,27,.08) 100%) !important; }
+[data-aerion-editorial-snapshot] .absolute.bg-gradient-to-b.from-black\/70 + .relative { color: #fff !important; text-shadow: 0 1px 2px rgba(0,0,0,.72); }
+[data-aerion-editorial-snapshot] .absolute.bg-gradient-to-l.from-black\/95 { background-color: transparent !important; background-image: linear-gradient(to left, rgba(0,0,0,.9) 0%, rgba(0,0,0,.68) 38%, rgba(0,0,0,.18) 72%, rgba(0,0,0,0) 100%) !important; }
+
+/* Parcelas no cartão (Aerion_Installments) na caixa de pagamento do produto. */
+.aerion-installments { border-top: 1px solid #e3e8eb; margin-top: .7rem; padding-top: .6rem; }
+.aerion-installments summary { align-items: center; color: #0877bd; cursor: pointer; display: inline-flex; font-size: .78rem; font-weight: 700; gap: .35rem; list-style: none; }
+.aerion-installments summary::-webkit-details-marker { display: none; }
+.aerion-installments summary::after { border-bottom: 2px solid currentColor; border-right: 2px solid currentColor; content: ""; height: .38rem; transform: translateY(-2px) rotate(45deg); transition: transform .2s ease; width: .38rem; }
+.aerion-installments[open] summary::after { transform: translateY(1px) rotate(-135deg); }
+.aerion-installments ul { color: #24313b; display: grid; font-size: .74rem; gap: .22rem 1.2rem; grid-auto-flow: column; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(var(--aerion-installment-rows, 6), auto); line-height: 1.35; list-style: none; margin: .7rem 0 .6rem; padding: 0; }
+.aerion-installments li { white-space: nowrap; }
+.aerion-installments li .aerion-installments__total { color: #7a858e; display: inline; font-size: .68rem; }
+.aerion-installments p { color: #7a858e; font-size: .66rem; line-height: 1.45; margin: 0; }
+/* Aviso do teto do cartão no checkout (Aerion_Installments::card_limit_notice). */
+.aerion-card-limit-notice { background: #fff8e6; border: 1px solid #f1d48a; border-radius: 10px; color: #4a3b12; margin: 0 0 1rem; padding: .9rem 1rem; }
+.aerion-card-limit-notice strong { display: block; font-size: .9rem; margin-bottom: .3rem; }
+.aerion-card-limit-notice p { font-size: .8rem; line-height: 1.5; margin: 0; }
+.aerion-card-limit-notice p .amount { font-weight: 700; }
+@media (max-width: 420px) { .aerion-installments ul { grid-auto-flow: row; grid-template-columns: 1fr; grid-template-rows: none; } }
+
+/* Os rótulos do formulário já trazem o "*" como no React; suprimimos o
+   asterisco automático do Fluent Forms para não duplicar o indicador. */
+.fluentform .ff-el-input--label.ff-el-is-required.asterisk-right label:after,
+.fluentform .ff-el-input--label.ff-el-is-required.asterisk-left label:before { content: none; }
+
+/* Confirmação de envio no formato do diálogo de sucesso do React. */
+.aerion-form-success { padding: 2rem 1.5rem; text-align: center; }
+.aerion-form-success__icon { align-items: center; background: #dcfce7; border-radius: 999px; color: #16a34a; display: inline-flex; height: 4rem; justify-content: center; margin-bottom: 1rem; width: 4rem; }
+.aerion-form-success h2 { color: #111827; font-family: Montserrat, sans-serif; font-size: 1.25rem; font-weight: 700; margin: 0 0 .5rem; }
+.aerion-form-success p { color: #4b5563; font-size: .95rem; line-height: 1.6; margin: 0 auto; max-width: 30rem; }

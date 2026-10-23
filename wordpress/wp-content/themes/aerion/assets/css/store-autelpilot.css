@@ -1,0 +1,442 @@
+/* Store-only presentation. Institutional pages intentionally remain untouched. */
+.aerion-store-context{background:#fff;color:#222831}
+.aerion-store-context .aerion-header{background:#fff;border-bottom:1px solid #e1e6ea;box-shadow:0 4px 18px rgb(9 20 35 / 7%);position:static;z-index:100}
+.aerion-reseller-strip{background:#0877bd;color:#fff;font-size:.73rem;line-height:1.35}
+.aerion-reseller-strip .aerion-container{align-items:center;display:flex;gap:20px;justify-content:center;min-height:34px;padding-block:6px;text-align:center}
+.aerion-reseller-strip a{align-items:center;color:#fff;display:inline-flex;font-weight:800;gap:6px;text-decoration:none;white-space:nowrap}
+.aerion-reseller-strip a:hover{text-decoration:underline;text-underline-offset:2px}
+.aerion-reseller-strip .aerion-icon{height:14px;width:14px}
+.aerion-store-context .aerion-header__inner{gap:22px;max-width:1360px;min-height:76px;position:relative}
+.aerion-store-context .aerion-header__logo{flex:0 0 auto}
+.aerion-store-context .aerion-header__logo img{height:56px;width:auto}
+.aerion-store-context .aerion-store-search{background:#f3f6f8;border:1px solid #d8e0e5;border-radius:6px;display:flex;flex:1;margin-inline:8px;max-width:570px;min-width:260px;position:relative}
+.aerion-store-context .aerion-store-search:focus-within{background:#fff;border-color:#45bfe9;box-shadow:0 0 0 3px rgb(69 191 233 / 14%)}
+.aerion-store-context .aerion-store-search input[type=search]{font-size:.82rem;min-height:42px}
+.aerion-store-context .aerion-store-search button{color:#0876b9}
+.aerion-store-context .aerion-store-nav{background:#fff;border-top:1px solid #edf0f2;display:block;position:relative}
+.aerion-store-context .aerion-store-nav .aerion-container{align-items:center;display:flex;gap:38px;justify-content:center;min-height:44px}
+.aerion-store-context .aerion-store-nav a{align-items:center;color:#1d2935;display:flex;font-family:Montserrat,sans-serif;font-size:.8rem;font-weight:700;height:44px;position:relative;text-decoration:none}
+.aerion-store-context .aerion-store-nav a:after{background:#45c7f3;bottom:0;content:"";height:3px;left:50%;position:absolute;transform:translateX(-50%) scaleX(0);transition:transform .2s ease;width:100%}
+.aerion-store-context .aerion-store-nav a:hover{color:#0876b9}
+.aerion-store-context .aerion-store-nav a:hover:after{transform:translateX(-50%) scaleX(1)}
+.aerion-store-context .aerion-header__commerce--store{gap:7px}
+.aerion-customer-service,.aerion-store-context .aerion-header__icon{align-items:center;border:1px solid transparent;border-radius:6px;color:#24313d;display:flex;font-size:.7rem;font-weight:700;gap:6px;justify-content:center;min-height:42px;padding:6px 9px;text-decoration:none;white-space:nowrap}
+.aerion-customer-service{border-color:#94ddf5;color:#066f9d}
+.aerion-customer-service:hover{background:#e8f9ff;border-color:#45c7f3}
+.aerion-customer-service .aerion-icon,.aerion-store-context .aerion-header__icon .aerion-icon{height:19px;width:19px}
+.aerion-store-context .aerion-header__icon:hover{background:#f2f5f7}
+.aerion-mobile-nav__service{align-items:center;display:flex!important;gap:8px}
+.aerion-mobile-nav__service .aerion-icon{height:18px;width:18px}
+.aerion-storefront{display:flex;flex-direction:column;overflow:hidden}
+.aerion-store-hero{order:1}
+.aerion-store-trust{order:2}
+.aerion-storefront>.aerion-store-section:not(#produtos-da-loja){order:3}
+.aerion-storefront>#produtos-da-loja{order:4}
+.aerion-store-context .aerion-store-hero{background:#f3f4f5;color:#20252d;min-height:450px;overflow:hidden;padding:0;position:relative}
+.aerion-store-hero__track{display:flex;transition:transform .55s cubic-bezier(.22,.61,.36,1);width:100%}
+.aerion-store-context .aerion-store-hero__slide{display:block!important;flex:0 0 100%;min-height:450px;padding:34px 0}
+.aerion-store-context .aerion-store-hero__grid{gap:42px;grid-template-columns:1.05fr .95fr;min-height:382px}
+.aerion-store-context .aerion-store-hero h1{color:#101b28;font-size:clamp(2.35rem,4.2vw,4rem);letter-spacing:-.055em;line-height:1.03;margin:.7rem 0 1rem;max-width:690px}
+.aerion-store-context .aerion-store-hero p{color:#56616c;font-size:1rem;line-height:1.62;max-width:590px}
+.aerion-store-context .aerion-store-hero img{filter:drop-shadow(0 25px 28px rgb(9 25 38 / 18%));height:330px;max-height:330px;object-fit:contain}
+.aerion-store-context .aerion-store-hero__grid>div>span{color:#0877bd}
+.aerion-store-hero__arrow{align-items:center;background:rgb(7 28 45 / 72%);border:0;border-radius:50%;color:#fff;display:flex;font-size:1.8rem;height:42px;justify-content:center;position:absolute;top:50%;transform:translateY(-50%);width:42px;z-index:3}
+.aerion-store-hero__arrow:hover{background:#0877bd}
+.aerion-store-hero__arrow--prev{left:20px}
+.aerion-store-hero__arrow--next{right:20px}
+.aerion-store-hero__dots{bottom:16px;display:flex;gap:7px;left:50%;position:absolute;transform:translateX(-50%);z-index:3}
+.aerion-store-hero__dots button{background:#9aa8b3;border:0;border-radius:999px;height:7px;padding:0;transition:width .2s ease,background .2s ease;width:7px}
+.aerion-store-hero__dots button[aria-selected=true]{background:#0877bd;width:26px}
+.aerion-countdown{align-items:center;background:#0875be;border-radius:6px;color:#fff;display:inline-flex;gap:8px;margin:14px 0;padding:7px 11px}
+.aerion-countdown span{color:#dcefff!important;font-size:.68rem!important;letter-spacing:.04em!important;text-transform:uppercase}
+.aerion-countdown strong{font-variant-numeric:tabular-nums}
+.aerion-store-context .aerion-store-trust span{font-size:.72rem;padding:14px 12px}
+.aerion-store-context .aerion-store-section{padding:62px 0}
+.aerion-store-context .aerion-store-heading{margin-bottom:24px;max-width:none}
+.aerion-store-context .aerion-store-heading>span{color:#1475b7;font-size:.68rem}
+.aerion-store-context .aerion-store-heading h2{font-size:clamp(1.8rem,3vw,2.65rem);letter-spacing:-.035em;margin:.35rem 0}
+.aerion-store-context .aerion-store-heading p{font-size:.84rem;max-width:760px}
+.aerion-store-context .aerion-store-categories{gap:18px;grid-template-columns:repeat(3,minmax(0,1fr))}
+.aerion-store-context .aerion-store-categories>a,.aerion-store-context .aerion-store-categories>a:not(:first-child){background:#0b1829;border-radius:7px;display:grid;grid-template-columns:1.05fr .95fr;min-height:220px;overflow:hidden;padding:24px 0 18px 24px}
+.aerion-store-context .aerion-store-categories h3{color:#fff;font-size:1.25rem}
+.aerion-store-context .aerion-store-categories p{color:#b8c6d6;display:block;font-size:.75rem;line-height:1.5;margin-top:7px}
+.aerion-store-context .aerion-store-categories strong{color:#55cff7}
+.aerion-store-context .aerion-store-categories img{align-self:end;height:155px;justify-self:end;max-height:155px;object-fit:contain;width:100%}
+.aerion-store-context #produtos-da-loja{background:#f3f5f7}
+.aerion-store-context .aerion-store-carousel{display:block}
+.aerion-store-context .aerion-store-carousel>button{display:none}
+.aerion-store-context .aerion-store-products{display:grid;gap:16px;grid-auto-flow:row;grid-template-columns:repeat(4,minmax(0,1fr));overflow:visible;transform:none!important}
+.aerion-store-context .aerion-store-product{background:#fff;border:1px solid #e1e6ea;border-radius:7px;box-shadow:0 3px 12px rgb(9 20 35 / 5%);min-width:0;overflow:hidden;transition:box-shadow .2s ease,transform .2s ease}
+.aerion-store-context .aerion-store-product:hover{border-color:#b8ddec;box-shadow:0 12px 28px rgb(9 20 35 / 11%);transform:translateY(-2px)}
+.aerion-store-context .aerion-store-product>a{display:flex;flex-direction:column;height:100%;padding:14px;text-decoration:none}
+.aerion-store-context .aerion-store-product__image{background:#f7f8f9;border-radius:5px;height:158px;margin:0 0 10px}
+.aerion-store-context .aerion-store-product__image img{height:158px;max-width:94%;object-fit:contain;width:100%}
+.aerion-store-context .aerion-store-product__meta{align-items:center;display:flex;justify-content:flex-start;margin-bottom:6px;min-height:18px}
+.aerion-store-context .aerion-store-product__meta em{font-size:.66rem;font-style:normal;font-weight:800}
+.aerion-store-context .aerion-store-product__meta .is-in-stock{color:#16804e}
+.aerion-store-context .aerion-store-product__meta .is-in-stock:before{background:#22a76a;border-radius:50%;content:"";display:inline-block;height:6px;margin-right:5px;width:6px}
+.aerion-store-context .aerion-store-product__meta .is-out-of-stock{color:#a23d3d}
+.aerion-store-context .aerion-store-product h3{-webkit-box-orient:vertical;-webkit-line-clamp:2;color:#1b2027;display:-webkit-box;font-size:.92rem;line-height:1.35;margin:0;min-height:2.7em;overflow:hidden}
+.aerion-store-context .aerion-store-product__bottom{align-items:stretch;border-top:1px solid #e2e6e9;display:flex;flex-direction:column;gap:10px;margin-top:auto;padding-top:10px}
+.aerion-store-context .aerion-store-product__bottom>strong{display:block;font-size:inherit;font-weight:400}
+.aerion-card-price{display:flex;flex-direction:column}
+.aerion-card-price del{color:#111!important;font-size:.72rem;font-weight:600;line-height:1.2;text-decoration-color:#111;text-decoration-thickness:1px}
+.aerion-card-price>strong{color:var(--aerion-action,#45c7f3)!important;font-family:Montserrat,sans-serif;font-size:1.28rem!important;font-weight:800;letter-spacing:-.025em;line-height:1.2;margin:2px 0;text-shadow:0 1px 0 rgb(0 38 62 / 8%)}
+.aerion-card-price small{color:#58616b;font-size:.64rem;font-weight:650}
+.aerion-store-context .aerion-store-product__bottom>span{align-items:center;background:var(--aerion-action,#45c7f3);border-radius:5px;color:#071c2b;display:flex;font-size:.73rem;font-weight:800;gap:7px;justify-content:center;min-height:39px;width:100%}
+.aerion-store-context .aerion-store-product__bottom>span .aerion-icon{height:15px;width:15px}
+.aerion-store-context.single-product main.wp-block-group{max-width:1320px;padding:28px 24px 64px!important}
+.aerion-store-context.single-product div.product{align-items:start}
+.aerion-store-context.single-product div.product .woocommerce-product-gallery{background:#f5f7f8;border:1px solid #e6eaed;border-radius:8px;padding:24px}
+.aerion-store-context.single-product div.product .woocommerce-product-gallery__trigger{display:none!important}
+.aerion-store-context.single-product div.product .woocommerce-product-gallery__image>a{cursor:default;pointer-events:none}
+.aerion-store-context.single-product div.product .woocommerce-product-gallery__image img{max-height:550px;object-fit:contain}
+.aerion-store-context.single-product div.product .summary{background:#fff;border:0;border-radius:0;padding:6px 20px 20px 28px}
+.aerion-store-context.single-product div.product .product_title{color:#20252c;font-size:clamp(1.65rem,2.8vw,2.45rem);letter-spacing:-.035em;line-height:1.16;margin-bottom:10px}
+.aerion-product-campaign{border-radius:6px}
+.aerion-product-utility{align-items:center;border-bottom:1px solid #e5e9ec;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;margin:0 0 12px;padding-bottom:11px;position:relative}
+.aerion-rating-summary{align-items:center;color:#505b66;display:flex;gap:7px;text-decoration:none}
+.aerion-rating-stars{--aerion-star-size:20px;--aerion-star-step:22px;display:inline-block;font-size:0;height:var(--aerion-star-size);line-height:1;position:relative;vertical-align:middle;width:calc(var(--aerion-star-step)*5)}
+.aerion-rating-stars::before,.aerion-rating-stars>span{background-color:#d1d5db;content:"";inset:0;mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 20'%3E%3Cpath d='M10 0.7l3.09 6.26 6.91 1-5 4.88 1.18 6.89L10 16.48l-6.18 3.25L5 12.84 0 7.96l6.91-1L10 .7z'/%3E%3C/svg%3E");mask-position:left center;mask-repeat:repeat-x;mask-size:var(--aerion-star-step) var(--aerion-star-size);position:absolute;-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 20'%3E%3Cpath d='M10 0.7l3.09 6.26 6.91 1-5 4.88 1.18 6.89L10 16.48l-6.18 3.25L5 12.84 0 7.96l6.91-1L10 .7z'/%3E%3C/svg%3E");-webkit-mask-position:left center;-webkit-mask-repeat:repeat-x;-webkit-mask-size:var(--aerion-star-step) var(--aerion-star-size)}
+.aerion-rating-stars>span{background-color:var(--color-warning,oklch(84.71% .199 83.87));overflow:hidden;right:auto;width:var(--aerion-rating)}
+.aerion-rating-summary small{font-size:.7rem;text-decoration:underline;text-underline-offset:2px}
+.aerion-product-utility>div{display:flex;gap:5px}
+.aerion-product-utility button{align-items:center;background:transparent;border:0;border-radius:5px;color:#64717c;display:flex;font-size:.68rem;gap:5px;padding:6px}
+.aerion-product-utility button:hover,.aerion-product-utility button[aria-pressed=true]{background:#e9f8fe;color:#0877bd}
+.aerion-product-utility button[aria-pressed=true] svg{fill:#45c7f3}
+.aerion-product-utility .aerion-icon{height:16px;width:16px}
+.aerion-product-utility__status{bottom:-19px;color:#0877bd;font-size:.66rem;position:absolute;right:0}
+.aerion-payment-advantage{background:#fff;border:1px solid #dfe5e9;border-radius:7px;margin:8px 0 15px;padding:15px 16px}
+.aerion-payment-advantage__price{display:flex;flex-direction:column}
+.aerion-payment-advantage__price del{color:#111!important;font-size:.84rem;font-weight:650;margin-top:3px;text-decoration-color:#111;text-decoration-thickness:1px}
+.aerion-payment-advantage__price strong{color:var(--aerion-action,#45c7f3);font-family:Montserrat,sans-serif;font-size:2.1rem;font-weight:800;letter-spacing:-.035em;line-height:1.05;margin:4px 0;text-shadow:0 1px 0 rgb(0 38 62 / 10%)}
+.aerion-payment-advantage p{font-size:.82rem;margin:4px 0 9px}
+.aerion-payment-advantage small{color:#69727c;display:block;font-size:.73rem}
+.aerion-stock-label{color:#14834f!important;font-size:.75rem!important;font-weight:800;margin-bottom:8px}
+.aerion-stock-label:before{background:#23a56b;border-radius:50%;content:"";display:inline-block;height:7px;margin-right:6px;width:7px}
+.aerion-stock-box{border:1px solid #efb2b2;border-radius:7px;margin:12px 0;padding:15px}
+.aerion-store-context.single-product form.cart{align-items:stretch;display:flex;gap:8px;margin:0 0 12px!important}
+.aerion-store-context.single-product form.cart .quantity input{border:1px solid #cfd7dd;border-radius:5px;min-height:50px;width:68px}
+.aerion-store-context .single_add_to_cart_button{background:var(--aerion-action,#45c7f3)!important;border-radius:5px!important;color:#071c2b!important;flex:1;font-size:.9rem!important;font-weight:800!important;min-height:50px!important}
+.aerion-secure-purchase,.aerion-quote-box{align-items:flex-start;border-radius:7px;display:flex;gap:11px;margin:11px 0;padding:13px 14px}
+.aerion-secure-purchase{background:#f3fafc;border:1px solid #c9e7f1;color:#34505e}
+.aerion-secure-purchase .aerion-icon,.aerion-quote-box .aerion-icon{flex:0 0 auto;height:21px;width:21px}
+.aerion-secure-purchase strong,.aerion-secure-purchase span,.aerion-quote-box strong,.aerion-quote-box p{display:block}
+.aerion-secure-purchase strong{color:#153745;font-size:.78rem}
+.aerion-secure-purchase span{font-size:.67rem;line-height:1.5;margin-top:2px}
+.aerion-quote-box{background:#f7fbfd;border:1px solid #b9dfea;color:#315565}
+.aerion-quote-box strong{font-size:.8rem}
+.aerion-quote-box p{font-size:.7rem;margin:2px 0 0}
+.aerion-store-context.single-product #woocommerce-correios-calculo-de-frete-na-pagina-do-produto{background:#fff;border:1px solid #dce4e9;border-radius:7px;clear:both;margin:14px 0 0;padding:15px}
+.aerion-store-context.single-product #woocommerce-correios-calculo-de-frete-na-pagina-do-produto .calculatorRow p{color:#263744;font-size:.82rem;font-weight:800;margin:0 0 9px}
+.aerion-store-context.single-product #woocommerce-correios-calculo-de-frete-na-pagina-do-produto input[type=text]{border:1px solid #cbd6dc;border-radius:5px;min-height:42px;padding:8px 10px}
+.aerion-store-context.single-product #woocommerce-correios-calculo-de-frete-na-pagina-do-produto button,.aerion-store-context.single-product #woocommerce-correios-calculo-de-frete-na-pagina-do-produto input[type=button]{background:#163d5a;border-radius:5px;color:#fff;min-height:42px;padding:8px 14px}
+.aerion-store-context.single-product .woocommerce-tabs{border-top:1px solid #e0e5e8;margin-top:42px;padding-top:26px}
+.aerion-store-context.single-product .woocommerce-tabs ul.tabs{display:flex;flex-wrap:wrap;gap:7px;padding:0!important}
+.aerion-store-context.single-product .woocommerce-tabs ul.tabs:before{display:none}
+.aerion-store-context.single-product .woocommerce-tabs ul.tabs li{background:#f1f4f6;border:1px solid #dce2e6;border-radius:5px!important;margin:0!important;padding:0 14px!important}
+.aerion-store-context.single-product .woocommerce-tabs ul.tabs li.active{background:#dff6ff;border-color:#62c9ed}
+.aerion-store-context.single-product .woocommerce-tabs .panel{padding:20px 4px}
+.aerion-store-context.single-product #reviews{display:grid;gap:34px;grid-template-columns:1.2fr .8fr}
+.aerion-store-context.single-product #reviews #comments,.aerion-store-context.single-product #reviews #review_form_wrapper{float:none;width:auto}
+.comment-form-aerion-photos label,.comment-form-aerion-photos small{display:block}
+.comment-form-aerion-photos label{font-weight:700;margin-bottom:6px}
+.comment-form-aerion-photos label span,.comment-form-aerion-photos small{color:#6b7580;font-size:.7rem}
+.comment-form-aerion-photos input{border:1px dashed #b8c4cc;border-radius:5px;padding:10px;width:100%}
+.aerion-review-photos{display:flex;gap:8px;margin-top:10px}
+.aerion-review-photos img{border-radius:5px;height:76px;object-fit:cover;width:76px}
+.aerion-store-context.woocommerce-checkout main.wp-block-group{background:#f5f7f9;max-width:none!important;padding:34px max(24px,calc((100vw - 1220px)/2)) 70px!important}
+.aerion-checkout-intro{align-items:center;background:#f3f4f5;border-radius:9px;color:#173448;display:flex;gap:35px;justify-content:space-between;margin:0 0 24px;padding:24px 28px}
+.aerion-checkout-intro h1{color:#fff;font-size:1.65rem;margin:4px 0}
+.aerion-checkout-intro p{color:#d2e2ed;font-size:.78rem;line-height:1.55;max-width:650px}
+.aerion-checkout-intro>div>span{color:#64d4fb;font-size:.68rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase}
+.aerion-checkout-intro__choices{display:flex;flex:0 0 auto;gap:8px}
+.aerion-checkout-intro__choices>a,.aerion-checkout-intro__choices>span{background:#fff;border:1px solid #fff;border-radius:6px;color:#173448;display:flex;flex-direction:column;min-width:180px;padding:11px 13px;text-decoration:none}
+.aerion-checkout-intro__choices>a{background:transparent;color:#fff}
+.aerion-checkout-intro__choices b{font-size:.75rem}
+.aerion-checkout-intro__choices small{font-size:.64rem;margin-top:2px}
+.aerion-checkout-intro--signed{display:block}
+.aerion-store-context.woocommerce-checkout form.checkout{background:#fff;border:1px solid #e0e5e8;border-radius:9px;padding:24px}
+.aerion-store-context.woocommerce-checkout form.checkout input:not([type=checkbox]):not([type=radio]):not([type=hidden]):not([type=submit]):not([type=button]):not([type=file]):not([type=range]),.aerion-store-context.woocommerce-checkout form.checkout select,.aerion-store-context.woocommerce-checkout form.checkout textarea{border:1px solid #ccd5db;border-radius:5px;min-height:44px;padding:9px 11px}
+.aerion-store-context.woocommerce-checkout #payment{background:#f1f5f7;border-radius:7px}
+.aerion-store-context.woocommerce-checkout #place_order{background:var(--aerion-action,#45c7f3);border-radius:5px;color:#071c2b;font-weight:800;min-height:50px;width:100%}
+/* As faixas do rodape sao `.aerion-container`, que ja traz o recuo lateral
+   (2rem, caindo para 1rem ate 600px). Elas precisam declarar so o espaco
+   VERTICAL: um `padding` shorthand com 0 no meio zera esse recuo e, por ser
+   mais especifico que `.aerion-container`, ganha. No desktop isso nao aparece
+   porque o `max-width:1280px` com margem automatica afasta o conteudo das
+   bordas sozinho; abaixo de 1280px a folga acaba e o rodape inteiro encosta na
+   lateral da tela. Por isso aqui e `padding-block`, nunca `padding`. */
+.aerion-store-footer{background:#071425;color:#d9e2eb;margin-top:0}
+.aerion-store-footer__benefits{border-bottom:1px solid rgb(255 255 255 / 12%);display:grid;grid-template-columns:repeat(3,1fr);padding-block:23px}
+.aerion-store-footer__benefits>div{align-items:center;border-right:1px solid rgb(255 255 255 / 12%);display:flex;gap:12px;justify-content:center}
+.aerion-store-footer__benefits>div:last-child{border-right:0}
+.aerion-store-footer__benefits .aerion-icon{color:#56cff7;height:26px;width:26px}
+.aerion-store-footer__benefits span,.aerion-store-footer__benefits strong,.aerion-store-footer__benefits small{display:block}
+.aerion-store-footer__benefits strong{color:#fff;font-size:.78rem}
+.aerion-store-footer__benefits small{color:#94a7b9;font-size:.67rem;margin-top:2px}
+.aerion-store-footer .aerion-footer__brand img{height:auto;max-width:165px;object-fit:contain}
+.aerion-store-footer .aerion-footer__grid{display:grid;gap:44px;grid-template-columns:1.35fr .65fr .9fr 1fr;padding-block:48px 36px}
+.aerion-store-footer .aerion-footer__grid>div{min-width:0}
+.aerion-store-footer .aerion-footer__grid h2{color:#fff;font-size:.88rem}
+.aerion-store-footer .aerion-footer__grid p,.aerion-store-footer .aerion-footer__grid a{color:#aebdca;font-size:.74rem;line-height:1.65}
+.aerion-store-footer .aerion-footer__grid a:hover{color:#55cff7}
+.aerion-store-payments{align-items:center;background:#0d1e31;border:1px solid rgb(255 255 255 / 10%);border-radius:8px;display:grid;gap:22px;grid-template-columns:auto 1fr auto auto;margin-bottom:28px;padding:17px 20px}
+.aerion-store-seals{align-items:center;display:flex;flex-wrap:wrap;gap:8px}
+.aerion-store-seals a{display:block}
+.aerion-store-seals img{background:#fff;border-radius:6px;display:block;height:44px;padding:3px 6px;width:auto}
+.aerion-store-payments>div:first-child{align-items:center;display:flex;gap:8px}
+.aerion-store-payments span{font-size:.7rem;font-weight:700}
+.aerion-payment-shield{height:23px;width:23px}
+.aerion-payment-mercadopago{height:30px;object-fit:contain;width:86px}
+.aerion-payment-marks{align-items:center;display:flex;flex-wrap:wrap;gap:6px}
+.aerion-payment-marks img,.aerion-payment-ticket{background:#fff;border-radius:4px;height:29px;object-fit:contain;padding:4px;width:46px}
+.aerion-payment-ticket{align-items:center;color:#162736!important;display:flex!important;flex-direction:column;font-size:.52rem!important;justify-content:center}
+.aerion-payment-ticket i{background:#17212b;display:block;height:3px;width:30px}
+.aerion-store-payments p{color:#91a3b3;font-size:.66rem;margin:0;max-width:340px;text-align:right}
+.aerion-store-footer .aerion-footer__bottom{border-top:1px solid rgb(255 255 255 / 10%)}
+@media(max-width:1180px){
+  .aerion-store-context .aerion-header__logo img{height:52px}
+  .aerion-customer-service span,.aerion-store-context .aerion-header__icon>span:not(.aerion-cart-count){display:none}
+  .aerion-customer-service,.aerion-store-context .aerion-header__icon{padding:7px}
+  .aerion-store-context .aerion-store-nav a{display:flex}
+  .aerion-store-context .aerion-store-products{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .aerion-store-footer .aerion-footer__grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .aerion-store-payments{grid-template-columns:1fr 1.5fr}
+  .aerion-store-payments p{grid-column:1/-1;max-width:none;text-align:left}
+}
+@media(max-width:820px){
+  .aerion-store-context .aerion-header__logo img{height:48px}
+  .aerion-store-context .aerion-header__inner{gap:10px}
+  .aerion-store-context .aerion-store-search{margin:0;min-width:180px}
+  .aerion-store-context .aerion-store-categories{grid-template-columns:1fr}
+  .aerion-store-context .aerion-store-categories>a,.aerion-store-context .aerion-store-categories>a:not(:first-child){min-height:190px}
+  .aerion-checkout-intro{align-items:stretch;flex-direction:column}
+}
+@media(max-width:760px){
+  .aerion-reseller-strip .aerion-container{align-items:flex-start;flex-direction:column;gap:2px;padding-block:7px;text-align:left}
+  .aerion-store-context .aerion-header__inner{min-height:66px}
+  .aerion-store-context .aerion-header__inner>.aerion-store-search,.aerion-store-context .aerion-header__commerce--store{display:none}
+  .aerion-store-context .aerion-store-nav{display:none}
+  .aerion-store-context .aerion-store-hero{min-height:0}
+  .aerion-store-context .aerion-store-hero__slide{min-height:0;padding:30px 0 38px}
+  .aerion-store-context .aerion-store-hero__grid{gap:18px;grid-template-columns:1fr;min-height:0}
+  .aerion-store-context .aerion-store-hero h1{font-size:2.15rem}
+  .aerion-store-context .aerion-store-hero img{height:205px}
+  .aerion-store-hero__arrow{height:34px;top:68%;width:34px}
+  .aerion-store-hero__arrow--prev{left:8px}
+  .aerion-store-hero__arrow--next{right:8px}
+  .aerion-store-context .aerion-store-trust .aerion-container{grid-template-columns:repeat(2,1fr)}
+  .aerion-store-context .aerion-store-trust span:nth-child(3){border-left:0;border-top:1px solid #e7ebee}
+  .aerion-store-context .aerion-store-trust span:nth-child(4){border-top:1px solid #e7ebee}
+  .aerion-store-context .aerion-store-section{padding:44px 0}
+  .aerion-store-context .aerion-store-products{display:flex;gap:12px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory}
+  .aerion-store-context .aerion-store-product{flex:0 0 82%;scroll-snap-align:start}
+  .aerion-store-context .aerion-store-product__image,.aerion-store-context .aerion-store-product__image img{height:155px}
+  .aerion-store-context.single-product main.wp-block-group{padding:18px 16px 44px!important}
+  .aerion-store-context.single-product div.product .summary{padding:18px 0}
+  .aerion-store-context.single-product #reviews{grid-template-columns:1fr}
+  .aerion-store-footer__benefits{grid-template-columns:1fr}
+  .aerion-store-footer__benefits>div{border-bottom:1px solid rgb(255 255 255 / 12%);border-right:0;justify-content:flex-start;padding:11px 0}
+  .aerion-store-footer__benefits>div:last-child{border-bottom:0}
+  .aerion-store-footer .aerion-footer__grid{grid-template-columns:1fr}
+  .aerion-store-payments{grid-template-columns:1fr}
+  .aerion-checkout-intro{padding:20px}
+  .aerion-checkout-intro__choices{flex-direction:column}
+  .aerion-checkout-intro__choices>a,.aerion-checkout-intro__choices>span{min-width:0}
+}
+/* Catálogo facetado, ofertas e refinamentos da loja */
+.aerion-customer-service{background:transparent!important;border:0!important;border-radius:0!important;padding:6px 4px!important}
+.aerion-customer-service:hover{background:transparent!important;color:#04a859}
+.aerion-customer-service .aerion-icon{color:#18a957;height:21px!important;width:21px!important}
+.aerion-store-context .aerion-store-search{background:#fff;border:1px solid #dbe2e7;border-radius:999px;box-shadow:0 3px 13px rgb(16 38 54 / 7%);overflow:visible}
+.aerion-store-context .aerion-store-search:focus-within{background:#fff;border-color:#45bfe9;box-shadow:0 0 0 4px rgb(69 191 233 / 13%),0 5px 18px rgb(16 38 54 / 9%)}
+.aerion-store-context .aerion-store-search input[type=search]{background:transparent;padding-left:18px}
+.aerion-store-context .aerion-store-search kbd{align-self:center;background:#f2f5f7;border:1px solid #dce3e8;border-radius:5px;color:#6a747d;font-family:Montserrat,sans-serif;font-size:.58rem;font-weight:700;padding:3px 6px;white-space:nowrap}
+.aerion-store-context .aerion-store-search__results{border-radius:12px;top:calc(100% + 8px)}
+.aerion-storefront>.aerion-store-offers{order:2}
+.aerion-storefront>#produtos-da-loja{order:3}
+.aerion-store-context .aerion-store-offers{background:#fff;padding:46px 0}
+.aerion-store-context .aerion-store-offers .aerion-store-heading{margin-bottom:17px}
+.aerion-store-context .aerion-store-offers .aerion-store-heading h2{font-size:1.65rem;margin:0}
+.aerion-store-offers__carousel{position:relative}
+.aerion-store-offers__track{display:flex;gap:16px;overflow-x:auto;padding:2px 2px 12px;scroll-behavior:smooth;scroll-snap-type:x mandatory;scrollbar-width:none}
+.aerion-store-offers__track::-webkit-scrollbar{display:none}
+.aerion-store-context .aerion-store-product--offer{flex:0 0 calc((100% - 48px)/4);scroll-snap-align:start}
+.aerion-store-offers__carousel>button{align-items:center;background:#fff;border:1px solid #d7e1e8;border-radius:50%;box-shadow:0 5px 16px rgb(9 30 45 / 12%);color:#0877bd;display:flex;font-size:1.45rem;height:38px;justify-content:center;position:absolute;top:43%;width:38px;z-index:3}
+.aerion-store-offers__carousel>[data-aerion-strip-prev]{left:-19px}
+.aerion-store-offers__carousel>[data-aerion-strip-next]{right:-19px}
+.aerion-store-context .aerion-store-heading--catalog{align-items:flex-end;display:flex;gap:24px;justify-content:space-between}
+.aerion-store-context .aerion-store-heading--catalog h2{margin:0}
+.aerion-store-heading--catalog small{color:#65717b;font-size:.72rem}
+.aerion-store-sort{align-items:center;display:flex;gap:9px}
+.aerion-store-sort label{color:#65717b;font-size:.7rem;font-weight:700;white-space:nowrap}
+.aerion-store-sort select{background:#fff;border:1px solid #ccd6dd;border-radius:6px;color:#26333d;font-size:.75rem;min-height:40px;padding:7px 34px 7px 11px}
+.aerion-store-context .aerion-store-product{display:flex;flex-direction:column}
+.aerion-store-context .aerion-store-product>a.aerion-store-product__main{flex:1;height:auto;padding:14px 14px 0}
+.aerion-store-context .aerion-store-product__bottom{margin-top:auto;padding:10px 14px 14px}
+.aerion-store-product__actions{display:grid;gap:7px;grid-template-columns:1fr 42px}
+.aerion-store-product__buy,.aerion-store-product__cart{align-items:center;border-radius:4px;display:flex;font-size:.7rem;font-weight:800;justify-content:center;min-height:40px;text-decoration:none!important}
+.aerion-store-product__buy{background:var(--aerion-action,#45c7f3);color:#071c2b!important;letter-spacing:.025em;text-transform:uppercase}
+.aerion-store-product__buy:hover{background:#25b9eb}
+.aerion-store-product__cart{background:#fff;border:1px solid #b8c7d1;color:#20749f!important}
+.aerion-store-product__cart:hover{background:#edf9fd;border-color:#48bee7}
+.aerion-store-product__cart .aerion-icon{height:17px;width:17px}
+.aerion-store-product__cart.is-disabled{cursor:not-allowed;opacity:.38}
+.aerion-store-catalog.has-filters{align-items:start;display:grid;gap:24px;grid-template-columns:252px minmax(0,1fr)}
+.aerion-store-catalog.has-filters>.aerion-store-filters{
+  align-self:start;grid-column:1;grid-row:1;margin-block:0!important
+}
+.aerion-store-catalog.has-filters>.aerion-store-results{
+  align-self:start;grid-column:2;grid-row:1;min-width:0
+}
+.aerion-store-catalog.has-filters .aerion-store-products{grid-template-columns:repeat(3,minmax(0,1fr))}
+.aerion-storefront--results #produtos-da-loja{padding-top:38px}
+.aerion-store-filters{background:transparent;border:0;border-radius:0;position:relative;top:auto}
+.aerion-store-filters>form{
+  background:#fff;border:1px solid #dfe5e9;border-radius:8px;padding:17px;position:static
+}
+.aerion-filter-title{align-items:center;display:flex;justify-content:space-between;padding-bottom:13px}
+.aerion-filter-title strong{color:#1d2933;font-size:.9rem}
+.aerion-filter-title a{color:#0877bd;font-size:.65rem;font-weight:700}
+.aerion-filter-group{border-top:1px solid #e6ebee;padding:0}
+.aerion-filter-group summary{color:#26323c;cursor:pointer;font-size:.75rem;font-weight:800;list-style:none;padding:14px 18px 14px 0;position:relative}
+.aerion-filter-group summary::-webkit-details-marker{display:none}
+.aerion-filter-group summary:after{content:"+";font-size:1rem;position:absolute;right:1px;top:11px}
+.aerion-filter-group[open] summary:after{content:"−"}
+.aerion-filter-options{display:grid;gap:9px;padding:0 0 15px}
+.aerion-filter-options label{align-items:flex-start;color:#4a5660;cursor:pointer;display:grid;font-size:.68rem;gap:7px;grid-template-columns:15px 1fr auto;line-height:1.35}
+.aerion-filter-options input{accent-color:#159dcc;height:14px;margin:1px 0 0;width:14px}
+.aerion-filter-options small{color:#8a949c;font-size:.61rem}
+.aerion-price-filter{padding:0 0 17px}
+.aerion-price-filter>div:first-child{display:flex;justify-content:space-between;margin-bottom:10px}
+.aerion-price-filter output{color:#32414c;font-size:.64rem;font-weight:700}
+.aerion-price-filter__range{height:22px;position:relative}
+.aerion-price-filter__range:before{background:#168ec4;border-radius:999px;content:"";height:4px;left:0;position:absolute;right:0;top:9px}
+.aerion-price-filter__range input[type=range]{appearance:none;background:transparent;height:22px;left:0;margin:0;pointer-events:none;position:absolute;top:0;width:100%}
+.aerion-price-filter__range input[type=range]::-webkit-slider-thumb{appearance:none;background:#fff;border:3px solid #25afd9;border-radius:50%;box-shadow:0 1px 5px rgb(0 39 59 / 24%);cursor:grab;height:17px;pointer-events:auto;width:17px}
+.aerion-price-filter__range input[type=range]::-moz-range-thumb{background:#fff;border:3px solid #25afd9;border-radius:50%;box-shadow:0 1px 5px rgb(0 39 59 / 24%);cursor:grab;height:12px;pointer-events:auto;width:12px}
+.aerion-filter-submit{background:#0b7fba;border:0;border-radius:4px;color:#fff;font-size:.67rem;font-weight:800;margin-top:14px;min-height:42px;width:100%}
+.aerion-store-pagination{display:flex;justify-content:center;margin-top:34px}
+.aerion-store-pagination ul{display:flex;gap:6px;list-style:none;margin:0;padding:0}
+.aerion-store-pagination a,.aerion-store-pagination span{align-items:center;background:#fff;border:1px solid #d7e0e5;border-radius:5px;color:#31404b;display:flex;font-size:.7rem;font-weight:700;justify-content:center;min-height:38px;min-width:38px;padding:7px 10px;text-decoration:none}
+.aerion-store-pagination .current{background:#0b84c0;border-color:#0b84c0;color:#fff}
+.aerion-store-empty{background:#fff;border:1px solid #e0e6e9;border-radius:8px;padding:48px;text-align:center}
+.aerion-store-empty h3{margin:0 0 7px}
+.aerion-store-empty p{color:#66727c;font-size:.8rem}
+.aerion-store-empty a{color:#0877bd;font-size:.75rem;font-weight:800}
+.aerion-store-footer .aerion-footer__brand img{height:auto;max-width:132px;opacity:.82;width:100%}
+.aerion-store-context .aerion-payment-mercadopago{background:#fff;border-radius:4px;box-sizing:border-box;height:29px;padding:5px 7px;width:96px}
+@media(max-width:1180px){
+  .aerion-store-catalog.has-filters{grid-template-columns:230px minmax(0,1fr)}
+  .aerion-store-catalog.has-filters .aerion-store-products{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .aerion-store-context .aerion-store-product--offer{flex-basis:calc((100% - 32px)/3)}
+}
+@media(max-width:820px){
+  .aerion-store-context .aerion-store-search kbd{display:none}
+  .aerion-store-catalog.has-filters{grid-template-columns:1fr}
+  .aerion-store-catalog.has-filters>.aerion-store-filters{grid-column:1;grid-row:1}
+  .aerion-store-catalog.has-filters>.aerion-store-results{grid-column:1;grid-row:2}
+  .aerion-store-filters,.aerion-store-filters>form{position:static}
+  .aerion-store-catalog.has-filters .aerion-store-products{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .aerion-store-context .aerion-store-product--offer{flex-basis:46%}
+  .aerion-store-offers__carousel>[data-aerion-strip-prev]{left:4px}
+  .aerion-store-offers__carousel>[data-aerion-strip-next]{right:4px}
+}
+@media(max-width:760px){
+  .aerion-store-context .aerion-store-heading--catalog{align-items:stretch;flex-direction:column}
+  .aerion-store-sort{justify-content:space-between}
+  .aerion-store-sort select{flex:1}
+  .aerion-store-context .aerion-store-results .aerion-store-products{display:grid;grid-template-columns:1fr;overflow:visible}
+  .aerion-store-context .aerion-store-results .aerion-store-product{flex:none}
+  .aerion-store-context .aerion-store-product--offer{flex:0 0 82%}
+}
+.aerion-store-context .aerion-store-search input[type=search]:focus,.aerion-store-context .aerion-store-search input[type=search]:focus-visible,.aerion-store-context .aerion-store-search button:focus{box-shadow:none!important;outline:0!important}
+.aerion-store-context .aerion-store-heading h2,.aerion-store-context .aerion-store-offers .aerion-store-heading h2{font-size:clamp(1.65rem,2.35vw,2.1rem);letter-spacing:-.03em;line-height:1.15;margin:0}
+.aerion-store-heading h2 a,.aerion-store-heading--offers>a{color:inherit;text-decoration:none}
+.aerion-store-heading h2 a:hover,.aerion-store-heading--offers>a:hover{color:#0877bd}
+.aerion-store-heading--offers{align-items:center;display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between}
+.aerion-store-context .aerion-store-product__image{position:relative}
+.aerion-store-context .aerion-store-product.is-backorder .aerion-store-product__image img{filter:grayscale(1);opacity:.72}
+.aerion-store-product__offer-tag{background:#ff6900;border:2px solid #fff;border-radius:8px 2px 8px 2px;bottom:8px;box-shadow:0 4px 12px rgb(92 31 0 / 28%);color:#fff;font-family:Montserrat,sans-serif;font-size:.72rem;font-weight:800;letter-spacing:.025em;padding:7px 9px;position:absolute;right:8px;transform:rotate(-2deg)}
+.aerion-card-rating{align-items:center;display:flex;gap:5px;margin:7px 0 2px}
+.aerion-card-rating .aerion-rating-stars{--aerion-star-size:18px;--aerion-star-step:20px}
+.aerion-card-rating small{color:#6a757e;font-size:.62rem}
+.aerion-store-product__buy.is-order{background:#f2a51f;color:#2c210b!important}
+.aerion-store-product__cart.is-in-cart,.aerion-store-product__cart.added{background:#168a55;border-color:#168a55;color:#fff!important}
+.aerion-store-product .added_to_cart.wc-forward{display:none!important}
+.aerion-store-context.single-product .aerion-rating-summary .aerion-rating-stars{--aerion-star-size:24px;--aerion-star-step:26px}
+.aerion-store-context.single-product .aerion-rating-summary small{font-size:.78rem}
+.aerion-store-context .single_add_to_cart_button{text-transform:uppercase}
+.aerion-payment-advantage.is-backorder .aerion-stock-label{color:#9b6808!important}
+.aerion-payment-advantage.is-backorder .aerion-stock-label:before{background:#e5a31b}
+.aerion-stock-box--inquiry{background:#eef9fd;border-color:#a9dfee}
+.aerion-stock-box--inquiry .aerion-button{display:inline-flex;margin-top:8px}
+.aerion-price-filter{padding:4px 1px 18px}
+.aerion-price-filter__rail,.aerion-price-filter>div:first-child.aerion-price-filter__rail{cursor:pointer;display:block;height:30px;margin:2px 8px 13px;position:relative;touch-action:none}
+.aerion-price-filter__rail:before{background:#d9e2e8;border-radius:999px;content:"";height:6px;left:0;position:absolute;right:0;top:12px}
+.aerion-price-filter__rail>[data-aerion-price-selection]{background:#168ec4;border-radius:999px;height:6px;position:absolute;top:12px}
+.aerion-price-filter__rail>button{background:#fff;border:3px solid #168ec4;border-radius:50%;box-shadow:0 2px 8px rgb(2 72 104 / 25%);cursor:grab;height:22px;margin:0;padding:0;position:absolute;top:4px;transform:translateX(-50%);width:22px;z-index:2}
+.aerion-price-filter__rail>button:active{cursor:grabbing;transform:translateX(-50%) scale(1.08)}
+.aerion-price-filter__rail>button:focus-visible{box-shadow:0 0 0 4px rgb(69 199 243 / 22%);outline:2px solid #0877bd;outline-offset:2px}
+.aerion-price-filter__values{display:grid;gap:8px;grid-template-columns:1fr 1fr}
+.aerion-price-filter__values label>span:first-child{color:#68747d;display:block;font-size:.59rem;font-weight:700;margin:0 0 4px 2px}
+.aerion-price-filter__values label>span:last-child{align-items:center;background:#fff;border:1px solid #cfd9df;border-radius:7px;display:flex;min-height:38px;overflow:hidden}
+.aerion-price-filter__values b{color:#72808a;font-size:.58rem;padding-left:7px;white-space:nowrap}
+.aerion-price-filter__values input{appearance:textfield;background:transparent;border:0!important;box-shadow:none!important;color:#24333d;font-size:.65rem;font-weight:700;min-width:0;outline:0!important;padding:7px 5px;width:100%}
+.aerion-price-filter__values input::-webkit-inner-spin-button{appearance:none}
+.aerion-countdown{align-items:center;background:#0b76b8;border-radius:7px;color:#fff;display:inline-flex;gap:8px;margin:0;padding:6px 8px}
+.aerion-countdown>span:first-child{color:#dcefff!important;font-size:.56rem!important;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.aerion-countdown__flip{display:flex;gap:4px}
+.aerion-countdown__flip>span{align-items:center;background:#082f4b;border:1px solid rgb(255 255 255 / 18%);border-radius:4px;box-shadow:inset 0 -8px 0 rgb(0 0 0 / 12%);display:flex;flex-direction:column;min-width:34px;padding:3px 4px}
+.aerion-countdown__flip b{color:#fff;font-size:.75rem;font-variant-numeric:tabular-nums;line-height:1}
+.aerion-countdown__flip small{color:#b9dcef;font-size:.42rem;line-height:1;margin-top:3px;text-transform:uppercase}
+.aerion-store-product .aerion-countdown{align-self:flex-start;background:#edf8fc;color:#176287;margin-top:8px;padding:5px 6px}
+.aerion-store-product .aerion-countdown>span:first-child{color:#38738f!important}
+.aerion-store-product .aerion-countdown__flip>span{background:#0b547d;min-width:29px}
+.aerion-store-product .aerion-countdown__flip b{font-size:.66rem}
+.aerion-product-campaign{align-items:center;background:#fff;gap:12px;margin:10px 0 12px;padding:10px 12px}
+.aerion-product-campaign .aerion-countdown{background:transparent;padding:0}
+.aerion-product-campaign .aerion-countdown__flip>span{min-width:43px;padding:6px}
+.aerion-product-campaign .aerion-countdown__flip b{font-size:1rem}
+.aerion-store-context .aerion-store-hero--cards{--aerion-hero-edge:max(18px,calc((100vw - 1320px)/2));background:#eef1f3;min-height:0;overflow:hidden;padding:16px 0 20px;position:relative}
+.aerion-store-context .aerion-store-hero--cards .aerion-store-hero__track{display:flex;gap:16px;overflow-x:auto;padding:0 var(--aerion-hero-edge) 8px;scroll-behavior:smooth;scroll-padding-left:var(--aerion-hero-edge);scroll-snap-type:x mandatory;scrollbar-width:none;transition:none;transform:none!important;width:auto}
+.aerion-store-context .aerion-store-hero--cards .aerion-store-hero__track::-webkit-scrollbar{display:none}
+.aerion-store-context .aerion-store-hero--cards .aerion-store-hero__track:focus{outline:0}
+.aerion-store-context .aerion-store-hero--cards .aerion-store-hero__slide{background:#f3f4f5;border:1px solid #dce3e8;border-radius:18px;box-shadow:0 8px 24px rgb(12 35 50 / 10%);display:block!important;flex:0 0 clamp(520px,44.5vw,620px);min-height:0;overflow:hidden;padding:0;scroll-snap-align:start}
+.aerion-store-hero__campaign-link{background:#061331;display:block;height:100%;min-height:250px;width:100%}
+.aerion-store-context .aerion-store-hero--cards .aerion-store-hero__campaign-image{filter:none;height:100%;max-height:none;object-fit:cover;width:100%}
+.aerion-store-context .aerion-store-hero--cards .aerion-store-hero__grid{align-items:center;display:grid;gap:18px;grid-template-columns:1.08fr .72fr;min-height:250px;padding:24px 26px;width:100%}
+.aerion-store-context .aerion-store-hero--cards h1{font-size:clamp(1.6rem,2.25vw,2.15rem);letter-spacing:-.045em;line-height:1.06;margin:.45rem 0 .7rem}
+.aerion-store-context .aerion-store-hero--cards p{font-size:.82rem;line-height:1.5;margin:0 0 15px}
+.aerion-store-context .aerion-store-hero--cards .aerion-store-hero__grid>div>span{font-size:.66rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase}
+.aerion-store-context .aerion-store-hero--cards .aerion-button{font-size:.7rem;min-height:38px;padding:9px 14px}
+.aerion-store-context .aerion-store-hero--cards .aerion-store-hero__visual{filter:drop-shadow(0 16px 18px rgb(9 25 38 / 16%));height:190px;max-height:190px;max-width:100%;object-fit:contain}
+.aerion-store-context .aerion-store-hero--cards .aerion-store-hero__visual--logo{filter:none;height:105px;max-height:105px;width:100%}
+.aerion-store-hero--cards .aerion-store-hero__arrow{top:50%}
+.aerion-store-hero--cards .aerion-store-hero__arrow--prev{left:10px}
+.aerion-store-hero--cards .aerion-store-hero__arrow--next{right:10px}
+.aerion-product-campaign{background:transparent;border:0;border-radius:0;display:grid;gap:12px;grid-template-columns:minmax(0,1fr) auto;margin:8px 0 14px;padding:0}
+.aerion-product-campaign__mini{background:#061331;border-radius:7px;display:block;height:82px;min-width:0;overflow:hidden}
+.aerion-product-campaign__mini img{display:block;height:100%;object-fit:cover;width:100%}
+.aerion-product-campaign .aerion-countdown{align-self:stretch;background:#0b456a;border-radius:7px;display:flex;flex-direction:column;justify-content:center;padding:8px 10px}
+.aerion-storefront--results #produtos-da-loja{padding-top:22px}
+.aerion-store-context.single-product main.wp-block-group,.aerion-store-context.woocommerce-cart main.wp-block-group,.aerion-store-context.woocommerce-checkout main.wp-block-group,.aerion-store-context.woocommerce-account main.wp-block-group{padding-top:18px!important}
+@media(max-width:1100px){
+  .aerion-store-context .aerion-store-hero--cards .aerion-store-hero__slide{flex-basis:74vw}
+}
+@media(max-width:760px){
+  .aerion-store-context .aerion-store-hero--cards{--aerion-hero-edge:14px;padding-block:12px 16px}
+  .aerion-store-context .aerion-store-hero--cards .aerion-store-hero__slide{flex-basis:88vw}
+  .aerion-store-hero__campaign-link{min-height:220px}
+  .aerion-store-context .aerion-store-hero--cards .aerion-store-hero__grid{gap:12px;grid-template-columns:1fr .62fr;min-height:220px;padding:20px}
+  .aerion-store-context .aerion-store-hero--cards h1{font-size:1.55rem}
+  .aerion-store-context .aerion-store-hero--cards p{font-size:.75rem}
+  .aerion-store-context .aerion-store-hero--cards .aerion-store-hero__visual{height:135px}
+  .aerion-store-context .aerion-store-hero--cards .aerion-store-hero__visual--logo{height:72px}
+  .aerion-store-hero--cards .aerion-store-hero__arrow{top:50%}
+  .aerion-product-campaign{grid-template-columns:1fr}
+  .aerion-product-campaign__mini{height:70px}
+  .aerion-product-campaign .aerion-countdown{align-items:center;flex-direction:row}
+}
+/* AERION_STORE_LAYOUT_END */
