@@ -431,7 +431,7 @@ function aerion_store_product_card_legacy(WC_Product $product,string $modifier='
                 <?php if(!$isInquiry&&$product->is_purchasable()): ?>
                     <a class="aerion-store-product__cart add_to_cart_button ajax_add_to_cart<?php echo $inCart?' is-in-cart':''; ?>" href="<?php echo esc_url($product->add_to_cart_url()); ?>" data-quantity="1" data-product_id="<?php echo esc_attr((string)$product->get_id()); ?>" data-product_sku="<?php echo esc_attr($product->get_sku()); ?>" aria-label="<?php echo esc_attr(($inCart?'Produto já está no carrinho: ':'Adicionar ao carrinho: ').$product->get_name()); ?>" rel="nofollow"><?php echo aerion_blocks_icon('cart'); ?><span class="screen-reader-text">Adicionar ao carrinho</span></a>
                 <?php else: ?>
-                    <span class="aerion-store-product__cart is-disabled" aria-label="Produto indisponível"><?php echo aerion_blocks_icon('cart'); ?></span>
+                    <span class="aerion-store-product__cart is-disabled" role="img" aria-label="Produto indisponível"><?php echo aerion_blocks_icon('cart'); ?></span>
                 <?php endif; ?>
             </div>
         </div>
@@ -936,6 +936,24 @@ function aerion_render_storefront_block(array $attributes): string
     };
     // Espelha os pontos de quebra do CSS: 88vw no celular, 74vw ate 1100px e o
     // teto de 620px acima disso.
+    // Versao WebP ao lado do PNG (`nome.webp`, `nome-620.webp`, `nome-1240.webp`).
+    // Mesma regra do srcset: so entra o que existe em disco; sem WebP devolve ''
+    // e o <source> nem e emitido, mantendo o PNG como unica opcao.
+    $heroWebp=static function(string $url,bool $variantes=false):string{
+        $base=content_url();
+        if($url===''||strpos($url,$base)!==0)return '';
+        $caminho=preg_replace('/\.(png|jpe?g)$/i','',WP_CONTENT_DIR.substr($url,strlen($base)));
+        if($caminho===null)return '';
+        $partes=[];
+        if($variantes){
+            foreach([620,1240] as $largura){
+                if(file_exists($caminho.'-'.$largura.'.webp'))$partes[]=esc_url($base.substr($caminho,strlen(WP_CONTENT_DIR)).'-'.$largura.'.webp').' '.$largura.'w';
+            }
+        }
+        if(!file_exists($caminho.'.webp'))return $variantes&&$partes?implode(', ',$partes):'';
+        $principal=esc_url($base.substr($caminho,strlen(WP_CONTENT_DIR)).'.webp');
+        return $variantes?implode(', ',array_merge($partes,[$principal.' 1600w'])):$principal;
+    };
     $heroSizes='(max-width: 760px) 88vw, (max-width: 1100px) 74vw, 620px';
 
     $evergreenSlides=[
@@ -975,7 +993,7 @@ function aerion_render_storefront_block(array $attributes): string
             <div class="aerion-store-hero__track" data-aerion-strip-track tabindex="0">
             <?php foreach($campaigns as $campaign): ?>
                 <?php $campaignImage=$campaign['image']?:aerion_blocks_source_asset('campaigns/ofertas-de-lancamento/hero.png');$campaignMobile=$campaign['mobile_image']?:aerion_blocks_source_asset('campaigns/ofertas-de-lancamento/hero-mobile.png'); ?>
-                <article class="aerion-store-hero__slide aerion-store-hero__slide--campaign"><a class="aerion-store-hero__campaign-link" href="<?php echo esc_url($campaign['url']); ?>" aria-label="<?php echo esc_attr('Ver produtos da campanha '.$campaign['title']); ?>"><picture><source media="(max-width: 760px)" srcset="<?php echo esc_url($campaignMobile); ?>"><img class="aerion-store-hero__campaign-image" src="<?php echo esc_url($campaignImage); ?>"<?php $ss=$heroSrcset($campaignImage); if($ss): ?> srcset="<?php echo $ss; ?>" sizes="<?php echo esc_attr($heroSizes); ?>"<?php endif; ?> alt="<?php echo esc_attr($campaign['alt']); ?>" fetchpriority="<?php echo $slideIndex===0?'high':'low'; ?>"></picture></a></article>
+                <article class="aerion-store-hero__slide aerion-store-hero__slide--campaign"><a class="aerion-store-hero__campaign-link" href="<?php echo esc_url($campaign['url']); ?>" aria-label="<?php echo esc_attr('Ver produtos da campanha '.$campaign['title']); ?>"><picture><?php $wm=$heroWebp($campaignMobile); if($wm): ?><source media="(max-width: 760px)" type="image/webp" srcset="<?php echo $wm; ?>"><?php endif; ?><source media="(max-width: 760px)" srcset="<?php echo esc_url($campaignMobile); ?>"><?php $wd=$heroWebp($campaignImage,true); if($wd): ?><source type="image/webp" srcset="<?php echo $wd; ?>" sizes="<?php echo esc_attr($heroSizes); ?>"><?php endif; ?><img class="aerion-store-hero__campaign-image" src="<?php echo esc_url($campaignImage); ?>"<?php $ss=$heroSrcset($campaignImage); if($ss): ?> srcset="<?php echo $ss; ?>" sizes="<?php echo esc_attr($heroSizes); ?>"<?php endif; ?> alt="<?php echo esc_attr($campaign['alt']); ?>" fetchpriority="<?php echo $slideIndex===0?'high':'low'; ?>"></picture></a></article>
             <?php $slideIndex++;endforeach; ?>
             <?php foreach($evergreenSlides as $slide): ?>
                 <article class="aerion-store-hero__slide aerion-store-hero__slide--evergreen"><a class="aerion-store-hero__campaign-link" href="<?php echo esc_url($slide['url']); ?>"><picture><source media="(max-width: 760px)" srcset="<?php echo esc_url(aerion_blocks_source_asset($slide['mobile'])); ?>"><img class="aerion-store-hero__campaign-image" src="<?php echo esc_url(aerion_blocks_source_asset($slide['desktop'])); ?>"<?php $ss=$heroSrcset(aerion_blocks_source_asset($slide['desktop'])); if($ss): ?> srcset="<?php echo $ss; ?>" sizes="<?php echo esc_attr($heroSizes); ?>"<?php endif; ?> alt="<?php echo esc_attr($slide['alt']); ?>" fetchpriority="<?php echo $slideIndex===0?'high':'low'; ?>"></picture></a></article>

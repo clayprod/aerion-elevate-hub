@@ -108,7 +108,7 @@ function aerion_store_product_card(WC_Product $product, string $modifier = ''): 
                 <a class="aerion-store-product__buy<?php echo $isUnavailable ? ' is-disabled' : ''; ?>" href="<?php echo esc_url($product->get_permalink()); ?>"<?php echo $isUnavailable ? ' aria-disabled="true"' : ''; ?>><?php echo esc_html($primaryLabel); ?></a>
                 <?php if (! $isInquiry && ! $isUnavailable && $product->is_purchasable()) : ?>
                     <button type="button" class="aerion-store-product__cart<?php echo $inCart ? ' is-in-cart' : ''; ?>" data-aerion-cart-toggle data-aerion-cart-endpoint="<?php echo esc_url(WC_AJAX::get_endpoint('aerion_toggle_cart_product')); ?>" data-aerion-cart-security="<?php echo esc_attr(wp_create_nonce('aerion_toggle_cart_product')); ?>" data-quantity="1" data-product_id="<?php echo esc_attr((string) $product->get_id()); ?>" data-product_sku="<?php echo esc_attr($product->get_sku()); ?>" aria-pressed="<?php echo $inCart ? 'true' : 'false'; ?>" aria-label="<?php echo esc_attr(($inCart ? 'Remover do carrinho: ' : 'Adicionar ao carrinho: ') . $product->get_name()); ?>"><?php echo aerion_blocks_icon('cart'); ?><span class="screen-reader-text"><?php echo esc_html($inCart ? 'Remover do carrinho' : 'Adicionar ao carrinho'); ?></span></button>
-                <?php else : ?><span class="aerion-store-product__cart is-disabled" aria-label="Produto indisponível"><?php echo aerion_blocks_icon('cart'); ?></span><?php endif; ?>
+                <?php else : ?><span class="aerion-store-product__cart is-disabled" role="img" aria-label="Produto indisponível"><?php echo aerion_blocks_icon('cart'); ?></span><?php endif; ?>
             </div>
         </div>
     </article>
