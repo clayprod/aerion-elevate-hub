@@ -18,8 +18,17 @@ if (! defined('ABSPATH')) {
 
 final class Aerion_Structured_Data
 {
-    /** Prazo maximo de postagem, em dias uteis. Valor conservador. */
+    /** Prazo maximo de postagem, em dias uteis. */
     private const HANDLING_DAYS_MAX = 2;
+
+    /**
+     * Prazo de transporte declarado ao Google, em dias uteis. O prazo real vem
+     * da cotacao do Melhor Envio no checkout e varia por regiao e transportadora:
+     * este e o numero padrao definido pelo negocio (2 dias uteis), nao uma medicao.
+     * Ajuste aqui se o prazo medio real for maior.
+     */
+    private const TRANSIT_DAYS_MIN = 1;
+    private const TRANSIT_DAYS_MAX = 2;
 
     public static function boot(): void
     {
@@ -78,7 +87,8 @@ final class Aerion_Structured_Data
 
     /**
      * O frete e cotado no checkout pelo Melhor Envio, entao nao ha valor fixo
-     * para declarar: informamos o destino e o prazo de postagem.
+     * para declarar (shippingRate fica de fora de proposito: inventar um preco
+     * seria informacao falsa ao Google): informamos destino, postagem e transporte.
      *
      * @return array<string,mixed>
      */
@@ -96,6 +106,12 @@ final class Aerion_Structured_Data
                     '@type' => 'QuantitativeValue',
                     'minValue' => 0,
                     'maxValue' => self::HANDLING_DAYS_MAX,
+                    'unitCode' => 'DAY',
+                ],
+                'transitTime' => [
+                    '@type' => 'QuantitativeValue',
+                    'minValue' => self::TRANSIT_DAYS_MIN,
+                    'maxValue' => self::TRANSIT_DAYS_MAX,
                     'unitCode' => 'DAY',
                 ],
             ],
