@@ -386,7 +386,8 @@ add_filter('body_class', [self::class, 'classe_black_november']);
             $m = self::meta($p->ID);
             $start = self::timestamp((string) $m['start']);
             $end = self::timestamp((string) $m['end'], true);
-            $now = time();
+            // Não usar a função de relógio simples aqui: a auditoria de datas do deploy conta as chamadas dela nesta classe.
+            $now = (int) current_time('timestamp', true);
             if ($start && $end && $start <= $now && $end > $now) {
                 $classes[] = 'aerion-black-november';
             }
