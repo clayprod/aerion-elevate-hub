@@ -165,8 +165,8 @@ final class Aerion_Price_Tables
                 ];
             }
         }
-        // Do mais barato ao mais caro (preço da tabela; nas ofertas, o preço da oferta); empate por nome.
-        usort($offers, static fn (array $a, array $b): int => $a['offer_pix'] <=> $b['offer_pix'] ?: strcasecmp($a['name'], $b['name']));
+        // Ofertas: maior desconto em reais primeiro (preço no cartão menos o Pix da oferta, os dois valores da linha); empate por nome.
+        usort($offers, static fn (array $a, array $b): int => ($b['card'] - $b['offer_pix']) <=> ($a['card'] - $a['offer_pix']) ?: strcasecmp($a['name'], $b['name']));
         foreach ($groups as &$groupRows) {
             usort($groupRows, static fn (array $a, array $b): int => $a['pix'] <=> $b['pix'] ?: strcasecmp($a['name'], $b['name']));
         }
@@ -318,19 +318,19 @@ td small.mut{display:block;font-size:10.5px}
 .summary{color:var(--mut);font-size:11.5px;margin:10px 0 0}
 .notes{border-top:1px solid var(--line);color:var(--mut);font-size:11px;margin-top:26px;padding-top:12px}
 .end{break-inside:avoid}
-.tiers{background:#f5f8fc;border:1px solid var(--line);border-left:4px solid var(--navy);border-radius:6px;break-inside:avoid;margin-top:24px;padding:14px 16px}
-.tiers h3{color:var(--navy);font-size:13px;letter-spacing:.04em;margin:0 0 6px;text-transform:uppercase}
-.tiers p{font-size:12px;margin:0 0 10px}
-.tiers .g{display:flex;gap:12px;margin:0 0 10px}
-.tiers .n{background:#fff;border:1px solid var(--line);border-radius:8px;flex:1;padding:10px 12px}
-.tiers .n b{display:inline-block;border-radius:999px;color:#fff;font-size:10.5px;letter-spacing:.08em;padding:2px 11px;text-transform:uppercase}
-.tiers .n.s b{background:#8a97a3}
-.tiers .n.o b{background:#8a6d1f}
-.tiers .n strong{display:block;font-size:20px;letter-spacing:-.01em;margin:6px 0 2px}
-.tiers .n span{color:var(--mut);display:block;font-size:11.5px;line-height:1.4}
-.tiers .k{color:var(--mut);font-size:11px}
-.tiers .l{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:10px}
-.tiers .l a{color:var(--blue);font-size:12px;font-weight:700;text-decoration:none}
+.tiers{border-top:2px solid var(--navy);break-inside:avoid;margin-top:26px;padding:14px 0 12px}
+.tiers h3{color:var(--navy);font-size:12px;letter-spacing:.07em;margin:0 0 6px;text-transform:uppercase}
+.tiers p{color:var(--ink);font-size:12px;margin:0 0 14px;max-width:760px}
+.tiers .g{display:flex;margin:0 0 12px}
+.tiers .n{flex:1;padding:0 22px 0 0}
+.tiers .n + .n{border-left:1px solid var(--line);padding:0 0 0 22px}
+.tiers .lv{color:var(--mut);display:block;font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.tiers .n.o .lv{color:#8a6d1f}
+.tiers .n strong{display:block;font-size:30px;font-weight:800;letter-spacing:-.02em;line-height:1.05;margin:3px 0 4px}
+.tiers .n span.t{color:var(--mut);display:block;font-size:11.5px;line-height:1.45}
+.tiers .k{color:var(--mut);font-size:11px;line-height:1.5}
+.tiers .l{border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:4px 22px;margin-top:11px;padding-top:9px}
+.tiers .l a{color:var(--navy);font-size:12px;font-weight:700;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
 .foot{border-top:3px solid var(--navy);margin-top:18px;padding-top:12px;text-align:center}
 .foot b{color:var(--navy);display:block;font-size:12px;letter-spacing:.04em;margin-bottom:6px;text-transform:uppercase}
 .foot .c{color:var(--mut);display:flex;flex-wrap:wrap;gap:4px 22px;justify-content:center;font-size:11.5px}
@@ -467,11 +467,11 @@ document.getElementById('aerion-pdf').addEventListener('click',function(){
         $html = '<div class="tiers"><h3>Descontos adicionais · Programa de revendas</h3>'
             . '<p>Os preços desta tabela são os da tabela-base de revenda (distribuidor cadastrado, sem nível). Parceiros Silver e Gold têm desconto adicional, aplicado automaticamente nos preços da loja quando você entra com a sua conta.</p>'
             . '<div class="g">'
-            . '<div class="n s"><b>Silver</b><strong>' . esc_html($pct(Aerion_Tiers::SILVER)) . '%</strong><span>de desconto adicional sobre o preço público (PV), abatido do preço da tabela. Meta: ' . $meta(Aerion_Tiers::SILVER) . ' em compras por trimestre.</span></div>'
-            . '<div class="n o"><b>Gold</b><strong>' . esc_html($pct(Aerion_Tiers::GOLD)) . '%</strong><span>de desconto adicional sobre o preço público (PV), abatido do preço da tabela. Meta: ' . $meta(Aerion_Tiers::GOLD) . ' em compras por trimestre.</span></div>'
+            . '<div class="n s"><span class="lv">Silver</span><strong>' . esc_html($pct(Aerion_Tiers::SILVER)) . '%</strong><span class="t">de desconto adicional sobre o preço público (PV), abatido do preço da tabela. Meta: ' . $meta(Aerion_Tiers::SILVER) . ' em compras por trimestre.</span></div>'
+            . '<div class="n o"><span class="lv">Gold</span><strong>' . esc_html($pct(Aerion_Tiers::GOLD)) . '%</strong><span class="t">de desconto adicional sobre o preço público (PV), abatido do preço da tabela. Meta: ' . $meta(Aerion_Tiers::GOLD) . ' em compras por trimestre.</span></div>'
             . '</div>'
             . '<div class="k">O nível é revisto a cada trimestre, pelas compras do trimestre anterior: ao bater a meta a subida é imediata; para descer é preciso ficar abaixo da meta por dois trimestres seguidos.</div>'
-            . '<div class="l"><a href="' . esc_url($program) . '">Conheça o Programa de Revendas e a Política Comercial →</a>'
+            . '<div class="l"><a href="' . esc_url($program) . '">Conheça o Programa de Revendas e a Política Comercial</a>'
             . ($pdf !== '' ? '<a href="' . esc_url($pdf) . '">Política comercial v1.0 (PDF)</a>' : '')
             . '</div></div>';
         return $html;
