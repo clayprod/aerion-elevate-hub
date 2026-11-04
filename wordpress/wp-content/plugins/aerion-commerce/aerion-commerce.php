@@ -57,6 +57,7 @@ require_once __DIR__ . '/includes/class-aerion-pix-experience.php';
 require_once __DIR__ . '/includes/class-aerion-traducoes.php';
 require_once __DIR__ . '/includes/class-aerion-email-imagens.php';
 require_once __DIR__ . '/includes/class-aerion-commerce-settings.php';
+require_once __DIR__ . '/includes/class-aerion-price-tables.php';
 /**
  * Identifica o hostname dedicado da loja sem confiar em valores parciais.
  */
@@ -206,6 +207,7 @@ Aerion_Presale::boot();
     Aerion_Checkout::boot();
     Aerion_Birth_Date::boot();
     Aerion_Billing_Profiles::boot();
+Aerion_Price_Tables::boot();
     // O gateway "Pagamento de teste" existia porque nenhum meio real estava
     // configurado e o checkout precisava de um caminho ate o fim. Agora que o
     // Mercado Pago responde, ele so acrescenta uma opcao a mais para o cliente

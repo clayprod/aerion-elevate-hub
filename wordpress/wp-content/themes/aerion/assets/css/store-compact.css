@@ -331,3 +331,16 @@ body.aerion-store-context.aerion-black-november .aerion-store-product.is-campaig
 body.aerion-store-context.aerion-black-november .summary:has(.aerion-payment-advantage.is-campaign) .aerion-secondary-cart svg{color:#fff!important;stroke:#fff!important}
 body.aerion-store-context.aerion-black-november :is(.aerion-store-product.is-campaign .aerion-store-product__buy,.summary:has(.aerion-payment-advantage.is-campaign) .single_add_to_cart_button,.aerion-inline-product.is-campaign .aerion-inline-product__cart):is(:hover,:focus-visible){background:#2a2a2a!important}
 body.aerion-store-context.aerion-black-november .aerion-countdown :is(.aerion-countdown__icon,.aerion-countdown__lead,.aerion-countdown__flip>i,.aerion-countdown__unit small,.aerion-countdown__digits b){color:#0b0b0b!important;-webkit-text-fill-color:#0b0b0b!important;fill:#0b0b0b!important}
+
+/* Bloco de preço do parceiro, no mesmo desenho do consumidor: riscado (revenda antes da campanha),
+   chip da campanha, Pix, cartão; e no rodapé o preço público com a economia da revenda contra ele. */
+.aerion-store-context .aerion-trade-price__before{
+  color:#6c8393;display:block;font-size:.8rem;line-height:1.2;text-decoration:line-through;text-decoration-thickness:1px
+}
+.aerion-store-context .aerion-trade-price__before .woocommerce-Price-amount{color:inherit}
+.aerion-store-context :is(.aerion-store-product,.aerion-inline-product) .aerion-trade-price__before{font-size:.68rem}
+.aerion-store-context .aerion-trade-price__compare{
+  align-items:baseline;border-top:1px solid rgb(7 29 45 / 10%);display:flex;flex-wrap:wrap;gap:1px 10px;
+  margin-top:5px;padding-top:6px
+}
+.aerion-store-context :is(.aerion-store-product,.aerion-inline-product) .aerion-trade-price__compare{margin-top:3px;padding-top:4px}
