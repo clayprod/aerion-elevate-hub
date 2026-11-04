@@ -317,6 +317,7 @@
 /* Black November: preço, chip de %, botões de compra e contador em preto nos itens promocionais. Só vale com a classe do body, que o plugin põe durante o período da campanha. */
 body.aerion-store-context.aerion-black-november .aerion-card-price:has(.aerion-trade-price__tag--oferta)>strong,
 body.aerion-store-context.aerion-black-november .aerion-card-price:has(.aerion-trade-price__tag--oferta)>strong .amount,
+body.aerion-store-context.aerion-black-november .aerion-card-price:has(.aerion-trade-price__tag--oferta) .aerion-card-price__card .amount,
 body.aerion-store-context.aerion-black-november .summary:has(.aerion-trade-price__tag--oferta) .price ins,
 body.aerion-store-context.aerion-black-november .summary:has(.aerion-trade-price__tag--oferta) .price ins .amount{color:#0b0b0b!important}
 body.aerion-store-context.aerion-black-november .aerion-trade-price__tag--oferta{background:#0b0b0b!important;border-color:#0b0b0b!important;color:#fff!important}
