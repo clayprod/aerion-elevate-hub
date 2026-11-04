@@ -1,0 +1,331 @@
+/*
+ * Camada final da jornada de compra (carrinho, checkout, conta).
+ * Referencia de estrutura: lojas como KaBuM/Amazon — fundo neutro, conteudo em
+ * cards brancos soltos, grade densa de campos, um unico titulo pequeno. Nao troca
+ * paleta nem tipografia da marca; so densidade, agrupamento e divisorias.
+ * Carregada depois de store-journey/store-coupon, por isso vence sem novos !important
+ * onde possivel e repete o !important so onde a camada anterior ja o usava.
+ */
+.aerion-store-context{
+  --ac-bg:#f3f5f7;--ac-card:#fff;--ac-line:#e3e9ed;--ac-radius:6px;
+  --ac-shadow:0 1px 3px rgb(16 40 59 / 8%);--ac-pad:20px;--ac-gap:16px
+}
+.aerion-store-context.woocommerce-cart,
+.aerion-store-context.woocommerce-checkout,
+.aerion-store-context.woocommerce-account{background:var(--ac-bg)}
+.aerion-store-context.woocommerce-cart main.wp-block-group,
+.aerion-store-context.woocommerce-checkout main.wp-block-group,
+.aerion-store-context.woocommerce-checkout .aerion-checkout-main,
+.aerion-store-context.woocommerce-account main.wp-block-group{
+  background:transparent!important;padding-bottom:40px!important;padding-top:16px!important
+}
+
+/* ---------- Checkout ---------- */
+.aerion-store-context.woocommerce-checkout .aerion-checkout-main{padding-top:16px!important}
+.aerion-store-context .aerion-checkout-intro{
+  align-items:center;background:transparent!important;border:0!important;
+  margin:0 0 12px!important;padding:0!important
+}
+.aerion-store-context .aerion-checkout-intro h1{font-size:1.4rem!important;letter-spacing:-.02em;margin:0 0 2px!important}
+.aerion-store-context .aerion-checkout-intro p{font-size:.78rem!important}
+.aerion-store-context .aerion-checkout-intro>div:first-child>span{display:none}
+.aerion-store-context .aerion-checkout-intro__choices>a,
+.aerion-store-context .aerion-checkout-intro__choices>span{
+  background:var(--ac-card)!important;min-width:0;padding:8px 14px!important
+}
+.aerion-store-context .aerion-checkout-intro__choices>a{border-left:0!important}
+.aerion-store-context .aerion-checkout-intro__choices>span{border-radius:var(--ac-radius) 0 0 var(--ac-radius)!important}
+.aerion-store-context .aerion-checkout-intro__choices>a{border-radius:0 var(--ac-radius) var(--ac-radius) 0!important}
+.aerion-store-context.woocommerce-checkout .woocommerce-form-login-toggle .woocommerce-info,
+.aerion-store-context.woocommerce-checkout .woocommerce-info{
+  background:var(--ac-card);border:0;border-radius:var(--ac-radius);box-shadow:var(--ac-shadow);
+  margin:0 0 12px;padding:10px 16px
+}
+.aerion-store-context .aerion-checkout-passos{margin:0 0 12px!important}
+.aerion-store-context.woocommerce-checkout form.checkout{gap:var(--ac-gap)!important;grid-template-columns:minmax(0,1fr) 380px}
+
+/* Cards: mesmo vocabulario em formulario, resumo e pagamento. */
+.aerion-store-context form.checkout>.col2-set,
+.aerion-store-context form.checkout #payment,
+.aerion-store-context.woocommerce-cart .woocommerce-cart-form,
+.aerion-store-context .cart-collaterals .cart_totals{
+  background:var(--ac-card)!important;border:0!important;border-radius:var(--ac-radius)!important;
+  box-shadow:var(--ac-shadow)
+}
+.aerion-store-context form.checkout>.col2-set{padding:var(--ac-pad)!important}
+.aerion-store-context form.checkout>.col2-set .col-2{border-top:0;margin-top:var(--ac-gap);padding-top:0}
+.aerion-store-context form.checkout :where(.woocommerce-billing-fields>h3,.woocommerce-additional-fields>h3,.woocommerce-shipping-fields>h3){
+  font-size:.95rem!important;margin:0 0 12px!important
+}
+.aerion-store-context form.checkout #payment{margin-top:0;padding:var(--ac-pad)}
+
+/* Grade densa: 12 colunas, 3 ou 4 campos por linha em vez de 1 por linha. */
+.aerion-store-context form.checkout .woocommerce-billing-fields__field-wrapper{
+  align-items:start;display:grid;gap:10px 12px;grid-template-columns:repeat(12,minmax(0,1fr))
+}
+.aerion-store-context form.checkout .woocommerce-billing-fields__field-wrapper>.form-row{
+  float:none!important;grid-column:span 12;margin:0!important;padding:0!important;width:auto!important
+}
+.aerion-store-context form.checkout .woocommerce-billing-fields__field-wrapper>.form-row-first,
+.aerion-store-context form.checkout .woocommerce-billing-fields__field-wrapper>.form-row-last{grid-column:span 6}
+.aerion-store-context form.checkout #billing_person_type_field{grid-column:span 4}
+.aerion-store-context form.checkout #billing_document_field{grid-column:span 8}
+.aerion-store-context form.checkout #billing_country_field,
+.aerion-store-context form.checkout #billing_postcode_field,
+.aerion-store-context form.checkout #billing_number_field{grid-column:span 3}
+.aerion-store-context form.checkout #billing_address_1_field{grid-column:span 6}
+.aerion-store-context form.checkout #billing_neighborhood_field{grid-column:span 5}
+.aerion-store-context form.checkout #billing_address_2_field{grid-column:span 4;padding-top:20px!important}
+.aerion-store-context form.checkout #billing_country_field .woocommerce-input-wrapper strong{display:flex;align-items:center;min-height:40px}
+.aerion-store-context form.checkout #billing_city_field{grid-column:span 8}
+.aerion-store-context form.checkout #billing_state_field{grid-column:span 4}
+.aerion-store-context form.checkout #billing_phone_field,
+.aerion-store-context form.checkout #billing_email_field{grid-column:span 6}
+.aerion-store-context form.checkout .form-row label{font-size:.74rem;margin:0 0 4px}
+.aerion-store-context form.checkout .form-row :where(input.input-text,select){min-height:40px}
+.aerion-store-context form.checkout .woocommerce-additional-fields textarea{min-height:64px}
+
+/* Resumo: um card unico, sem filete lateral nem cabecalho em caixa separada. */
+.aerion-store-context form.checkout .aerion-checkout-order-panel{position:sticky;top:16px}
+.aerion-store-context form.checkout #order_review_heading{
+  background:var(--ac-card);border:0;border-radius:var(--ac-radius) var(--ac-radius) 0 0;
+  box-shadow:var(--ac-shadow);margin:0!important;min-height:0;padding:14px var(--ac-pad) 4px!important
+}
+.aerion-store-context form.checkout #order_review{
+  background:var(--ac-card);border:0;border-radius:0 0 var(--ac-radius) var(--ac-radius);
+  box-shadow:var(--ac-shadow);padding:0 var(--ac-pad) var(--ac-pad)
+}
+.aerion-store-context form.checkout #order_review .shop_table :where(th,td){padding:8px 0!important}
+.aerion-store-context form.checkout #order_review .shop_table thead{display:none}
+
+/* ---------- Carrinho ---------- */
+.aerion-store-context.woocommerce-cart main>.wp-block-post-title{
+  font-size:1.4rem!important;letter-spacing:-.02em;margin:0 0 12px!important
+}
+.aerion-store-context.woocommerce-cart .entry-content>.woocommerce{gap:var(--ac-gap)}
+.aerion-store-context.woocommerce-cart .woocommerce-cart-form{overflow:hidden}
+.aerion-store-context.woocommerce-cart .woocommerce-cart-form .shop_table{border:0!important}
+.aerion-store-context .woocommerce-cart-form .shop_table td{padding:12px 14px!important}
+.aerion-store-context .woocommerce-cart-form .shop_table th{padding:10px 14px!important}
+.aerion-store-context .woocommerce-cart-form .actions{padding:12px 14px!important}
+.aerion-store-context .cart-collaterals .cart_totals{padding:var(--ac-pad);top:16px}
+.aerion-store-context .cart-collaterals .cart_totals h2{font-size:1rem;margin:0 0 8px}
+.aerion-store-context .cart-collaterals .cart_totals .shop_table{border:0!important}
+.aerion-store-context .cart-collaterals .cart_totals .shop_table tr:not(.shipping)>:where(th,td){padding:9px 0!important}
+.aerion-store-context .wc-proceed-to-checkout{padding:12px 0 0!important}
+
+/* Avisos: faixa lateral discreta, sem a moldura escura de foco. */
+.aerion-store-context .woocommerce-message,
+.aerion-store-context .woocommerce-error,
+.aerion-store-context .woocommerce-info,
+.aerion-store-context .wc-block-components-notice-banner{
+  background:var(--ac-card)!important;border:0!important;border-left:3px solid #1c7c4a!important;
+  border-radius:var(--ac-radius)!important;box-shadow:var(--ac-shadow);margin:0 0 12px!important;
+  outline:0!important;padding:10px 16px!important
+}
+.aerion-store-context .woocommerce-error,
+.aerion-store-context .wc-block-components-notice-banner.is-error{border-left-color:#b72d35!important}
+.aerion-store-context .woocommerce-info{border-left-color:#168ec4!important}
+
+/* Sugestoes do carrinho: card proprio, menos respiro vertical. */
+.aerion-store-context.woocommerce-cart .aerion-inline-recommendations{
+  background:var(--ac-card)!important;border-radius:var(--ac-radius);box-shadow:var(--ac-shadow);
+  margin:0;padding:var(--ac-pad)
+}
+
+/* ---------- Conta ---------- */
+.aerion-store-context.woocommerce-account.logged-in .entry-content>.woocommerce{gap:var(--ac-gap)}
+.aerion-store-context .woocommerce-MyAccount-navigation,
+.aerion-store-context .woocommerce-Addresses .woocommerce-Address{
+  border:0;border-radius:var(--ac-radius);box-shadow:var(--ac-shadow)
+}
+.aerion-store-context.woocommerce-account .woocommerce-MyAccount-content{
+  background:var(--ac-card);border-radius:var(--ac-radius);box-shadow:var(--ac-shadow);padding:var(--ac-pad)
+}
+.aerion-store-context.woocommerce-account .woocommerce-MyAccount-content :where(h2,h3){font-size:1.05rem;margin-bottom:12px}
+.aerion-store-context.woocommerce-account .woocommerce-MyAccount-content .shop_table{box-shadow:none!important}
+
+/* ---------- Respiro interno dos cards (login, conta, sugestoes) ---------- */
+.aerion-store-context .aerion-billing-profile-card{display:flex;flex-direction:column;gap:6px;padding:var(--ac-pad) 22px!important}
+.aerion-store-context .aerion-billing-profile-card :where(p,address,h3){margin:0}
+.aerion-store-context .aerion-billing-profile-card .button{align-self:flex-start;margin-top:10px}
+.aerion-store-context .woocommerce-EditAccountForm fieldset{padding:var(--ac-pad) 22px!important}
+.aerion-store-context .woocommerce-EditAccountForm fieldset .form-row{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important}
+.aerion-store-context .woocommerce-form-login,
+.aerion-store-context .woocommerce-form-register,
+.aerion-store-context .woocommerce-ResetPassword,
+.aerion-store-context #customer_login :where(.woocommerce-form-login,.woocommerce-form-register){
+  background:var(--ac-card)!important;border:0!important;border-radius:var(--ac-radius)!important;
+  box-shadow:var(--ac-shadow)!important;padding:var(--ac-pad) 24px!important
+}
+.aerion-store-context .woocommerce-form-login .form-row,
+.aerion-store-context .woocommerce-form-register .form-row{margin:0 0 14px!important;padding:0!important}
+.aerion-store-context .woocommerce-form-login__rememberme{margin-left:12px}
+.aerion-store-context .woocommerce-LostPassword{padding:14px 0 0!important;margin:14px 0 0}
+.aerion-store-context.woocommerce-account .woocommerce-MyAccount-content{padding:var(--ac-pad) 24px!important}
+.aerion-store-context .woocommerce-MyAccount-navigation{padding:8px!important}
+.aerion-store-context .woocommerce-MyAccount-navigation li{margin:0!important;padding:0!important}
+.aerion-store-context .woocommerce-MyAccount-navigation a{min-height:42px;padding:10px 14px!important;border-radius:4px}
+.aerion-store-context.woocommerce-account .woocommerce-MyAccount-content :where(td,th){padding:12px 14px!important}
+.aerion-store-context.woocommerce-cart .aerion-inline-recommendations{padding:var(--ac-pad) var(--ac-pad) 24px!important}
+.aerion-store-context.woocommerce-cart .aerion-inline-recommendations__heading{padding:0!important;margin:0 0 12px}
+
+/* ---------- Pedido recebido: estado primeiro, Pix no topo ---------- */
+.aerion-store-context.woocommerce-order-received main.wp-block-group{padding-top:16px!important}
+.aerion-store-context.woocommerce-order-received main>*{max-width:760px!important;margin-inline:auto!important}
+.aerion-store-context.woocommerce-order-received main>*+*{margin-top:var(--ac-gap)!important}
+.aerion-store-context.woocommerce-order-received .wc-block-order-confirmation-status{
+  align-items:center;display:flex;flex-direction:column;gap:10px;text-align:center
+}
+.aerion-store-context.woocommerce-order-received .wc-block-order-confirmation-status>*{margin:0!important}
+.aerion-store-context.woocommerce-order-received .aerion-pedido-selo{order:0}
+.aerion-store-context.woocommerce-order-received .aerion-pedido-selo img{height:56px;width:56px}
+.aerion-store-context.woocommerce-order-received .wc-block-order-confirmation-status h1{
+  color:#071d2d;font-size:1.6rem!important;letter-spacing:-.02em;line-height:1.2;order:1
+}
+.aerion-store-context.woocommerce-order-received .wc-block-order-confirmation-status>p{
+  color:#425666;font-size:.92rem!important;line-height:1.55;max-width:52ch;order:2
+}
+.aerion-store-context.woocommerce-order-received .aerion-pix{margin-top:6px!important;order:3;width:100%}
+.aerion-store-context.woocommerce-order-received .wc-block-order-confirmation-summary{
+  background:var(--ac-card);border-radius:var(--ac-radius);box-shadow:var(--ac-shadow);padding:var(--ac-pad)
+}
+.aerion-store-context.woocommerce-order-received .wc-block-order-confirmation-summary-list{
+  display:flex;flex-wrap:wrap;gap:14px 32px;list-style:none;margin:0;padding:0
+}
+.aerion-store-context.woocommerce-order-received .wc-block-order-confirmation-summary-list-item:last-child{flex:1 1 220px}
+.aerion-store-context.woocommerce-order-received .wc-block-order-confirmation-summary-list-item{display:grid;gap:2px;margin:0;font-size:.88rem;max-width:100%;min-width:0;overflow-wrap:anywhere}
+.aerion-store-context.woocommerce-order-received .wc-block-order-confirmation-address-wrapper:not(:has(address)){display:none}
+.aerion-store-context.woocommerce-order-received .wc-block-order-confirmation-summary-list-item__key{color:#6a7b88;font-size:.74rem;font-weight:700}
+.aerion-store-context.woocommerce-order-received :where(.wc-block-order-confirmation-totals-wrapper,.wc-block-order-confirmation-address-wrapper){
+  background:var(--ac-card);border-radius:var(--ac-radius);box-shadow:var(--ac-shadow);padding:var(--ac-pad)
+}
+.aerion-store-context.woocommerce-order-received :where(.wc-block-order-confirmation-totals-wrapper,.wc-block-order-confirmation-address-wrapper) :where(h2,h3){
+  font-size:1.05rem!important;margin:0 0 12px
+}
+.aerion-store-context.woocommerce-order-received .wc-block-order-confirmation-totals table{border:0!important}
+.aerion-store-context.woocommerce-order-received .wc-block-order-confirmation-totals :where(th,td){padding:10px 0!important}
+
+.aerion-pix{
+  align-items:center;background:var(--ac-card);border-radius:var(--ac-radius);box-shadow:var(--ac-shadow);
+  display:flex;flex-direction:column;gap:12px;padding:24px var(--ac-pad);text-align:center
+}
+.aerion-pix__chip{
+  background:#fff1e6;border-radius:999px;color:#c2410c;font-size:.68rem;font-weight:800;
+  letter-spacing:.08em;padding:5px 12px;text-transform:uppercase
+}
+.aerion-pix__chip--vencido{background:#fdecec;color:#b72d35}
+.aerion-pix--vencido{padding-block:20px}
+.aerion-pix h2{color:#071d2d;font-size:1.35rem;letter-spacing:-.02em;margin:0}
+.aerion-pix__sub{color:#54697a;font-size:.82rem;line-height:1.55;margin:0;max-width:46ch}
+.aerion-pix__qr{
+  background:#fff;border:1px solid var(--ac-line);border-radius:8px;display:block;height:176px;
+  margin:4px auto;padding:8px;width:176px
+}
+.aerion-pix__copia{max-width:520px;text-align:left;width:100%}
+.aerion-pix__copia label{color:#425666;display:block;font-size:.74rem;font-weight:700;margin:0 0 5px}
+.aerion-pix__linha{display:flex;gap:8px}
+.aerion-pix__linha input{
+  background:#f6f9fb;border:1px solid #d3dee5;border-radius:6px;color:#14293a;flex:1;font-family:Consolas,Menlo,monospace;
+  font-size:.74rem;min-height:44px;min-width:0;overflow:hidden;padding:0 12px;text-overflow:ellipsis
+}
+.aerion-pix__botao{
+  background:#0877bd;border:0;border-radius:6px;color:#fff;cursor:pointer;flex:0 0 auto;font-weight:700;
+  font-size:.82rem;min-height:44px;padding:0 18px;transition:background-color .15s ease
+}
+.aerion-pix__botao:hover{background:#066aa8}
+.aerion-pix__botao.is-ok{background:#1c7c4a}
+.aerion-pix__passos{
+  color:#54697a;display:grid;font-size:.78rem;gap:4px;list-style:decimal inside;margin:4px 0 0;padding:0;text-align:left;max-width:520px
+}
+
+@media(max-width:640px){
+  .aerion-pix{padding:20px var(--ac-pad)}
+  .aerion-pix__linha{flex-direction:column}
+}
+
+/* ---------- Pagina de produto: aproxima os blocos, sem tirar conteudo ---------- */
+.aerion-store-context.single-product .summary .product_title{margin-bottom:6px!important}
+.aerion-store-context.single-product .summary .aerion-product-utility{margin-bottom:12px!important}
+.aerion-store-context.single-product .summary .aerion-payment-advantage{margin:4px 0 14px!important}
+.aerion-store-context.single-product .summary form.cart{margin-bottom:10px!important}
+.aerion-store-context.single-product .summary .containerCalculator{margin-top:10px!important;padding:14px!important}
+.aerion-store-context.single-product .summary .aerion-secure-purchase{margin:12px 0 0!important;padding:14px 0 0!important}
+@media(min-width:901px){
+  .aerion-store-context.single-product div.product{row-gap:16px}
+  .aerion-store-context.single-product div.product>.woocommerce-product-gallery{align-self:start;padding:14px!important}
+  .aerion-store-context.single-product div.product>.summary{grid-row:1;padding-bottom:0}
+  /* "Compre junto" deixa de ficar espremido sob a galeria: faixa de largura total. */
+  .aerion-store-context.single-product div.product>.aerion-inline-recommendations--product{
+    grid-column:1 / -1;grid-row:2;padding:var(--ac-pad) 0 0
+  }
+  .aerion-store-context.single-product .aerion-inline-recommendations--product .aerion-inline-recommendations__track{
+    grid-template-columns:repeat(auto-fill,minmax(210px,250px))!important;justify-content:start
+  }
+  .aerion-store-context.single-product div.product>.woocommerce-tabs{margin-top:20px!important}
+}
+
+/* ---------- Conta > ver pedido: Pix no topo e atualizacoes em linha do tempo ---------- */
+.aerion-store-context.woocommerce-account .woocommerce-MyAccount-content .aerion-pix{
+  border:1px solid var(--ac-line);box-shadow:none;margin:0 0 20px
+}
+.aerion-store-context.woocommerce-account .woocommerce-MyAccount-content h2{margin:22px 0 12px}
+.aerion-store-context.woocommerce-account .woocommerce-OrderUpdates{list-style:none;margin:0 0 8px;padding:0}
+.aerion-store-context.woocommerce-account .woocommerce-OrderUpdates .woocommerce-OrderUpdate{
+  background:none;border:0;margin:0;padding:0 0 16px 24px;position:relative
+}
+.aerion-store-context.woocommerce-account .woocommerce-OrderUpdates .woocommerce-OrderUpdate::before{
+  background:#168ec4;border-radius:50%;box-shadow:0 0 0 3px #e6f3fa;content:"";height:9px;left:2px;position:absolute;top:5px;width:9px
+}
+.aerion-store-context.woocommerce-account .woocommerce-OrderUpdates .woocommerce-OrderUpdate::after{
+  background:var(--ac-line);bottom:-2px;content:"";left:6px;position:absolute;top:18px;width:2px
+}
+.aerion-store-context.woocommerce-account .woocommerce-OrderUpdates .woocommerce-OrderUpdate:last-child{padding-bottom:4px}
+.aerion-store-context.woocommerce-account .woocommerce-OrderUpdates .woocommerce-OrderUpdate:last-child::after{display:none}
+.aerion-store-context.woocommerce-account .woocommerce-OrderUpdates :where(.woocommerce-OrderUpdate-inner,.woocommerce-OrderUpdate-text){
+  background:none!important;border:0!important;margin:0!important;padding:0!important
+}
+.aerion-store-context.woocommerce-account .woocommerce-OrderUpdate-meta{
+  color:#6a7b88;font-family:inherit;font-size:.74rem;font-weight:700;margin:0 0 3px!important
+}
+/* O Mercado Pago grava a observacao com <div style=...> e fonte menor: iguala tudo. */
+.aerion-store-context.woocommerce-account .woocommerce-OrderUpdate-description,
+.aerion-store-context.woocommerce-account .woocommerce-OrderUpdate-description *{
+  color:#2c4252;font-size:.86rem!important;line-height:1.55;margin:0 0 3px!important;text-align:left!important
+}
+
+/* Endereco do pedido: telefone e e-mail dentro do respiro do card, icone alinhado ao texto. */
+.aerion-store-context .woocommerce-customer-details address{padding:var(--ac-pad) 22px!important}
+.aerion-store-context .woocommerce-customer-details address :is(.woocommerce-customer-details--phone,.woocommerce-customer-details--email){
+  border-top:1px solid var(--ac-line);margin:12px 0 0!important;padding:12px 0 0 30px!important;position:relative
+}
+.aerion-store-context .woocommerce-customer-details address :is(.woocommerce-customer-details--phone,.woocommerce-customer-details--email)::before{
+  left:4px!important;position:absolute!important;top:13px!important
+}
+
+@media(max-width:900px){
+  .aerion-store-context.woocommerce-checkout form.checkout{grid-template-columns:1fr}
+  .aerion-store-context form.checkout .aerion-checkout-order-panel{position:static}
+}
+@media(max-width:640px){
+  .aerion-store-context{--ac-pad:14px;--ac-gap:12px}
+  .aerion-store-context form.checkout .woocommerce-billing-fields__field-wrapper>.form-row{grid-column:span 12!important}
+  .aerion-store-context form.checkout :where(#billing_number_field,#billing_state_field,#billing_postcode_field){grid-column:span 6!important}
+  .aerion-store-context form.checkout #billing_country_field{grid-column:span 6!important}
+}
+
+/* Black November: preço, chip de %, botões de compra e contador em preto nos itens promocionais. Só vale com a classe do body, que o plugin põe durante o período da campanha. */
+body.aerion-store-context.aerion-black-november .aerion-card-price:has(.aerion-trade-price__tag--oferta)>strong,
+body.aerion-store-context.aerion-black-november .aerion-card-price:has(.aerion-trade-price__tag--oferta)>strong .amount,
+body.aerion-store-context.aerion-black-november .summary:has(.aerion-trade-price__tag--oferta) .price ins,
+body.aerion-store-context.aerion-black-november .summary:has(.aerion-trade-price__tag--oferta) .price ins .amount{color:#0b0b0b!important}
+body.aerion-store-context.aerion-black-november .aerion-trade-price__tag--oferta{background:#0b0b0b!important;border-color:#0b0b0b!important;color:#fff!important}
+body.aerion-store-context.aerion-black-november .aerion-store-product--offer .aerion-store-product__buy,
+body.aerion-store-context.aerion-black-november .aerion-store-product--offer .aerion-store-product__cart,
+body.aerion-store-context.aerion-black-november .aerion-inline-product:has(.aerion-trade-price__tag--oferta) :is(.aerion-store-product__buy,.aerion-inline-product__buy,.button,.aerion-store-product__cart),
+body.aerion-store-context.aerion-black-november .summary:has(.aerion-trade-price__tag--oferta) :is(.single_add_to_cart_button,.aerion-secondary-cart){background:#0b0b0b!important;border-color:#0b0b0b!important;color:#fff!important}
+body.aerion-store-context.aerion-black-november .aerion-store-product--offer .aerion-store-product__cart svg,
+body.aerion-store-context.aerion-black-november .aerion-inline-product:has(.aerion-trade-price__tag--oferta) button svg,
+body.aerion-store-context.aerion-black-november .summary:has(.aerion-trade-price__tag--oferta) .aerion-secondary-cart svg{color:#fff!important;stroke:#fff!important}
+body.aerion-store-context.aerion-black-november :is(.aerion-store-product--offer .aerion-store-product__buy,.single_add_to_cart_button):is(:hover,:focus-visible){background:#2a2a2a!important}
+body.aerion-store-context.aerion-black-november .aerion-countdown :is(.aerion-countdown__icon,.aerion-countdown__lead,.aerion-countdown__flip>i,.aerion-countdown__unit small,.aerion-countdown__digits b){color:#0b0b0b!important;fill:#0b0b0b!important}
