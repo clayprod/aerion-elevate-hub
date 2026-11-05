@@ -318,19 +318,22 @@ td small.mut{display:block;font-size:10.5px}
 .summary{color:var(--mut);font-size:11.5px;margin:10px 0 0}
 .notes{border-top:1px solid var(--line);color:var(--mut);font-size:11px;margin-top:26px;padding-top:12px}
 .end{break-inside:avoid}
-.tiers{border-top:2px solid var(--navy);break-inside:avoid;margin-top:26px;padding:14px 0 12px}
-.tiers h3{color:var(--navy);font-size:12px;letter-spacing:.07em;margin:0 0 6px;text-transform:uppercase}
-.tiers p{color:var(--ink);font-size:12px;margin:0 0 14px;max-width:760px}
-.tiers .g{display:flex;margin:0 0 12px}
-.tiers .n{flex:1;padding:0 22px 0 0}
-.tiers .n + .n{border-left:1px solid var(--line);padding:0 0 0 22px}
-.tiers .lv{color:var(--mut);display:block;font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
-.tiers .n.o .lv{color:#8a6d1f}
-.tiers .n strong{display:block;font-size:30px;font-weight:800;letter-spacing:-.02em;line-height:1.05;margin:3px 0 4px}
-.tiers .n span.t{color:var(--mut);display:block;font-size:11.5px;line-height:1.45}
-.tiers .k{color:var(--mut);font-size:11px;line-height:1.5}
-.tiers .l{border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:4px 22px;margin-top:11px;padding-top:9px}
-.tiers .l a{color:var(--navy);font-size:12px;font-weight:700;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.sec{break-inside:avoid;margin-top:26px}
+.sec h3{border-left:4px solid var(--navy);color:var(--navy);font-size:15px;line-height:1.2;margin:0 0 10px;padding:2px 0 2px 10px}
+.sec > p{color:var(--ink);font-size:13.5px;margin:0 0 12px;max-width:780px}
+.steps{counter-reset:s;display:grid;gap:12px;grid-template-columns:repeat(3,1fr);list-style:none;margin:0;padding:0}
+.steps li{border:1px solid var(--line);border-radius:8px;counter-increment:s;padding:14px 16px}
+.steps li:before{background:var(--navy);border-radius:50%;color:#fff;content:counter(s);display:block;font-size:14px;font-weight:800;height:28px;line-height:28px;margin-bottom:9px;text-align:center;width:28px}
+.steps b{color:var(--ink);display:block;font-size:15px;line-height:1.3;margin-bottom:4px}
+.steps span{color:var(--ink);display:block;font-size:13.5px;line-height:1.45}
+.tiers .g{display:grid;gap:12px;grid-template-columns:1fr 1fr;margin:0}
+.tiers .n{border:1px solid var(--line);border-radius:8px;border-top:4px solid #9aa8ba;padding:12px 16px 14px}
+.tiers .n.o{border-top-color:#d9a21b}
+.tiers .lv{color:var(--ink);display:block;font-size:14px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.tiers .n strong{color:var(--navy);display:block;font-size:34px;font-weight:800;letter-spacing:-.02em;line-height:1.05;margin:4px 0}
+.tiers .n span.t{color:var(--ink);display:block;font-size:13.5px;line-height:1.45}
+.sec .l{display:flex;flex-wrap:wrap;gap:6px 24px;margin-top:12px}
+.sec .l a{color:var(--navy);font-size:13.5px;font-weight:700;text-decoration:underline;text-underline-offset:3px}
 .foot{border-top:3px solid var(--navy);margin-top:18px;padding-top:12px;text-align:center}
 .foot b{color:var(--navy);display:block;font-size:12px;letter-spacing:.04em;margin-bottom:6px;text-transform:uppercase}
 .foot .c{color:var(--mut);display:flex;flex-wrap:wrap;gap:4px 22px;justify-content:center;font-size:11.5px}
@@ -338,6 +341,7 @@ td small.mut{display:block;font-size:10.5px}
 .foot a{color:inherit;text-decoration:none}
 .notes li{margin:2px 0}
 @page{margin:11mm;size:A4}
+@media(max-width:720px){.steps{grid-template-columns:1fr}.tiers .g{grid-template-columns:1fr}}
 @media print{
 body{background:#fff}
 .sheet{box-shadow:none;margin:0;max-width:none;padding:0}
@@ -411,7 +415,7 @@ section{margin-top:14px}
 <?php endforeach; ?>
 
 <div class="end">
-<?php if ($dist) : echo self::tiers_box(); endif; ?>
+<?php if ($dist) : echo self::howto_box() . self::tiers_box(); endif; ?>
 
 <ul class="notes">
 <?php if ($dist) : ?>
@@ -448,6 +452,19 @@ document.getElementById('aerion-pdf').addEventListener('click',function(){
     }
 
     /** Descontos extras do programa de revendas (Silver e Gold), lidos das regras reais dos níveis. */
+    private static function howto_box(): string
+    {
+        $account = esc_url(wc_get_page_permalink('myaccount'));
+        $step = static fn (string $title, string $text): string => '<li><b>' . esc_html($title) . '</b><span>' . esc_html($text) . '</span></li>';
+        return '<div class="sec"><h3>Como ter o preço de distribuidor no site</h3>'
+            . '<ol class="steps">'
+            . $step('Crie sua conta de empresa', 'Em Minha conta, escolha "Empresa" e informe o CNPJ.')
+            . $step('Aguarde a aprovação', 'CNPJ ativo com atividade de revenda é liberado. Os demais casos passam por análise da Aerion.')
+            . $step('Compre com preço de revenda', 'Entre na sua conta: os preços de distribuidor aparecem em toda a loja e no checkout.')
+            . '</ol>'
+            . '<div class="l"><a href="' . $account . '">Criar conta ou entrar</a></div></div>';
+    }
+
     private static function tiers_box(): string
     {
         if (! class_exists('Aerion_Tiers')) {
@@ -464,13 +481,12 @@ document.getElementById('aerion-pdf').addEventListener('click',function(){
         $pdfFile = get_theme_file_path('assets/source-downloads/politica-comercial-revendas-aerion-v1-0-2025-2026.pdf');
         $pdf = is_readable($pdfFile) ? get_theme_file_uri('assets/source-downloads/politica-comercial-revendas-aerion-v1-0-2025-2026.pdf') : '';
 
-        $html = '<div class="tiers"><h3>Descontos adicionais · Programa de revendas</h3>'
-            . '<p>Os preços desta tabela são os da tabela-base de revenda (distribuidor cadastrado, sem nível). Parceiros Silver e Gold têm desconto adicional, aplicado automaticamente nos preços da loja quando você entra com a sua conta.</p>'
+        $html = '<div class="sec tiers"><h3>Descontos adicionais · Programa de revendas</h3>'
+            . '<p>Os preços desta tabela são do distribuidor cadastrado. Silver e Gold ganham desconto extra, aplicado na loja quando você entra na sua conta.</p>'
             . '<div class="g">'
-            . '<div class="n s"><span class="lv">Silver</span><strong>' . esc_html($pct(Aerion_Tiers::SILVER)) . '%</strong><span class="t">de desconto adicional sobre o preço público (PV), abatido do preço da tabela. Meta: ' . $meta(Aerion_Tiers::SILVER) . ' em compras por trimestre.</span></div>'
-            . '<div class="n o"><span class="lv">Gold</span><strong>' . esc_html($pct(Aerion_Tiers::GOLD)) . '%</strong><span class="t">de desconto adicional sobre o preço público (PV), abatido do preço da tabela. Meta: ' . $meta(Aerion_Tiers::GOLD) . ' em compras por trimestre.</span></div>'
+            . '<div class="n s"><span class="lv">Silver</span><strong>' . esc_html($pct(Aerion_Tiers::SILVER)) . '%</strong><span class="t">de desconto extra. Meta: ' . $meta(Aerion_Tiers::SILVER) . ' em compras por trimestre.</span></div>'
+            . '<div class="n o"><span class="lv">Gold</span><strong>' . esc_html($pct(Aerion_Tiers::GOLD)) . '%</strong><span class="t">de desconto extra. Meta: ' . $meta(Aerion_Tiers::GOLD) . ' em compras por trimestre.</span></div>'
             . '</div>'
-            . '<div class="k">O nível é revisto a cada trimestre, pelas compras do trimestre anterior: ao bater a meta a subida é imediata; para descer é preciso ficar abaixo da meta por dois trimestres seguidos.</div>'
             . '<div class="l"><a href="' . esc_url($program) . '">Conheça o Programa de Revendas e a Política Comercial</a>'
             . ($pdf !== '' ? '<a href="' . esc_url($pdf) . '">Política comercial v1.0 (PDF)</a>' : '')
             . '</div></div>';
