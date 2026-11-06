@@ -1669,8 +1669,18 @@ export const productFamilies: ProductFamily[] = [
         "Tempo aproximado de recarga": "1,5 h"
       }
     },
-    components: [],
-    accessoriesIncluded: [],
+    components: [
+      "1 × Aeronave HUBSAN Mini 7 dobrável com câmera e gimbal",
+      "1 × Controle inteligente HT55 com tela de 5,5\"",
+      "3 baterias de voo de 3.000 mAh (1 instalada na aeronave + 2 extras)",
+      "1 × Hub de carregamento para as baterias"
+    ],
+    accessoriesIncluded: [
+      "1 × Cabo de carregamento USB-C",
+      "1 × Bolsa de transporte",
+      "1 × Parafusos originais de reposição para as hélices",
+      "1 × Manual do usuário em português"
+    ],
     videos: [],
     photoGallery: {
       product: [
